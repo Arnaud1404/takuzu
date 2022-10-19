@@ -1,0 +1,1 @@
+/usr/bin/cc -std=c99 -g -Wall -rdynamic CMakeFiles/game_text.dir/game_text.c.o -o game_text   -L/autofs/unityaccount/cremi/argomes/Downloads/takuzu-11c  -Wl,-rpath,/autofs/unityaccount/cremi/argomes/Downloads/takuzu-11c -lgame 

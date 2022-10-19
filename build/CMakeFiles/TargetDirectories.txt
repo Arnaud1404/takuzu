@@ -1,0 +1,3 @@
+/autofs/unityaccount/cremi/argomes/Downloads/takuzu-11c/build/CMakeFiles/rebuild_cache.dir
+/autofs/unityaccount/cremi/argomes/Downloads/takuzu-11c/build/CMakeFiles/game_text.dir
+/autofs/unityaccount/cremi/argomes/Downloads/takuzu-11c/build/CMakeFiles/edit_cache.dir
