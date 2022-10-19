@@ -30,7 +30,7 @@ int main(void)
                 int v = game_has_error(g, a, b);
                 if (v != 0)
                 {
-                    printf("%d\n", v);
+                    printf("error at case %d %d \n", a,b);
                 }
             }
         }
