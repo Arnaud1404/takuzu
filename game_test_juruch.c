@@ -5,8 +5,11 @@ bool test_dummy(){
     return EXIT_SUCCESS;
 }
 
-int main(int argcount, char *argv[]){
-    if (strcmp("dummy",argv[1])==0){
+int main(int argcount, char *argvalue[]){
+    if(argcount==1){
+        return EXIT_FAILURE;
+    }
+    if (strcmp("dummy",argvalue[1])==0){
         return EXIT_SUCCESS;
     }
     else{
