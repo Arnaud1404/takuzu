@@ -28,6 +28,6 @@ if (ok){
     fprintf(stderr, "test: %s success\n", argv[1]);
     return EXIT_SUCCESS;
 }
-fprintf(stderr, "test: %s failed\n", argv[1]);
+fprintf(stderr, "test: %s failed\n", argv[1]); 
 return(EXIT_FAILURE);
 }
