@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
         return EXIT_FAILURE;
     }
     if (strcmp("dummy",argv[1])==0){
-        return EXIT_SUCCESS;
+        return test_dummy();
     }
     return EXIT_FAILURE;
 }
