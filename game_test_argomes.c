@@ -25,7 +25,7 @@ int test_game_has_error(void)
   bool test3 = game_has_error(g, 5, 2); //false
 
   game_play_move(g, 0, 3, S_ONE); //is valid
-  bool test4 = game_has_error(g, 0, 3); //true
+  bool test4 = game_has_error(g, 0, 3); //false
 
   game_play_move(g, 0, 4, S_ONE); //is an error (too many black squares row)
   bool test5 = game_has_error(g, 0, 4); //true
@@ -49,7 +49,7 @@ int test_game_has_error(void)
 
 
   game_delete(g);
-  if(!test1 && test2 && !test3 && test4 && test5 && !test6 && test7 && test8 && !test9 && !test10 && test11 && !test12){
+  if(!test1 && test2 && !test3 && !test4 && test5 && !test6 && test7 && test8 && !test9 && !test10 && test11 && !test12){
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
@@ -60,8 +60,15 @@ int main(int argc, char* argv[]){
     if (argc == 1){
         return EXIT_FAILURE;
     }
+    bool test1 = EXIT_FAILURE;
     if (strcmp("dummy",argv[1])==0){
-        return test_dummy();
+        test1 = test_dummy();
     }
+
+    bool test2 = test_game_has_error();
+    if (test1 && test2){
+      return EXIT_SUCCESS;
+    }
+
     return EXIT_FAILURE;
 }
