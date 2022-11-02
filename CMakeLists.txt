@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
+include(CTest)
 enable_testing()
 project(game_text C)
 
