@@ -47,9 +47,26 @@ int test_is_over(void){
 
 
 
+int test_game_restart(void){
+    game g = game_default();
+    game g2 = game_default()
+    g = game_play_move(g,0,0,S_ONE);
+    g = gaùe_play_move(g,0,1,S_ZERO);
+    g = game_restart()
+    for(int i = 0;i<DEFAULT_SIZE;i++){
+            for(int j = 0; j <DEFAULT_SIZE;j++){
+                if(game_get_square(g,i,j)!=game_get_square(g2,i,j)){
+                    return EXIT_FAILURE;
+                }
+            }} return EXIT_SUCCESS;
+}
+
+
+
 int main(void){
 bool ok1 = test_is_over();
-if (ok1){
+bool ok2 = test_game_restart();
+if (ok1&&ok2){
     return EXIT_SUCCESS;
 }return EXIT_FAILURE;
 }
