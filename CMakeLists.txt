@@ -34,7 +34,8 @@ add_test(test_juruch_test_game_default_solution ./game_test_juruch test_game_def
 
 add_test(test_argomes_test_game_has_error ./game_test_argomes test_game_has_error)
 add_test(test_argomes_test_game_copy ./game_test_argomes test_game_copy)
-
+add_test(test_argomes_test_game_is_immutable ./game_test_argomes test_game_is_immutable)
+add_test(test_argomes_test_game_is_empty ./game_test_argomes test_game_is_empty)
 
 
 

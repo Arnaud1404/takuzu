@@ -61,14 +61,53 @@ bool test_game_copy(void){
   game g_copy = game_copy(g);
   for(int i = 0; i <DEFAULT_SIZE; i++){
     for(int j = 0; j <DEFAULT_SIZE;j++){
-      square_original = game_get_square(g,i,j);
-      square_copy = game_get_square(g2,i,j);
+      square square_original = game_get_square(g,i,j);
+      square square_copy = game_get_square(g2,i,j);
       if (square_copy != square_original){
+        game_delete(g);
+        game_delete(g_copy);
         return EXIT_FAILURE;
       }
     }
   }
+  game_delete(g);
+  game_delete(g_copy);
   return EXIT_SUCCESS;
+
+}
+
+bool test_game_is_immutable{
+  game g = game_default();
+  bool test1 = game_is_immutable(g, 0,1); //true
+  bool test2 = game_is_immutable(g, 0,2); //true
+  bool test3 = game_is_immutable(g, 0,0); //false
+  game_play_move(g, 0, 4, S_ONE);
+  game_play_move(g, 0, 5, S_ZERO);
+  bool test4 = game_is_immutable(g, 0,4); //false
+  bool test5 = game_is_immutable(g, 0,5); //false
+
+  game_delete(g);
+  if (test1 && test2 && !test3 && !test4 && !test5){
+    return EXIT_SUCCESS;
+  }
+  return EXIT_FAILURE;
+}
+
+bool test_game_is_empty(void){
+
+  game g = game_default();
+  bool test1 = game_is_empty(g, 0, 0); //true
+  bool test2 = game_is_empty(g, 0, 1); //false
+  bool test3 = game_is_empty(g, 0, 2); //false
+  game_play_move(g, 0, 4, S_ONE);
+  game_play_move(g, 0, 5, S_ZERO);
+  bool test4 = game_is_empty(g, 0,4); //false
+  bool test5 = game_is_empty(g, 0,5); //false
+  game_delete(g);
+  if (test1 && !test2 && !test3 && !test4 && !test5){
+    return EXIT_SUCCESS;
+  }
+  return EXIT_FAILURE;
 
 }
 
@@ -84,7 +123,7 @@ int main(int argc, char* argv[]){
 
     bool test2 = test_game_has_error();
     bool test3 = test_game_copy();
-    
+
     if (test1 && test2 && test3) {
       return EXIT_SUCCESS;
     }
