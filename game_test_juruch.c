@@ -183,25 +183,52 @@ bool test_game_default_solution(){
     return true;
 }
 
-int main(void){
-    if (argc == 1){
-        return false;
+int main(int argcount, char *argvalue[]){
+    bool b=false;
+    if(argcount==2){
+        if (strcmp("dummy",argvalue[1])==0){
+            if(test_dummy()){
+                b=test_dummy();
+            }
+        }
+        else if (strcmp("game_new_empty",argvalue[1])==0){
+            if(test_game_new_empty()){
+                b=test_game_new_empty();
+            }
+        }
+        else if (strcmp("game_delete",argvalue[1])==0){
+            if(test_game_delete()){
+                b=test_game_delete();
+            }
+        }
+        else if (strcmp("game_set_square",argvalue[1])==0){
+            if(test_game_set_square()){
+                b=test_game_set_square();
+            }
+        }
+        else if (strcmp("game_get_next_square",argvalue[1])==0){
+            if(test_game_get_next_square()){
+                b=test_game_get_next_square();
+            }
+        }
+        else if (strcmp("game_default",argvalue[1])==0){
+            if(test_game_default()){
+                b=test_game_default();
+            }
+        }
+        else if (strcmp("game_default_solution",argvalue[1])==0){
+            if(test_game_default_solution()){
+                b=test_game_default_solution();
+            }
+        }
     }
-    bool test = false;
-    if (strcmp("dummy",argv[1])==0){
-        test = test_dummy();
-    }
-    bool test = test_dummy();
-    bool test2 = test_game_new_empty();
-    bool test3 = test_game_delete();
-    bool test4 = test_game_set_square();
-    bool test5 = test_game_get_next_square();
-    bool test6 = test_game_default();
-    bool test7 = test_game_default_solution();
-    if (test&& test2&& test3&& test4&& test5&& test6&& test7){
+    if(b==true){
         return EXIT_SUCCESS;
+
     }
-    return EXIT_FAILURE;
+    else{
+        return EXIT_FAILURE;
+    }
 }
 
 
