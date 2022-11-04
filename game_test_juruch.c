@@ -21,6 +21,17 @@ bool test_game_new_empty(){
 return true;
 }
 
+bool test_game_delete(){
+    game g=game_default();
+    game_set_square(g, 0, 0, S_ONE);
+    game_set_square(g, 5, 0, S_ZERO);
+    game_delete(g);
+    if(g!=NULL){
+        return false
+    }
+    return true
+}
+
 bool test_game_set_square(){
     game g=game_new_empty();
     game_set_square(g, 0, 0, S_IMMUTABLE_ONE);
