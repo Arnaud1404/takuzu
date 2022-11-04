@@ -189,9 +189,9 @@ bool test2 = test_game_new_empty();
 bool test3 = test_game_delete();
 bool test4 = test_game_set_square();
 bool test5 = test_game_get_next_square();
-bool test5 = test_game_default();
-bool test5 = test_game_default_solution();
-if (test_dumy&& test_game_new_empty&& test_game_delete&& test_game_set_square&& test_game_get_next_square&& test_game_default&& test_game_default_solution){
+bool test6 = test_game_default();
+bool test7 = test_game_default_solution();
+if (test&& test2&& test3&& test4&& test5&& test6&& test7){
     return EXIT_SUCCESS;
 }
 return EXIT_FAILURE;
