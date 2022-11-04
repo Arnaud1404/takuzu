@@ -4,7 +4,6 @@
 #include <string.h>
 #include "game.h"
 #include "game_aux.h"
-#define DEFAULT_SIZE 6
 
 bool test_dummy(){
     return EXIT_SUCCESS;
@@ -14,11 +13,14 @@ bool test_game_new_empty(){
     game g=game_new_empty();
     for(uint ibis=0;ibis<DEFAULT_SIZE;ibis++){
         for(uint jbis=0;jbis<DEFAULT_SIZE;jbis++){
-            if(game_is_empty(g, ibis, jbis)!=true)
-            return false;
+            if(game_is_empty(g, ibis, jbis)!=true){
+                game_delete(g);
+                return false;
+            }
         }
     }
-return true;
+    game_delete(g);
+    return true;
 }
 
 bool test_game_delete(){
@@ -27,8 +29,10 @@ bool test_game_delete(){
     game_set_square(g, 5, 0, S_ZERO);
     game_delete(g);
     if(g!=NULL){
+        game_delete(g);
         return false
     }
+    game_delete(g);
     return true
 }
 
@@ -36,58 +40,74 @@ bool test_game_set_square(){
     game g=game_new_empty();
     game_set_square(g, 0, 0, S_IMMUTABLE_ONE);
     if(game_get_number(g, 0, 0)!=1){
+        game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_ONE);
-    if(game_get_number(g, 0, 0)!=1){
+    else if(game_get_number(g, 0, 0)!=1){
+        game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_EMPTY);
-    if(game_get_number(g, 0, 0)!=-1){
+    else if(game_get_number(g, 0, 0)!=-1){
+        game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_ZERO);
-    if(game_get_number(g, 0, 0)!=0){
+    else if(game_get_number(g, 0, 0)!=0){
+        game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_IMMUTABLE_ZERO);
-    if(game_get_number(g, 0, 0)!=0){
+    else if(game_get_number(g, 0, 0)!=0){
+        game_delete(g);
         return false;
     }
+    game_delete(g);
     return true;
 }
 
 bool test_game_get_next_square(){
     game g=game_default();
     if(game_get_next_square(g, 0, 0, RIGHT, 1)!=S_IMMUTABLE_ONE){
+        game_delete(g);
         return false
     }
     if(game_get_next_square(g, 0, 3, LEFT, 1)!=S_IMMUTABLE_ZERO){
+        game_delete(g);
         return false
     }
     game_set_square(g, 3, 4, S_ONE);
     if(game_get_next_square(g, 5, 4, UP, 2)!=S_ONE){
+        game_delete(g);
         return false
     }
     game_set_square(g, 5, 0, S_ZERO);
     if(game_get_next_square(g, 0, 0, DOWN, 5)!=S_ZERO){
+        game_delete(g);
         return false
     }
     if(game_get_next_square(g, 0, 5, DOWN, 2)!=S_EMPTY){
+        game_delete(g);
         return false
     }
     if(game_get_next_square(g, 3, 2, UP, 6)!=-1){
+        game_delete(g);
         return false
     }
     if(game_get_next_square(g, 1, 0, DOWN, 8)!=-1){
+        game_delete(g);
         return false
     }
     if(game_get_next_square(g, 0, 0, LEFT, 3)!=-1){
+        game_delete(g);
         return false
     }
     if(game_get_next_square(g, 0, 4, RIGHT, 4)!=-1){
+        game_delete(g);
         return false
     }
+    game_delete(g);
     return true;        
 }
 
@@ -105,8 +125,12 @@ bool test_game_default(){
     game_set_square(g, 4, 5, S_IMMUTABLE_ZERO);
     game_set_square(g, 5, 5, S_IMMUTABLE_ZERO);
     if(game_equal(g, def)!=true){
+        game_delete(g);
+        game_delete(def);
         return false;
     }
+    game_delete(g);
+    game_delete(def);
     return true;
 }
 
@@ -150,17 +174,52 @@ bool test_game_default_solution(){
     game_set_square(g, 5, 4, S_ONE)
     game_set_square(g, 5, 5, S_IMMUTABLE_ZERO);
     if(game_equal(g, def)!=true){
+        game_delete(g);
+        game_delete(def);
         return false;
     }
+    game_delete(g);
+    game_delete(def);
     return true;
 }
 
 int main(int argcount, char *argvalue[]){
+    bool b=false;
     if(argcount==1){
         return EXIT_FAILURE;
     }
     if (strcmp("dummy",argvalue[1])==0){
         return EXIT_SUCCESS;
+    }
+    else if (strcmp("game_new_empty",argvalue[1])==0){
+        if(test_game_new_empty()){
+            b=test_game_new_empty();
+        }
+    }
+    else if (strcmp("game_delete",argvalue[1])==0){
+        if(test_game_delete()){
+            b=test_game_delete();
+        }
+    }
+    else if (strcmp("game_set_square",argvalue[1])==0){
+        if(test_game_set_square()){
+            b=test_game_set_square();
+        }
+    }
+    else if (strcmp("game_get_next_square",argvalue[1])==0){
+        if(test_game_get_next_square()){
+            b=test_game_get_next_square();
+        }
+    }
+    else if (strcmp("game_default",argvalue[1])==0){
+        if(test_game_default()){
+            b=test_game_default();
+        }
+    }
+    else if (strcmp("game_default_solution",argvalue[1])==0){
+        if(test_game_default_solution()){
+            b=test_game_default_solution();
+        }
     }
     else{
         return EXIT_FAILURE;
