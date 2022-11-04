@@ -62,7 +62,7 @@ bool test_game_copy(void){
   for(int i = 0; i <DEFAULT_SIZE; i++){
     for(int j = 0; j <DEFAULT_SIZE;j++){
       square square_original = game_get_square(g,i,j);
-      square square_copy = game_get_square(g2,i,j);
+      square square_copy = game_get_square(g_copy,i,j);
       if (square_copy != square_original){
         game_delete(g);
         game_delete(g_copy);
@@ -111,6 +111,45 @@ bool test_game_is_empty(void){
 
 }
 
+bool test_game_equal(void){
+  game g = game_default();
+  game g2 = game_default();
+  bool test1 = game_equal(g, g2); //true
+  game_play_move(g, 0, 4, S_ONE);
+  bool test2 = game_equal(g, g2); //false
+
+  game_delete(g);
+  game_delete(g2);
+
+  if (test1 && !test2) {
+    return EXIT_SUCCESS;
+  }
+  return EXIT_FAILURE;
+}
+
+bool test_get_next_number(){
+  return EXIT_FAILURE;
+}
+
+bool test_get_number(){
+  game g = game_default();
+  int empty = game_get_number(g, 0, 0);
+  int zero = game_get_number(g, 0, 2);
+  int one = game_get_number(g, 0, 1);
+  if (empty != -1 || zero != 0 || one != 1){
+    return EXIT_FAILURE;
+  }
+  return EXIT_SUCCESS;
+}
+
+bool test_game_new(){
+  return EXIT_FAILURE;
+}
+
+bool test_game_get_square(){
+  return EXIT_FAILURE;
+}
+
 
 int main(int argc, char* argv[]){
     if (argc == 1){
@@ -123,8 +162,16 @@ int main(int argc, char* argv[]){
 
     bool test2 = test_game_has_error();
     bool test3 = test_game_copy();
+    bool test4 = test_game_is_immutable();
+    bool test5 = test_game_is_empty();
+    bool test6 = test_game_equal();
+    bool test7 = test_get_next_number();
+    bool test8 = test_get_number();
+    bool test9 = test_game_new();
+    bool test10 = test_game_get_square();
 
-    if (test1 && test2 && test3) {
+
+    if (test1 && test2 && test3 && test4 && test5 && test6 && test7 && test8 && test9 && test10){
       return EXIT_SUCCESS;
     }
 
