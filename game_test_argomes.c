@@ -56,6 +56,23 @@ int test_game_has_error(void)
   
 }
 
+bool test_game_copy(void){
+  game g = game_default();
+  game g_copy = game_copy(g);
+  for(int i = 0; i <DEFAULT_SIZE; i++){
+    for(int j = 0; j <DEFAULT_SIZE;j++){
+      square_original = game_get_square(g,i,j);
+      square_copy = game_get_square(g2,i,j);
+      if (square_copy != square_original){
+        return EXIT_FAILURE;
+      }
+    }
+  }
+  return EXIT_SUCCESS;
+
+}
+
+
 int main(int argc, char* argv[]){
     if (argc == 1){
         return EXIT_FAILURE;
@@ -66,7 +83,9 @@ int main(int argc, char* argv[]){
     }
 
     bool test2 = test_game_has_error();
-    if (test1 && test2){
+    bool test3 = test_game_copy();
+    
+    if (test1 && test2 && test3) {
       return EXIT_SUCCESS;
     }
 
