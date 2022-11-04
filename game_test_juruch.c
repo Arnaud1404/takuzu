@@ -65,13 +65,19 @@ bool test_game_get_next_square(){
     if(game_get_next_square(g, 0, 5, DOWN, 2)!=S_EMPTY){
         return false
     }
-    if(game_get_next_square(g, 0, 0, LEFT, 2)!=-1){
+    if(game_get_next_square(g, 3, 2, UP, 6)!=-1){
         return false
     }
-    if(game_get_next_square(g, 0, 0, DOWN, 8)!=-1){
+    if(game_get_next_square(g, 1, 0, DOWN, 8)!=-1){
         return false
     }
-    return true;
+    if(game_get_next_square(g, 0, 0, LEFT, 3)!=-1){
+        return false
+    }
+    if(game_get_next_square(g, 0, 4, RIGHT, 4)!=-1){
+        return false
+    }
+    return true;        
 }
 
 
