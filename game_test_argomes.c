@@ -136,6 +136,7 @@ bool test_get_number(){
   int empty = game_get_number(g, 0, 0);
   int zero = game_get_number(g, 0, 2);
   int one = game_get_number(g, 0, 1);
+  game_delete(g);
   if (empty != -1 || zero != 0 || one != 1){
     return EXIT_FAILURE;
   }
@@ -143,10 +144,22 @@ bool test_get_number(){
 }
 
 bool test_game_new(){
+  game g = game_default();
   return EXIT_FAILURE;
 }
 
 bool test_game_get_square(){
+  game g = game_default();
+  game_play_move(g, 0, 4, S_ONE);
+  game_play_move(g, 0, 5, S_ZERO);
+  square empty = game_get_square(g,0, 0);
+  square zero = game_get_square(g,0, 5);
+  square one = game_get_square(g,0, 4);
+  square immutable_zero = game_get_square(g,0, 2);
+  square immutable_one = game_get_square(g,0, 1);
+  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutabe_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE){
+    return EXIT_SUCCESS;
+  }
   return EXIT_FAILURE;
 }
 
