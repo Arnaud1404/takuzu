@@ -76,7 +76,7 @@ bool test_game_copy(void){
 
 }
 
-bool test_game_is_immutable{
+bool test_game_is_immutable(){
   game g = game_default();
   bool test1 = game_is_immutable(g, 0,1); //true
   bool test2 = game_is_immutable(g, 0,2); //true
@@ -128,7 +128,47 @@ bool test_game_equal(void){
 }
 
 bool test_get_next_number(){
-  return EXIT_FAILURE;
+  game g=game_default();
+    if(game_get_next_number(g, 0, 0, RIGHT, 1)!=1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 0, 3, LEFT, 1)!=0){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_set_square(g, 3, 4, S_ONE);
+    if(game_get_next_number(g, 5, 4, UP, 2)!=1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_set_square(g, 5, 0, S_ZERO);
+    if(game_get_next_number(g, 3, 0, DOWN, 2)!=0){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 0, 5, DOWN, 2)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 3, 2, UP, 2)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 1, 0, DOWN, 1)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 1, 5, LEFT, 2)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 5, 0, RIGHT, 1)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_delete(g);
+    return EXIT_SUCCESS;
 }
 
 bool test_get_number(){
@@ -144,7 +184,21 @@ bool test_get_number(){
 }
 
 bool test_game_new(){
-  game g = game_default();
+  int n = DEFAULT_SIZE*DEFAULT_SIZE;
+  square* squares = malloc(n*sizeof(square));
+  for(int i = 0; i < n; i++){
+    squares[i] = S_EMPTY;
+  }
+  squares[1] = S_IMMUTABLE_ZERO;
+  game g = game_new(squares);
+  square immutable_zero = game_get_square(g, 0, 1);
+  if (immutable_zero == S_IMMUTABLE_ZERO){
+    free(squares);
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  free(squares);
+  game_delete(g);
   return EXIT_FAILURE;
 }
 
@@ -157,9 +211,11 @@ bool test_game_get_square(){
   square one = game_get_square(g,0, 4);
   square immutable_zero = game_get_square(g,0, 2);
   square immutable_one = game_get_square(g,0, 1);
-  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutabe_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE){
+  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE){
+    game_delete(g);
     return EXIT_SUCCESS;
   }
+  game_delete(g);
   return EXIT_FAILURE;
 }
 
