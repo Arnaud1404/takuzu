@@ -39,27 +39,27 @@ bool test_game_delete(){
 bool test_game_set_square(){
     game g=game_new_empty();
     game_set_square(g, 0, 0, S_IMMUTABLE_ONE);
-    if(game_get_number(g, 0, 0)!=1){
+    if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ONE){
         game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_ONE);
-    if(game_get_number(g, 0, 0)!=1){
+    if(game_get_square(g, 0, 0)!=S_ONE){
         game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_EMPTY);
-    if(game_get_number(g, 0, 0)!=-1){
+    if(game_get_square(g, 0, 0)!=S_EMPTY){
         game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_ZERO);
-    if(game_get_number(g, 0, 0)!=0){
+    if(game_get_square(g, 0, 0)!=S_ZERO){
         game_delete(g);
         return false;
     }
     game_set_square(g, 0, 0, S_IMMUTABLE_ZERO);
-    if(game_get_number(g, 0, 0)!=0){
+    if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ZERO){
         game_delete(g);
         return false;
     }
