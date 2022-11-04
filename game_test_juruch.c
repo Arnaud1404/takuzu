@@ -223,10 +223,10 @@ int main(int argcount, char *argvalue[]){
         }
     }
     if(b==true){
-        exit EXIT_SUCCESS;
+        exit(EXIT_SUCCESS);
 
     }
     else{
-        exit EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
 }
