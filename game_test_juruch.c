@@ -11,11 +11,14 @@ bool test_dummy(){
 
 bool test_game_new_empty(){
     game g=game_new_empty();
-    if(g == NULL){return false;}
+    if(g == NULL){
+        return false;
+    }
+
     for(uint i=0;i<DEFAULT_SIZE;i++){
         for(uint j=0;j<DEFAULT_SIZE;j++){
-            int number = game_get_number(g, i, j);
-            if(number != -1){
+            square empty = game_get_square(g, i, j);
+            if(empty != S_EMPTY){
                 game_delete(g);
                 return false;
             }
