@@ -10,7 +10,7 @@
 //S_EMPTY = empty square
 
 bool test_dummy(void){
-    return EXIT_SUCCESS;
+    return true;
 }
 
 int test_game_has_error(void)
@@ -50,9 +50,9 @@ int test_game_has_error(void)
 
   game_delete(g);
   if(!test1 && test2 && !test3 && !test4 && test5 && !test6 && test7 && test8 && !test9 && !test10 && test11 && !test12){
-    return EXIT_SUCCESS;
+    return true;
   }
-  return EXIT_FAILURE;
+  return false;
   
 }
 
@@ -66,13 +66,13 @@ bool test_game_copy(void){
       if (square_copy != square_original){
         game_delete(g);
         game_delete(g_copy);
-        return EXIT_FAILURE;
+        return false;
       }
     }
   }
   game_delete(g);
   game_delete(g_copy);
-  return EXIT_SUCCESS;
+  return true;
 
 }
 
@@ -88,9 +88,9 @@ bool test_game_is_immutable(){
 
   game_delete(g);
   if (test1 && test2 && !test3 && !test4 && !test5){
-    return EXIT_SUCCESS;
+    return true;
   }
-  return EXIT_FAILURE;
+  return false;
 }
 
 bool test_game_is_empty(void){
@@ -105,9 +105,9 @@ bool test_game_is_empty(void){
   bool test5 = game_is_empty(g, 0,5); //false
   game_delete(g);
   if (test1 && !test2 && !test3 && !test4 && !test5){
-    return EXIT_SUCCESS;
+    return true;
   }
-  return EXIT_FAILURE;
+  return false;
 
 }
 
@@ -122,53 +122,53 @@ bool test_game_equal(void){
   game_delete(g2);
 
   if (test1 && !test2) {
-    return EXIT_SUCCESS;
+    return true;
   }
-  return EXIT_FAILURE;
+  return false;
 }
 
 bool test_get_next_number(){
   game g=game_default();
     if(game_get_next_number(g, 0, 0, RIGHT, 1)!=1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     if(game_get_next_number(g, 0, 3, LEFT, 1)!=0){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     game_set_square(g, 3, 4, S_ONE);
     if(game_get_next_number(g, 5, 4, UP, 2)!=1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     game_set_square(g, 5, 0, S_ZERO);
     if(game_get_next_number(g, 3, 0, DOWN, 2)!=0){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     if(game_get_next_number(g, 0, 5, DOWN, 2)!=-1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     if(game_get_next_number(g, 3, 2, UP, 2)!=-1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     if(game_get_next_number(g, 1, 0, DOWN, 1)!=-1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     if(game_get_next_number(g, 1, 5, LEFT, 2)!=-1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     if(game_get_next_number(g, 5, 0, RIGHT, 1)!=-1){
         game_delete(g);
-        return EXIT_FAILURE;
+        return false;
     }
     game_delete(g);
-    return EXIT_SUCCESS;
+    return true;
 }
 
 bool test_get_number(){
@@ -178,9 +178,9 @@ bool test_get_number(){
   int one = game_get_number(g, 0, 1);
   game_delete(g);
   if (empty != -1 || zero != 0 || one != 1){
-    return EXIT_FAILURE;
+    return false;
   }
-  return EXIT_SUCCESS;
+  return true;
 }
 
 bool test_game_new(){
@@ -195,11 +195,11 @@ bool test_game_new(){
   if (immutable_zero == S_IMMUTABLE_ZERO){
     free(squares);
     game_delete(g);
-    return EXIT_SUCCESS;
+    return true;
   }
   free(squares);
   game_delete(g);
-  return EXIT_FAILURE;
+  return false;
 }
 
 bool test_game_get_square(){
@@ -213,18 +213,18 @@ bool test_game_get_square(){
   square immutable_one = game_get_square(g,0, 1);
   if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE){
     game_delete(g);
-    return EXIT_SUCCESS;
+    return true;
   }
   game_delete(g);
-  return EXIT_FAILURE;
+  return false;
 }
 
 
 int main(int argc, char* argv[]){
     if (argc == 1){
-        return EXIT_FAILURE;
+        return false;
     }
-    bool test1 = EXIT_FAILURE;
+    bool test1 = false;
     if (strcmp("dummy",argv[1])==0){
         test1 = test_dummy();
     }
@@ -241,8 +241,8 @@ int main(int argc, char* argv[]){
 
 
     if (test1 && test2 && test3 && test4 && test5 && test6 && test7 && test8 && test9 && test10){
-      return EXIT_SUCCESS;
+      return true;
     }
 
-    return EXIT_FAILURE;
+    return false;
 }
