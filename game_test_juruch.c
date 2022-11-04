@@ -13,7 +13,7 @@ bool test_game_new_empty(){
     game g=game_new_empty();
     for(uint i=0;i<DEFAULT_SIZE;i++){
         for(uint j=0;j<DEFAULT_SIZE;j++){
-            if(game_is_empty(g, i, j)!=true){
+            if(game_get_number(g, i, j)!=-1){
                 game_delete(g);
                 return false;
             }
