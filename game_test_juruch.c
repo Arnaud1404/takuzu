@@ -184,17 +184,24 @@ bool test_game_default_solution(){
 }
 
 int main(void){
-bool test = test_dummy();
-bool test2 = test_game_new_empty();
-bool test3 = test_game_delete();
-bool test4 = test_game_set_square();
-bool test5 = test_game_get_next_square();
-bool test6 = test_game_default();
-bool test7 = test_game_default_solution();
-if (test&& test2&& test3&& test4&& test5&& test6&& test7){
-    return EXIT_SUCCESS;
-}
-return EXIT_FAILURE;
+    if (argc == 1){
+        return false;
+    }
+    bool test = false;
+    if (strcmp("dummy",argv[1])==0){
+        test = test_dummy();
+    }
+    bool test = test_dummy();
+    bool test2 = test_game_new_empty();
+    bool test3 = test_game_delete();
+    bool test4 = test_game_set_square();
+    bool test5 = test_game_get_next_square();
+    bool test6 = test_game_default();
+    bool test7 = test_game_default_solution();
+    if (test&& test2&& test3&& test4&& test5&& test6&& test7){
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
 }
 
 
