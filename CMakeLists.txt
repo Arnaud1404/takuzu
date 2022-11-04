@@ -11,16 +11,12 @@ link_directories(${CMAKE_SOURCE_DIR})
 add_executable(game_text game_text.c)
 add_executable(game_test_ymaabout game_test_ymaabout.c)
 add_executable(game_test_juruch game_test_juruch.c)
-
-
-
+add_executable(game_test_argomes game_test_argomes.c)
 
 target_link_libraries(game_text game)
 target_link_libraries(game_test_ymaabout game)
 target_link_libraries(game_test_juruch game)
-
-
-
+target_link_libraries(game_test_argomes game)
 
 add_test(test_ymaabout_test_is_over ./game_test_ymaabout test_is_over)
 add_test(test_ymaabout_test_game_restart ./game_test_ymaabout test_game_restart)
@@ -35,6 +31,9 @@ add_test(test_juruch_test_game_set_square ./game_test_juruch test_game_set_squar
 add_test(test_juruch_test_game_get_next_square ./game_test_juruch test_game_get_next_square)
 add_test(test_juruch_test_game_default ./game_test_juruch test_game_default)
 add_test(test_juruch_test_game_default_solution ./game_test_juruch test_game_default_solution)
+
+add_test(test_argomes_test_game_has_error ./game_test_argomes test_game_has_error)
+add_test(test_argomes_test_game_copy ./game_test_argomes test_game_copy)
 
 
 
