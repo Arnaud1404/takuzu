@@ -238,45 +238,32 @@ int main(int argcount, char *argv[]){
     bool test = false;
     if(argcount == 2){
         if (strcmp(argv[1], "dummy") == 0){
-            if(test_dummy()){
-                test = true;
-            }
+            test = test_dummy();
         }
         else if(strcmp(argv[1],"game_new_empty") == 0) {
-            if(test_game_new_empty()){
-                test = true;
-            }
+                test = test_game_new_empty();
         } 
         else if (strcmp(argv[1],"game_delete") == 0){
-            if(test_game_delete()){
-                test = true;
-            }
+            test = test_game_delete();
         }
         else if (strcmp(argv[1],"game_set_square") == 0){
-            if(test_game_set_square()) {
-                test = true;
-            }
+            test = test_game_set_square();
         }
         else if (strcmp(argv[1],"game_get_next_square") == 0){
-            if(test_game_get_next_square()) {
-                test = true;
-            }
+                test = test_game_get_next_square();
         }
         else if (strcmp(argv[1],"game_default") == 0){
-            if(test_game_default()) {
-                test = true;
-            }
+                test = test_game_default();
         }
         else if (strcmp(argv[1],"game_default_solution") == 0){
-            if(test_game_default_solution()) {
-                test = true;
+            test = test_game_default_solution();
             }
          }
         else{
-            return EXIT_FAILURE;
+            test = false;
         }
-    }
-    if (test == true){
+    
+    if(test == true){
         return EXIT_SUCCESS;
     }
     return EXIT_FAILURE;
