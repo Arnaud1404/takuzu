@@ -234,7 +234,7 @@ int test_game_get_square(){
     //test_game_get_square();
 
 int main(int argcount, char* argv[]){
-    int test = EXIT_FAILURE;
+    int test;
     if(argcount == 2){
         if (strcmp(argv[1], "dummy") == 0){
               test = test_dummy();
@@ -285,7 +285,7 @@ int main(int argcount, char* argv[]){
             }
          }
         else{
-            return EXIT_FAILURE;
+            test = EXIT_FAILURE();
         }
     }
     if (test == EXIT_SUCCESS){
