@@ -1,7 +1,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include "game.h"
 #include "game_aux.h"
 
@@ -279,8 +278,8 @@ int main(int argcount, char *argv[]){
         }
     }
     if (test == true){
-        return EXIT_SUCCESS;
+        exit(EXIT_SUCCESS);
     }
- return EXIT_FAILURE;
+    exit(EXIT_FAILURE);
 }
 
