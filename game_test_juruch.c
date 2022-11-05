@@ -174,7 +174,7 @@ int test_game_default(){
     game_set_square(g, 4, 2, S_IMMUTABLE_ONE);
     game_set_square(g, 4, 5, S_IMMUTABLE_ZERO);
     game_set_square(g, 5, 5, S_IMMUTABLE_ZERO);
-    if(game_equal(g, def)!=EXIT_SUCCESS){
+    if(game_equal(g, def)==false){
         game_delete(g);
         game_delete(def);
         return EXIT_FAILURE;
