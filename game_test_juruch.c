@@ -240,7 +240,7 @@ int main(int argcount, char *argv[]){
             test = test_dummy();
         }
         else if(strcmp(argv[1],"game_new_empty") == 0) {
-                test = test_game_new_empty();
+            test = test_game_new_empty();
         } 
         else if (strcmp(argv[1],"game_delete") == 0){
             test = test_game_delete();

@@ -18,7 +18,7 @@ target_link_libraries(game_test_ymaabout game)
 target_link_libraries(game_test_juruch game)
 target_link_libraries(game_test_argomes game)
 
-add_test(test_ymaabout_test_dummy ./game_test_juruch dummy)
+add_test(test_ymaabout_test_dummy ./game_test_ymaabout dummy)
 add_test(test_ymaabout_test_is_over ./game_test_ymaabout is_over)
 add_test(test_ymaabout_test_game_restart ./game_test_ymaabout game_restart)
 add_test(test_ymaabout_test_play_move ./game_test_ymaabout play_move)
@@ -33,7 +33,7 @@ add_test(test_juruch_test_game_get_next_square ./game_test_juruch game_get_next_
 add_test(test_juruch_test_game_default ./game_test_juruch game_default)
 add_test(test_juruch_test_game_default_solution ./game_test_juruch game_default_solution)
 
-add_test(test_argomes_test_dummy ./game_test_juruch dummy)
+add_test(test_argomes_test_dummy ./game_test_argomes dummy)
 add_test(test_argomes_test_game_has_error ./game_test_argomes game_has_error)
 add_test(test_argomes_test_game_copy ./game_test_argomes game_copy)
 add_test(test_argomes_test_game_is_immutable ./game_test_argomes game_is_immutable)

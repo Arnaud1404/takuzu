@@ -136,10 +136,10 @@ int main(int argcount, char *argv[]){
             test = test_play_move();
         }
         else if (strcmp(argv[1],"check_move") == 0){
-                test = test_check_move();
+            test = test_check_move();
         }
         else if (strcmp(argv[1],"game_print") == 0){
-                test = test_game_print();
+            test = test_game_print();
         }
         else{
             test = EXIT_FAILURE;
