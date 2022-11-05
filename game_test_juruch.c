@@ -273,7 +273,7 @@ int main(int argcount, char *argv[]){
             }
          }
         else{
-            exit(EXIT_FAILURE);
+            return EXIT_FAILURE;
         }
     }
     if (test == true){
