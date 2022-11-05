@@ -236,52 +236,51 @@ bool test_game_default_solution(){
     return true;
 }
 
-int main(int argcount, char *argvalue[]){
-    bool b=false;
-    if(argcount==2){
-        if (strcmp("dummy",argvalue[1])==0){
+int main(int argcount, char *argv[]){
+    bool test = false;
+    if(argcount == 2){
+        if (strcmp(argv[1], "dummy") == 0){
             if(test_dummy()){
-                b=test_dummy();
+                test = test_dummy();
             }
         }
-        else if (strcmp("game_new_empty",argvalue[1])==0){
+        else if(strcmp(argv[1],"game_new_empty") == 0) {
             if(test_game_new_empty()){
-                b=test_game_new_empty();
+                test = test_game_new_empty();
             }
-        }
-        else if (strcmp("game_delete",argvalue[1])==0){
+        } 
+        else if (strcmp(argv[1],"game_delete") == 0){
             if(test_game_delete()){
-                b=test_game_delete();
+                test = test_game_delete();
             }
         }
-        else if (strcmp("game_set_square",argvalue[1])==0){
-            if(test_game_set_square()){
-                b=test_game_set_square();
+        else if (strcmp(argv[1],"game_set_square") == 0){
+            if(test_game_set_square()) {
+                test = test_game_set_square();
             }
         }
-        else if (strcmp("game_get_next_square",argvalue[1])==0){
-            if(test_game_get_next_square()){
-                b=test_game_get_next_square();
+        else if (strcmp(argv[1],"game_get_next_square") == 0){
+            if(test_game_get_next_square()) {
+                test = test_game_get_next_square();
             }
         }
-        else if (strcmp("game_default",argvalue[1])==0){
-            if(test_game_default()){
-                b=test_game_default();
+        else if (strcmp(argv[1],"game_default") == 0){
+            if(test_game_default()) {
+                test = test_game_default();
             }
         }
-        else if (strcmp("game_default_solution",argvalue[1])==0){
-            if(test_game_default_solution()){
-                b=test_game_default_solution();
+        else if (strcmp(argv[1],"game_default_solution") == 0){
+            if(test_game_default_solution()) {
+                test = test_game_default_solution();
             }
+         }
+        else{
+            exit(EXIT_FAILURE);
         }
     }
-    if(b==true){
-        return true;
-
+    if (test == true){
+        return EXIT_SUCCESS;
     }
-    else{
-        return false;
-    }
+ return EXIT_FAILURE;
 }
-
 
