@@ -12,6 +12,9 @@ bool test_dummy(){
 bool test_game_new_empty(){
     //oob = out of bounds
     game g=game_new_empty();
+    if (g == NULL){
+        return false;
+    }
     int n = DEFAULT_SIZE;
     game_set_square(g, n-1, n-1, S_IMMUTABLE_ZERO); //bottom right
     game_set_square(g, n, n-1, S_IMMUTABLE_ZERO); //oob
@@ -262,37 +265,37 @@ int main(int argcount, char *argv[]){
     if(argcount == 2){
         if (strcmp(argv[1], "dummy") == 0){
             if(test_dummy()){
-                test = test_dummy();
+                test = true;
             }
         }
         else if(strcmp(argv[1],"game_new_empty") == 0) {
             if(test_game_new_empty()){
-                test = test_game_new_empty();
+                test = true;
             }
         } 
         else if (strcmp(argv[1],"game_delete") == 0){
             if(test_game_delete()){
-                test = test_game_delete();
+                test = true;
             }
         }
         else if (strcmp(argv[1],"game_set_square") == 0){
             if(test_game_set_square()) {
-                test = test_game_set_square();
+                test = true;
             }
         }
         else if (strcmp(argv[1],"game_get_next_square") == 0){
             if(test_game_get_next_square()) {
-                test = test_game_get_next_square();
+                test = true;
             }
         }
         else if (strcmp(argv[1],"game_default") == 0){
             if(test_game_default()) {
-                test = test_game_default();
+                test = true;
             }
         }
         else if (strcmp(argv[1],"game_default_solution") == 0){
             if(test_game_default_solution()) {
-                test = test_game_default_solution();
+                test = true;
             }
          }
         else{
@@ -300,8 +303,8 @@ int main(int argcount, char *argv[]){
         }
     }
     if (test == true){
-        return true;
+        return EXIT_SUCCESS;
     }
-    return false;
+    return EXIT_FAILURE;
 }
 

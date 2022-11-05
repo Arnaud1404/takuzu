@@ -288,10 +288,7 @@ int main(int argc, char* argv[]){
         }
     }
     if (test == true){
-        return true;
+        return EXIT_SUCCESS;
     }
-    return false;
-    
-
-    return false;
+    return EXIT_FAILURE;
 }
