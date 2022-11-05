@@ -238,7 +238,7 @@ int main(int argc, char* argv[]){
                 test = EXIT_SUCCESS;
             }
         }
-        if (strcmp(argv[1], "test_game_has_error") == 0){
+        if (strcmp(argv[1], "game_has_error") == 0){
             if(test_game_has_error()){
                 test = EXIT_SUCCESS;
             }
