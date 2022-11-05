@@ -19,8 +19,8 @@ void usage(int argc, char *argv[])
 int test_is_over(void){
     game g = game_default_solution();
     game g1 = game_default();
-    int test = game_is_over(g);
-    int test1 = !game_is_over(g1);
+    bool test = game_is_over(g);
+    bool test1 = !game_is_over(g1);
     
         for(int i = 0;i<DEFAULT_SIZE;i++){
             for(int j = 0; j <DEFAULT_SIZE;j++){
@@ -82,17 +82,17 @@ return EXIT_SUCCESS;
 
 int test_check_move(void){
     game g = game_default();
-    int test1 = game_check_move(g,DEFAULT_SIZE+1,1,S_ZERO);
-    int test8 = game_check_move(g,1,DEFAULT_SIZE+1,S_ZERO); //must be EXIT_FAILURE
-    int test9 = game_check_move(g,-1,0,S_ZERO);//EXIT_FAILURE
+    bool test1 = game_check_move(g,DEFAULT_SIZE+1,1,S_ZERO);
+    bool test8 = game_check_move(g,1,DEFAULT_SIZE+1,S_ZERO); //must be EXIT_FAILURE
+    bool test9 = game_check_move(g,-1,0,S_ZERO);//EXIT_FAILURE
 
-    int test10 = game_check_move(g,0,-1,S_EMPTY);//EXIT_FAILURE
-    int test2 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ZERO ); //EXIT_FAILURE
-    int test6 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ONE ); //EXIT_FAILURE
-    int test7 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_EMPTY );  //must be EXIT_FAILURE bc it is an immutable square
-    int test3 = game_check_move(g,0,0,S_ZERO); //must be EXIT_SUCCESS
-    int test4 = game_check_move(g,0,0,S_ONE); //must be EXIT_SUCCESS
-    int test5 = game_check_move(g,0,0,S_EMPTY); // must be EXIT_SUCCESS
+    bool test10 = game_check_move(g,0,-1,S_EMPTY);//EXIT_FAILURE
+    bool test2 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ZERO ); //EXIT_FAILURE
+    bool test6 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ONE ); //EXIT_FAILURE
+    bool test7 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_EMPTY );  //must be EXIT_FAILURE bc it is an immutable square
+    bool test3 = game_check_move(g,0,0,S_ZERO); //must be EXIT_SUCCESS
+    bool test4 = game_check_move(g,0,0,S_ONE); //must be EXIT_SUCCESS
+    bool test5 = game_check_move(g,0,0,S_EMPTY); // must be EXIT_SUCCESS
     for(int i = 0; i <DEFAULT_SIZE; i++){
         for(int j=0;j<DEFAULT_SIZE;j++){
             if(game_check_move(g,i,j,S_ZERO)==EXIT_FAILURE ){
