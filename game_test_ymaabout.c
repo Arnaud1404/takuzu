@@ -148,5 +148,6 @@ int main(int argcount, char *argv[]){
     if(test == EXIT_SUCCESS){
         return EXIT_SUCCESS;
     }
+    }
     return EXIT_FAILURE;
 }
