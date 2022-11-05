@@ -12,16 +12,15 @@ bool test_dummy(){
 bool test_game_new_empty(){
     game g=game_new_empty();
     int n = DEFAULT_SIZE;
-    game_set_square(g, n-1, n-1, S_ZERO);
-    game_set_square(g, n, n-1, S_ZERO);
-    game_set_square(g, n-1, n, S_ZERO);
+    game_set_square(g, n-1, n-1, S_IMMUTABLE_ZERO);
+    game_set_square(g, n, n-1, S_IMMUTABLE_ZERO);
+    game_set_square(g, n-1, n, S_IMMUTABLE_ZERO);
     int oob1 = game_get_next_number(g, n-1, n-1, DOWN, 1);
     int oob2 = game_get_next_number(g, n-1, n-1, RIGHT, 1); //checks if game is > default size
 
     int oob3 = game_get_next_number(g, n-2, n-1, DOWN, 1);//checks if game is < default size
-    int oob4 = game_get_next_number(g, n-1, n-2, RIGHT, 1);
-    
-    if(oob1 != -1 || oob2 != -1 || oob3 != 0 || oob4 != 0){
+
+    if(oob1 != -1 || oob2 != -1 || oob3 != 0){
         game_delete(g);
         return false;
     }
