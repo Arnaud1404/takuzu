@@ -231,7 +231,7 @@ bool test_game_get_square(){
     //test_game_get_square();
 
 int main(int argc, char* argv[]){
-   bool test = false;
+    bool test = false;
     if(argc == 2){
         if (strcmp(argv[1], "dummy") == 0){
             if(test_dummy()){
