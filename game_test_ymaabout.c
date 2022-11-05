@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include "game.h"
@@ -120,14 +120,33 @@ int test_game_print(void){
     }game_delete(g);return EXIT_SUCCESS;
 }
 
-int main(void){
-int ok1 = test_is_over();
-int ok2 = test_game_restart();
-int ok3 = test_play_move();
-int ok4 = test_check_move();
-int ok5 = test_game_print();
-if (ok1&&ok2&&ok3&&ok4&&ok5){
-    return EXIT_SUCCESS;
-}
-return EXIT_FAILURE;
+int main(int argcount, char *argv[]){
+    int test = EXIT_FAILURE;
+    if(argcount == 2){
+        if (strcmp(argv[1], "dummy") == 0){
+            test = test_dummy();
+        }
+        else if(strcmp(argv[1],"is_over") == 0) {
+            test = test_is_over();
+        } 
+        else if (strcmp(argv[1],"game_restart") == 0){
+            test = test_game_restart();
+        }
+        else if (strcmp(argv[1],"play_move") == 0){
+            test = test_play_move();
+        }
+        else if (strcmp(argv[1],"check_move") == 0){
+                test = test_check_move();
+        }
+        else if (strcmp(argv[1],"game_print") == 0){
+                test = test_game_print();
+        }
+        else{
+            test = EXIT_FAILURE;
+        }
+    
+    if(test == EXIT_SUCCESS){
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
 }
