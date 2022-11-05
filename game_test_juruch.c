@@ -10,35 +10,9 @@ bool test_dummy(){
 }
 
 bool test_game_new_empty(){
-    //oob = out of bounds
     game g=game_new_empty();
-    if (g == NULL){
-        return false;
-    }
-    int n = DEFAULT_SIZE;
-    game_set_square(g, n-1, n-1, S_IMMUTABLE_ZERO); //bottom right
-    game_set_square(g, n, n-1, S_IMMUTABLE_ZERO); //oob
-    game_set_square(g, n-1, n, S_IMMUTABLE_ZERO);//oob
-    int oob1 = game_get_next_number(g, n-1, n-1, DOWN, 1);
-    int oob2 = game_get_next_number(g, n-1, n-1, RIGHT, 1); //checks if game is > default size
-    int oob3 = game_get_next_number(g, n-2, n-1, DOWN, 1);//checks if game is < default size
-
-    game_set_square(g, 0, 0, S_IMMUTABLE_ZERO); //top left
-    game_set_square(g, -1, 0, S_IMMUTABLE_ZERO);//oob
-    game_set_square(g, 0, -1, S_IMMUTABLE_ZERO);//oob
-    int oob4 = game_get_next_number(g, 0, 0, LEFT, 1);
-    int oob5 = game_get_next_number(g, 0, 0, UP, 1);
-    int oob6 = game_get_next_number(g,0,1,LEFT, 1);
-
-    if(oob1 != -1 || oob2 != -1 || oob3 != 0 || oob4 != -1 || oob5 != -1 || oob6 != 0){
-        game_delete(g);
-        return false;
-    }
-
-    game_set_square(g, 0, 0, S_EMPTY);
-    game_set_square(g, n-1, n-1, S_EMPTY);
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
+    for(int i=0;i<DEFAULT_SIZE;i++){
+        for(int j=0;j<DEFAULT_SIZE;j++){
             if(!game_is_empty(g,i,j)){
                 game_delete(g);
                 return false;
