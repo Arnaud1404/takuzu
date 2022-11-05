@@ -53,8 +53,6 @@ int test_game_set_square(){
     		}
     	}
     }
-    game_delete(g);
-    game g = game_default();
     game_set_square(g, 0, 0, S_ONE);
     for(uint i=0; i<DEFAULT_SIZE; i++){
     	for(uint j=0; j<DEFAULT_SIZE; j++){
@@ -106,8 +104,6 @@ int test_game_set_square(){
     		}
     	}
     }
-    game_delete(g);
-    game g = game_default();
     game_set_square(g, 0, 0, S_ZERO);
     for(uint i=0; i<DEFAULT_SIZE; i++){
     	for(uint j=0; j<DEFAULT_SIZE; j++){
