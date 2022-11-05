@@ -255,7 +255,7 @@ int main(int argc, char* argv[]){
         }
         else if (strcmp(argv[1],"game_is_empty") == 0){
             if(test_game_is_empty()) {
-                test = test_game_get_next_square();
+                test = true;
             }
         }
         else if (strcmp(argv[1],"game_equal") == 0){
