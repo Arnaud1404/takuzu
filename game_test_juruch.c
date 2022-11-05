@@ -234,7 +234,7 @@ int test_game_default_solution(){
 }
 
 int main(int argcount, char *argv[]){
-    int test = EXIT_FAILURE;
+    int test;
     if(argcount == 2){
         if (strcmp(argv[1], "dummy") == 0){
             test = test_dummy();
