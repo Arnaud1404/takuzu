@@ -127,19 +127,31 @@ int main(int argcount, char *argv[]){
             test = test_dummy();
         }
         else if(strcmp(argv[1],"is_over") == 0) {
-            test = test_is_over();
+            if(test_is_over()){
+                test = test_is_over();
+            }
+            
         } 
         else if (strcmp(argv[1],"game_restart") == 0){
-            test = test_game_restart();
+            if(test_game_restart()){
+                test = test_game_restart();
+            }
         }
         else if (strcmp(argv[1],"play_move") == 0){
-            test = test_play_move();
+            if(test_play_move()){
+                test = test_play_move();
+            }
         }
         else if (strcmp(argv[1],"check_move") == 0){
-            test = test_check_move();
+            if(test_check_move()){
+                test = test_check_move();
+            }
         }
         else if (strcmp(argv[1],"game_print") == 0){
-            test = test_game_print();
+            if(test_game_print()){
+                test = test_game_print();
+            }
+            
         }
         else{
             test = EXIT_FAILURE;
