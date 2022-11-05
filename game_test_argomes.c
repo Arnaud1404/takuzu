@@ -218,30 +218,80 @@ bool test_game_get_square(){
   return false;
 }
 
+//tests:
+    //test_dummy();
+    //test_game_has_error();
+    //test_game_copy();
+    //test_game_is_immutable();
+    //test_game_is_empty();
+    //test_game_equal();
+    //test_get_next_number();
+    //test_get_number();
+    //test_game_new();
+    //test_game_get_square();
 
 int main(int argc, char* argv[]){
-    if (argc == 1){
-        return false;
+   bool test = false;
+    if(argc == 2){
+        if (strcmp(argv[1], "dummy") == 0){
+            if(test_dummy()){
+                test = true;
+            }
+        }
+        if (strcmp(argv[1], "test_game_has_error") == 0){
+            if(test_game_has_error()){
+                test = true;
+            }
+        }
+        else if(strcmp(argv[1],"game_copy") == 0) {
+            if(test_game_copy()){
+                test = true;
+            }
+        }
+        else if (strcmp(argv[1],"game_is_immutable") == 0){
+            if(test_game_is_immutable()) {
+                test = true;
+            }
+        }
+        else if (strcmp(argv[1],"game_is_empty") == 0){
+            if(test_game_is_empty()) {
+                test = test_game_get_next_square();
+            }
+        }
+        else if (strcmp(argv[1],"game_equal") == 0){
+            if(test_game_equal()){
+                test = true;
+            }
+        }
+        else if (strcmp(argv[1],"get_next_number") == 0){
+            if(test_get_next_number()) {
+                test = true;
+            }
+         }
+         else if (strcmp(argv[1],"get_number") == 0){
+            if(test_get_number()) {
+                test = true;
+            }
+         }
+         else if (strcmp(argv[1],"game_new") == 0){
+            if(test_game_new()) {
+                test = true;
+            }
+         }
+         else if (strcmp(argv[1],"game_get_square") == 0){
+            if(test_game_get_square()) {
+                test = true;
+            }
+         }
+        else{
+            return false;
+        }
     }
-    bool test1 = false;
-    if (strcmp("dummy",argv[1])==0){
-        test1 = test_dummy();
+    if (test == true){
+        return true;
     }
-
-    bool test2 = test_game_has_error();
-    bool test3 = test_game_copy();
-    bool test4 = test_game_is_immutable();
-    bool test5 = test_game_is_empty();
-    bool test6 = test_game_equal();
-    bool test7 = test_get_next_number();
-    bool test8 = test_get_number();
-    bool test9 = test_game_new();
-    bool test10 = test_game_get_square();
-
-
-    if (test1 && test2 && test3 && test4 && test5 && test6 && test7 && test8 && test9 && test10){
-      return true;
-    }
+    return false;
+    
 
     return false;
 }
