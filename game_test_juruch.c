@@ -28,10 +28,8 @@ int test_game_delete(){
     game_set_square(g, 5, 0, S_ZERO);
     game_delete(g);
     if(g!=NULL){
-        game_delete(g);
         return EXIT_FAILURE;
     }
-    game_delete(g);
     return EXIT_SUCCESS;
 }
 
