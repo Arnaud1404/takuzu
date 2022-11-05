@@ -17,35 +17,35 @@ int test_game_has_error(void)
 {
   game g = game_default();
   game_play_move(g, 0, 0, S_ONE); //is valid
-  int test1 = game_has_error(g, 0, 0); //EXIT_FAILURE
+  bool test1 = game_has_error(g, 0, 0); //EXIT_FAILURE
 
   game_play_move(g, 5, 2, S_ONE); //is an error (3 black squares column)
-  int test2 = game_has_error(g, 5, 2); //EXIT_SUCCESS
+  bool test2 = game_has_error(g, 5, 2); //EXIT_SUCCESS
   game_play_move(g, 5, 2, S_EMPTY);
-  int test3 = game_has_error(g, 5, 2); //EXIT_FAILURE
+  bool test3 = game_has_error(g, 5, 2); //EXIT_FAILURE
 
   game_play_move(g, 0, 3, S_ONE); //is valid
-  int test4 = game_has_error(g, 0, 3); //EXIT_FAILURE
+  bool test4 = game_has_error(g, 0, 3); //EXIT_FAILURE
 
   game_play_move(g, 0, 4, S_ONE); //is an error (too many black squares row)
-  int test5 = game_has_error(g, 0, 4); //EXIT_SUCCESS
+  bool test5 = game_has_error(g, 0, 4); //EXIT_SUCCESS
   game_play_move(g, 0, 4, S_EMPTY);
-  int test6 = game_has_error(g, 0, 4); //EXIT_FAILURE
+  bool test6 = game_has_error(g, 0, 4); //EXIT_FAILURE
 
   game_play_move(g, 5, 4, S_ZERO);
   game_play_move(g, 5, 3, S_ZERO); // 3 white in a row
-  int test7 = game_has_error(g, 5, 3); //EXIT_SUCCESS
-  int test8 = game_has_error(g, 5, 4); //EXIT_SUCCESS
+  bool test7 = game_has_error(g, 5, 3); //EXIT_SUCCESS
+  bool test8 = game_has_error(g, 5, 4); //EXIT_SUCCESS
   game_play_move(g, 5, 4, S_EMPTY); //removes error
-  int test9 = game_has_error(g, 5, 3); //EXIT_FAILURE
-  int test10 = game_has_error(g, 5, 4); //EXIT_FAILURE
+  bool test9 = game_has_error(g, 5, 3); //EXIT_FAILURE
+  bool test10 = game_has_error(g, 5, 4); //EXIT_FAILURE
 
   game_play_move(g, 1, 0, S_ONE);
   game_play_move(g, 3, 0, S_ONE);
   game_play_move(g, 4, 0, S_ONE); //too many black squares (column)
-  int test11 = game_has_error(g, 4, 0); //EXIT_SUCCESS
+  bool test11 = game_has_error(g, 4, 0); //EXIT_SUCCESS
   game_play_move(g, 3, 0, S_EMPTY);
-  int test12 = game_has_error(g, 4, 0); //EXIT_FAILURE
+  bool test12 = game_has_error(g, 4, 0); //EXIT_FAILURE
 
   game_delete(g);
   if(!test1 && test2 && !test3 && !test4 && test5 && !test6 && test7 && test8 && !test9 && !test10 && test11 && !test12){
@@ -77,13 +77,13 @@ int test_game_copy(void){
 
 int test_game_is_immutable(){
   game g = game_default();
-  int test1 = game_is_immutable(g, 0,1); //EXIT_SUCCESS
-  int test2 = game_is_immutable(g, 0,2); //EXIT_SUCCESS
-  int test3 = game_is_immutable(g, 0,0); //EXIT_FAILURE
+  bool test1 = game_is_immutable(g, 0,1); //EXIT_SUCCESS
+  bool test2 = game_is_immutable(g, 0,2); //EXIT_SUCCESS
+  bool test3 = game_is_immutable(g, 0,0); //EXIT_FAILURE
   game_play_move(g, 0, 4, S_ONE);
   game_play_move(g, 0, 5, S_ZERO);
-  int test4 = game_is_immutable(g, 0,4); //EXIT_FAILURE
-  int test5 = game_is_immutable(g, 0,5); //EXIT_FAILURE
+  bool test4 = game_is_immutable(g, 0,4); //EXIT_FAILURE
+  bool test5 = game_is_immutable(g, 0,5); //EXIT_FAILURE
 
   game_delete(g);
   if (test1 && test2 && !test3 && !test4 && !test5){
@@ -95,13 +95,13 @@ int test_game_is_immutable(){
 int test_game_is_empty(void){
 
   game g = game_default();
-  int test1 = game_is_empty(g, 0, 0); //EXIT_SUCCESS
-  int test2 = game_is_empty(g, 0, 1); //EXIT_FAILURE
-  int test3 = game_is_empty(g, 0, 2); //EXIT_FAILURE
+  bool test1 = game_is_empty(g, 0, 0); //EXIT_SUCCESS
+  bool test2 = game_is_empty(g, 0, 1); //EXIT_FAILURE
+  bool test3 = game_is_empty(g, 0, 2); //EXIT_FAILURE
   game_play_move(g, 0, 4, S_ONE);
   game_play_move(g, 0, 5, S_ZERO);
-  int test4 = game_is_empty(g, 0,4); //EXIT_FAILURE
-  int test5 = game_is_empty(g, 0,5); //EXIT_FAILURE
+  bool test4 = game_is_empty(g, 0,4); //EXIT_FAILURE
+  bool test5 = game_is_empty(g, 0,5); //EXIT_FAILURE
   game_delete(g);
   if (test1 && !test2 && !test3 && !test4 && !test5){
     return EXIT_SUCCESS;
@@ -113,9 +113,9 @@ int test_game_is_empty(void){
 int test_game_equal(void){
   game g = game_default();
   game g2 = game_default();
-  int test1 = game_equal(g, g2); //EXIT_SUCCESS
+  bool test1 = game_equal(g, g2); //EXIT_SUCCESS
   game_play_move(g, 0, 4, S_ONE);
-  int test2 = game_equal(g, g2); //EXIT_FAILURE
+  bool test2 = game_equal(g, g2); //EXIT_FAILURE
 
   game_delete(g);
   game_delete(g2);
