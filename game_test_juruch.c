@@ -24,10 +24,13 @@ bool test_game_new_empty(){
         game_delete(g);
         return false;
     }
-    game_set_square(g, n-1, n-1, S_EMPTY);
     for(uint i=0;i<DEFAULT_SIZE;i++){
         for(uint j=0;j<DEFAULT_SIZE;j++){
             if(!game_is_empty(g,i,j)){
+                if(i == 5 && j == 5 && game_get_number(g, i, j) == 0){
+                    game_delete(g);
+                    return true;
+                }
                 game_delete(g);
                 return false;
             }
