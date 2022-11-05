@@ -14,10 +14,17 @@ bool test_game_new_empty(){
     if (g==NULL){
         return false;
     }
-    int n = sizeof(g)/sizeof(square);
-    if(n != DEFAULT_SIZE*DEFAULT_SIZE){ //checks if g is of default size.
+    game_play_move(g, 5, 5, S_ZERO);
+    int oob1 = game_get_next_number(g, 5, 5, DOWN, 1);
+    int oob2 = game_get_next_number(g, 5, 5, RIGHT, 1); //checks if game is > default size
+
+    int oob3 = game_get_next_number(g, 4, 4, DOWN, 1);
+    int oob4 = game_get_next_number(g, 4, 4, RIGHT, 1);//checks if game is < default size
+    if(oob1 != -1 || oob2 != -1 || oob3 != 0 || oob4 != 0){
+        game_delete(g);
         return false;
     }
+    game_play_move(g, 5, 5, S_EMPTY);
     for(uint i=0;i<DEFAULT_SIZE;i++){
         for(uint j=0;j<DEFAULT_SIZE;j++){
             if(!game_is_empty(g,i,j)){
