@@ -38,28 +38,28 @@ bool test_game_delete(){
 
 bool test_game_set_square(){
     game g=game_new_empty();
-    game_set_square(g, 0, 2, S_IMMUTABLE_ONE);
-    if(game_get_square(g, 0, 2)!=S_IMMUTABLE_ONE){
+    game_set_square(g, 0, 0, S_IMMUTABLE_ONE);
+    if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ONE){
         game_delete(g);
         return false;
     }
-    game_set_square(g, 2, 0, S_ONE);
-    if(game_get_square(g, 2, 0)!=S_ONE){
+    game_set_square(g, 0, 0, S_ONE);
+    if(game_get_square(g, 0, 0)!=S_ONE){
         game_delete(g);
         return false;
     }
-    game_set_square(g, 2, 0, S_EMPTY);
-    if(game_get_square(g, 2, 0)!=S_EMPTY){
+    game_set_square(g, 0, 0, S_EMPTY);
+    if(game_get_square(g, 0, 0)!=S_EMPTY){
         game_delete(g);
         return false;
     }
-    game_set_square(g, 0, 2, S_ZERO);
-    if(game_get_square(g, 0, 2)!=S_ZERO){
+    game_set_square(g, 0, 0, S_ZERO);
+    if(game_get_square(g, 0, 0)!=S_ZERO){
         game_delete(g);
         return false;
     }
-    game_set_square(g, 0, 2, S_IMMUTABLE_ZERO);
-    if(game_get_square(g, 0, 2)!=S_IMMUTABLE_ZERO){
+    game_set_square(g, 0, 0, S_IMMUTABLE_ZERO);
+    if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ZERO){
         game_delete(g);
         return false;
     }
@@ -183,7 +183,7 @@ bool test_game_default_solution(){
     return true;
 }
 
-bool main(int argcount, char *argvalue[]){
+int main(int argcount, char *argvalue[]){
     bool b=false;
     if(argcount==2){
         if (strcmp("dummy",argvalue[1])==0){
