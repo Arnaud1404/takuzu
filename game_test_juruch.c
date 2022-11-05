@@ -183,7 +183,7 @@ bool test_game_default_solution(){
     return true;
 }
 
-int main(int argcount, char *argvalue[]){
+bool main(int argcount, char *argvalue[]){
     bool b=false;
     if(argcount==2){
         if (strcmp("dummy",argvalue[1])==0){
@@ -223,11 +223,11 @@ int main(int argcount, char *argvalue[]){
         }
     }
     if(b==true){
-        return EXIT_SUCCESS;
+        return true;
 
     }
     else{
-        return EXIT_FAILURE;
+        return false;
     }
 }
 
