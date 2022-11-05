@@ -264,8 +264,8 @@ int main(int argcount, char *argv[]){
         }
     
     if(test == true){
-        return 0;
+        return true;
     }
-    return 1;
+    return false;
 }
 

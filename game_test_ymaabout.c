@@ -120,40 +120,14 @@ bool test_game_print(void){
     }game_delete(g);return true;
 }
 
-int main(int argcount, char *argv[]){
-    bool test = false;
-    if(argcount == 2){
-        if (strcmp(argv[1], "dummy") == 0){
-            if(test_dummy()){
-                test = true;
-            }
-        }
-        else if(strcmp(argv[1],"is_over") == 0) {
-            if(test_is_over()){
-                test = true;
-            }
-        } 
-        else if (strcmp(argv[1],"play_move") == 0){
-            if(test_play_move()){
-                test = true;
-            }
-        }
-        else if (strcmp(argv[1],"check_move") == 0){
-            if(test_check_move()) {
-                test = true;
-            }
-        }
-        else if (strcmp(argv[1],"game_print") == 0){
-            if(test_game_print()) {
-                test = true;
-            }
-        }
-        else{
-            return false;
-        }
-    }
-    if (test == true){
-        return EXIT_SUCCESS;
-    }
-    return EXIT_FAILURE;
+int main(void){
+bool ok1 = test_is_over();
+bool ok2 = test_game_restart();
+bool ok3 = test_play_move();
+bool ok4 = test_check_move();
+bool ok5 = test_game_print();
+if (ok1&&ok2&&ok3&&ok4&&ok5){
+    return EXIT_SUCCESS;
+}
+return EXIT_FAILURE;
 }
