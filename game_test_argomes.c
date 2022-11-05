@@ -241,47 +241,47 @@ int main(int argcount, char* argv[]){
         }
         else if (strcmp(argv[1], "game_has_error") == 0){
             if(test_game_has_error()){
-                test = EXIT_SUCCESS;
+                test = test_game_has_error();
             }
         }
         else if(strcmp(argv[1],"game_copy") == 0) {
             if(test_game_copy()){
-                test = EXIT_SUCCESS;
+                test = test_game_copy();
             }
         }
         else if (strcmp(argv[1],"game_is_immutable") == 0){
             if(test_game_is_immutable()) {
-                test = EXIT_SUCCESS;
+                test = test_game_is_immutable();
             }
         }
         else if (strcmp(argv[1],"game_is_empty") == 0){
             if(test_game_is_empty()) {
-                test = EXIT_SUCCESS;
+                test = test_game_is_empty();
             }
         }
         else if (strcmp(argv[1],"game_equal") == 0){
             if(test_game_equal()){
-                test = EXIT_SUCCESS;
+                test = test_game_equal();
             }
         }
         else if (strcmp(argv[1],"get_next_number") == 0){
             if(test_get_next_number()) {
-                test = EXIT_SUCCESS;
+                test = test_get_next_number();
             }
          }
          else if (strcmp(argv[1],"get_number") == 0){
             if(test_get_number()) {
-                test = EXIT_SUCCESS;
+                test = test_get_number();
             }
          }
          else if (strcmp(argv[1],"game_new") == 0){
             if(test_game_new()) {
-                test = EXIT_SUCCESS;
+                test = test_game_new();
             }
          }
          else if (strcmp(argv[1],"game_get_square") == 0){
             if(test_game_get_square()) {
-                test = EXIT_SUCCESS;
+                test = test_game_get_square();
             }
          }
         else{

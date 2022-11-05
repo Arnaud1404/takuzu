@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 #include "game.h"
 #include "game_aux.h"
@@ -244,7 +243,6 @@ int main(int argcount, char *argv[]){
             test = test_game_new_empty();
         } 
         else if (strcmp(argv[1],"game_delete") == 0){
-            if(test_game_delete())
             test = test_game_delete();
         }
         else if (strcmp(argv[1],"game_set_square") == 0){
