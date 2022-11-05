@@ -47,7 +47,6 @@ int test_game_has_error(void)
   game_play_move(g, 3, 0, S_EMPTY);
   bool test12 = game_has_error(g, 4, 0); //false
 
-
   game_delete(g);
   if(!test1 && test2 && !test3 && !test4 && test5 && !test6 && test7 && test8 && !test9 && !test10 && test11 && !test12){
     return true;
