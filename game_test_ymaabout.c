@@ -69,12 +69,12 @@ int test_play_move(void){
     game g1 = game_default();
     game_play_move(g,0,0,S_ONE);
     game_set_square(g1,0,0,S_ONE);
-    if(game_equal(g,g1)==EXIT_FAILURE){
+    if(game_equal(g,g1)==false){
         return EXIT_FAILURE;
     }
     game_play_move(g,0,0,S_ZERO);
     game_set_square(g1,0,0,S_ZERO);
-    if(game_equal(g,g1)==EXIT_FAILURE){game_delete(g);game_delete(g1);
+    if(game_equal(g,g1)==false){game_delete(g);game_delete(g1);
         return EXIT_FAILURE;
     }game_delete(g);game_delete(g1);
 return EXIT_SUCCESS;
