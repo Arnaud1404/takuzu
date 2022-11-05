@@ -163,7 +163,7 @@ int test_get_next_number(){
         return EXIT_FAILURE;
     }
     if(game_get_next_number(g, 5, 0, RIGHT, 1)!=-1){
-        game_delete(g); *
+        game_delete(g);
         return EXIT_FAILURE;
     }
     game_delete(g);
