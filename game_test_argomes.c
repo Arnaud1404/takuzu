@@ -275,7 +275,9 @@ int main(int argcount, char* argv[]){
             }
          }
          else if (strcmp(argv[1],"game_new") == 0){
-                test = test_game_new();
+            if(test_game_new()) {
+                test = EXIT_SUCCESS;
+            }
          }
          else if (strcmp(argv[1],"game_get_square") == 0){
             if(test_game_get_square()) {
