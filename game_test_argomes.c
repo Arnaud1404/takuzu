@@ -237,9 +237,7 @@ int main(int argcount, char* argv[]){
     int test = EXIT_FAILURE;
     if(argcount == 2){
         if (strcmp(argv[1], "dummy") == 0){
-            if(test_dummy()){
-                test = EXIT_SUCCESS;
-            }
+              test = test_dummy();
         }
         else if (strcmp(argv[1], "game_has_error") == 0){
             if(test_game_has_error()){
@@ -277,9 +275,7 @@ int main(int argcount, char* argv[]){
             }
          }
          else if (strcmp(argv[1],"game_new") == 0){
-            if(test_game_new()) {
-                test = EXIT_SUCCESS;
-            }
+                test = test_game_new();
          }
          else if (strcmp(argv[1],"game_get_square") == 0){
             if(test_game_get_square()) {
