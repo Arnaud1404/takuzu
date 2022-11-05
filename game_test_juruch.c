@@ -10,7 +10,9 @@ bool test_dummy(){
 }
 
 bool test_game_new_empty(){
-    game g=game_new_empty();
+    game g=game_default();
+    game_set_square(g, 0, 0, S_ONE);
+    g=game_new_empty();
     for(uint i=0;i<DEFAULT_SIZE;i++){
         for(uint j=0;j<DEFAULT_SIZE;j++){
             if(!game_is_empty(g,i,j)){
