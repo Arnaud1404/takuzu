@@ -285,7 +285,7 @@ int main(int argcount, char* argv[]){
             }
          }
         else{
-            test = EXIT_FAILURE();
+            test = EXIT_FAILURE;
         }
     }
     if (test == EXIT_SUCCESS){
