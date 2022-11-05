@@ -30,7 +30,7 @@ int test_is_over(void){
              
             
             test1 = !game_is_over(g1);
-            if (test1 == EXIT_FAILURE){
+            if (test1 == false){
                 return EXIT_FAILURE;
             }
             game_set_square(g1,i,j,game_get_square(g,i,j));}
@@ -54,7 +54,7 @@ int test_game_restart(void){
     game g = game_default();
     game g2 = game_default_solution();
     game_restart(g2);
-    if(game_equal(g,g2)==EXIT_SUCCESS){
+    if(game_equal(g,g2)==true){
         game_delete(g);
         game_delete(g2);
         return EXIT_SUCCESS;
@@ -95,7 +95,7 @@ int test_check_move(void){
     bool test5 = game_check_move(g,0,0,S_EMPTY); // must be EXIT_SUCCESS
     for(int i = 0; i <DEFAULT_SIZE; i++){
         for(int j=0;j<DEFAULT_SIZE;j++){
-            if(game_check_move(g,i,j,S_ZERO)==EXIT_FAILURE ){
+            if(game_check_move(g,i,j,S_ZERO)==false ){
                 if(game_get_square(g,i,j)!= S_IMMUTABLE_ONE && game_get_square(g,i,j)!= S_IMMUTABLE_ZERO){
                     return EXIT_FAILURE;
                 }
