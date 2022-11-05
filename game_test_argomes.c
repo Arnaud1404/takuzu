@@ -189,7 +189,7 @@ int test_game_new(){
     squares[i] = S_EMPTY;
   }
   squares[1] = S_IMMUTABLE_ZERO;
-  squares[63] = S_IMMUTABLE_ONE;
+  squares[35] = S_IMMUTABLE_ONE;
   game g = game_new(squares);
   square immutable_zero = game_get_square(g, 0, 1);
   square immutable_one = game_get_square(g, 5, 5);
