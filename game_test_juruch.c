@@ -1,12 +1,11 @@
-#include <stdbool.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "game.h"
 #include "game_aux.h"
 
 int test_dummy(){
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int test_game_new_empty(){
@@ -15,12 +14,12 @@ int test_game_new_empty(){
         for(int j=0;j<DEFAULT_SIZE;j++){
             if(!game_is_empty(g,i,j)){
                 game_delete(g);
-                return 1;
+                return EXIT_FAILURE;
             }
         }
     }
     game_delete(g);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int test_game_delete(){
@@ -30,10 +29,10 @@ int test_game_delete(){
     game_delete(g);
     if(g!=NULL){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     game_delete(g);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int test_game_set_square(){
@@ -45,12 +44,12 @@ int test_game_set_square(){
     		if(i==0&&j==0){
     			if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ONE){
     				game_delete(g);
-        			return 1;
+        			return EXIT_FAILURE;
         		}
         	}	
     		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
         		game_delete(g);
-        		return 1;
+        		return EXIT_FAILURE;
     		}
     	}
     }
@@ -60,12 +59,12 @@ int test_game_set_square(){
     		if(i==0&&j==0){
     			if(game_get_square(g, 0, 0)!=S_ONE){
     				game_delete(g);
-        			return 1;
+        			return EXIT_FAILURE;
         		}
         	}	
     		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
         		game_delete(g);
-        		return 1;
+        		return EXIT_FAILURE;
     		}
     	}
     }
@@ -75,12 +74,12 @@ int test_game_set_square(){
     		if(i==0&&j==0){
     			if(game_get_square(g, 0, 0)!=S_EMPTY){
     				game_delete(g);
-        			return 1;
+        			return EXIT_FAILURE;
         		}
         	}	
     		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
         		game_delete(g);
-        		return 1;
+        		return EXIT_FAILURE;
     		}
     	}
     }
@@ -90,12 +89,12 @@ int test_game_set_square(){
     		if(i==0&&j==0){
     			if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ZERO){
     				game_delete(g);
-        			return 1;
+        			return EXIT_FAILURE;
         		}
         	}	
     		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
         		game_delete(g);
-        		return 1;
+        		return EXIT_FAILURE;
     		}
     	}
     }
@@ -105,61 +104,61 @@ int test_game_set_square(){
     		if(i==0&&j==0){
     			if(game_get_square(g, 0, 0)!=S_ZERO){
     				game_delete(g);
-        			return 1;
+        			return EXIT_FAILURE;
         		}
         	}	
     		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
         		game_delete(g);
-        		return 1;
+        		return EXIT_FAILURE;
     		}
     	}
     }
     game_delete(g);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int test_game_get_next_square(){
     game g=game_default();
     if(game_get_next_square(g, 0, 0, RIGHT, 1)!=S_IMMUTABLE_ONE){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     if(game_get_next_square(g, 0, 3, LEFT, 1)!=S_IMMUTABLE_ZERO){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     game_set_square(g, 3, 4, S_ONE);
     if(game_get_next_square(g, 5, 4, UP, 2)!=S_ONE){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     game_set_square(g, 5, 0, S_ZERO);
     if(game_get_next_square(g, 0, 0, DOWN, 5)!=S_ZERO){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     if(game_get_next_square(g, 0, 5, DOWN, 2)!=S_EMPTY){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     if(game_get_next_square(g, 3, 2, UP, 6)!=-1){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     if(game_get_next_square(g, 1, 0, DOWN, 8)!=-1){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     if(game_get_next_square(g, 0, 0, LEFT, 3)!=-1){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     if(game_get_next_square(g, 0, 4, RIGHT, 4)!=-1){
         game_delete(g);
-        return 1;
+        return EXIT_FAILURE;
     }
     game_delete(g);
-    return 0;        
+    return EXIT_SUCCESS;        
 }
 
 
@@ -175,14 +174,14 @@ int test_game_default(){
     game_set_square(g, 4, 2, S_IMMUTABLE_ONE);
     game_set_square(g, 4, 5, S_IMMUTABLE_ZERO);
     game_set_square(g, 5, 5, S_IMMUTABLE_ZERO);
-    if(game_equal(g, def)!=0){
+    if(game_equal(g, def)!=EXIT_SUCCESS){
         game_delete(g);
         game_delete(def);
-        return 1;
+        return EXIT_FAILURE;
     }
     game_delete(g);
     game_delete(def);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int test_game_default_solution(){
@@ -224,18 +223,18 @@ int test_game_default_solution(){
     game_set_square(g, 5, 3, S_ONE);
     game_set_square(g, 5, 4, S_ONE);
     game_set_square(g, 5, 5, S_IMMUTABLE_ZERO);
-    if(game_equal(g, def)!=0){
+    if(game_equal(g, def)!=EXIT_SUCCESS){
         game_delete(g);
         game_delete(def);
-        return 1;
+        return EXIT_FAILURE;
     }
     game_delete(g);
     game_delete(def);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int main(int argcount, char *argv[]){
-    int test = 1;
+    int test = EXIT_FAILURE;
     if(argcount == 2){
         if (strcmp(argv[1], "dummy") == 0){
             test = test_dummy();
@@ -260,12 +259,12 @@ int main(int argcount, char *argv[]){
             }
          }
         else{
-            test = 1;
+            test = EXIT_FAILURE;
         }
     
-    if(test == 0){
-        return 1;
+    if(test == EXIT_SUCCESS){
+        return EXIT_SUCCESS;
     }
-    return 0;
+    return EXIT_FAILURE;
 }
 

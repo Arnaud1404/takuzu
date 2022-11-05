@@ -1,13 +1,13 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "game.h"
 #include "game_aux.h"
 
 
-bool test_dummy(void){
-    return true;
+int test_dummy(void){
+    return EXIT_SUCCESS;
 }
 
 void usage(int argc, char *argv[])
@@ -16,11 +16,11 @@ void usage(int argc, char *argv[])
   exit(EXIT_FAILURE);
 }
 
-bool test_is_over(void){
+int test_is_over(void){
     game g = game_default_solution();
     game g1 = game_default();
-    bool test = game_is_over(g);
-    bool test1 = !game_is_over(g1);
+    int test = game_is_over(g);
+    int test1 = !game_is_over(g1);
     
         for(int i = 0;i<DEFAULT_SIZE;i++){
             for(int j = 0; j <DEFAULT_SIZE;j++){
@@ -30,8 +30,8 @@ bool test_is_over(void){
              
             
             test1 = !game_is_over(g1);
-            if (test1 == false){
-                return false;
+            if (test1 == EXIT_FAILURE){
+                return EXIT_FAILURE;
             }
             game_set_square(g1,i,j,game_get_square(g,i,j));}
             }
@@ -42,90 +42,90 @@ bool test_is_over(void){
     game_delete(g);
     game_delete(g1);
     if (test==1 && test1==1){
-        return true;
+        return EXIT_SUCCESS;
     }
-    return false;
+    return EXIT_FAILURE;
 
 }
 
 
 
-bool test_game_restart(void){
+int test_game_restart(void){
     game g = game_default();
     game g2 = game_default_solution();
     game_restart(g2);
-    if(game_equal(g,g2)==true){
+    if(game_equal(g,g2)==EXIT_SUCCESS){
         game_delete(g);
         game_delete(g2);
-        return true;
+        return EXIT_SUCCESS;
     }
     game_delete(g);
         game_delete(g2);
-    return false;
+    return EXIT_FAILURE;
 }
 
-bool test_play_move(void){
+int test_play_move(void){
     game g = game_default();
     game g1 = game_default();
     game_play_move(g,0,0,S_ONE);
     game_set_square(g1,0,0,S_ONE);
-    if(game_equal(g,g1)==false){
-        return false;
+    if(game_equal(g,g1)==EXIT_FAILURE){
+        return EXIT_FAILURE;
     }
     game_play_move(g,0,0,S_ZERO);
     game_set_square(g1,0,0,S_ZERO);
-    if(game_equal(g,g1)==false){game_delete(g);game_delete(g1);
-        return false;
+    if(game_equal(g,g1)==EXIT_FAILURE){game_delete(g);game_delete(g1);
+        return EXIT_FAILURE;
     }game_delete(g);game_delete(g1);
-return true;
+return EXIT_SUCCESS;
 }
 
-bool test_check_move(void){
+int test_check_move(void){
     game g = game_default();
-    bool test1 = game_check_move(g,DEFAULT_SIZE+1,1,S_ZERO);
-    bool test8 = game_check_move(g,1,DEFAULT_SIZE+1,S_ZERO); //must be false
-    bool test9 = game_check_move(g,-1,0,S_ZERO);//false
+    int test1 = game_check_move(g,DEFAULT_SIZE+1,1,S_ZERO);
+    int test8 = game_check_move(g,1,DEFAULT_SIZE+1,S_ZERO); //must be EXIT_FAILURE
+    int test9 = game_check_move(g,-1,0,S_ZERO);//EXIT_FAILURE
 
-    bool test10 = game_check_move(g,0,-1,S_EMPTY);//false
-    bool test2 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ZERO ); //false
-    bool test6 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ONE ); //false
-    bool test7 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_EMPTY );  //must be false bc it is an immutable square
-    bool test3 = game_check_move(g,0,0,S_ZERO); //must be true
-    bool test4 = game_check_move(g,0,0,S_ONE); //must be true
-    bool test5 = game_check_move(g,0,0,S_EMPTY); // must be true
+    int test10 = game_check_move(g,0,-1,S_EMPTY);//EXIT_FAILURE
+    int test2 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ZERO ); //EXIT_FAILURE
+    int test6 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_ONE ); //EXIT_FAILURE
+    int test7 = game_check_move(g,DEFAULT_SIZE-1, DEFAULT_SIZE-1,S_EMPTY );  //must be EXIT_FAILURE bc it is an immutable square
+    int test3 = game_check_move(g,0,0,S_ZERO); //must be EXIT_SUCCESS
+    int test4 = game_check_move(g,0,0,S_ONE); //must be EXIT_SUCCESS
+    int test5 = game_check_move(g,0,0,S_EMPTY); // must be EXIT_SUCCESS
     for(int i = 0; i <DEFAULT_SIZE; i++){
         for(int j=0;j<DEFAULT_SIZE;j++){
-            if(game_check_move(g,i,j,S_ZERO)==false ){
+            if(game_check_move(g,i,j,S_ZERO)==EXIT_FAILURE ){
                 if(game_get_square(g,i,j)!= S_IMMUTABLE_ONE && game_get_square(g,i,j)!= S_IMMUTABLE_ZERO){
-                    return false;
+                    return EXIT_FAILURE;
                 }
             }
         }
     }
     if(test1 == 0 && test8 == 0 && test9 == 0 && test10 == 0 && test2 == 0 && test6 == 0 && test7 == 0 && test3 == 1 && test4 == 1 && test5 == 1){
-        game_delete(g);return true;
+        game_delete(g);return EXIT_SUCCESS;
     }game_delete(g);
-    return false;
+    return EXIT_FAILURE;
 
 
 
 }
 
-bool test_game_print(void){
+int test_game_print(void){
     game g = game_default();
     game_print(g);
     if(g == NULL){
         game_delete(g);
-        return false;
-    }game_delete(g);return true;
+        return EXIT_FAILURE;
+    }game_delete(g);return EXIT_SUCCESS;
 }
 
 int main(void){
-bool ok1 = test_is_over();
-bool ok2 = test_game_restart();
-bool ok3 = test_play_move();
-bool ok4 = test_check_move();
-bool ok5 = test_game_print();
+int ok1 = test_is_over();
+int ok2 = test_game_restart();
+int ok3 = test_play_move();
+int ok4 = test_check_move();
+int ok5 = test_game_print();
 if (ok1&&ok2&&ok3&&ok4&&ok5){
     return EXIT_SUCCESS;
 }
