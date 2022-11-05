@@ -288,7 +288,7 @@ int main(int argc, char* argv[]){
         }
     }
     if (test == true){
-        return EXIT_SUCCESS;
+        return 0;
     }
-    return EXIT_FAILURE;
+    return 1;
 }
