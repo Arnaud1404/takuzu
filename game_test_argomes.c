@@ -113,9 +113,9 @@ int test_game_is_empty(void){
 int test_game_equal(void){
   game g = game_default();
   game g2 = game_default();
-  bool test1 = game_equal(g, g2); //EXIT_SUCCESS
+  bool test1 = game_equal(g, g2); //true
   game_play_move(g, 0, 4, S_ONE);
-  bool test2 = game_equal(g, g2); //EXIT_FAILURE
+  bool test2 = game_equal(g, g2); //false
 
   game_delete(g);
   game_delete(g2);
@@ -163,7 +163,7 @@ int test_get_next_number(){
         return EXIT_FAILURE;
     }
     if(game_get_next_number(g, 5, 0, RIGHT, 1)!=-1){
-        game_delete(g);
+        game_delete(g); *
         return EXIT_FAILURE;
     }
     game_delete(g);
@@ -177,9 +177,9 @@ int test_get_number(){
   int one = game_get_number(g, 0, 1);
   game_delete(g);
   if (empty != -1 || zero != 0 || one != 1){
-    return EXIT_FAILURE;
+    return 1;
   }
-  return EXIT_SUCCESS;
+  return 0;
 }
 
 int test_game_new(){
