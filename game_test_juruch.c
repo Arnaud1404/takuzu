@@ -274,12 +274,12 @@ int main(int argcount, char *argv[]){
             }
          }
         else{
-            exit(EXIT_FAILURE);
+            return false;
         }
     }
     if (test == true){
-        exit(EXIT_SUCCESS);
+        return true;
     }
-    exit(EXIT_FAILURE);
+    return false;
 }
 
