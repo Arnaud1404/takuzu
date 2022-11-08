@@ -127,7 +127,7 @@ int test_game_equal(){
   for(int i=0;i<DEFAULT_SIZE;i++){
         for(int j=0;j<DEFAULT_SIZE;j++){
             if(game_get_square(g,i,j)!=game_get_square(g2,i,j)){
-                two=false
+                two=false;
             }
         }
     }
