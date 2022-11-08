@@ -126,6 +126,7 @@ int test_game_equal(void){
   game_delete(g);
   game_delete(g2);
   return EXIT_SUCCESS;
+}
 
 
 int test_get_next_number(){
