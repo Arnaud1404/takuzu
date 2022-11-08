@@ -30,96 +30,36 @@ int test_game_delete(){
 }
 
 int test_game_set_square(){
-    game g=game_default();
-    game gbis=game_default();
+    game g=game_new_empty();
     game_set_square(g, 0, 0, S_IMMUTABLE_ONE);
-    for(uint i=0; i<DEFAULT_SIZE; i++){
-    	for(uint j=0; j<DEFAULT_SIZE; j++){
-    		if(i==0&&j==0){
-    			if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ONE){
-    				game_delete(g);
-                    game_delete(gbis);
-        			return EXIT_FAILURE;
-        		}
-        	}	
-    		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
-        		game_delete(g);
-                game_delete(gbis);
-        		return EXIT_FAILURE;
-    		}
-    	}
+    if(game_get_number(g, 0, 0)!=1){
+        game_delete(g);
+        return EXIT_FAILURE;
     }
     game_set_square(g, 0, 0, S_ONE);
-    for(uint i=0; i<DEFAULT_SIZE; i++){
-    	for(uint j=0; j<DEFAULT_SIZE; j++){
-    		if(i==0&&j==0){
-    			if(game_get_square(g, 0, 0)!=S_ONE){
-    				game_delete(g);
-                    game_delete(gbis);
-        			return EXIT_FAILURE;
-        		}
-        	}	
-    		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
-        		game_delete(g);
-                game_delete(gbis);
-        		return EXIT_FAILURE;
-    		}
-    	}
+    if(game_get_number(g, 0, 0)!=1){
+        game_delete(g);
+        return EXIT_FAILURE;
     }
     game_set_square(g, 0, 0, S_EMPTY);
-    for(uint i=0; i<DEFAULT_SIZE; i++){
-    	for(uint j=0; j<DEFAULT_SIZE; j++){
-    		if(i==0&&j==0){
-    			if(game_get_square(g, 0, 0)!=S_EMPTY){
-    				game_delete(g);
-                    game_delete(gbis);
-        			return EXIT_FAILURE;
-        		}
-        	}	
-    		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
-        		game_delete(g);
-                game_delete(gbis);
-        		return EXIT_FAILURE;
-    		}
-    	}
-    }
-    game_set_square(g, 0, 0, S_IMMUTABLE_ZERO);
-    for(uint i=0; i<DEFAULT_SIZE; i++){
-    	for(uint j=0; j<DEFAULT_SIZE; j++){
-    		if(i==0&&j==0){
-    			if(game_get_square(g, 0, 0)!=S_IMMUTABLE_ZERO){
-    				game_delete(g);
-                    game_delete(gbis);
-        			return EXIT_FAILURE;
-        		}
-        	}	
-    		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
-        		game_delete(g);
-                game_delete(gbis);
-        		return EXIT_FAILURE;
-    		}
-    	}
+    if(game_get_number(g, 0, 0)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
     }
     game_set_square(g, 0, 0, S_ZERO);
-    for(uint i=0; i<DEFAULT_SIZE; i++){
-    	for(uint j=0; j<DEFAULT_SIZE; j++){
-    		if(i==0&&j==0){
-    			if(game_get_square(g, 0, 0)!=S_ZERO){
-    				game_delete(g);
-                    game_delete(gbis);
-        			return EXIT_FAILURE;
-        		}
-        	}	
-    		if(game_get_square(g, i, j)!=game_get_square(gbis, i, j)){
-        		game_delete(g);
-                game_delete(gbis);
-        		return EXIT_FAILURE;
-    		}
-    	}
+    if(game_get_number(g, 0, 0)!=0){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_set_square(g, 0, 0, S_IMMUTABLE_ZERO);
+    if(game_get_number(g, 0, 0)!=0){
+        game_delete(g);
+        return EXIT_FAILURE;
     }
     game_delete(g);
     return EXIT_SUCCESS;
 }
+
 
 int test_game_get_next_square(){
     game g=game_default();
