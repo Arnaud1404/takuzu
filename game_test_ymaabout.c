@@ -37,11 +37,24 @@ int test_is_over(void){
             }
             }
         }
-        
+    for(int i = 0;i<DEFAULT_SIZE;i++){
+            for(int j = 0; j <DEFAULT_SIZE;j++){
+                if(game_get_square(g1,i,j)==S_EMPTY){
+                    test1 = !game_is_over(g);
+                }
+                if(game_get_square(g1,i,j)==game_get_next_square(g,i,j,LEFT,1) && game_get_square(g1,i,j)==game_get_next_square(g,i,j,LEFT,2)){
+                    return EXIT_FAILURE;
+                }if(game_get_square(g1,i,j)==game_get_next_square(g,i,j,RIGHT,1) && game_get_square(g1,i,j)==game_get_next_square(g,i,j,RIGHT,2)){
+                    return EXIT_FAILURE;
+                }if(game_get_square(g1,i,j)==game_get_next_square(g,i,j,UP,1) && game_get_square(g1,i,j)==game_get_next_square(g,i,j,UP,2)){
+                    return EXIT_FAILURE;
+                }if(game_get_square(g1,i,j)==game_get_next_square(g,i,j,DOWN,1) && game_get_square(g1,i,j)==game_get_next_square(g,i,j,DOWN,2)){
+                    return EXIT_FAILURE;
+                } }}
 
     game_delete(g);
     game_delete(g1);
-    if (test==1 && test1==1){
+    if (test==1 && test1==0){
         return EXIT_SUCCESS;
     }
     return EXIT_FAILURE;
