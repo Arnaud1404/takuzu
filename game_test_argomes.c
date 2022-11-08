@@ -119,17 +119,25 @@ int test_game_equal(void){
   game_restart(g2);
   game_set_square(g, 0, 4, S_ZERO);
   bool test3 = !game_equal(g, g2); 
-
-
+  bool test4 = true;
+  for(int i = 0; i<DEFAULT_SIZE;i++){
+    for(int j = 0;j<DEFAULT_SIZE;j++){
+      if(game_get_square(g,i,j)!=game_get_square(g2,i,j)){
+         test4 = !game_equal(g,g2);
+      }
+    }
+  }
+ 
   game_delete(g);
   game_delete(g2);
   
 
-  if (test1 && test2 && test3) {
+  if (test1 && test2 && test3 && test4) {
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
 }
+
 
 int test_get_next_number(){
   game g=game_default();
