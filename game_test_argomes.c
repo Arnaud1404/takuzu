@@ -114,13 +114,19 @@ int test_game_equal(void){
   game g = game_default();
   game g2 = game_default();
   bool test1 = game_equal(g, g2); //true
-  game_play_move(g, 0, 4, S_ONE);
+  for(int i =0;)
+  game_set_square(g, 0, 4, S_ONE);
   bool test2 = !game_equal(g, g2); //false
+  game_restart(g2);
+  game_set_square(g, 0, 4, S_ZERO);
+  bool test3 = !game_equal(g, g2); 
+
 
   game_delete(g);
   game_delete(g2);
+  
 
-  if (test1 && test2) {
+  if (test1 && test2 && test3) {
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
