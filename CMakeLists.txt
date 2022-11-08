@@ -29,7 +29,6 @@ add_test(test_juruch_test_dummy ./game_test_juruch dummy)
 add_test(test_juruch_test_game_new_empty ./game_test_juruch game_new_empty)
 add_test(test_juruch_test_game_delete ./game_test_juruch game_delete)
 add_test(test_juruch_test_game_set_square ./game_test_juruch game_set_square)
-add_test(test_juruch_test_game_get_next_square ./game_test_juruch game_get_next_square)
 add_test(test_juruch_test_game_default ./game_test_juruch game_default)
 add_test(test_juruch_test_game_default_solution ./game_test_juruch game_default_solution)
 
