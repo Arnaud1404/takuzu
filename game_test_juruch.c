@@ -24,13 +24,9 @@ int test_game_new_empty(){
 
 int test_game_delete(){
     game g=game_default();
-    game_set_square(g, 0, 0, S_ONE);
-    game_set_square(g, 5, 0, S_ZERO);
     game_delete(g);
-    if(g==NULL){
-        return EXIT_SUCCESS;
-    }
-    return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+   
 }
 
 int test_game_set_square(){
