@@ -60,7 +60,6 @@ int test_game_set_square(){
     return EXIT_SUCCESS;
 }
 
-
 int test_game_get_next_square(){
     game g=game_default();
     if(game_get_next_square(g, 0, 0, RIGHT, 1)!=S_IMMUTABLE_ONE){
