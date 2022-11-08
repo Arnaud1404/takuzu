@@ -114,7 +114,6 @@ int test_game_equal(void){
   game g = game_default();
   game g2 = game_default();
   bool test1 = game_equal(g, g2); //true
-  for(int i =0;)
   game_set_square(g, 0, 4, S_ONE);
   bool test2 = !game_equal(g, g2); //false
   game_restart(g2);
