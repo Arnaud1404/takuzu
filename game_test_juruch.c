@@ -155,11 +155,7 @@ int main(int argcount, char *argv[]){
                 test = test_game_set_square();
             }
         }
-        else if (strcmp(argv[1],"game_get_next_square") == 0){
-            if(test_game_get_next_square()){
-                test = test_game_get_next_square();
-            }
-        }
+        
         else if (strcmp(argv[1],"game_default") == 0){
             if(test_game_default()){
                 test = test_game_default();
