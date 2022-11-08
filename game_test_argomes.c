@@ -111,23 +111,25 @@ int test_game_is_empty(void){
 }
 
 int test_game_equal(void){
-  game g = game_default();
-  game g2 = game_default();
-  bool test= game_equal(g,g2);
-  for(int i=0;i<DEFAULT_SIZE;i++){
-        for(int j=0;j<DEFAULT_SIZE;j++){
-            if(game_get_square(g,i,j)!=game_get_square(g2,i,j)){
-                game_delete(g);
-                game_delete(g2);
-                return EXIT_FAILURE;
-            }
-        }
-    }
-  game_delete(g);
-  game_delete(g2);
-  return EXIT_SUCCESS;
-}
+ game g = game_default();
+ game g2 = game_default();
+ bool test1 = game_equal(g, g2); //true
+ game_set_square(g, 0, 4, S_ONE);
+ bool test2 = !game_equal(g, g2); //false
+ game_restart(g2);
+ game_set_square(g, 0, 4, S_ZERO);
+ bool test3 = !game_equal(g, g2); 
 
+
+ game_delete(g);
+ game_delete(g2);
+ 
+
+ if (test1 && test2 && test3) {
+  return EXIT_SUCCESS;
+ }
+ return EXIT_FAILURE;
+}
 
 int test_get_next_number(){
   game g=game_default();
