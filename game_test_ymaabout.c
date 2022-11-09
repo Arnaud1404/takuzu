@@ -23,36 +23,29 @@ int test_is_over(void){
     bool test1 = !game_is_over(g1);
     
 
-    for(int i = 0;i<DEFAULT_SIZE;i++){
-            for(int j = 0; j <DEFAULT_SIZE;j++){
+    for(int i = 0;i<DEFAULT_SIZE-2;i++){
+            for(int j = 0; j <DEFAULT_SIZE-2;j++){
                 if(game_get_square(g1,i,j)==S_EMPTY){
                     test1 = !game_is_over(g1);
                 }else{
-                if(game_get_square(g1,i,j)==game_get_next_square(g1,i,j,LEFT,1) && game_get_square(g1,i,j)==game_get_next_square(g1,i,j,LEFT,2)){
+                if(game_get_number(g1,i,j)==game_get_number(g,i,j+1) && game_get_number(g1,i,j)==game_get_number(g1,i,j+2)){
                     return EXIT_FAILURE;
-                }if(game_get_square(g1,i,j)==game_get_next_square(g1,i,j,RIGHT,1) && game_get_square(g1,i,j)==game_get_next_square(g1,i,j,RIGHT,2)){
-                    return EXIT_FAILURE;
-                }if(game_get_square(g1,i,j)==game_get_next_square(g1,i,j,UP,1) && game_get_square(g1,i,j)==game_get_next_square(g1,i,j,UP,2)){
-                    return EXIT_FAILURE;
-                }if(game_get_square(g1,i,j)==game_get_next_square(g1,i,j,DOWN,1) && game_get_square(g1,i,j)==game_get_next_square(g1,i,j,DOWN,2)){
+                }if(game_get_number(g1,i,j)==game_get_number(g1,i+1,j) && game_get_number(g1,i,j)==game_get_number(g1,i+2,j)){
                     return EXIT_FAILURE;
                 } }}}
-    for(int i = 0;i<DEFAULT_SIZE;i++){
-            for(int j = 0; j <DEFAULT_SIZE;j++){
+    for(int i = 0;i<DEFAULT_SIZE-2;i++){
+            for(int j = 0; j <DEFAULT_SIZE-2;j++){
                 if(game_get_square(g,i,j)==S_EMPTY){
 
                     test1 = !game_is_over(g);
                 }else{
-                if(game_get_square(g,i,j)==game_get_next_square(g,i,j,LEFT,1) && game_get_square(g,i,j)==game_get_next_square(g,i,j,LEFT,2)){
+                if(game_get_number(g,i,j)==game_get_number(g,i,j+1) && game_get_number(g,i,j)==game_get_number(g,i,j+2)){
                     return EXIT_FAILURE;
-                }if(game_get_square(g,i,j)==game_get_next_square(g,i,j,RIGHT,1) && game_get_square(g,i,j)==game_get_next_square(g,i,j,RIGHT,2)){
+                }if(game_get_number(g,i,j)==game_get_number(g,i+1,j) && game_get_number(g,i,j)==game_get_number(g,i+2,j)){
                     return EXIT_FAILURE;
-                }if(game_get_square(g,i,j)==game_get_next_square(g,i,j,UP,1) && game_get_square(g,i,j)==game_get_next_square(g,i,j,UP,2)){
-                    return EXIT_FAILURE;
-                }if(game_get_square(g,i,j)==game_get_next_square(g,i,j,DOWN,1) && game_get_square(g,i,j)==game_get_next_square(g,i,j,DOWN,2)){
-                    return EXIT_FAILURE;
-                } }}}
 
+                } }}}
+    
     game_delete(g);
     game_delete(g1);
     printf("%d",test);
