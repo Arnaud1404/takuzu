@@ -24,8 +24,8 @@ int test_is_over(void){
     square array [] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO};
     game g2 = game_new(array);
     bool test2 =!game_is_over(g2);
-    square array2 [] = {S_ONE,S_ZERO,S_ZERO,S_ONE,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO};
-    game g3 = game_new(array2);
+    game g3 = game_default_solution();
+    game_set_square(g,0,0,S_ONE);
     bool test3 =! game_is_over(g3);
     game_delete(g);
     game_delete(g1);
