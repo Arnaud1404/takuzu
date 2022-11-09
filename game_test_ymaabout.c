@@ -24,10 +24,14 @@ int test_is_over(void){
     square array [] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO};
     game g2 = game_new(array);
     bool test2 =!game_is_over(g2);
+    square array2 [] = {S_ONE,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO};
+    game g3 = game_new(array2);
+    bool test3 =! game_is_over(g3);
     game_delete(g);
     game_delete(g1);
     game_delete(g2);
-    if (test && test1 && test2){
+    game_delete(g3);
+    if (test && test1 && test2 &&test3){
         return EXIT_SUCCESS;
     }return EXIT_FAILURE;
 }
