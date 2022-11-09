@@ -19,20 +19,20 @@ void usage(int argc, char *argv[])
 int test_is_over(void){
     game g = game_default_solution();
     game g1 = game_default();
+    game g2 = game_new_empty();
+    bool test3 = !game_is_over(g2);
     bool test = game_is_over(g);
     bool test1 = !game_is_over(g1);
     
 
     for(int i = 0;i<DEFAULT_SIZE-2;i++){
             for(int j = 0; j <DEFAULT_SIZE-2;j++){
-                if(game_get_square(g1,i,j)==S_EMPTY){
-                    test1 = !game_is_over(g1);
-                }else{
+
                 if(game_get_number(g1,i,j)==game_get_number(g,i,j+1) && game_get_number(g1,i,j)==game_get_number(g1,i,j+2)){
                     return EXIT_FAILURE;
                 }if(game_get_number(g1,i,j)==game_get_number(g1,i+1,j) && game_get_number(g1,i,j)==game_get_number(g1,i+2,j)){
                     return EXIT_FAILURE;
-                } }}}
+                } }}
     for(int i = 0;i<DEFAULT_SIZE-2;i++){
             for(int j = 0; j <DEFAULT_SIZE-2;j++){
                 if(game_get_square(g,i,j)==S_EMPTY){
@@ -48,8 +48,6 @@ int test_is_over(void){
     
     game_delete(g);
     game_delete(g1);
-    printf("%d",test);
-    printf("%d",test1);
     if (test==1 && test1==1){
         return EXIT_SUCCESS;
     }

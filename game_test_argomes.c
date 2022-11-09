@@ -113,32 +113,14 @@ int test_game_is_empty(void){
 int test_game_equal(){
   game g=game_default();
   game g2=game_default();
-  bool one=true, two=true;
-  bool test=game_equal(g, g2); //true
-  for(int i=0;i<DEFAULT_SIZE;i++){
-        for(int j=0;j<DEFAULT_SIZE;j++){
-            if(game_get_square(g,i,j)!=game_get_square(g2,i,j)){
-               one=false;
-            }
-        }
-    }
-  game_set_square(g,5,0,S_ZERO);
-  bool test2=game_equal(g, g2); //false
-  for(int i=0;i<DEFAULT_SIZE;i++){
-        for(int j=0;j<DEFAULT_SIZE;j++){
-            if(game_get_square(g,i,j)!=game_get_square(g2,i,j)){
-                two=false;
-            }
-        }
-    }
-  if(test!=one||test2!=two){
-    game_delete(g);
-    game_delete(g2);
-    return EXIT_FAILURE;
-  }
+  bool test1 = game_equal(g,g2);
+  game_set_square(g2,0,1,S_ONE);
+  bool test2 = game_equal(g,g2);
   game_delete(g);
   game_delete(g2);
-  return EXIT_SUCCESS;
+  if(test1 == true && test2 == false){
+    return EXIT_SUCCESS;
+  }return EXIT_FAILURE;
 }
 
 int test_get_next_number(){
