@@ -25,7 +25,7 @@ int test_is_over(void){
     game g2 = game_new(array);
     bool test2 =!game_is_over(g2);
     game g3 = game_default_solution();
-    game_set_square(g,0,0,S_ONE);
+    game_set_square(g3,0,0,S_ONE);
     bool test3 =! game_is_over(g3);
     game_delete(g);
     game_delete(g1);
