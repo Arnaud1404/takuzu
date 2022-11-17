@@ -34,9 +34,9 @@ typedef enum {
   S_IMMUTABLE_ONE,  /**< an immutable one square */
 } square;
 
-struct game{
+typedef struct game{
     // à compléter
-}
+}game_s;
 /**
  * @brief The four cardinal directions in the game grid.
  **/
