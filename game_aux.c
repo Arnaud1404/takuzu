@@ -28,7 +28,7 @@ void game_print(cgame g){}
  * @return the created game
  **/
 game game_default(void){
-    game g ;
+    game g = malloc(sizeof(g)) ;
     return g;
 }
 
@@ -38,8 +38,8 @@ game game_default(void){
  * @return the created game
  **/
 game game_default_solution(void){
-    game g ;
-    return g;
+    game g1 = malloc(sizeof(game)) ;
+    return g1;
 }
 
 #endif  // __GAME_AUX_H__

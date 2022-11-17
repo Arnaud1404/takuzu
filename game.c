@@ -12,6 +12,7 @@
 #define __GAME_H__
 
 #include <stdbool.h>
+#include "game.h"
 
 /**
  * @brief Standard unsigned integer type.
@@ -35,7 +36,7 @@ typedef enum {
 } square;
 
 struct game_s{
-    square* tab[DEFAULT_SIZE*DEFAULT_SIZE];
+    square* tab;
 };
 /**
  * @brief The four cardinal directions in the game grid.
@@ -62,9 +63,9 @@ typedef const struct game_s* cgame;
  * @return the created game
  **/
 game game_new(square* squares){
-    game g ;
+    game g = malloc(sizeof(game));
     return g;
-};
+}
 
 /**
  * @brief Creates a new empty game with defaut size.
@@ -72,9 +73,9 @@ game game_new(square* squares){
  * @return the created game
  **/
 game game_new_empty(void){
-    game g;
+    game g = malloc(sizeof(game));
     return g;
-};
+}
 
 /**
  * @brief Duplicates a game.
@@ -83,9 +84,9 @@ game game_new_empty(void){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 game game_copy(cgame g){
-    game g1 ;
+    game g1 = malloc(sizeof(game));
     return g1;
-};
+}
 
 /**
  * @brief Tests if two games are equal.
@@ -133,7 +134,7 @@ void game_set_square(game g, uint i, uint j, square s){};
  **/
 square game_get_square(cgame g, uint i, uint j){
     return S_EMPTY;
-};
+}
 
 /**
  * @brief Gets the square number (immutable or not).
@@ -147,7 +148,7 @@ square game_get_square(cgame g, uint i, uint j){
  **/
 int game_get_number(cgame g, uint i, uint j){
     return EXIT_SUCCESS;
-};
+}
 
 /**
  * @brief Gets the value of the next square in a given direction.
@@ -165,7 +166,7 @@ int game_get_number(cgame g, uint i, uint j){
  **/
 int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
     return EXIT_SUCCESS;
-};
+}
 
 /**
  * @brief Gets the value of the next square in a given direction.
@@ -183,7 +184,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
  **/
 int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
     return EXIT_SUCCESS;
-};
+}
 
 /**
  * @brief Test if a given square is empty.
@@ -197,7 +198,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
  **/
 bool game_is_empty(cgame g, uint i, uint j){
     return true;
-};
+}
 
 /**
  * @brief Test if a given square is immutable.
@@ -211,7 +212,7 @@ bool game_is_empty(cgame g, uint i, uint j){
  **/
 bool game_is_immutable(cgame g, uint i, uint j){
     return true;
-};
+}
 
 /**
  * @brief Test if a given square has an error
@@ -225,7 +226,7 @@ bool game_is_immutable(cgame g, uint i, uint j){
  **/
 int game_has_error(cgame g, uint i, uint j){
     return EXIT_SUCCESS;
-};
+}
 
 /**
  * @brief Checks if a given move is legal.
@@ -243,7 +244,7 @@ int game_has_error(cgame g, uint i, uint j){
  **/
 bool game_check_move(cgame g, uint i, uint j, square s){
     return true;
-};
+}
 
 /**
  * @brief Plays a move in a given square.
@@ -259,7 +260,7 @@ bool game_check_move(cgame g, uint i, uint j, square s){
  **/
 void game_play_move(game g, uint i, uint j, square s){
 
-};
+}
 
 /**
  * @brief Checks if the game is won.
@@ -271,7 +272,7 @@ void game_play_move(game g, uint i, uint j, square s){
  **/
 bool game_is_over(cgame g){
     return true;
-};
+}
 
 /**
  * @brief Restarts a game.
@@ -280,6 +281,6 @@ bool game_is_over(cgame g){
  * @param g the game
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-void game_restart(game g){};
+void game_restart(game g){}
 
 #endif  // __GAME_H__
