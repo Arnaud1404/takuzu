@@ -34,8 +34,8 @@ typedef enum {
   S_IMMUTABLE_ONE,  /**< an immutable one square */
 } square;
 
-struct game{
-    // à compléter
+struct game_s{
+    square** tab;
 }
 /**
  * @brief The four cardinal directions in the game grid.
@@ -62,6 +62,9 @@ typedef const struct game_s* cgame;
  * @return the created game
  **/
 game game_new(square* squares){
+    square** t;
+    game g = {t};
+    return g;
 };
 
 /**
@@ -69,7 +72,11 @@ game game_new(square* squares){
  * @details All squares are initialized with empty squares.
  * @return the created game
  **/
-game game_new_empty(void);
+game game_new_empty(void){
+    square** t;
+    game g = {t};
+    return g;
+};
 
 /**
  * @brief Duplicates a game.
@@ -77,7 +84,11 @@ game game_new_empty(void);
  * @return the copy of the game
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-game game_copy(cgame g);
+game game_copy(cgame g){
+    square** t;
+    game g = {t};
+    return g;
+};
 
 /**
  * @brief Tests if two games are equal.
@@ -87,14 +98,16 @@ game game_copy(cgame g);
  * @pre @p g1 must be a valid pointer toward a game structure.
  * @pre @p g2 must be a valid pointer toward a game structure.
  **/
-bool game_equal(cgame g1, cgame g2);
+bool game_equal(cgame g1, cgame g2){
+    return true;
+};
 
 /**
  * @brief Deletes the game and frees the allocated memory.
  * @param g the game to delete
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-void game_delete(game g);
+void game_delete(game g){};
 
 /**
  * @brief Sets the value of a given square.

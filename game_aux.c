@@ -20,20 +20,28 @@
  * @param g the game
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-void game_print(cgame g);
+void game_print(cgame g){};
 
 /**
  * @brief Creates the default game.
  * @details See the description of the default game in @ref index.
  * @return the created game
  **/
-game game_default(void);
+game game_default(void){
+    square** t;
+    game g = {t};
+    return g;
+};
 
 /**
  * @brief Creates the default game solution.
  * @details See the description of the default game in @ref index.
  * @return the created game
  **/
-game game_default_solution(void);
+game game_default_solution(void){
+    square** t;
+    game g = {t};
+    return g;
+};
 
 #endif  // __GAME_AUX_H__
