@@ -62,7 +62,7 @@ typedef const struct game_s* cgame;
  * @return the created game
  **/
 game game_new(square* squares){
-    square** t;
+    square* t;
     game g = {t};
     return g;
 };
@@ -73,7 +73,7 @@ game game_new(square* squares){
  * @return the created game
  **/
 game game_new_empty(void){
-    square** t;
+    square* t;
     game g = {t};
     return g;
 };
@@ -85,7 +85,7 @@ game game_new_empty(void){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 game game_copy(cgame g){
-    square** t;
+    square* t;
     game g = {t};
     return g;
 };
