@@ -28,7 +28,7 @@ void game_print(cgame g){};
  * @return the created game
  **/
 game game_default(void){
-    square** t;
+    square* t;
     game g = {t};
     return g;
 };
@@ -39,7 +39,7 @@ game game_default(void){
  * @return the created game
  **/
 game game_default_solution(void){
-    square** t;
+    square* t;
     game g = {t};
     return g;
 };
