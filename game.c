@@ -63,7 +63,12 @@ typedef const struct game_s* cgame;
  * @return the created game
  **/
 game game_new(square* squares){
+<<<<<<< HEAD
     game g = malloc(sizeof(game));
+=======
+    square* t;
+    game g = {t};
+>>>>>>> 24e5b70d9f7d916d3416211d7fdf6833f5d3cc7c
     return g;
 }
 
@@ -73,7 +78,12 @@ game game_new(square* squares){
  * @return the created game
  **/
 game game_new_empty(void){
+<<<<<<< HEAD
     game g = malloc(sizeof(game));
+=======
+    square* t;
+    game g = {t};
+>>>>>>> 24e5b70d9f7d916d3416211d7fdf6833f5d3cc7c
     return g;
 }
 
@@ -84,9 +94,16 @@ game game_new_empty(void){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 game game_copy(cgame g){
+<<<<<<< HEAD
     game g1 = malloc(sizeof(game));
     return g1;
 }
+=======
+    square* t;
+    game g = {t};
+    return g;
+};
+>>>>>>> 24e5b70d9f7d916d3416211d7fdf6833f5d3cc7c
 
 /**
  * @brief Tests if two games are equal.
