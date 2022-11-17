@@ -35,7 +35,7 @@ typedef enum {
 } square;
 
 struct game_s{
-    square** tab;
+    square** tab[DEFAULT_SIZE][DEFAULT_SIZE];
 };
 /**
  * @brief The four cardinal directions in the game grid.
