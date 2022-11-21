@@ -64,6 +64,7 @@ typedef const struct game_s* cgame;
  **/
 game game_new(square* squares){
     game g = malloc(sizeof(game));
+    g->tab = squares;
     return g;
 }
 
