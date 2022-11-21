@@ -33,7 +33,7 @@ void game_print(cgame g){
 
     for(int i = 0; i < DEFAULT_SIZE ; i++){
         printf("%d |",i);
-        for(int j = 0; j < DEFAUlt_SIZE;j++){
+        for(int j = 0; j < DEFAULT_SIZE;j++){
             if(game_get_square(g,i,j)==S_EMPTY){
                 printf(" ");
             }
