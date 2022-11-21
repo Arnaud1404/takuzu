@@ -75,12 +75,15 @@ game game_new(square* squares){
  **/
 game game_new_empty(void){
    game g = malloc(sizeof(game));
-    for(int i=0, i<DEFAULT_SIZE,i++){
-        for(int j=0, j<DEFAULT_SIZE,j++){
-            game_set_square(g,i,j,S_EMPTY)
-        }
-    }
-    return g;
+   square* tableau = malloc(sizeof(square)*DEFAULT_SIZE*DEFAULT_SIZE);
+   if(g == NULL || tableau == NULL ){
+    exit(EXIT_FAILURE);
+   }
+   for(int i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i ++){
+    tableau[i] = S_EMPTY;
+   }
+   g->tab = tableau;
+   return g;
 }
 
 /**
@@ -104,14 +107,18 @@ game game_copy(cgame g){
  **/
 bool game_equal(cgame g1, cgame g2){
     return true;
-};
+}
 
 /**
  * @brief Deletes the game and frees the allocated memory.
  * @param g the game to delete
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-void game_delete(game g){};
+void game_delete(game g){
+    if(g != NULL){
+        free(g);
+    }
+}
 
 /**
  * @brief Sets the value of a given square.
@@ -128,8 +135,16 @@ void game_delete(game g){};
  **/
 void game_set_square(game g, uint i, uint j, square s){
      if(g==NULL){
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
+    int compteur = 0;
+    for(int a = 0; a < i; a ++){
+        for(int b = 0; b <j; b++){
+            compteur += 1;
+        }
+
+    }
+    g->tab[compteur]=s;
 }
 
 /**
