@@ -301,7 +301,10 @@ void game_play_move(game g, uint i, uint j, square s){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 bool game_is_over(cgame g){
-    return true;
+    if(g == NULL){
+        return EXIT_FAILURE;
+    }
+    game g1 = game
 }
 
 /**
@@ -311,6 +314,8 @@ bool game_is_over(cgame g){
  * @param g the game
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-void game_restart(game g){}
+void game_restart(game g){
+
+}
 
 #endif  // __GAME_H__
