@@ -269,7 +269,12 @@ bool game_check_move(cgame g, uint i, uint j, square s){
  * @pre The square at position (i,j) must not be an immutable square.
  **/
 void game_play_move(game g, uint i, uint j, square s){
-
+    if (g == NULL){
+        exit(EXIT_FAILURE);
+    }
+    if(game_check_move(g,i,j,s)){
+        game_set_square(g,i,j,s);
+    }
 }
 
 /**
