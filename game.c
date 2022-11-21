@@ -73,7 +73,12 @@ game game_new(square* squares){
  * @return the created game
  **/
 game game_new_empty(void){
-    game g = malloc(sizeof(game));
+   game g = malloc(sizeof(game));
+    for(int i=0, i<DEFAULT_SIZE,i++){
+        for(int j=0, j<DEFAULT_SIZE,j++){
+            game_set_square(g,i,j,S_EMPTY)
+        }
+    }
     return g;
 }
 
@@ -120,7 +125,11 @@ void game_delete(game g){};
  * @pre @p j < game width
  * @pre @p s must be a valid square value.
  **/
-void game_set_square(game g, uint i, uint j, square s){};
+void game_set_square(game g, uint i, uint j, square s){
+     if(g==NULL){
+        return EXIT_FAILURE;
+    }
+}
 
 /**
  * @brief Gets the value of a given square.
