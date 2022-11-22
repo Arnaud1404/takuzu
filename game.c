@@ -96,7 +96,7 @@ game game_copy(cgame g){
     game g1 = malloc(sizeof(game));
     square* tableau = malloc(sizeof(square)*DEFAULT_SIZE*DEFAULT_SIZE);
     for(int i = 0; i <DEFAULT_SIZE*DEFAULT_SIZE;i++){
-        g1->tab[i] = g->tab[i]
+        g1->tab[i] = g->tab[i];
     }
     return g1;
 }
