@@ -94,6 +94,10 @@ game game_new_empty(void){
  **/
 game game_copy(cgame g){
     game g1 = malloc(sizeof(game));
+    square* tableau = malloc(sizeof(square)*DEFAULT_SIZE*DEFAULT_SIZE);
+    for(int i = 0; i <DEFAULT_SIZE*DEFAULT_SIZE;i++){
+        g1->tab[i] = g->tab[i]
+    }
     return g1;
 }
 
@@ -106,6 +110,11 @@ game game_copy(cgame g){
  * @pre @p g2 must be a valid pointer toward a game structure.
  **/
 bool game_equal(cgame g1, cgame g2){
+    for(int i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i ++){
+        if(g1->tab[i] != g2->tab[i]){
+            return false;
+        }
+    }
     return true;
 }
 
@@ -115,9 +124,11 @@ bool game_equal(cgame g1, cgame g2){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 void game_delete(game g){
-    if(g != NULL){
-        free(g);
+    if(g->tab != NULL){
+        free(g->tab);
     }
+    if(g != NULL){
+    free(g);}
 }
 
 /**
@@ -158,7 +169,17 @@ void game_set_square(game g, uint i, uint j, square s){
  * @return the square value
  **/
 square game_get_square(cgame g, uint i, uint j){
-    return S_EMPTY;
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    int compteur = 0;
+    for(int a = 0; a < i; a ++){
+        for(int b = 0; b <j; b++){
+            compteur += 1;
+        }
+
+    }
+    return g->tab[compteur];
 }
 
 /**
@@ -172,7 +193,26 @@ square game_get_square(cgame g, uint i, uint j){
  * @return the number of this square (0 or 1), or -1 if it is empty
  **/
 int game_get_number(cgame g, uint i, uint j){
-    return EXIT_SUCCESS;
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    int compteur = 0;
+    for(int a = 0; a < i; a ++){
+        for(int b = 0; b <j; b++){
+            compteur += 1;
+        }
+
+    }
+    square s = g->tab[compteur];
+    if (s == S_EMPTY){
+        return -1;
+    }
+    if (s == S_ZERO || s == S_IMMUTABLE_ZERO){
+        return 0;
+    }
+    if (s == S_ONE || s == S_IMMUTABLE_ONE){
+        return 1;
+    }
 }
 
 /**
@@ -190,6 +230,7 @@ int game_get_number(cgame g, uint i, uint j){
  * of the grid
  **/
 int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
+    
     return EXIT_SUCCESS;
 }
 
@@ -222,7 +263,20 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
  * @return true if the square is empty
  **/
 bool game_is_empty(cgame g, uint i, uint j){
-    return true;
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    int compteur = 0;
+    for(int a = 0; a < i; a ++){
+        for(int b = 0; b <j; b++){
+            compteur += 1;
+        }
+
+    }
+    if (g->tab[compteur] == S_EMPTY){
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -236,7 +290,20 @@ bool game_is_empty(cgame g, uint i, uint j){
  * @return true if the square is immutable
  **/
 bool game_is_immutable(cgame g, uint i, uint j){
-    return true;
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    int compteur = 0;
+    for(int a = 0; a < i; a ++){
+        for(int b = 0; b <j; b++){
+            compteur += 1;
+        }
+
+    }
+    if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE){
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -250,7 +317,83 @@ bool game_is_immutable(cgame g, uint i, uint j){
  * @return an integer error code or 0 if there are no errors.
  **/
 int game_has_error(cgame g, uint i, uint j){
-    return EXIT_SUCCESS;
+    if (g == NULL){
+        exit(EXIT_FAILURE);
+    }
+
+    square* column[DEFAULT_SIZE];
+    for(int a = 0; a < DEFAULT_SIZE; a++){
+        column[a] = g->tab[j+6*a]; //gets the j-th column
+    }
+    int cpt_zero = 0;
+    int cpt_one = 0;
+    int consecutive_zero = 0;
+    int consecutive_one = 0;
+    for(int c = 0; c < DEFAULT_SIZE; c++){
+        if (column[c] == S_ZERO || column[c] ==S_IMMUTABLE_ZERO){
+            cpt_zero++;
+            consecutive_zero++;
+            if (consecutive_zero >= 3){
+                return true;
+            }
+            if (consecutive_one != 0){
+                consecutive_one == 0;
+            }
+        }
+        else {
+            if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
+                cpt_one++;
+                consecutive_one++;
+            if (consecutive_one >= 3){
+                return true;
+            }
+            if (consecutive_zero != 0){
+                consecutive_zero == 0;
+                }
+            }
+        }
+    }
+    if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2){
+        return true;
+    }
+
+    square* row[DEFAULT_SIZE];
+    for(int a = 0; a < DEFAULT_SIZE; a++){
+        row[a] = g->tab[i*6+a]; //gets the i-th row
+    }
+
+    cpt_zero = 0;
+    cpt_one = 0;
+    consecutive_zero = 0;
+    consecutive_one = 0;
+    for(int c = 0; c < DEFAULT_SIZE; c++){
+        if (row[c] == S_ZERO || row[c] ==S_IMMUTABLE_ZERO){
+            cpt_zero++;
+            consecutive_zero++;
+            if (consecutive_zero >= 3){
+                return true;
+            }
+            if (consecutive_one != 0){
+                consecutive_one == 0;
+            }
+        }
+        else {
+            if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
+                cpt_one++;
+                consecutive_one++;
+            if (consecutive_one >= 3){
+                return true;
+            }
+            if (consecutive_zero != 0){
+                consecutive_zero == 0;
+                }
+            }
+            }
+        }
+        if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2){
+            return true;
+    }
+    return false;
 }
 
 /**
@@ -268,6 +411,25 @@ int game_has_error(cgame g, uint i, uint j){
  * @return false if the move is not legal.
  **/
 bool game_check_move(cgame g, uint i, uint j, square s){
+    if (i < 0 || j < 0 || i >= DEFAULT_SIZE || j >= DEFAULT_SIZE){
+        return false;
+    }
+    if (s != S_EMPTY || s != S_ONE || s != S_ZERO){
+        return false;
+    }
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    int compteur = 0;
+    for(int a = 0; a < i; a ++){
+        for(int b = 0; b <j; b++){
+            compteur += 1;
+        }
+
+    }
+    if(g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE){
+        return false;
+    }
     return true;
 }
 
@@ -301,10 +463,97 @@ void game_play_move(game g, uint i, uint j, square s){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 bool game_is_over(cgame g){
-    if(g == NULL){
-        return EXIT_FAILURE;
+    if (g == NULL){
+        exit(EXIT_FAILURE);
     }
-    game g1 = game
+    for(int j = 0; j < DEFAULT_SIZE;j++){ //column checks
+
+        square* column[DEFAULT_SIZE];
+        for(int a = 0; a < DEFAULT_SIZE; a++){
+            column[a] = g->tab[j+6*a]; //gets the j-th column
+            if(column[a] == S_EMPTY){
+                return false;
+            }
+        }
+
+        int cpt_zero = 0;
+        int cpt_one = 0;
+        int consecutive_zero = 0;
+        int consecutive_one = 0;
+        for(int c = 0; c < DEFAULT_SIZE; c++){
+            if (column[c] == S_ZERO || column[c] ==S_IMMUTABLE_ZERO){
+                cpt_zero++;
+                consecutive_zero++;
+                if (consecutive_zero >= 3){
+                    return false;
+                }
+                if (consecutive_one != 0){
+                    consecutive_one == 0;
+                }
+            }
+            else {
+                if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
+                    cpt_one++;
+                    consecutive_one++;
+                if (consecutive_one >= 3){
+                    return false;
+                }
+                if (consecutive_zero != 0){
+                    consecutive_zero == 0;
+                }
+            }
+            }
+
+        }
+        if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
+            return false;
+        }
+    }
+    
+    for(int i = 0; i < DEFAULT_SIZE;i++){ //row checks
+
+        square* row[DEFAULT_SIZE];
+        for(int a = 0; a < DEFAULT_SIZE; a++){
+            row[a] = g->tab[i*6+a]; //gets the i-th row
+            if(row[a] == S_EMPTY){
+                return false;
+            }
+        }
+
+        int cpt_zero = 0;
+        int cpt_one = 0;
+        int consecutive_zero = 0;
+        int consecutive_one = 0;
+        for(int c = 0; c < DEFAULT_SIZE; c++){
+            if (row[c] == S_ZERO || row[c] ==S_IMMUTABLE_ZERO){
+                cpt_zero++;
+                consecutive_zero++;
+                if (consecutive_zero >= 3){
+                    return false;
+                }
+                if (consecutive_one != 0){
+                    consecutive_one == 0;
+                }
+            }
+            else {
+                if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
+                    cpt_one++;
+                    consecutive_one++;
+                if (consecutive_one >= 3){
+                    return false;
+                }
+                if (consecutive_zero != 0){
+                    consecutive_zero == 0;
+                }
+            }
+            }
+
+        }
+        if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
+            return false;
+        }
+    }
+    return true;
 }
 
 /**
