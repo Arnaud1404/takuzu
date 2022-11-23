@@ -564,7 +564,16 @@ bool game_is_over(cgame g){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 void game_restart(game g){
-
+    if (g == NULL){
+        exit(EXIT_FAILURE);
+    }
+    for(int i=0; i<DEFAULT_SIZE; i++){
+        for(int j=0; j<DEFAULT_SIZE; j++){
+            if(game_get_square(g,i,j)==S_ONE||game_get_square(g,i,j)==S_ZERO){
+                game_set_square(g,i,j,S_EMPTY);
+            }
+        }
+    }
 }
 
 #endif  // __GAME_H__
