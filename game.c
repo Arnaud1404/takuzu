@@ -326,13 +326,8 @@ bool game_is_empty(cgame g, uint i, uint j){
     if(g==NULL){
         exit(EXIT_FAILURE);
     }
-    int compteur = 0;
-    for(int a = 0; a < i; a ++){
-        for(int b = 0; b <j; b++){
-            compteur += 1;
-        }
-
-    }
+    int compteur;
+    compteur=6*i+j;
     if (g->tab[compteur] == S_EMPTY){
         return true;
     }
