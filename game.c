@@ -152,13 +152,7 @@ void game_set_square(game g, uint i, uint j, square s){
      if(g==NULL){
         exit(EXIT_FAILURE);
     }
-    int compteur = 0;
-    for(int a = 0; a < i; a ++){
-        for(int b = 0; b <j; b++){
-            compteur += 1;
-        }
-
-    }
+    int compteur = i*6+j;
     g->tab[compteur]=s;
 }
 
@@ -194,13 +188,7 @@ int game_get_number(cgame g, uint i, uint j){
     if(g==NULL){
         exit(EXIT_FAILURE);
     }
-    int compteur = 0;
-    for(int a = 0; a < i; a ++){
-        for(int b = 0; b <j; b++){
-            compteur += 1;
-        }
-
-    }
+    int compteur = i*6+j;
     square s = g->tab[compteur];
     if (s == S_EMPTY){
         return -1;
@@ -209,7 +197,6 @@ int game_get_number(cgame g, uint i, uint j){
         return 0;
     }
         return 1;
-    
 }
 
 /**
@@ -259,7 +246,6 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
             return -1;
         }}
         return game_get_number(g,i-dist,j);
-    
 }
 
 /**
@@ -309,7 +295,6 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
             return -1;
         }}
         return game_get_number(g,i-dist,j);
-    
 }
 
 /**
@@ -348,13 +333,7 @@ bool game_is_immutable(cgame g, uint i, uint j){
     if(g==NULL){
         exit(EXIT_FAILURE);
     }
-    int compteur = 0;
-    for(int a = 0; a < i; a ++){
-        for(int b = 0; b <j; b++){
-            compteur += 1;
-        }
-
-    }
+    int compteur = i*6+j;
     if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE){
         return true;
     }
@@ -475,13 +454,7 @@ bool game_check_move(cgame g, uint i, uint j, square s){
     if(g==NULL){
         exit(EXIT_FAILURE);
     }
-    int compteur = 0;
-    for(int a = 0; a < i; a ++){
-        for(int b = 0; b <j; b++){
-            compteur += 1;
-        }
-
-    }
+    int compteur = i*6+j;
     if(g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE){
         return false;
     }
