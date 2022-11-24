@@ -64,6 +64,9 @@ typedef const struct game_s* cgame;
  **/
 game game_new(square* squares){
     game g = malloc(sizeof(game));
+    if(g == NULL){
+        exit(EXIT_FAILURE);
+    }
     g->tab = squares;
     return g;
 }
@@ -531,20 +534,20 @@ bool game_is_over(cgame g){
     }
     for(int j = 0; j < DEFAULT_SIZE;j++){ //column checks
 
-        square* column[DEFAULT_SIZE];
+        square column[DEFAULT_SIZE];
         for(int a = 0; a < DEFAULT_SIZE; a++){
-            *column[a] = g->tab[j+6*a]; //gets the j-th column
-            if(*column[a] == S_EMPTY){
+            column[a] = g->tab[j+DEFAULT_SIZE*a]; //gets the j-th column
+            if(column[a] == S_EMPTY){
                 return false;
             }
-        }
+        } 
 
         int cpt_zero = 0;
         int cpt_one = 0;
         int consecutive_zero = 0;
         int consecutive_one = 0;
         for(int c = 0; c < DEFAULT_SIZE; c++){
-            if (*column[c] == S_ZERO || *column[c] ==S_IMMUTABLE_ZERO){
+            if (column[c] == S_ZERO || column[c] ==S_IMMUTABLE_ZERO){
                 cpt_zero++;
                 consecutive_zero++;
                 if (consecutive_zero >= 3){
@@ -555,7 +558,7 @@ bool game_is_over(cgame g){
                 }
             }
             else {
-                if (*column[c] == S_ONE || *column[c] == S_IMMUTABLE_ONE){
+                if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
                     cpt_one++;
                     consecutive_one++;
                 if (consecutive_one >= 3){
@@ -575,10 +578,10 @@ bool game_is_over(cgame g){
     
     for(int i = 0; i < DEFAULT_SIZE;i++){ //row checks
 
-        square* row[DEFAULT_SIZE];
+        square row[DEFAULT_SIZE];
         for(int a = 0; a < DEFAULT_SIZE; a++){
-            *row[a] = g->tab[i*6+a]; //gets the i-th row
-            if(*row[a] == S_EMPTY){
+            row[a] = g->tab[i*6+a]; //gets the i-th row
+            if(row[a] == S_EMPTY){
                 return false;
             }
         }
@@ -588,7 +591,7 @@ bool game_is_over(cgame g){
         int consecutive_zero = 0;
         int consecutive_one = 0;
         for(int c = 0; c < DEFAULT_SIZE; c++){
-            if (*row[c] == S_ZERO || *row[c] ==S_IMMUTABLE_ZERO){
+            if (row[c] == S_ZERO || row[c] ==S_IMMUTABLE_ZERO){
                 cpt_zero++;
                 consecutive_zero++;
                 if (consecutive_zero >= 3){
@@ -599,7 +602,7 @@ bool game_is_over(cgame g){
                 }
             }
             else {
-                if (*row[c] == S_ONE || *row[c] == S_IMMUTABLE_ONE){
+                if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
                     cpt_one++;
                     consecutive_one++;
                 if (consecutive_one >= 3){
