@@ -173,13 +173,7 @@ square game_get_square(cgame g, uint i, uint j){
     if(g==NULL){
         exit(EXIT_FAILURE);
     }
-    int compteur = 0;
-    for(int a = 0; a < i; a ++){
-        for(int b = 0; b <j; b++){
-            compteur += 1;
-        }
-
-    }
+    int compteur = i*6+j;
     return g->tab[compteur];
 }
 
@@ -512,7 +506,7 @@ void game_play_move(game g, uint i, uint j, square s){
     if (g == NULL){
         exit(EXIT_FAILURE);
     }
-    if(game_check_move(g,i,j,s)){
+    if(game_check_move(g,i,j,s)==true){
         game_set_square(g,i,j,s);
     }
 }
