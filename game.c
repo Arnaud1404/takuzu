@@ -211,9 +211,8 @@ int game_get_number(cgame g, uint i, uint j){
     if (s == S_ZERO || s == S_IMMUTABLE_ZERO){
         return 0;
     }
-    if (s == S_ONE || s == S_IMMUTABLE_ONE){
         return 1;
-    }
+    
 }
 
 /**
@@ -241,29 +240,29 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
         exit(EXIT_FAILURE);
     }
     if(dir==DOWN){
-        if(j+dist>5){
+        if(i+dist>5){
             return -1;
         }
         return game_get_number(g,i,j+dist);
     }
     if(dir==UP){
-        if(j-dist<0){
+        if(i-dist<0){
             return -1;
         }
         return game_get_number(g,i,j-dist);
     }
     if(dir==RIGHT){
-        if(i+dist>5){
+        if(j+dist>5){
             return -1;
         }
         return game_get_number(g,i+dist,j);
     }
     if(dir==LEFT){
-        if(i-dist<0){
+        if(j-dist<0){
             return -1;
-        }
+        }}
         return game_get_number(g,i-dist,j);
-    }
+    
 }
 
 /**
@@ -291,29 +290,29 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
         exit(EXIT_FAILURE);
     }
     if(dir==DOWN){
-        if(j+dist>5){
+        if(i+dist>5){
             return -1;
         }
         return game_get_number(g,i,j+dist);
     }
     if(dir==UP){
-        if(j-dist<0){
+        if(i-dist<0){
             return -1;
         }
         return game_get_number(g,i,j-dist);
     }
     if(dir==RIGHT){
-        if(i+dist>5){
+        if(j+dist>5){
             return -1;
         }
         return game_get_number(g,i+dist,j);
     }
     if(dir==LEFT){
-        if(i-dist<0){
+        if(j-dist<0){
             return -1;
-        }
+        }}
         return game_get_number(g,i-dist,j);
-    }
+    
 }
 
 /**
