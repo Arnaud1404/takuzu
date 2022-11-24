@@ -17,11 +17,11 @@ void usage(int argc, char *argv[])
 }
 
 int test_is_over(void){
-    game g = game_default_solution();
+     game g = game_default_solution();
     game g1 = game_default();
     bool test = game_is_over(g);
     bool test1  =! game_is_over(g1);
-    square array [36] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE};
+    square array [] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE};
     game g2 = game_new(array);
     bool test2 =!game_is_over(g2);
     game g3 = game_default_solution();
@@ -33,7 +33,8 @@ int test_is_over(void){
     game_delete(g3);
     if (test && test1 && test2 &&test3){
         return EXIT_SUCCESS;
-    }return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
 }
 
 

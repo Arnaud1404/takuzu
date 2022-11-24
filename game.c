@@ -448,7 +448,7 @@ bool game_check_move(cgame g, uint i, uint j, square s){
     if (i < 0 || j < 0 || i >= DEFAULT_SIZE || j >= DEFAULT_SIZE){
         return false;
     }
-    if (s != S_EMPTY || s != S_ONE || s != S_ZERO){
+    if (s != S_EMPTY && s != S_ONE && s != S_ZERO){
         return false;
     }
     if(g==NULL){
