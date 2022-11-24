@@ -231,8 +231,39 @@ int game_get_number(cgame g, uint i, uint j){
  * of the grid
  **/
 int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
-    
-    return EXIT_SUCCESS;
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    if(i<0||j<0||i>5||j>5){
+        exit(EXIT_FAILURE);
+    }
+    if(dist>2){
+        exit(EXIT_FAILURE);
+    }
+    if(dir==DOWN){
+        if(j+dist>5){
+            return -1;
+        }
+        return game_get_number(g,i,j+dist);
+    }
+    if(dir==UP){
+        if(j-dist<0){
+            return -1;
+        }
+        return game_get_number(g,i,j-dist);
+    }
+    if(dir==RIGHT){
+        if(i+dist>5){
+            return -1;
+        }
+        return game_get_number(g,i+dist,j);
+    }
+    if(dir==LEFT){
+        if(i-dist<0){
+            return -1;
+        }
+        return game_get_number(g,i-dist,j);
+    }
 }
 
 /**
@@ -250,7 +281,39 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
    empty or out of the grid
  **/
 int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
-    return EXIT_SUCCESS;
+    if(g==NULL){
+        exit(EXIT_FAILURE);
+    }
+    if(i<0||j<0||i>5||j>5){
+        exit(EXIT_FAILURE);
+    }
+    if(dist>2){
+        exit(EXIT_FAILURE);
+    }
+    if(dir==DOWN){
+        if(j+dist>5){
+            return -1;
+        }
+        return game_get_number(g,i,j+dist);
+    }
+    if(dir==UP){
+        if(j-dist<0){
+            return -1;
+        }
+        return game_get_number(g,i,j-dist);
+    }
+    if(dir==RIGHT){
+        if(i+dist>5){
+            return -1;
+        }
+        return game_get_number(g,i+dist,j);
+    }
+    if(dir==LEFT){
+        if(i-dist<0){
+            return -1;
+        }
+        return game_get_number(g,i-dist,j);
+    }
 }
 
 /**
