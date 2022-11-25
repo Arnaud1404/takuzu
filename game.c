@@ -67,6 +67,9 @@ game game_new(square* squares){
     if(g == NULL){
         exit(EXIT_FAILURE);
     }
+    if(squares == NULL){
+        exit(EXIT_FAILURE);
+    }
     g->tab = squares;
     return g;
 }
