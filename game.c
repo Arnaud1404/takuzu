@@ -279,25 +279,25 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist){
         if(i+dist>5){
             return -1;
         }
-        return game_get_number(g,i,j+dist);
+        return game_get_number(g,i+dist,j);
     }
     if(dir==UP){
         if(i-dist<0){
             return -1;
         }
-        return game_get_number(g,i,j-dist);
+        return game_get_number(g,i-dist,j);
     }
     if(dir==RIGHT){
         if(j+dist>5){
             return -1;
         }
-        return game_get_number(g,i+dist,j);
+        return game_get_number(g,i,j+dist);
     }
     if(dir==LEFT){
         if(j-dist<0){
             return -1;
         }}
-        return game_get_number(g,i-dist,j);
+        return game_get_number(g,i,j-dist);
 }
 
 /**
