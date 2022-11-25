@@ -60,7 +60,83 @@ int test_game_set_square(){
     return EXIT_SUCCESS;
 }
 
+int test_game_get_next_square(){
+  game g=game_default();
+    if(game_get_next_number(g, 0, 0, RIGHT, 1)!=1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 0, 3, LEFT, 1)!=0){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_set_square(g, 3, 4, S_ONE);
+    if(game_get_next_number(g, 5, 4, UP, 2)!=1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_set_square(g, 5, 0, S_ZERO);
+    if(game_get_next_number(g, 3, 0, DOWN, 2)!=0){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 0, 5, DOWN, 2)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 3, 2, UP, 2)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 1, 0, DOWN, 1)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 1, 5, LEFT, 2)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    if(game_get_next_number(g, 5, 0, RIGHT, 1)!=-1){
+        game_delete(g);
+        return EXIT_FAILURE;
+    }
+    game_delete(g);
+    return EXIT_SUCCESS;
+}
 
+int test_get_number(){
+  game g = game_default();
+  int empty = game_get_number(g, 0, 0);
+  int zero = game_get_number(g, 0, 2);
+  int one = game_get_number(g, 0, 1);
+  game_delete(g);
+  if (empty != -1 || zero != 0 || one != 1){
+    return EXIT_FAILURE;
+  }
+  return EXIT_SUCCESS;
+}
+
+int test_game_new(){
+  int n = DEFAULT_SIZE*DEFAULT_SIZE;
+  square* squares = malloc(n*sizeof(square));
+  for(int i = 0; i < n; i++){
+    squares[i] = S_EMPTY;
+  }
+  squares[1] = S_IMMUTABLE_ZERO;
+  squares[35] = S_IMMUTABLE_ONE;
+  game g = game_new(squares);
+  square immutable_zero = game_get_square(g, 0, 1);
+  square immutable_one = game_get_square(g, 5, 5);
+  square empty = game_get_square(g, 0, 0);
+  if (immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE && empty == S_EMPTY){
+    free(squares);
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  free(squares);
+  game_delete(g);
+  return EXIT_FAILURE;
+}
 
 
 int test_game_default(){
@@ -155,7 +231,11 @@ int main(int argcount, char *argv[]){
                 test = test_game_set_square();
             }
         }
-        
+        else if (strcmp(argv[1],"game_get_next_square") == 0){
+            if(test_game_get_next_square()){
+                test = test_game_get_next_square();
+            }
+        }
         else if (strcmp(argv[1],"game_default") == 0){
             if(test_game_default()){
                 test = test_game_default();
