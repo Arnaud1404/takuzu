@@ -188,6 +188,9 @@ int game_get_number(cgame g, uint i, uint j){
     if(g==NULL){
         exit(EXIT_FAILURE);
     }
+    if(i<0||j<0||i>5||j>5){
+        exit(EXIT_FAILURE);
+    }
     int compteur = i*6+j;
     square s = g->tab[compteur];
     if (s == S_EMPTY){
