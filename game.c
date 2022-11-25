@@ -367,14 +367,14 @@ int game_has_error(cgame g, uint i, uint j){
         if (column[c] == S_ZERO || column[c] ==S_IMMUTABLE_ZERO){
            cpt_zero++;
            consecutive_zero++;
-            if (consecutive_zero >= 3){
+            if (consecutive_zero == 3){
                 return true;
             }
             if (consecutive_one != 0){
                 consecutive_one = 0;
             }
         }
-        else {
+
             if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
                 cpt_one++;
                 consecutive_one++;
@@ -385,8 +385,11 @@ int game_has_error(cgame g, uint i, uint j){
                 consecutive_zero = 0;
                 }
             }
-        }
-    }
+            else{
+            consecutive_one = 0;
+            consecutive_zero=0;}
+        
+    
     if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
         return false;
     }
@@ -404,29 +407,31 @@ int game_has_error(cgame g, uint i, uint j){
         if (row[c] == S_ZERO || row[c] ==S_IMMUTABLE_ZERO){
             cpt_zero++;
             consecutive_zero++;
-            if (consecutive_zero >= 3){
+            if (consecutive_zero == 3){
                 return true;
             }
             if (consecutive_one != 0){
                 consecutive_one = 0;
             }
         }
-        else {
             if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
                 cpt_one++;
                 consecutive_one++;
-            if (consecutive_one >= 3){
+            if (consecutive_one == 3){
                 return true;
             }
             if (consecutive_zero != 0){
                 consecutive_zero = 0;
                 }
             }
-            }
+            else{
+            consecutive_zero = 0;
+            consecutive_one=0;}
+            
         }
         if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
             return false;
-    }
+    }}
     return true;
 }
 
@@ -500,7 +505,7 @@ bool game_is_over(cgame g){
         }
     }
     for(int a = 0; a <DEFAULT_SIZE;a++){
-        for(int b = 0; b<DEFAULT_SIZE;a++){
+        for(int b = 0; b<DEFAULT_SIZE;b++){
             if(game_has_error(g,a,b)){
                 return false;
             }
