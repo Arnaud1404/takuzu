@@ -49,7 +49,7 @@ int test_game_restart(void){
         return EXIT_SUCCESS;
     }
     game_delete(g);
-        game_delete(g2);
+    game_delete(g2);
     return EXIT_FAILURE;
 }
 

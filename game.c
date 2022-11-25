@@ -131,11 +131,11 @@ bool game_equal(cgame g1, cgame g2){
  * @pre @p g must be a valid pointer toward a game structure.
  **/
 void game_delete(game g){
-    if(g->tab != NULL){
-        free(g->tab);
+    if(g == NULL){
+        return;
     }
-    if(g != NULL){
-    free(g);}
+    free(g->tab);
+    free(g);
 }
 
 /**

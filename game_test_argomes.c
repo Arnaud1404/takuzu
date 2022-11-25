@@ -182,21 +182,19 @@ int test_get_number(){
 int test_game_new(){
   int n = DEFAULT_SIZE*DEFAULT_SIZE;
   square* squares = malloc(n*sizeof(square));
-  for(int i = 0; i < n; i++){
+  for(int i = 0; i < n-2; i++){
     squares[i] = S_EMPTY;
   }
-  squares[1] = S_IMMUTABLE_ZERO;
+  squares[34] = S_IMMUTABLE_ZERO;
   squares[35] = S_IMMUTABLE_ONE;
   game g = game_new(squares);
-  square immutable_zero = game_get_square(g, 0, 1);
+  square immutable_zero = game_get_square(g, 5, 4);
   square immutable_one = game_get_square(g, 5, 5);
   square empty = game_get_square(g, 0, 0);
   if (immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE && empty == S_EMPTY){
-    free(squares);
     game_delete(g);
     return EXIT_SUCCESS;
   }
-  free(squares);
   game_delete(g);
   return EXIT_FAILURE;
 }
