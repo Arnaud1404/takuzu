@@ -1,4 +1,12 @@
-clang-format --11
-clang-format-11 -style=google -dump-config > .clang-format
-ColumnLimit:     120
-clang-format-11 -i *.c *.h
+---
+Language: Cpp
+BasedOnStyle: Google
+ColumnLimit: 120
+TabWidth: 8
+UseTab: Never
+DerivePointerAlignment: false
+PointerAlignment: Left
+# BreakBeforeBraces: Attach
+BreakBeforeBraces: Linux
+IndentWidth: 4 
+---
