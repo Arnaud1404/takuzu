@@ -2,6 +2,14 @@
 
 ---
 Language: Cpp
+BasedOnStyle: Google
+ColumnLimit: 120
+TabWidth: 8
+UseTab: Never
+DerivePointerAlignment: false
+PointerAlignment: Left
+# BreakBeforeBraces: Attach
+BreakBeforeBraces: Linux
 ---
 
 # Warning: an empty line is required at the end of this file.
