@@ -31,7 +31,7 @@ int test_is_over(void){
     game_delete(g1);
     game_delete(g2);
     game_delete(g3);
-    if (test && test1 && test2 &&test3){
+    if (test && test1 && test2 && test3){
         return EXIT_SUCCESS;
     }
     return EXIT_SUCCESS;
@@ -65,8 +65,10 @@ int test_play_move(void){
     game_set_square(g1,0,0,S_ZERO);
     if(game_equal(g,g1)==false){game_delete(g);game_delete(g1);
         return EXIT_FAILURE;
-    }game_delete(g);game_delete(g1);
-return EXIT_SUCCESS;
+    }
+    game_delete(g);
+    game_delete(g1);
+    return EXIT_SUCCESS;
 }
 
 int test_check_move(void){
@@ -92,12 +94,11 @@ int test_check_move(void){
         }
     }
     if(test1 == 0 && test8 == 0 && test9 == 0 && test10 == 0 && test2 == 0 && test6 == 0 && test7 == 0 && test3 == 1 && test4 == 1 && test5 == 1){
-        game_delete(g);return EXIT_SUCCESS;
-    }game_delete(g);
+        game_delete(g);
+        return EXIT_SUCCESS;
+    }
+    game_delete(g);
     return EXIT_FAILURE;
-
-
-
 }
 
 int test_game_print(void){
@@ -106,7 +107,9 @@ int test_game_print(void){
     if(g == NULL){
         game_delete(g);
         return EXIT_FAILURE;
-    }game_delete(g);return EXIT_SUCCESS;
+    }
+    game_delete(g);
+    return EXIT_SUCCESS;
 }
 
 int main(int argcount, char *argv[]){

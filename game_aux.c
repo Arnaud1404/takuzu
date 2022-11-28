@@ -49,7 +49,6 @@ void game_print(cgame g){
             if(game_get_square(g,i,j)==S_IMMUTABLE_ZERO){
                 printf("W");
             }
-            
         }printf("|\n");
     }printf("  ------ \n");
 }
