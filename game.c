@@ -394,8 +394,6 @@ int game_has_error(cgame g, uint i, uint j){
             else{
             consecutive_one = 0;
             consecutive_zero=0;}
-        
-    
     if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
         return false;
     }
@@ -433,7 +431,6 @@ int game_has_error(cgame g, uint i, uint j){
             else{
             consecutive_zero = 0;
             consecutive_one=0;}
-            
         }
         if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
             return false;
@@ -522,7 +519,7 @@ bool game_is_over(cgame g){
     }
     return true;
 }
-    
+
 
 /**
  * @brief Restarts a game.
