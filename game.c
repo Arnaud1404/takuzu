@@ -63,19 +63,15 @@ typedef const struct game_s* cgame;
  * @return the created game
  **/
 game game_new(square* squares){
-    game g = malloc(sizeof(game));
-    square* squares_copy = malloc(sizeof(square)*6);
-
-    if(g == NULL){
+    game g =(game) malloc(sizeof(game));
+    square* tableau = malloc(sizeof(square)*DEFAULT_SIZE*DEFAULT_SIZE);
+    if(g == NULL || tableau == NULL ){
         exit(EXIT_FAILURE);
     }
-    if(squares == NULL || squares_copy == NULL){
-        exit(EXIT_FAILURE);
+    for(int i = 0; i<DEFAULT_SIZE*DEFAULT_SIZE; i++){
+        tableau[i] = squares[i];
     }
-    for(int i = 0; i <DEFAULT_SIZE*DEFAULT_SIZE;i++){
-        squares_copy[i] = squares[i];
-    }
-    g->tab = squares_copy;
+    g->tab = tableau;
     return g;
 }
 

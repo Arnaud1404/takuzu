@@ -20,16 +20,12 @@ int test_is_over(void){
     game g = game_default_solution();
     game g1 = game_default();
     bool test = game_is_over(g);
-    bool test1  =! game_is_over(g1);
-     square array [] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE};
-    game g2 = game_new(array);
-    bool test2 =!game_is_over(g2);
+    bool test1 = !game_is_over(g1);
     game_set_square(g,0,0,S_ONE);
-    bool test3 =! game_is_over(g);
+    bool test2 = !game_is_over(g);
     game_delete(g);
     game_delete(g1);
-    game_delete(g2);
-    if (test && test1 && test2 && test3){
+    if (test && test1 && test2){
         return EXIT_SUCCESS;
     }
     return EXIT_FAILURE;
