@@ -153,7 +153,7 @@ int test_get_next_number(){
         game_delete(g);
         return EXIT_FAILURE;
     }
-    if(game_get_next_number(g, 1, 0, DOWN, 1)!=-1){
+    if(game_get_next_number(g, 5, 0, DOWN, 1)!=-1){
         game_delete(g);
         return EXIT_FAILURE;
     }

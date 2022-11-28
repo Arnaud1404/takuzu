@@ -87,7 +87,7 @@ int test_game_get_next_square(){
         game_delete(g);
         return EXIT_FAILURE;
     }
-    if(game_get_next_square(g, 1, 0, DOWN, 1)!=S_EMPTY){
+    if(game_get_next_square(g, 5, 0, DOWN, 1)!=-1){
         game_delete(g);
         return EXIT_FAILURE;
     }
