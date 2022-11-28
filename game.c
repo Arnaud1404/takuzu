@@ -64,13 +64,18 @@ typedef const struct game_s* cgame;
  **/
 game game_new(square* squares){
     game g = malloc(sizeof(game));
+    square* squares_copy = malloc(sizeof(square)*6);
+
     if(g == NULL){
         exit(EXIT_FAILURE);
     }
-    if(squares == NULL){
+    if(squares == NULL || squares_copy == NULL){
         exit(EXIT_FAILURE);
     }
-    g->tab = squares;
+    for(int i = 0; i <DEFAULT_SIZE*DEFAULT_SIZE;i++){
+        squares_copy[i] = squares[i];
+    }
+    g->tab = squares_copy;
     return g;
 }
 
