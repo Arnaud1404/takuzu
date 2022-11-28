@@ -21,16 +21,14 @@ int test_is_over(void){
     game g1 = game_default();
     bool test = game_is_over(g);
     bool test1  =! game_is_over(g1);
-    square array [] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE};
+     square array [] = {S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ONE,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ZERO,S_ONE,S_ONE,S_ONE};
     game g2 = game_new(array);
     bool test2 =!game_is_over(g2);
-    game g3 = game_default_solution();
-    game_set_square(g3,0,0,S_ONE);
-    bool test3 =! game_is_over(g3);
+    game_set_square(g,0,0,S_ONE);
+    bool test3 =! game_is_over(g);
     game_delete(g);
     game_delete(g1);
     game_delete(g2);
-    game_delete(g3);
     if (test && test1 && test2 && test3){
         return EXIT_SUCCESS;
     }
