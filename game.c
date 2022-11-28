@@ -241,7 +241,8 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
         return game_get_square(g,i+dist,j);
     }
     if(dir==UP){
-        if(i-dist<0){
+        int m = i-dist;
+        if(m<0){
             return -1;
         }
         return game_get_square(g,i-dist,j);
@@ -253,10 +254,13 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
         return game_get_square(g,i,j+dist);
     }
     if(dir==LEFT){
-        if(j-dist<0){
+        int d=j-dist;
+        if(d<0){
             return -1;
-        }}
+        }
         return game_get_square(g,i,j-dist);
+    }
+    return EXIT_FAILURE;
 }
 
 /**
