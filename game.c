@@ -361,6 +361,15 @@ bool game_is_immutable(cgame g, uint i, uint j){
  * @pre @p j < game width
  * @return an integer error code or 0 if there are no errors.
  **/
+int game_donne_nombre(square s){
+    if(s == S_IMMUTABLE_ONE || s == S_ONE){
+        return 1;
+    }
+    if(s == S_IMMUTABLE_ZERO|| s == S_ZERO){
+        return 0;
+    }
+    return -1;
+}
 int game_has_error(cgame g, uint i, uint j){
     if (g == NULL){
         exit(EXIT_FAILURE);
@@ -368,7 +377,9 @@ int game_has_error(cgame g, uint i, uint j){
 
     square column[] = {S_EMPTY,S_EMPTY,S_EMPTY,S_EMPTY,S_EMPTY,S_EMPTY};
     for(int a = 0; a < DEFAULT_SIZE; a++){
-        column[a] = g->tab[j+6*a]; //gets the j-th column
+        column[a] = g->tab[j+6*a];
+
+         //gets the j-th column
     }
     int cpt_zero = 0;
     int cpt_one = 0;
@@ -376,8 +387,8 @@ int game_has_error(cgame g, uint i, uint j){
     int consecutive_one = 0;
     for(int c = 0; c < DEFAULT_SIZE; c++){
         if (column[c] == S_ZERO || column[c] ==S_IMMUTABLE_ZERO){
-           cpt_zero++;
-           consecutive_zero++;
+           cpt_zero = cpt_zero +1;
+           consecutive_zero = consecutive_zero +1;
             if (consecutive_zero == 3){
                 return true;
             }
@@ -387,35 +398,39 @@ int game_has_error(cgame g, uint i, uint j){
         }
 
             if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
-                cpt_one++;
-                consecutive_one++;
-            if (consecutive_one >= 3){
+                cpt_one = cpt_one +1;
+                consecutive_one += 1;
+                printf("ok %d\n",consecutive_one);
+            if (consecutive_one == 3){
                 return true;
             }
             if (consecutive_zero != 0){
                 consecutive_zero = 0;
                 }
             }
-            else{
+            else{ if(column[c] == S_EMPTY){
             consecutive_one = 0;
-            consecutive_zero=0;}
-    if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
-        return false;
-    }
+            consecutive_zero=0;}}
+    if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2){
+        return true;
+    }}
 
     square row[]={S_EMPTY,S_EMPTY,S_EMPTY,S_EMPTY,S_EMPTY,S_EMPTY};
     for(int a = 0; a < DEFAULT_SIZE; a++){
         row[a] = g->tab[i*6+a]; //gets the i-th row
+        int b = game_donne_nombre(row[a]);
+        printf(" %d",b);
     }
-
+    printf(" \n");
     cpt_zero = 0;
     cpt_one = 0;
     consecutive_zero = 0;
     consecutive_one = 0;
     for(int c = 0; c < DEFAULT_SIZE; c++){
+        printf("%d\n",consecutive_zero);
         if (row[c] == S_ZERO || row[c] ==S_IMMUTABLE_ZERO){
-            cpt_zero++;
-            consecutive_zero++;
+            cpt_zero=cpt_zero+1;
+            consecutive_zero= consecutive_zero +1;
             if (consecutive_zero == 3){
                 return true;
             }
@@ -424,8 +439,8 @@ int game_has_error(cgame g, uint i, uint j){
             }
         }
             if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
-                cpt_one++;
-                consecutive_one++;
+                cpt_one+= 1;
+                consecutive_one+=1;
             if (consecutive_one == 3){
                 return true;
             }
@@ -433,14 +448,14 @@ int game_has_error(cgame g, uint i, uint j){
                 consecutive_zero = 0;
                 }
             }
-            else{
+            else{if(row[c]==S_EMPTY){
             consecutive_zero = 0;
-            consecutive_one=0;}
-        }
-        if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
-            return false;
-    }}
-    return true;
+            consecutive_one=0;}}
+        
+        if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2){
+            return true;}
+    }
+    return false;
 }
 
 /**

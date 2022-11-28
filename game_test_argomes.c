@@ -34,7 +34,9 @@ int test_game_has_error(void)
 
   game_set_square(g, 5, 4, S_ZERO);
   game_set_square(g, 5, 3, S_ZERO); // 3 white in a row
+  printf("test7 \n");
   bool test7 = game_has_error(g, 5, 3); //EXIT_SUCCESS
+  printf("test8 \n");
   bool test8 = game_has_error(g, 5, 4); //EXIT_SUCCESS
   game_set_square(g, 5, 4, S_EMPTY); //removes error
   bool test9 = !game_has_error(g, 5, 3); //EXIT_FAILURE
@@ -48,6 +50,7 @@ int test_game_has_error(void)
   bool test12 = !game_has_error(g, 4, 0); //EXIT_FAILURE
 
   game_delete(g);
+  printf("%d %d %d %d %d %d %d %d %d %d %d %d",test1,test2,test3,test4,test5,test6,test7,test8,test9,test10,test11,test12);
   if(test1 && test2 && test3 && test4 && test5 && test6 && test7 && test8 && test9 && test10 && test11 && test12){
     return EXIT_SUCCESS;
   }
