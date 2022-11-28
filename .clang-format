@@ -1,4 +1,7 @@
+# clang format style by aurelien.esnard@u-bordeaux.fr
+
 ---
+clang-format-11
 Language: Cpp
 BasedOnStyle: Google
 ColumnLimit: 120
@@ -8,5 +11,6 @@ DerivePointerAlignment: false
 PointerAlignment: Left
 # BreakBeforeBraces: Attach
 BreakBeforeBraces: Linux
-IndentWidth: 4 
 ---
+
+# Warning: an empty line is required at the end of this file.
