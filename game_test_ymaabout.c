@@ -34,7 +34,7 @@ int test_is_over(void){
     if (test && test1 && test2 &&test3){
         return EXIT_SUCCESS;
     }
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 }
 
 

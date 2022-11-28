@@ -505,6 +505,9 @@ bool game_is_over(cgame g){
     if (g == NULL){
         exit(EXIT_FAILURE);
     }
+    if(g->tab == NULL){
+        exit(EXIT_FAILURE);
+    }
     for(int i = 0; i<DEFAULT_SIZE*DEFAULT_SIZE;i++){
         if(g->tab[i] == S_EMPTY){
             return false;
