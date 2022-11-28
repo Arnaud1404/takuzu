@@ -381,20 +381,22 @@ int game_has_error(cgame g, uint i, uint j){
             }
         }
 
-            if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
-                cpt_one++;
-                consecutive_one++;
-            if (consecutive_one >= 3){
+        if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE){
+            cpt_one++;
+            consecutive_one++;
+            if (consecutive_one == 3){
                 return true;
             }
             if (consecutive_zero != 0){
                 consecutive_zero = 0;
-                }
             }
-            else{
+        }
+        else{
             consecutive_one = 0;
-            consecutive_zero=0;}
-    if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
+            consecutive_zero=0;
+        }
+    }
+    if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2){
         return false;
     }
 
@@ -418,23 +420,23 @@ int game_has_error(cgame g, uint i, uint j){
                 consecutive_one = 0;
             }
         }
-            if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
-                cpt_one++;
-                consecutive_one++;
+        if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE){
+            cpt_one++;
+            consecutive_one++;
             if (consecutive_one == 3){
                 return true;
             }
             if (consecutive_zero != 0){
                 consecutive_zero = 0;
                 }
-            }
-            else{
+        }
+        else{
             consecutive_zero = 0;
             consecutive_one=0;}
-        }
-        if (cpt_zero != DEFAULT_SIZE / 2 || cpt_one != DEFAULT_SIZE / 2){
-            return false;
-    }}
+    }
+    if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2){
+        return false;
+    }
     return true;
 }
 

@@ -52,7 +52,6 @@ int test_game_has_error(void)
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
-  
 }
 
 int test_game_copy(void){
