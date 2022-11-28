@@ -406,8 +406,7 @@ int game_has_error(cgame g, uint i, uint j){
             }
             if (consecutive_zero != 0){
                 consecutive_zero = 0;
-                }
-            }
+            }}
             else{ if(column[c] == S_EMPTY){
             consecutive_one = 0;
             consecutive_zero=0;}}
