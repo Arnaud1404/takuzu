@@ -38,6 +38,10 @@ typedef enum {
 
 struct game_s {
   square* tab;
+  int col;
+  int row;
+  bool wrap;
+  bool uni;
 };
 /**
  * @brief The four cardinal directions in the game grid.
