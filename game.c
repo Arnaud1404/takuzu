@@ -12,7 +12,7 @@
 #define __GAME_H__
 
 #include <stdbool.h>
-
+#include "queue.h"
 #include "game.h"
 
 /**
@@ -42,6 +42,8 @@ struct game_s {
   int row;
   bool wrap;
   bool uni;
+  queue* to_undo;
+  queue* to_redo;
 };
 /**
  * @brief The four cardinal directions in the game grid.
@@ -77,6 +79,10 @@ game game_new(square* squares)
     tableau[i] = squares[i];
   }
   g->tab = tableau;
+  queue* s = queue_new();
+  queue* t = queue_new();
+  g->to_redo = s;
+  g->to_undo = t;
   return g;
 }
 
