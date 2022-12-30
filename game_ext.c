@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "game.h"
 #include "game_struct.h"
+#include "queue.h"
 
 struct game_s {
   square* tab;
