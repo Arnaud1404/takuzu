@@ -8,12 +8,12 @@ set(CMAKE_C_FLAGS "-std=c99 -g -Wall")
 link_directories(${CMAKE_SOURCE_DIR})
 
 
-add_executable(game_text game_text.c)
+add_executable(game_text game_text.c game_ext.c)
 add_executable(game_test_ymaabout game_test_ymaabout.c)
 add_executable(game_test_juruch game_test_juruch.c)
 add_executable(game_test_argomes game_test_argomes.c)
 
-add_library(game game.c game_aux.c game_ext.c)
+add_library(game game.c game_aux.c)
 
 target_link_libraries(game_text game)
 target_link_libraries(game_test_ymaabout game)
