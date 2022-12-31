@@ -541,6 +541,9 @@ void game_play_move(game g, uint i, uint j, square s)
   if (game_check_move(g, i, j, s) == true) {
     game_set_square(g, i, j, s);
   }
+  g->to_undo->length+=1;
+  g->to_redo->length+=1;
+  //nouveau movement en tête
 }
 
 /**
