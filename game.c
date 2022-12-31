@@ -1,73 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-/**
- * @file game.h
- * @brief Basic Game Functions.
- * @details See @ref index for further details.
- * @copyright University of Bordeaux. All rights reserved, 2021.
- **/
-
-#ifndef __GAME_H__
-#define __GAME_H__
-
 #include <stdbool.h>
 #include "queue.h"
 #include "game.h"
+#include "queue.h"
+#include "game_struct.h"
 
-/**
- * @brief Standard unsigned integer type.
- **/
-typedef unsigned int uint;
-
-/**
- * @brief Size of the default game grid.
- **/
-#define DEFAULT_SIZE 6
-
-/**
- * @brief The different squares used in the game.
- **/
-typedef enum {
-  S_EMPTY,          /**< an empty square */
-  S_ZERO,           /**< a zero square */
-  S_ONE,            /**< a one square */
-  S_IMMUTABLE_ZERO, /**< an immutable zero square */
-  S_IMMUTABLE_ONE,  /**< an immutable one square */
-} square;
-
-struct game_s {
-  square* tab;
-  int col;
-  int row;
-  bool wrap;
-  bool uni;
-  queue* to_undo;
-  queue* to_redo;
-};
-/**
- * @brief The four cardinal directions in the game grid.
- **/
-typedef enum { UP, DOWN, LEFT, RIGHT } direction;
-
-/**
- * @brief The structure pointer that stores the game state.
- **/
-typedef struct game_s* game;
-
-/**
- * @brief The structure constant pointer that stores the game state.
- * @details That means that it is not possible to modify the game using this
- * pointer.
- **/
-typedef const struct game_s* cgame;
-
-/**
- * @brief Creates a new game with default size and initializes it.
- * @param squares an array describing the initial state of each square using row-major storage
- * @pre @p squares must be an initialized array of default size squared.
- * @return the created game
- **/
 game game_new(square* squares)
 {
   game g = (game)malloc(sizeof(game));
@@ -653,5 +591,3 @@ void game_restart(game g)
   queue_clear(g->to_undo);
   queue_clear(g->to_redo);
 }
-
-#endif  // __GAME_H__
