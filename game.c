@@ -194,7 +194,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     exit(EXIT_FAILURE);
   }
   if(g->wrap==false){
-    if (i > 5 || j > 5){
+    if (i > g->row || j > g->col){
         exit(EXIT_FAILURE);
     }
   }
