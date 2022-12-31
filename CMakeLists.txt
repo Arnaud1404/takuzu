@@ -13,7 +13,7 @@ add_executable(game_test_ymaabout game_test_ymaabout.c)
 add_executable(game_test_juruch game_test_juruch.c)
 add_executable(game_test_argomes game_test_argomes.c)
 
-add_library(game game.c game_aux.c)
+add_library(game game.c game_aux.c game_ext.c queue.c)
 
 target_link_libraries(game_text game)
 target_link_libraries(game_test_ymaabout game)
