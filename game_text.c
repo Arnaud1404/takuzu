@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "game_aux.h"
+#include "game_ext.h"
 #define DEFAULT_SIZE 6
 
 void help(void)
@@ -14,6 +15,8 @@ void help(void)
   printf("-press 'e <i> <j>' to empty square (i,j)\n");
   printf("-press 'r' to restart \n");
   printf("-press 'q' to quit \n");
+  printf("-press z to undo\n");
+  printf("-press y to redo\n");
 }
 
 int main(void)
@@ -66,6 +69,10 @@ int main(void)
         if (game_check_move(g, it, jt, jouer) == true) {
           game_play_move(g, it, jt, jouer);
         }
+      } else if (charc == 'z') {
+        game_undo(g);
+      } else if (charc == 'y') {
+        game_redo(g);
       }
     }
   }
