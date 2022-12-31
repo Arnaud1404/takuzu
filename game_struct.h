@@ -1,7 +1,8 @@
-#include "queue.h"
-#include<stdbool.h>
-#include<stdlib.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
 #include "game.h"
+#include "queue.h"
 struct game_s {
   square* tab;
   int col;
@@ -12,4 +13,11 @@ struct game_s {
   queue* to_redo;
 };
 
+struct move_s {
+  square s;
+  int i;
+  int j;
+};
+
 typedef struct game_s* game;
+typedef struct move_s move_t;
