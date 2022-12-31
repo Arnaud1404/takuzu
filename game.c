@@ -5,7 +5,6 @@
 #include "game.h"
 #include "queue.h"
 #include "game_struct.h"
-#include "game_ext.h"
 
 game game_new(square* squares)
 {
@@ -17,22 +16,11 @@ game game_new(square* squares)
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = squares[i];
   }
-  g->col = DEFAULT_SIZE;
-  g->row = DEFAULT_SIZE;
-  
+  g->tab = tableau;
   queue* s = queue_new();
   queue* t = queue_new();
   g->to_redo = s;
   g->to_undo = t;
-
-  if (g->to_undo == NULL || g->to_redo == NULL) {
-        free(tableau);
-        free(g->to_undo);
-        free(g->to_redo);
-        free(g);
-        exit(EXIT_FAILURE);
-    }
-  g->tab = tableau;
   return g;
 }
 
@@ -51,18 +39,6 @@ game game_new_empty(void)
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = S_EMPTY;
   }
-  queue* s = queue_new();
-  queue* t = queue_new();
-  g->to_redo = s;
-  g->to_undo = t;
-
-  if (g->to_undo == NULL || g->to_redo == NULL) {
-        free(tableau);
-        free(g->to_undo);
-        free(g->to_redo);
-        free(g);
-        exit(EXIT_FAILURE);
-    }
   g->tab = tableau;
   return g;
 }
@@ -75,7 +51,12 @@ game game_new_empty(void)
  **/
 game game_copy(cgame g)
 {
-  game g1 = game_new_ext(g->row,g->col,g->tab,g->wrap,g->uni);
+  game g1 = malloc(sizeof(game));
+  square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
+  g1->tab = tableau;
+  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
+    g1->tab[i] = g->tab[i];
+  }
   return g1;
 }
 
@@ -108,8 +89,6 @@ void game_delete(game g)
     return;
   }
   free(g->tab);
-  free(g->to_redo);
-  free(g->to_undo);
   free(g);
 }
 
