@@ -1,20 +1,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "game.h"
 #include "game_struct.h"
-#include "queue.h"
-
-struct game_s {
-  square* tab;
-  int col;
-  int row;
-  bool wrap;
-  bool uni;
-  queue* to_undo;
-  queue* to_redo;
-};
-
-typedef struct game_s* game;
 
 
 game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bool unique){
@@ -73,9 +61,9 @@ void game_undo(game g){
     fprintf(stderr,"memory error\n");
     exit(EXIT_FAILURE);
   }
-  if(g->to_undo->length==0){
-    return;
-  }
+  // if(g->to_undo->length==0){
+  //   return;
+  // }
 
 }
 
@@ -84,8 +72,8 @@ void game_redo(game g){
     fprintf(stderr,"memory error\n");
     exit(EXIT_FAILURE);
   }
-  if(g->to_redo->length==0){
-    return;
-  }
+  // if(g->to_redo->length==0){
+  //   return;
+  // }
 
 }
