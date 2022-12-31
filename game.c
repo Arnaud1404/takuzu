@@ -57,6 +57,12 @@ game game_copy(cgame g)
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     g1->tab[i] = g->tab[i];
   }
+  g1->wrap = g->wrap;
+  g1->col = g->col;
+  g1->row = g->row;
+  g1->uni = g->uni;
+  g1->to_redo = g->to_redo;
+  g1->to_undo = g->to_undo;
   return g1;
 }
 
@@ -85,9 +91,6 @@ bool game_equal(cgame g1, cgame g2)
  **/
 void game_delete(game g)
 {
-  if (g == NULL) {
-    return;
-  }
   free(g->tab);
   free(g);
 }
