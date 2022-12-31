@@ -511,17 +511,23 @@ int game_has_error(cgame g, uint i, uint j)
  * @return false if the move is not legal.
  **/
 bool game_check_move(cgame g, uint i, uint j, square s)
-{
-  if (i < 0 || j < 0 || i >= DEFAULT_SIZE || j >= DEFAULT_SIZE) {
+{ 
+  if (g == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if(g->wrap == false){
+
+
+  if (i < 0 || j < 0 || i >= g->row || j >= g->col) {
     return false;
   }
   if (s != S_EMPTY && s != S_ONE && s != S_ZERO) {
     return false;
   }
-  if (g == NULL) {
-    exit(EXIT_FAILURE);
   }
-  int compteur = i * 6 + j;
+  i = i % g->row;
+  j = j% g->col;
+  int compteur = i * g->col + j;
   if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE) {
     return false;
   }
@@ -546,6 +552,8 @@ void game_play_move(game g, uint i, uint j, square s)
     exit(EXIT_FAILURE);
   }
   if (game_check_move(g, i, j, s) == true) {
+    i = i%g->col;
+    j = j% g->row ;
     game_set_square(g, i, j, s);
   }
 }
