@@ -205,7 +205,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   if (dir == DOWN) {
     if(g->wrap==false){
         if (i + dist > g->row) {
-            return -1;
+          return -1;
         }
         return game_get_square(g, i + dist, j);
     }
@@ -219,7 +219,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     if(g->wrap==false){
         int m = i - dist;
         if (m < 0) {
-            return -1;
+          return -1;
         }
         return game_get_square(g, i - dist, j);
     }
@@ -231,8 +231,8 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   if (dir == RIGHT) {
     if(g->wrap==false){
         if (j + dist > g->col) {
-        return -1;
-            }
+          return -1;
+        }
         return game_get_square(g, i, j + dist);
     }
     i=i%g->row;
@@ -244,7 +244,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     if(g->wrap==false){
         int d = j - dist;
         if (d < 0) {
-            return -1;
+          return -1;
         }
         return game_get_square(g, i, j - dist);
     }
