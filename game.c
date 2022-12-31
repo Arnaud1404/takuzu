@@ -593,6 +593,8 @@ void game_restart(game g)
       }
     }
   }
+  queue_clear(g->to_undo);
+  queue_clear(g->to_redo);
 }
 
 #endif  // __GAME_H__

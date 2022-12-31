@@ -69,9 +69,23 @@ bool game_is_unique(cgame g){
 }
 
 void game_undo(game g){
+  if(g->to_undo==NULL){
+    fprintf(stderr,"memory error\n");
+    exit(EXIT_FAILURE);
+  }
+  if(g->to_undo->length==0){
+    return;
+  }
 
 }
 
 void game_redo(game g){
+  if(g->to_redo==NULL){
+    fprintf(stderr,"memory error\n");
+    exit(EXIT_FAILURE);
+  }
+  if(g->to_redo->length==0){
+    return;
+  }
 
 }

@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "game_aux.h"
+#include "game_ext.h"
 
 int test_dummy() { return EXIT_SUCCESS; }
 
@@ -213,6 +214,10 @@ int test_game_default_solution()
   game_delete(g);
   game_delete(def);
   return EXIT_SUCCESS;
+}
+
+int test_game_undo(){
+
 }
 
 int main(int argcount, char* argv[])
