@@ -40,6 +40,12 @@ game game_new_empty(void)
     tableau[i] = S_EMPTY;
   }
   g->tab = tableau;
+  g->to_redo = queue_new();
+  g->to_undo = queue_new();
+  g->col = DEFAULT_SIZE;
+  g->row = DEFAULT_SIZE;
+  g->wrap = false;
+  g->uni = false;
   return g;
 }
 
@@ -61,8 +67,6 @@ game game_copy(cgame g)
   g1->col = g->col;
   g1->row = g->row;
   g1->uni = g->uni;
-  g1->to_redo = g->to_redo;
-  g1->to_undo = g->to_undo;
   return g1;
 }
 
@@ -75,11 +79,14 @@ game game_copy(cgame g)
  * @pre @p g2 must be a valid pointer toward a game structure.
  **/
 bool game_equal(cgame g1, cgame g2)
-{
-  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
+{ if(g1->col != g2->col || g1->row != g2->row || g1->wrap != g2->wrap || g1->uni != g2->uni){
+  return false;
+}
+  for (int i = 0; i < g1->col * g1->row; i++) {
     if (g1->tab[i] != g2->tab[i]) {
       return false;
     }
+
   }
   return true;
 }
@@ -92,6 +99,8 @@ bool game_equal(cgame g1, cgame g2)
 void game_delete(game g)
 {
   free(g->tab);
+  queue_free(g->to_redo);
+  queue_free(g->to_undo);
   free(g);
 }
 
@@ -113,7 +122,7 @@ void game_set_square(game g, uint i, uint j, square s)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  int compteur = i * 6 + j;
+  int compteur = i * g->col + j;
   g->tab[compteur] = s;
 }
 
@@ -132,7 +141,7 @@ square game_get_square(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  int compteur = i * 6 + j;
+  int compteur = i * g->col + j;
   return g->tab[compteur];
 }
 
@@ -154,7 +163,7 @@ int game_get_number(cgame g, uint i, uint j)
   if (i < 0 || j < 0 || i > 5 || j > 5) {
     exit(EXIT_FAILURE);
   }
-  int compteur = i * 6 + j;
+  int compteur = i * g->col + j;
   square s = g->tab[compteur];
   if (s == S_EMPTY) {
     return -1;
