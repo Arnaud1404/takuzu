@@ -10,6 +10,8 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   game g = (game)malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * nb_cols * nb_rows);
   if (g == NULL || tableau == NULL) {
+    free(g);
+    free(tableau);
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < nb_cols * nb_rows; i++) {
@@ -22,6 +24,12 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   g->wrap = wrapping;
   queue* s = queue_new();
   queue* t = queue_new();
+  if(s == NULL || t == NULL){
+    free(g);
+    free(tableau);
+    free(t);
+    free(s);
+  }
   g->to_undo = s;
   g->to_redo = t;
   return g;
