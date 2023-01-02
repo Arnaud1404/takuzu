@@ -375,7 +375,7 @@ bool game_is_empty(cgame g, uint i, uint j)
     exit(EXIT_FAILURE);
   }
   int compteur;
-  compteur = 6 * i + j;
+  compteur = g->row * i + j;
   if (g->tab[compteur] == S_EMPTY) {
     return true;
   }
@@ -397,7 +397,7 @@ bool game_is_immutable(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  int compteur = i * 6 + j;
+  int compteur = i * g->row + j;
   if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE) {
     return true;
   }
@@ -548,7 +548,7 @@ bool game_check_move(cgame g, uint i, uint j, square s)
   }
   i = i % g->row;
   j = j % g->col;
-  int compteur = i * g->col + j;
+  int compteur = i * g->row + j;
   if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE) {
     return false;
   }
