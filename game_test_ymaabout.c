@@ -64,10 +64,10 @@ int test_is_over(void)
   squares[31] = S_ZERO;
   game g3 = game_new_ext(8, 4, squares, true, false);
   bool test3 = game_is_over(g3);
-  free(g3);
+  game_delete(g3);
   game g4 = game_new_ext(8, 4, squares, true, true);
   bool test4 = game_is_over(g4);
-  free(g4);
+  game_delete(g4);
   free(squares);
   square* squares = malloc(20 * sizeof(square));
   squares[0] = S_ZERO;
@@ -92,10 +92,10 @@ int test_is_over(void)
   squares[19] = S_ONE;
   game g5 = game_new_ext(5, 4, squares, false, false);
   bool test5 = game_is_over(g5);
-  free(g5);
+  game_delete(g5);
   game g6 = game_new_ext(5, 4, squares, true, false);
   bool test6 = !game_is_over(g6);
-  free(g6);
+  game_delete(g6);
   free(squares);
   if (!test3 || !test4 || !test5 || !test6) {
     return EXIT_FAILURE;
