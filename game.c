@@ -211,7 +211,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       return game_get_square(g, i + dist, j);
     }
     i = i % g->row;
-    i=i+dist;
+    i = i + dist;
     i = i % g->row;
     j = j % g->col;
     return game_get_square(g, i, j);
@@ -226,8 +226,8 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       return game_get_square(g, i - dist, j);
     }
     i = i % g->row;
-    i=i-dist;
-    if (i< 0) {
+    i = i - dist;
+    if (i < 0) {
       return -1;
     }
     j = j % g->col;
@@ -243,7 +243,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     }
     i = i % g->row;
     j = j % g->col;
-    j=j+dist;
+    j = j + dist;
     j = j % g->col;
     return game_get_square(g, i, j);
   }
@@ -258,9 +258,9 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     }
     i = i % g->row;
     j = j % g->col;
-    j=j-dist;
+    j = j - dist;
     if (j < 0) {
-        return -1;
+      return -1;
     }
     return game_get_square(g, i, j);
   }
@@ -303,7 +303,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       return game_get_number(g, i + dist, j);
     }
     i = i % g->row;
-    i=i+dist;
+    i = i + dist;
     i = i % g->row;
     j = j % g->col;
     return game_get_number(g, i, j);
@@ -318,8 +318,8 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       return game_get_number(g, i - dist, j);
     }
     i = i % g->row;
-    i=i-dist;
-    if (i< 0) {
+    i = i - dist;
+    if (i < 0) {
       return -1;
     }
     j = j % g->col;
@@ -335,7 +335,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
     }
     i = i % g->row;
     j = j % g->col;
-    j=j+dist;
+    j = j + dist;
     j = j % g->col;
     return game_get_number(g, i, j);
   }
@@ -350,9 +350,9 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
     }
     i = i % g->row;
     j = j % g->col;
-    j=j-dist;
+    j = j - dist;
     if (j < 0) {
-        return -1;
+      return -1;
     }
     return game_get_number(g, i, j);
   }
@@ -578,6 +578,7 @@ void game_play_move(game g, uint i, uint j, square s)
     game_set_square(g, i, j, s);
     move_t move = {s, i, j};
     queue_push_head(g->to_undo, &move);
+    queue_clear(g->to_redo);
   }
 }
 

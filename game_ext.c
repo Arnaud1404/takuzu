@@ -60,9 +60,8 @@ void game_undo(game g)
 
   move_t* first_move = queue_pop_head(g->to_undo);
   queue_push_head(g->to_redo, first_move);
-  move_t* second_move = queue_pop_head(g->to_undo);
-  // game_play_move pushes to g->to_undo, so we pop_head instead of peek_head
-  game_play_move(g, second_move->i, second_move->j, second_move->s);
+  move_t* second_move = queue_peek_head(g->to_undo);
+  game_set_square(g, second_move->i, second_move->j, second_move->s);
 }
 
 void game_redo(game g)
@@ -75,5 +74,6 @@ void game_redo(game g)
     return;
   }
   move_t* move = queue_pop_head(g->to_redo);
-  game_play_move(g, move->i, move->j, move->s);
+  game_set_square(g, move->i, move->j, move->s);
+  queue_push_head(g->to_undo, &move);
 }
