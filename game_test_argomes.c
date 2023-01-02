@@ -275,7 +275,8 @@ int test_game_get_square()
   square one = game_get_square(g, 0, 4);
   square immutable_zero = game_get_square(g, 0, 2);
   square immutable_one = game_get_square(g, 0, 1);
-  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE) {
+  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO &&
+      immutable_one == S_IMMUTABLE_ONE) {
     game_delete(g);
     return EXIT_SUCCESS;
   }

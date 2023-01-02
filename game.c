@@ -387,16 +387,6 @@ bool game_is_immutable(cgame g, uint i, uint j)
   return false;
 }
 
-/**
- * @brief Test if a given square has an error
- * @param g the game
- * @param i row index
- * @param j column index
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @return an integer error code or 0 if there are no errors.
- **/
 int game_donne_nombre(square s)
 {
   if (s == S_IMMUTABLE_ONE || s == S_ONE) {
@@ -407,6 +397,17 @@ int game_donne_nombre(square s)
   }
   return -1;
 }
+
+/**
+ * @brief Test if a given square has an error
+ * @param g the game
+ * @param i row index
+ * @param j column index
+ * @pre @p g must be a valid pointer toward a game structure.
+ * @pre @p i < game height
+ * @pre @p j < game width
+ * @return an integer error code or 0 if there are no errors.
+ **/
 int game_has_error(cgame g, uint i, uint j)
 {
   if (g == NULL) {

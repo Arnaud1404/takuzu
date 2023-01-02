@@ -36,14 +36,14 @@ int test_game_restart(void)
   game g = game_default();
   game g2 = game_default_solution();
   game_restart(g2);
-  if (game_equal(g, g2) == true) {
+  if (!game_equal(g, g2)) {
     game_delete(g);
     game_delete(g2);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
   game_delete(g);
   game_delete(g2);
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 
 int test_play_move(void)
@@ -91,7 +91,8 @@ int test_check_move(void)
       }
     }
   }
-  if (test1 == 0 && test8 == 0 && test9 == 0 && test10 == 0 && test2 == 0 && test6 == 0 && test7 == 0 && test3 == 1 && test4 == 1 && test5 == 1) {
+  if (test1 == 0 && test8 == 0 && test9 == 0 && test10 == 0 && test2 == 0 && test6 == 0 && test7 == 0 && test3 == 1 &&
+      test4 == 1 && test5 == 1) {
     game_delete(g);
     return EXIT_SUCCESS;
   }
