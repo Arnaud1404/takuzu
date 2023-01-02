@@ -96,6 +96,7 @@ int test_is_over(void)
   game g6 = game_new_ext(5, 4, squares, true, false);
   bool test6 = !game_is_over(g6);
   free(g6);
+  free(squares);
   if (!test3 || !test4 || !test5 || !test6) {
     return EXIT_FAILURE;
   }
