@@ -27,8 +27,8 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   if (s == NULL || t == NULL) {
     free(g);
     free(tableau);
-    free(t);
-    free(s);
+    queue_free(t);
+    queue_free(s);
     exit(EXIT_FAILURE);
   }
   g->to_undo = s;
@@ -82,6 +82,8 @@ void game_redo(game g)
     return;
   }
   move_t* move = queue_pop_head(g->to_redo);
-  game_set_square(g, move->i, move->j, move->s);
-  queue_push_head(g->to_undo, &move);
+  square* old = queue_pop_head(g->to_redo);
+  game_set_square(g, move->i, move->j, *old);
+  queue_push_head(g->to_undo, old);
+  queue_push_head(g->to_undo, move);
 }

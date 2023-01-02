@@ -595,6 +595,7 @@ void game_play_move(game g, uint i, uint j, square s)
     queue_push_head(g->to_undo, &old_move);
 
     game_set_square(g, i, j, s);
+
     queue_clear(g->to_redo);
   }
 }
