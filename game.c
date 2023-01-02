@@ -261,7 +261,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     j = (j-dist)%g->col;
     return game_get_square(g, i, j);
   }
-  return EXIT_FAILURE;
+  return -1;
 }
 
 /**
