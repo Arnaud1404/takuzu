@@ -603,7 +603,7 @@ bool game_is_over(cgame g)
       int same = 0;
       for (uint l = lref+1; l < g->row; l++) {
         for (uint c = 0; c < g->col; c++) {
-          if (game_get_square(g, lref, c) == game_get_square(g, l, c)) {
+          if (game_get_number(g, lref, c) == game_get_number(g, l, c)) {
             same = same + 1;
           }
           if (same == g->col) {
@@ -616,7 +616,7 @@ bool game_is_over(cgame g)
       int same = 0;
       for (uint c = cref+1; c < g->col; c++) {
         for (uint l = 0; l < g->row; l++) {
-          if (game_get_square(g, l, cref) == game_get_square(g, l, c)) {
+          if (game_get_number(g, l, cref) == game_get_number(g, l, c)) {
             same = same + 1;
           }
           if (same == g->row) {
