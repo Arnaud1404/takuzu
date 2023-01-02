@@ -15,96 +15,6 @@ void usage(int argc, char* argv[])
   exit(EXIT_FAILURE);
 }
 
-<<<<<<< HEAD
-// int test_is_over(void)
-// {
-//   game g = game_default_solution();
-//   game g1 = game_default();
-//   bool test = game_is_over(g);
-//   bool test1 = !game_is_over(g1);
-//   game_set_square(g, 0, 0, S_ONE);
-//   bool test2 = !game_is_over(g);
-//   game_delete(g);
-//   game_delete(g1);
-//   if (!test || !test1 || !test2) {
-//     return EXIT_FAILURE;
-//   }
-
-//   square* squares = malloc(32 * sizeof(square));
-//   squares[0] = S_ZERO;
-//   squares[1] = S_ONE;
-//   squares[2] = S_ZERO;
-//   squares[3] = S_ONE;
-//   squares[4] = S_ZERO;
-//   squares[5] = S_ONE;
-//   squares[6] = S_ZERO;
-//   squares[7] = S_ONE;
-//   squares[8] = S_ZERO;
-//   squares[9] = S_ONE;
-//   squares[10] = S_ZERO;
-//   squares[11] = S_ONE;
-//   squares[12] = S_ZERO;
-//   squares[13] = S_ONE;
-//   squares[14] = S_ZERO;
-//   squares[15] = S_ONE;
-//   squares[16] = S_ONE;
-//   squares[17] = S_ZERO;
-//   squares[18] = S_ONE;
-//   squares[19] = S_ZERO;
-//   squares[20] = S_ONE;
-//   squares[21] = S_ZERO;
-//   squares[22] = S_ONE;
-//   squares[23] = S_ZERO;
-//   squares[24] = S_ONE;
-//   squares[25] = S_ZERO;
-//   squares[26] = S_ONE;
-//   squares[27] = S_ZERO;
-//   squares[28] = S_ONE;
-//   squares[29] = S_ZERO;
-//   squares[30] = S_ONE;
-//   squares[31] = S_ZERO;
-//   game g3 = game_new_ext(8, 4, squares, true, false);
-//   bool test3 = game_is_over(g3);
-//   game_delete(g3);
-//   game g4 = game_new_ext(8, 4, squares, true, true);
-//   bool test4 = game_is_over(g4);
-//   game_delete(g4);
-//   free(squares);
-//   square* squares = malloc(20 * sizeof(square));
-//   squares[0] = S_ZERO;
-//   squares[1] = S_ZERO;
-//   squares[2] = S_ONE;
-//   squares[3] = S_ONE;
-//   squares[4] = S_ZERO;
-//   squares[5] = S_ZERO;
-//   squares[6] = S_ZERO;
-//   squares[7] = S_ONE;
-//   squares[8] = S_ONE;
-//   squares[9] = S_ZERO;
-//   squares[10] = S_ONE;
-//   squares[11] = S_ONE;
-//   squares[12] = S_ZERO;
-//   squares[13] = S_ZERO;
-//   squares[14] = S_ONE;
-//   squares[15] = S_ONE;
-//   squares[16] = S_ONE;
-//   squares[17] = S_ZERO;
-//   squares[18] = S_ZERO;
-//   squares[19] = S_ONE;
-//   game g5 = game_new_ext(5, 4, squares, false, false);
-//   bool test5 = game_is_over(g5);
-//   game_delete(g5);
-//   game g6 = game_new_ext(5, 4, squares, true, false);
-//   bool test6 = !game_is_over(g6);
-//   game_delete(g6);
-//   free(squares);
-//   if (!test3 || !test4 || !test5 || !test6) {
-//     return EXIT_FAILURE;
-//   }
-
-//   return EXIT_SUCCESS;
-// }
-=======
 int test_is_over(void)
 {
   game g = game_default_solution();
@@ -120,7 +30,6 @@ int test_is_over(void)
   }
   return EXIT_SUCCESS;
 }
->>>>>>> 1015dea25742e1c78c7dc3c9b5dd8c15f3c259fc
 
 int test_game_restart(void)
 {
@@ -212,11 +121,12 @@ int main(int argcount, char* argv[])
     //   if (test_is_over()) {
     //     test = test_is_over();
     //   }
-    } else if (strcmp(argv[1], "game_restart") == 0) {
-      if (test_game_restart()) {
-        test = test_game_restart();
-      }
-    } else if (strcmp(argv[1], "play_move") == 0) {
+    // } else if (strcmp(argv[1], "game_restart") == 0) {
+    //   if (test_game_restart()) {
+    //     test = test_game_restart();
+    //   }
+    // } 
+    }else if (strcmp(argv[1], "play_move") == 0) {
       if (test_play_move()) {
         test = test_play_move();
       }
