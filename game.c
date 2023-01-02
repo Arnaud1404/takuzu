@@ -606,7 +606,7 @@ bool game_is_over(cgame g)
           if (game_get_square(g, lref, c) == game_get_square(g, l, c)) {
             same = same + 1;
           }
-          if (same == g->row) {
+          if (same == g->col) {
             return false;
           }
         }
@@ -619,7 +619,7 @@ bool game_is_over(cgame g)
           if (game_get_square(g, l, cref) == game_get_square(g, l, c)) {
             same = same + 1;
           }
-          if (same == g->col) {
+          if (same == g->row) {
             return false;
           }
         }
