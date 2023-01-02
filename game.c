@@ -336,7 +336,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_number(g, i, j - dist);
     }
-    j = (j-dist)%g->col;
+    j = (j-dist)
     return game_get_number(g, i, j);
   }
   return EXIT_FAILURE;
@@ -599,9 +599,9 @@ bool game_is_over(cgame g)
     }
   }
   if (g->uni == true) {
-    for (uint lref = 0; lref < g->row-1; lref++) {
+    for (uint lref = 0; lref < g->row; lref++) {
       int same = 0;
-      for (uint l = lref+1; l < g->row; l++) {
+      for (uint l = 0; l < g->row; l++) {
         for (uint c = 0; c < g->col; c++) {
           if (game_get_square(g, lref, c) == game_get_square(g, l, c)) {
             same = same + 1;
@@ -612,9 +612,9 @@ bool game_is_over(cgame g)
         }
       }
     }
-    for (uint cref = 0; cref < g->col-1; cref++) {
+    for (uint cref = 0; cref < g->col; cref++) {
       int same = 0;
-      for (uint c = cref+1; c < g->col; c++) {
+      for (uint c = 0; c < g->col; c++) {
         for (uint l = 0; l < g->row; l++) {
           if (game_get_square(g, l, cref) == game_get_square(g, l, c)) {
             same = same + 1;
