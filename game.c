@@ -599,7 +599,7 @@ bool game_is_over(cgame g)
     }
   }
   if (g->uni == true) {
-    for (uint lref = 0; lref < g->row; lref++) {
+    for (uint lref = 0; lref < g->row-1; lref++) {
       int same = 0;
       for (uint l = lref+1; l < g->row; l++) {
         for (uint c = 0; c < g->col; c++) {
@@ -612,7 +612,7 @@ bool game_is_over(cgame g)
         }
       }
     }
-    for (uint cref = 0; cref < g->col; cref++) {
+    for (uint cref = 0; cref < g->col-1; cref++) {
       int same = 0;
       for (uint c = cref+1; c < g->col; c++) {
         for (uint l = 0; l < g->row; l++) {
