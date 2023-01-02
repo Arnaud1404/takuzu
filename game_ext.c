@@ -27,8 +27,8 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   if(s == NULL || t == NULL){
     free(g);
     free(tableau);
-    free(t);
-    free(s);
+    queue_free(t);
+    queue_free(s);
     exit(EXIT_FAILURE);
   }
   g->to_undo = s;
