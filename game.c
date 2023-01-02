@@ -414,74 +414,45 @@ int game_has_error(cgame g, uint i, uint j)
     exit(EXIT_FAILURE);
   }
 
-  square* column = {S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY};
-  for (int a = 0; a < DEFAULT_SIZE; a++) {
-    column[a] = g->tab[j + 6 * a];
-
-    // gets the j-th column
-  }
   int cpt_zero = 0;
   int cpt_one = 0;
   int consecutive_zero = 0;
   int consecutive_one = 0;
-  for (int c = 0; c < DEFAULT_SIZE; c++) {
-    if (column[c] == S_ZERO || column[c] == S_IMMUTABLE_ZERO) {
-      cpt_zero = cpt_zero + 1;
-      consecutive_zero = consecutive_zero + 1;
-      if (consecutive_zero == 3) {
-        return true;
-      }
-      if (consecutive_one != 0) {
-        consecutive_one = 0;
-      }
-    }
-
-    if (column[c] == S_ONE || column[c] == S_IMMUTABLE_ONE) {
+  for (int c = 0; c < g->row; c++) {
+    if (game_get_number(g, c, j) == 1) {
       cpt_one = cpt_one + 1;
       consecutive_one += 1;
-      printf("ok %d\n", consecutive_one);
       if (consecutive_one == 3) {
         return true;
       }
       if (consecutive_zero != 0) {
         consecutive_zero = 0;
       }
-    } else {
-      if (column[c] == S_EMPTY) {
-        consecutive_one = 0;
-        consecutive_zero = 0;
+    } else if (game_get_number(g, c, j) == 0) {
+      cpt_zero = cpt_zero + 1;
+      consecutive_zero += 1;
+      if (consecutive_zero == 3) {
+        return true;
       }
+      if (consecutive_one != 0) {
+        consecutive_one = 0;
+      }
+    } else {
+      consecutive_one = 0;
+      consecutive_zero = 0;
     }
-    if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2) {
+    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
       return true;
     }
   }
 
-  square row[] = {S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY};
-  for (int a = 0; a < DEFAULT_SIZE; a++) {
-    row[a] = g->tab[i * 6 + a];  // gets the i-th row
-    int b = game_donne_nombre(row[a]);
-    printf(" %d", b);
-  }
-  printf(" \n");
   cpt_zero = 0;
   cpt_one = 0;
   consecutive_zero = 0;
   consecutive_one = 0;
-  for (int c = 0; c < DEFAULT_SIZE; c++) {
-    printf("%d\n", consecutive_zero);
-    if (row[c] == S_ZERO || row[c] == S_IMMUTABLE_ZERO) {
-      cpt_zero = cpt_zero + 1;
-      consecutive_zero = consecutive_zero + 1;
-      if (consecutive_zero == 3) {
-        return true;
-      }
-      if (consecutive_one != 0) {
-        consecutive_one = 0;
-      }
-    }
-    if (row[c] == S_ONE || row[c] == S_IMMUTABLE_ONE) {
-      cpt_one += 1;
+  for (int c = 0; c < g->col; c++) {
+    if (game_get_number(g, i, c) == 1) {
+      cpt_one = cpt_one + 1;
       consecutive_one += 1;
       if (consecutive_one == 3) {
         return true;
@@ -489,20 +460,55 @@ int game_has_error(cgame g, uint i, uint j)
       if (consecutive_zero != 0) {
         consecutive_zero = 0;
       }
-    } else {
-      if (row[c] == S_EMPTY) {
-        consecutive_zero = 0;
+    } else if (game_get_number(g, i, c) == 0) {
+      cpt_zero = cpt_zero + 1;
+      consecutive_zero += 1;
+      if (consecutive_zero == 3) {
+        return true;
+      }
+      if (consecutive_one != 0) {
         consecutive_one = 0;
+      }
+    } else {
+      consecutive_one = 0;
+      consecutive_zero = 0;
+    }
+    if (cpt_zero > g->col / 2 || cpt_one > g->col / 2) {
+      return true;
+    }
+  }
+  if (g->uni == true) {
+    int a = 0;
+    for (int v = 0; v < g->col; v++) {
+      if (v != j) {
+        for (int y = 0; y < g->row; y++) {
+          if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1) {
+            a += 1;
+          }
+        }
+        if (a == g->row) {
+          return true;
+        }
+        a = 0;
       }
     }
 
-    if (cpt_zero > DEFAULT_SIZE / 2 || cpt_one > DEFAULT_SIZE / 2) {
-      return true;
+    for (int v = 0; v < g->row; v++) {
+      if (v != i) {
+        for (int y = 0; y < g->col; y++) {
+          if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1) {
+            a += 1;
+          }
+          if (a == g->col) {
+            return true;
+          }
+          a = 0;
+        }
+      }
     }
   }
   return false;
 }
-
 /**
  * @brief Checks if a given move is legal.
  * @details This function checks that it is possible to play a move at a given
@@ -592,34 +598,10 @@ bool game_is_over(cgame g)
       return false;
     }
   }
-  for (int a = 0; a < g->row; a++) {
-    for (int b = 0; b < g->col; b++) {
-      if (game_has_error(g, a, b)) {
+  for (int i = 0; i < g->row; i++) {
+    for (int j = 0; j < g->col; j++) {
+      if (game_has_error(g, i, j) == true) {
         return false;
-      }
-    }
-  }
-  if (g->uni == true) {
-    for (int i = 0; i < g->row - 1; i++) {
-      int same = 0;
-      for (int j = 0; j < g->col; j++) {
-        if (game_get_number(g, i, j) == game_get_number(g, i + 1, j)) {
-          same += 1;
-          if (same == g->col) {
-            return false;
-          }
-        }
-      }
-    }
-    for (int i = 0; i < g->col - 1; i++) {
-      int same = 0;
-      for (int j = 0; j < g->row; j++) {
-        if (game_get_number(g, j, i) == game_get_number(g, j + 1, i)) {
-          same += 1;
-          if (same == g->row) {
-            return false;
-          }
-        }
       }
     }
   }
