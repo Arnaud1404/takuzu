@@ -86,6 +86,8 @@ void game_redo(game g)
     return;
   }
   move_t* move = queue_pop_head(g->to_redo);
-  game_set_square(g, move->i, move->j, move->s);
-  queue_push_head(g->to_undo, &move);
+  square* old = queue_pop_head(g->to_redo);
+  game_set_square(g, move->i, move->j, *old);
+  queue_push_head(g->to_undo,old);
+  queue_push_head(g->to_undo, move);
 }
