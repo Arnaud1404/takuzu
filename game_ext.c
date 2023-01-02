@@ -6,7 +6,7 @@
 #include "game_struct.h"
 
 game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bool unique)
-{ 
+{
   game g = (game)malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * nb_cols * nb_rows);
   if (g == NULL || tableau == NULL) {
@@ -24,7 +24,7 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   g->wrap = wrapping;
   queue* s = queue_new();
   queue* t = queue_new();
-  if(s == NULL || t == NULL){
+  if (s == NULL || t == NULL) {
     free(g);
     free(tableau);
     queue_free(t);
@@ -67,14 +67,10 @@ void game_undo(game g)
     return;
   }
 
-  move_t* first_move = queue_pop_head(g->to_undo);
-  square* old = queue_pop_head(g->to_undo);
-  game_set_square(g,first_move->i,first_move->j,*old);
-  queue_push_head(g->to_redo,old);
-  queue_push_head(g->to_redo, first_move);
-
+  move_t* move = queue_pop_head(g->to_undo);
+  queue_push_head(g->to_redo, move);
+  game_set_square(g, move->i, move->j, move->s);
 }
-
 
 void game_redo(game g)
 {
@@ -88,6 +84,6 @@ void game_redo(game g)
   move_t* move = queue_pop_head(g->to_redo);
   square* old = queue_pop_head(g->to_redo);
   game_set_square(g, move->i, move->j, *old);
-  queue_push_head(g->to_undo,old);
+  queue_push_head(g->to_undo, old);
   queue_push_head(g->to_undo, move);
 }
