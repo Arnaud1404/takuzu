@@ -123,6 +123,10 @@ void game_set_square(game g, uint i, uint j, square s)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
+  if(g->wrap=true){
+    i=i%g->row;
+    j=j%j->col;
+  }
   int compteur = i * g->col + j;
   g->tab[compteur] = s;
 }
@@ -141,6 +145,10 @@ square game_get_square(cgame g, uint i, uint j)
 {
   if (g == NULL) {
     exit(EXIT_FAILURE);
+  }
+  if(g->wrap=true){
+    i=i%g->row;
+    j=j%j->col;
   }
   int compteur = i * g->col + j;
   return g->tab[compteur];
@@ -161,8 +169,14 @@ int game_get_number(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if (i < 0 || j < 0 || i > 5 || j > 5) {
-    exit(EXIT_FAILURE);
+  if(g->wrap=false){
+    if (i < 0 || j < 0 || i > 5 || j > 5) {
+      exit(EXIT_FAILURE);
+    }
+  }
+  if(g->wrap=true){
+    i=i%g->row;
+    j=j%j->col;
   }
   int compteur = i * g->col + j;
   square s = g->tab[compteur];
