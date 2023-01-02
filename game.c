@@ -19,10 +19,10 @@ game game_new(square* squares)
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = squares[i];
   }
-  g->rows = DEFAULT_SIZE;
-  g->cols = DEFAULT_SIZE;
+  g->row = DEFAULT_SIZE;
+  g->col = DEFAULT_SIZE;
   g->wrap = false;
-  g->unique = false;
+  g->uni = false;
   g->tab = tableau;
   queue* s = queue_new();
   queue* t = queue_new();

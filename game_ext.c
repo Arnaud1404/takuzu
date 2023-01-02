@@ -6,7 +6,7 @@
 #include "game_struct.h"
 
 game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bool unique)
-{
+{ 
   game g = (game)malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * nb_cols * nb_rows);
   if (g == NULL || tableau == NULL) {
