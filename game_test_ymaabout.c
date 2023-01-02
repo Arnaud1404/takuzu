@@ -15,6 +15,7 @@ void usage(int argc, char* argv[])
   exit(EXIT_FAILURE);
 }
 
+<<<<<<< HEAD
 // int test_is_over(void)
 // {
 //   game g = game_default_solution();
@@ -103,6 +104,23 @@ void usage(int argc, char* argv[])
 
 //   return EXIT_SUCCESS;
 // }
+=======
+int test_is_over(void)
+{
+  game g = game_default_solution();
+  game g1 = game_default();
+  bool test = game_is_over(g);
+  bool test1 = !game_is_over(g1);
+  game_set_square(g, 0, 0, S_ONE);
+  bool test2 = !game_is_over(g);
+  game_delete(g);
+  game_delete(g1);
+  if (!test || !test1 || !test2) {
+    return EXIT_FAILURE;
+  }
+  return EXIT_SUCCESS;
+}
+>>>>>>> 1015dea25742e1c78c7dc3c9b5dd8c15f3c259fc
 
 int test_game_restart(void)
 {
