@@ -143,12 +143,11 @@ int test_game_get_next_square()
   //}
 
   game_delete(g);
-
   // wrapping = true
   game g2 = game_new_empty_ext(6, 6, true, true);
   game_set_square(g2, 0, 0, S_ZERO);
   game_set_square(g2, 0, 5, S_ONE);
-  game_set_square(g2, 5, 0, S_ONE);
+  game_set_square(g2, 5, 0, S_ZERO);
   if (game_get_next_square(g2, 0, 0, LEFT, 1) != S_ONE) {
     game_delete(g2);
     return EXIT_FAILURE;
@@ -165,6 +164,7 @@ int test_game_get_next_square()
     game_delete(g2);
     return EXIT_FAILURE;
   }
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 

@@ -209,7 +209,7 @@ int test_get_next_number()
   game g2 = game_new_empty_ext(6, 6, true, true);
   game_set_square(g2, 0, 0, S_ZERO);
   game_set_square(g2, 0, 5, S_ONE);
-  game_set_square(g2, 5, 0, S_ONE);
+  game_set_square(g2, 5, 0, S_ZERO);
   if (game_get_next_number(g2, 0, 0, LEFT, 1) != 1) {
     game_delete(g2);
     return EXIT_FAILURE;
@@ -226,7 +226,7 @@ int test_get_next_number()
     game_delete(g2);
     return EXIT_FAILURE;
   }
-  return EXIT_SUCCESS;
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
