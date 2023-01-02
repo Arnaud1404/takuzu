@@ -588,10 +588,12 @@ void game_play_move(game g, uint i, uint j, square s)
   if (game_check_move(g, i, j, s) == true) {
     i = i % g->col;
     j = j % g->row;
+    square old = game_get_square(g,i,j);
+    queue_push_head(g->to_undo,&old);
     game_set_square(g, i, j, s);
     move_t move = {s, i, j};
     queue_push_head(g->to_undo, &move);
-    queue_clear(g->to_redo);
+    queue_pop_head(g->to_redo);
   }
 }
 

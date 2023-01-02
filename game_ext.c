@@ -68,16 +68,13 @@ void game_undo(game g)
   }
 
   move_t* first_move = queue_pop_head(g->to_undo);
+  square* old = queue_pop_head(g->to_undo);
+  game_set_square(g,first_move->i,first_move->j,*old);
+  queue_push_head(g->to_redo,old);
   queue_push_head(g->to_redo, first_move);
-  if(queue_is_empty(g->to_undo)){
-    game_set_square(g,first_move->i,first_move->j,S_EMPTY);
-  }
-  else{
 
-  move_t* second_move = queue_peek_head(g->to_undo);
-  game_set_square(g, second_move->i, second_move->j, second_move->s);
-    }
 }
+
 
 void game_redo(game g)
 {
