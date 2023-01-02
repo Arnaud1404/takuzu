@@ -12,14 +12,27 @@ game game_new(square* squares)
   game g = (game)malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
   if (g == NULL || tableau == NULL) {
+    free(g);
+    free(tableau);
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = squares[i];
   }
+  g->rows = DEFAULT_SIZE;
+  g->cols = DEFAULT_SIZE;
+  g->wrap = false;
+  g->unique = false;
   g->tab = tableau;
   queue* s = queue_new();
   queue* t = queue_new();
+  if(s == NULL || t == NULL){
+    free(g);
+    free(tableau);
+    free(s);
+    free(t);
+    exit(EXIT_FAILURE);
+  }
   g->to_redo = s;
   g->to_undo = t;
   return g;
