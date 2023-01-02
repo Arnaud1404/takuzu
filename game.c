@@ -45,14 +45,21 @@ game game_new(square* squares)
  **/
 game game_new_empty(void)
 {
+  game g = malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
-  if (tableau == NULL) {
+  if (g == NULL || tableau == NULL) {
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = S_EMPTY;
   }
-  game g = game_new(tableau);
+  g->tab = tableau;
+  g->to_redo = queue_new();
+  g->to_undo = queue_new();
+  g->col = DEFAULT_SIZE;
+  g->row = DEFAULT_SIZE;
+  g->wrap = false;
+  g->uni = false;
   return g;
 }
 
@@ -66,11 +73,6 @@ game game_copy(cgame g)
 {
   game g1 = malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
-  if(tableau == NULL || g1 == NULL){
-    free(tableau);
-    free(g1);
-    exit(EXIT_FAILURE);
-  }
   g1->tab = tableau;
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     g1->tab[i] = g->tab[i];
@@ -131,7 +133,7 @@ void game_delete(game g)
  **/
 void game_set_square(game g, uint i, uint j, square s)
 {
-  if (g == NULL || i<g->row || j<g->col) {
+  if (g == NULL) {
     exit(EXIT_FAILURE);
   }
   int compteur = i * g->col + j;
@@ -172,7 +174,7 @@ int game_get_number(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if (i < 0 || j < 0 || i > g->row || j > g->col) {
+  if (i < 0 || j < 0 || i > 5 || j > 5) {
     exit(EXIT_FAILURE);
   }
   int compteur = i * g->col + j;
