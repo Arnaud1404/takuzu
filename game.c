@@ -155,6 +155,9 @@ square game_get_square(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
+  if(i>g->row || j>g->col){
+    exit(EXIT_FAILURE);
+  }
   int compteur = i * g->col + j;
   return g->tab[compteur];
 }
@@ -215,7 +218,6 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   if (dist > 2) {
     exit(EXIT_FAILURE);
   }
-
   if (dir == DOWN) {
     if (g->wrap == false) {
       if (i + dist > g->row) {
@@ -299,10 +301,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_number(g, i + dist, j);
     }
-    i = i % g->row;
-    i = i + dist;
-    i = i % g->row;
-    j = j % g->col;
+    i = (i+dist)%g->row;
     return game_get_number(g, i, j);
   }
 
@@ -314,12 +313,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_number(g, i - dist, j);
     }
-    i = i % g->row;
-    i = i - dist;
-    if (i < 0) {
-      return -1;
-    }
-    j = j % g->col;
+    i = (i+dist)%g->row;
     return game_get_number(g, i, j);
   }
 
@@ -330,10 +324,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_number(g, i, j + dist);
     }
-    i = i % g->row;
-    j = j % g->col;
-    j = j + dist;
-    j = j % g->col;
+    j = (j+dist)%g->col;
     return game_get_number(g, i, j);
   }
 
@@ -345,12 +336,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_number(g, i, j - dist);
     }
-    i = i % g->row;
-    j = j % g->col;
-    j = j - dist;
-    if (j < 0) {
-      return -1;
-    }
+    j = (j-dist)%g->col;
     return game_get_number(g, i, j);
   }
   return EXIT_FAILURE;
