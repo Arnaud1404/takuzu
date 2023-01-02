@@ -600,8 +600,8 @@ bool game_is_over(cgame g)
   }
   if (g->uni == true) {
     for (uint lref = 0; lref < g->row-1; lref++) {
-      int same = 0;
       for (uint l = lref+1; l < g->row; l++) {
+        int same = 0;
         for (uint c = 0; c < g->col; c++) {
           if (game_get_number(g, lref, c) == game_get_number(g, l, c)) {
             same = same + 1;
@@ -613,8 +613,8 @@ bool game_is_over(cgame g)
       }
     }
     for (uint cref = 0; cref < g->col-1; cref++) {
-      int same = 0;
       for (uint c = cref+1; c < g->col; c++) {
+        int same = 0;
         for (uint l = 0; l < g->row; l++) {
           if (game_get_number(g, l, cref) == game_get_number(g, l, c)) {
             same = same + 1;
