@@ -223,10 +223,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_square(g, i + dist, j);
     }
-    i = i % g->row;
-    i = i + dist;
-    i = i % g->row;
-    j = j % g->col;
+    i = (i+dist)%g->row;
     return game_get_square(g, i, j);
   }
 
@@ -238,12 +235,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_square(g, i - dist, j);
     }
-    i = i % g->row;
-    i = i - dist;
-    if (i < 0) {
-      return -1;
-    }
-    j = j % g->col;
+    i = (i-dist) % g->row;
     return game_get_square(g, i, j);
   }
 
@@ -254,10 +246,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_square(g, i, j + dist);
     }
-    i = i % g->row;
-    j = j % g->col;
-    j = j + dist;
-    j = j % g->col;
+    j = (j+dist)%g->col;
     return game_get_square(g, i, j);
   }
 
@@ -269,12 +258,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_square(g, i, j - dist);
     }
-    i = i % g->row;
-    j = j % g->col;
-    j = j - dist;
-    if (j < 0) {
-      return -1;
-    }
+    j = (j-dist)%g->col;
     return game_get_square(g, i, j);
   }
   return EXIT_FAILURE;
