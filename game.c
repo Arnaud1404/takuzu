@@ -599,28 +599,13 @@ bool game_is_over(cgame g)
     }
   }
   if (g->uni == true) {
-<<<<<<< HEAD
-    for (int i = 0; i < g->row- 1; i++) {
-      int same = 0;
-      for (int j = 0; j < g->col; j++) {
-        for(int k = 0; k< g->row-i;i++)
-        if (game_get_number(g, i, j) == game_get_number(g, i + 1, j)) {
-=======
     for (int i = 0; i < g->row - 1; i++) {
       for(k=1; k< g->row-i;k++){
-<<<<<<< HEAD
-      int same = 0;
-      for (int j = 0; j < g->col; j++) {
-        if (game_get_number(g, i, j) == game_get_number(g, i + k, j)) {
->>>>>>> 3a319c1eee6dd9c4a9279965894411e5a2389ae3
-          same += 1;
-=======
         int same = 0;
         for (int j = 0; j < g->col; j++) {
           if (game_get_number(g, i, j) == game_get_number(g, i+k, j)) {
             same += 1;
           }
->>>>>>> 3d30071176893426c0bfad6e3c03c5f6a26215de
           if (same == g->col) {
             return false;
           }
@@ -643,6 +628,8 @@ bool game_is_over(cgame g)
   }
   return true;
 }
+
+
 
 /**
  * @brief Restarts a game.
