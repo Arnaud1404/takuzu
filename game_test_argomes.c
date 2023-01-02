@@ -33,10 +33,8 @@ int test_game_has_error(void)
   bool test6 = !game_has_error(g, 0, 4);  // EXIT_FAILURE
 
   game_set_square(g, 5, 4, S_ZERO);
-  game_set_square(g, 5, 3, S_ZERO);  // 3 white in a row
-  printf("test7 \n");
-  bool test7 = game_has_error(g, 5, 3);  // EXIT_SUCCESS
-  printf("test8 \n");
+  game_set_square(g, 5, 3, S_ZERO);        // 3 white in a row
+  bool test7 = game_has_error(g, 5, 3);    // EXIT_SUCCESS
   bool test8 = game_has_error(g, 5, 4);    // EXIT_SUCCESS
   game_set_square(g, 5, 4, S_EMPTY);       // removes error
   bool test9 = !game_has_error(g, 5, 3);   // EXIT_FAILURE
@@ -50,8 +48,6 @@ int test_game_has_error(void)
   bool test12 = !game_has_error(g, 4, 0);  // EXIT_FAILURE
 
   game_delete(g);
-  printf("%d %d %d %d %d %d %d %d %d %d %d %d", test1, test2, test3, test4, test5, test6, test7, test8, test9, test10,
-         test11, test12);
   if (test1 && test2 && test3 && test4 && test5 && test6 && test7 && test8 && test9 && test10 && test11 && test12) {
     return EXIT_SUCCESS;
   }
@@ -218,8 +214,7 @@ int test_game_get_square()
   square one = game_get_square(g, 0, 4);
   square immutable_zero = game_get_square(g, 0, 2);
   square immutable_one = game_get_square(g, 0, 1);
-  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO &&
-      immutable_one == S_IMMUTABLE_ONE) {
+  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE) {
     game_delete(g);
     return EXIT_SUCCESS;
   }
@@ -227,18 +222,123 @@ int test_game_get_square()
   return EXIT_FAILURE;
 }
 
-// tests:
-// test_dummy();
-// test_game_has_error();
-// test_game_copy();
-// test_game_is_immutable();
-// test_game_is_empty();
-// test_game_equal();
-// test_get_next_number();
-// test_get_number();
-// test_game_new();
-// test_game_get_square();
+int test_game_new_ext()
+{
+  int n = 8 * 4;
+  square* squares = malloc(n * sizeof(square));
+  for (int i = 0; i < n; i++) {
+    squares[i] = S_EMPTY;
+  }
+  squares[1] = S_IMMUTABLE_ZERO;
+  squares[31] = S_IMMUTABLE_ONE;
+  game g = game_new_ext(8, 4, squares, true, true);
+  square immutable_zero = game_get_square(g, 0, 1);
+  square immutable_one = game_get_square(g, 3, 7);
+  square empty = game_get_square(g, 0, 0);
+  if (!game_is_wrapping(g) || !game_is_unique(g)) {
+    free(squares);
+    game_delete(g);
+    return EXIT_FAILURE;
+  }
+  if (immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE && empty == S_EMPTY) {
+    free(squares);
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  free(squares);
+  game_delete(g);
+  return EXIT_FAILURE;
+}
 
+int test_game_new_empty_ext()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  if (!game_is_wrapping(g) || !game_is_unique(g)) {
+    game_delete(g);
+    return EXIT_FAILURE;
+  }
+  for (int i = 0; i < DEFAULT_SIZE; i++) {
+    for (int j = 0; j < DEFAULT_SIZE; j++) {
+      if (!game_is_empty(g, i, j)) {
+        game_delete(g);
+        return EXIT_FAILURE;
+      }
+    }
+  }
+  game_delete(g);
+  return EXIT_SUCCESS;
+}
+int test_game_nb_rows()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  if (game_nb_rows(g) == 8) {
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  game_delete(g);
+  return EXIT_FAILURE;
+}
+
+int test_game_nb_cols()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  if (game_nb_cols(g) == 4) {
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  game_delete(g);
+  return EXIT_FAILURE;
+}
+
+int test_game_is_wrapping()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  if (game_is_wrapping(g)) {
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  game_delete(g);
+  return EXIT_FAILURE;
+}
+
+int test_game_is_unique()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  if (game_is_unique(g)) {
+    game_delete(g);
+    return EXIT_SUCCESS;
+  }
+  game_delete(g);
+  return EXIT_FAILURE;
+}
+
+int test_game_undo()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  game_play_move(g, 0, 0, S_ZERO);
+  game_undo(g);
+  if (game_get_square(g, 0, 0) != S_EMPTY) {
+    game_delete(g);
+    return EXIT_FAILURE;
+  }
+  game_delete(g);
+  return EXIT_SUCCESS;
+}
+
+int test_game_redo()
+{
+  game g = game_new_empty_ext(8, 4, true, true);
+  game_play_move(g, 0, 0, S_ZERO);
+  game_undo(g);
+  game_redo(g);
+
+  if (game_get_square(g, 0, 0) != S_ZERO) {
+    game_delete(g);
+    return EXIT_FAILURE;
+  }
+  game_delete(g);
+  return EXIT_SUCCESS;
+}
 int main(int argcount, char* argv[])
 {
   int test;
@@ -280,6 +380,38 @@ int main(int argcount, char* argv[])
     } else if (strcmp(argv[1], "game_get_square") == 0) {
       if (test_game_get_square()) {
         test = test_game_get_square();
+      }
+    } else if (strcmp(argv[1], "game_new_ext") == 0) {
+      if (test_game_new_ext()) {
+        test = test_game_new_ext();
+      }
+    } else if (strcmp(argv[1], "game_new_empty_ext") == 0) {
+      if (test_game_new_empty_ext()) {
+        test = test_game_new_empty_ext();
+      }
+    } else if (strcmp(argv[1], "game_nb_rows") == 0) {
+      if (test_game_nb_rows()) {
+        test = test_game_nb_rows();
+      }
+    } else if (strcmp(argv[1], "game_nb_cols") == 0) {
+      if (test_game_nb_cols()) {
+        test = test_game_nb_cols();
+      }
+    } else if (strcmp(argv[1], "game_is_wrapping") == 0) {
+      if (test_game_is_wrapping()) {
+        test = test_game_is_wrapping();
+      }
+    } else if (strcmp(argv[1], "game_is_unique") == 0) {
+      if (test_game_is_unique()) {
+        test = test_game_is_unique();
+      }
+    } else if (strcmp(argv[1], "game_undo") == 0) {
+      if (test_game_undo()) {
+        test = test_game_undo();
+      }
+    } else if (strcmp(argv[1], "game_redo") == 0) {
+      if (test_game_redo()) {
+        test = test_game_redo();
       }
     } else {
       test = EXIT_FAILURE;
