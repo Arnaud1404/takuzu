@@ -29,6 +29,7 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
     free(tableau);
     free(t);
     free(s);
+    exit(EXIT_FAILURE);
   }
   g->to_undo = s;
   g->to_redo = t;
