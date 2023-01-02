@@ -313,7 +313,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_number(g, i - dist, j);
     }
-    i = (i+dist)%g->row;
+    i = (i-dist)%g->row;
     return game_get_number(g, i, j);
   }
 
