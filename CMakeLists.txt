@@ -45,4 +45,15 @@ add_test(test_argomes_test_get_next_number ./game_test_argomes get_next_number)
 add_test(test_argomes_test_get_number ./game_test_argomes get_number)
 add_test(test_argomes_test_game_new ./game_test_argomes game_new)
 add_test(test_argomes_test_game_get_square ./game_test_argomes game_get_square)
+add_test(test_argomes_test_game_new_ext ./game_test_argomes game_new_ext)
+add_test(test_argomes_test_game_new_empty_ext ./game_test_argomes game_new_empty_ext)
+add_test(test_argomes_test_game_nb_rows ./game_test_argomes game_nb_rows)
+add_test(test_argomes_test_game_nb_cols ./game_test_argomes game_nb_cols)
+add_test(test_argomes_test_game_is_wrapping ./game_test_argomes game_is_wrapping)
+add_test(test_argomes_test_game_is_unique ./game_test_argomes game_is_unique)
+add_test(test_argomes_test_game_is_unique ./game_test_argomes game_is_unique)
+add_test(test_argomes_test_game_undo ./game_test_argomes game_undo)
+add_test(test_argomes_test_game_redo ./game_test_argomes game_redo)
+
+
 
