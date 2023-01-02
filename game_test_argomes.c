@@ -226,7 +226,7 @@ int test_get_next_number()
     game_delete(g2);
     return EXIT_FAILURE;
   }
-  return EXIT_SUCCESS;
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
