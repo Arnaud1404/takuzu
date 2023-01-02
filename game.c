@@ -26,7 +26,7 @@ game game_new(square* squares)
   g->tab = tableau;
   queue* s = queue_new();
   queue* t = queue_new();
-  if(s == NULL || t == NULL){
+  if (s == NULL || t == NULL) {
     free(g);
     free(tableau);
     free(s);
@@ -588,9 +588,13 @@ void game_play_move(game g, uint i, uint j, square s)
   if (game_check_move(g, i, j, s) == true) {
     i = i % g->col;
     j = j % g->row;
+
+    // store previous state
+    square old = game_get_square(g, i, j);
+    move_t old_move = {old, i, j};
+    queue_push_head(g->to_undo, &old_move);
+
     game_set_square(g, i, j, s);
-    move_t move = {s, i, j};
-    queue_push_head(g->to_undo, &move);
     queue_clear(g->to_redo);
   }
 }

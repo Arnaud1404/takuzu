@@ -6,7 +6,7 @@
 #include "game_struct.h"
 
 game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bool unique)
-{ 
+{
   game g = (game)malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * nb_cols * nb_rows);
   if (g == NULL || tableau == NULL) {
@@ -24,7 +24,7 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   g->wrap = wrapping;
   queue* s = queue_new();
   queue* t = queue_new();
-  if(s == NULL || t == NULL){
+  if (s == NULL || t == NULL) {
     free(g);
     free(tableau);
     free(t);
@@ -67,16 +67,9 @@ void game_undo(game g)
     return;
   }
 
-  move_t* first_move = queue_pop_head(g->to_undo);
-  queue_push_head(g->to_redo, first_move);
-  if(queue_is_empty(g->to_undo)){
-    game_set_square(g,first_move->i,first_move->j,S_EMPTY);
-  }
-  else{
-
-  move_t* second_move = queue_peek_head(g->to_undo);
-  game_set_square(g, second_move->i, second_move->j, second_move->s);
-    }
+  move_t* move = queue_pop_head(g->to_undo);
+  queue_push_head(g->to_redo, move);
+  game_set_square(g, move->i, move->j, S_EMPTY);
 }
 
 void game_redo(game g)
