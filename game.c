@@ -600,14 +600,16 @@ bool game_is_over(cgame g)
   }
   if (g->uni == true) {
     for (int i = 0; i < g->row - 1; i++) {
+      for(k=1; k< g->row-i;k++){
       int same = 0;
       for (int j = 0; j < g->col; j++) {
-        if (game_get_number(g, i, j) == game_get_number(g, i + 1, j)) {
+        if (game_get_number(g, i, j) == game_get_number(g, i + k, j)) {
           same += 1;
           if (same == g->col) {
             return false;
           }
         }
+      }
       }
     }
     for (int i = 0; i < g->col - 1; i++) {
