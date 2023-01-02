@@ -607,7 +607,7 @@ bool game_is_over(cgame g)
           if (game_get_number(g, i, j) == game_get_number(g, i+k, j)) {
             same += 1;
           }
-          if (same == g->col) {
+          if (same == g->row) {
             return false;
           }
         }
@@ -621,7 +621,7 @@ bool game_is_over(cgame g)
           if (game_get_number(g, j, i) == game_get_number(g, j , i+k)) {
           same += 1;
           }
-          if (same == g->row) {
+          if (same == g->col) {
             return false;
           }
         }
