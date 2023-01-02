@@ -599,9 +599,10 @@ bool game_is_over(cgame g)
     }
   }
   if (g->uni == true) {
-    for (int i = 0; i < g->row - 1; i++) {
+    for (int i = 0; i < g->row- 1; i++) {
       int same = 0;
       for (int j = 0; j < g->col; j++) {
+        for(int k = 0; k< g->row-i;i++)
         if (game_get_number(g, i, j) == game_get_number(g, i + 1, j)) {
           same += 1;
           if (same == g->col) {
@@ -613,7 +614,7 @@ bool game_is_over(cgame g)
     for (int i = 0; i < g->col - 1; i++) {
       int same = 0;
       for (int j = 0; j < g->row; j++) {
-        if (game_get_number(g, j, i) == game_get_number(g, j + 1, i)) {
+        if (game_get_number(g, j, i) == game_get_number(g, j , i+1)) {
           same += 1;
           if (same == g->row) {
             return false;
