@@ -597,13 +597,13 @@ bool game_is_over(cgame g)
   if (g->tab == NULL) {
     exit(EXIT_FAILURE);
   }
-  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
+  for (int i = 0; i < g->row * g->col; i++) {
     if (g->tab[i] == S_EMPTY) {
       return false;
     }
   }
-  for (int a = 0; a < DEFAULT_SIZE; a++) {
-    for (int b = 0; b < DEFAULT_SIZE; b++) {
+  for (int a = 0; a < g->row; a++) {
+    for (int b = 0; b < g->col; b++) {
       if (game_has_error(g, a, b)) {
         return false;
       }
@@ -652,8 +652,8 @@ void game_restart(game g)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  for (int i = 0; i < DEFAULT_SIZE; i++) {
-    for (int j = 0; j < DEFAULT_SIZE; j++) {
+  for (int i = 0; i < g->row; i++) {
+    for (int j = 0; j < g->col; j++) {
       if (game_get_square(g, i, j) == S_ONE || game_get_square(g, i, j) == S_ZERO) {
         game_set_square(g, i, j, S_EMPTY);
       }
