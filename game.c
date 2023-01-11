@@ -69,7 +69,18 @@ game game_new_empty(void)
  * @return the copy of the game
  * @pre @p g must be a valid pointer toward a game structure.
  **/
-game game_copy(cgame g)
+game game_copy(cgame g){
+    game g1 = malloc(sizeof(game));
+    square* tableau = malloc(sizeof(square)*DEFAULT_SIZE*DEFAULT_SIZE);
+    g1->tab = tableau;
+    for(int i = 0; i <DEFAULT_SIZE*DEFAULT_SIZE;i++){
+        g1->tab[i] = g->tab[i];
+    }
+    return g1;
+}
+
+
+game game_copy_ext(cgame g)
 {
   game g1 = malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
