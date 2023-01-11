@@ -72,9 +72,9 @@ game game_new_empty(void)
 game game_copy(cgame g)
 {
   game g1 = malloc(sizeof(game));
-  square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
+  square* tableau = malloc(sizeof(square) * g->col*g->row);
   g1->tab = tableau;
-  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
+  for (int i = 0; i < g->col*g->row; i++) {
     g1->tab[i] = g->tab[i];
   }
   g1->wrap = g->wrap;
