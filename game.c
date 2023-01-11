@@ -256,61 +256,14 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if (g->wrap == false) {
-    if (i > g->row || j > g->col) {
-      exit(EXIT_FAILURE);
-    }
+  square s = game_get_next_square(g,i,j,dir,dist);
+  if(s == S_IMMUTABLE_ONE || s == S_ONE){
+    return 1;
   }
-  if (dist > 2) {
-    exit(EXIT_FAILURE);
+  if(s==S_ZERO || s == S_IMMUTABLE_ZERO){
+    return 0;
   }
-
-  if (dir == DOWN) {
-    if (g->wrap == false) {
-      if (i + dist > g->row) {
-        return -1;
-      }
-      return game_get_number(g, i + dist, j);
-    }
-    i = (i + dist) % g->row;
-    return game_get_number(g, i, j);
-  }
-
-  if (dir == UP) {
-    if (g->wrap == false) {
-      int m = i - dist;
-      if (m < 0) {
-        return -1;
-      }
-      return game_get_number(g, i - dist, j);
-    }
-    i = (i - dist) % g->row;
-    return game_get_number(g, i, j);
-  }
-
-  if (dir == RIGHT) {
-    if (g->wrap == false) {
-      if (j + dist > g->col) {
-        return -1;
-      }
-      return game_get_number(g, i, j + dist);
-    }
-    j = (j + dist) % g->col;
-    return game_get_number(g, i, j);
-  }
-
-  if (dir == LEFT) {
-    if (g->wrap == false) {
-      int d = j - dist;
-      if (d < 0) {
-        return -1;
-      }
-      return game_get_number(g, i, j - dist);
-    }
-    j = (j - dist) % g->col;
-    return game_get_number(g, i, j);
-  }
-  return EXIT_FAILURE;
+  return -1;
 }
 
 /**
