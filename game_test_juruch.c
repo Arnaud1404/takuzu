@@ -62,44 +62,7 @@ int test_game_set_square()
   return EXIT_SUCCESS;
 }
 
-int test_game_get_next_square(){
-  game g=game_default();
-    if(game_get_next_square(g, 0, 0, RIGHT, 1)!=S_IMMUTABLE_ONE){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    if(game_get_next_square(g, 0, 3, LEFT, 1)!=S_IMMUTABLE_ZERO){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    game_set_square(g, 3, 4, S_ONE);
-    if(game_get_next_square(g, 5, 4, UP, 2)!=S_ONE){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    game_set_square(g, 5, 0, S_ZERO);
-    if(game_get_next_square(g, 3, 0, DOWN, 2)!=S_ZERO){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    if(game_get_next_square(g, 0, 5, DOWN, 2)!=S_EMPTY){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    if(game_get_next_square(g, 0, 2, UP, 2)!=-1){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    if(game_get_next_square(g, 5, 0, DOWN, 1)!=-1){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-    if(game_get_next_square(g, 1, 1, LEFT, 2)!=-1){
-        game_delete(g);
-        return EXIT_FAILURE;
-    }
-
-int test_game_get_next_square_wrapping()
+int test_game_get_next_square()
 {
   game g = game_new_empty_ext(6, 6, false, false);
 
@@ -389,11 +352,7 @@ int main(int argcount, char* argv[])
       if (test_game_get_next_square()) {
         test = test_game_get_next_square();
       }
-    }else if (strcmp(argv[1], "game_get_next_square_wrapping") == 0) {
-      if (test_game_get_next_square_wrapping()) {
-        test = test_game_get_next_square_wrapping();
-      }
-    }else if (strcmp(argv[1], "game_default") == 0) {
+    } else if (strcmp(argv[1], "game_default") == 0) {
       if (test_game_default()) {
         test = test_game_default();
       }
