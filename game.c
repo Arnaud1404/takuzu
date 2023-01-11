@@ -177,7 +177,7 @@ int game_get_number(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if (i < 0 || j < 0 || i > g->row || j > g->col) {
+  if (i < 0 || j < 0 || i > 5 || j > 5) {
     exit(EXIT_FAILURE);
   }
   int compteur = i * g->col + j;
@@ -397,8 +397,6 @@ bool game_is_immutable(cgame g, uint i, uint j)
   return false;
 }
 
-<<<<<<< HEAD
-=======
 int game_donne_nombre(square s)
 {
   if (s == S_IMMUTABLE_ONE || s == S_ONE) {
@@ -410,7 +408,6 @@ int game_donne_nombre(square s)
   return -1;
 }
 
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
 /**
  * @brief Test if a given square has an error
  * @param g the game
@@ -421,12 +418,6 @@ int game_donne_nombre(square s)
  * @pre @p j < game width
  * @return an integer error code or 0 if there are no errors.
  **/
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
 int game_has_error(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -437,13 +428,8 @@ int game_has_error(cgame g, uint i, uint j)
   int cpt_one = 0;
   int consecutive_zero = 0;
   int consecutive_one = 0;
-<<<<<<< HEAD
-  for(int c = 0; c<g->row;c++){
-    if (game_get_number(g,c,j)==1) {
-=======
   for (int c = 0; c < g->row; c++) {
     if (game_get_number(g, c, j) == 1) {
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
       cpt_one = cpt_one + 1;
       consecutive_one += 1;
       if (consecutive_one == 3) {
@@ -452,12 +438,7 @@ int game_has_error(cgame g, uint i, uint j)
       if (consecutive_zero != 0) {
         consecutive_zero = 0;
       }
-<<<<<<< HEAD
-    } 
-    else if(game_get_number(g,c,j)==0){
-=======
     } else if (game_get_number(g, c, j) == 0) {
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
       cpt_zero = cpt_zero + 1;
       consecutive_zero += 1;
       if (consecutive_zero == 3) {
@@ -470,13 +451,6 @@ int game_has_error(cgame g, uint i, uint j)
       consecutive_one = 0;
       consecutive_zero = 0;
     }
-<<<<<<< HEAD
-    else {
-        consecutive_one = 0;
-        consecutive_zero = 0;
-    }
-=======
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
     if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
       return true;
     }
@@ -486,14 +460,8 @@ int game_has_error(cgame g, uint i, uint j)
   cpt_one = 0;
   consecutive_zero = 0;
   consecutive_one = 0;
-<<<<<<< HEAD
-    for(int c = 0; c<g->col;c++){
-
-    if (game_get_number(g,i,c)==1) {
-=======
   for (int c = 0; c < g->col; c++) {
     if (game_get_number(g, i, c) == 1) {
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
       cpt_one = cpt_one + 1;
       consecutive_one += 1;
       if (consecutive_one == 3) {
@@ -502,12 +470,7 @@ int game_has_error(cgame g, uint i, uint j)
       if (consecutive_zero != 0) {
         consecutive_zero = 0;
       }
-<<<<<<< HEAD
-    } 
-    else if(game_get_number(g,i,c)==0){
-=======
     } else if (game_get_number(g, i, c) == 0) {
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
       cpt_zero = cpt_zero + 1;
       consecutive_zero += 1;
       if (consecutive_zero == 3) {
@@ -520,51 +483,11 @@ int game_has_error(cgame g, uint i, uint j)
       consecutive_one = 0;
       consecutive_zero = 0;
     }
-<<<<<<< HEAD
-    else {
-        consecutive_one = 0;
-        consecutive_zero = 0;
-    }
-    if (cpt_zero > g->col / 2 || cpt_one > g->col/ 2) {
-=======
     if (cpt_zero > g->col / 2 || cpt_one > g->col / 2) {
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
       return true;
     }
   }
   if (g->uni == true) {
-<<<<<<< HEAD
-        int a = 0;
-        for (int v = 0; v < g->col; v++) {
-            if (v != j) {
-                for (int y = 0; y < g->row; y++) {
-                    if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1){
-                      a += 1;
-                    }
-                }
-                if (a == g->row){
-
-                return true; }
-                a = 0;
-            }
-        }
-
-        for (int v = 0; v < g->row; v++) {
-            if (v != i) {
-                for (int y = 0; y < g->col; y++) {
-                    if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1){
-                      a+=1;
-                    }
-                if (a == g->col){
-                  return true;
-                  }
-                a = 0;
-            }
-        }
-    }
-}
-return false;
-=======
     int a = 0;
     for (int v = 0; v < g->col; v++) {
       if (v != j) {
@@ -595,7 +518,6 @@ return false;
     }
   }
   return false;
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
 }
 /**
  * @brief Checks if a given move is legal.
@@ -685,16 +607,6 @@ bool game_is_over(cgame g)
     if (g->tab[i] == S_EMPTY) {
       return false;
     }
-<<<<<<< HEAD
-  
-}
-for(int i = 0; i<g->row;i++){
-  for(int j = 0; j<g->col;j++){
-    if(game_has_error(g,i,j)==true){
-      return false;
-    }
-  }
-=======
   }
   for (int i = 0; i < g->row; i++) {
     for (int j = 0; j < g->col; j++) {
@@ -733,12 +645,7 @@ for(int i = 0; i<g->row;i++){
   }
 
   return true;
->>>>>>> abf7f3725e60877be7d753d377af99f13d2a802d
 }
-return true;
-}
-
-
 
 /**
  * @brief Restarts a game.
