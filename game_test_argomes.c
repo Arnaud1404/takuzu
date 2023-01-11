@@ -56,18 +56,25 @@ int test_game_has_error(void)
 
 int test_game_copy(void)
 {
-  game g = game_default();
+  square s[] = {S_EMPTY, S_IMMUTABLE_ONE, S_IMMUTABLE_ZERO, S_EMPTY, S_EMPTY, S_EMPTY,
+ S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY,
+ S_EMPTY, S_IMMUTABLE_ZERO, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO, S_EMPTY,
+ S_EMPTY, S_IMMUTABLE_ZERO, S_IMMUTABLE_ONE, S_EMPTY, S_EMPTY, S_EMPTY,
+ S_EMPTY, S_EMPTY, S_IMMUTABLE_ONE, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO,
+ S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO,
+ S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO};
+  game g = game_new_ext(6,6,s,true,false);
   game g_copy = game_copy(g);
-  for (int i = 0; i < DEFAULT_SIZE; i++) {
-    for (int j = 0; j < DEFAULT_SIZE; j++) {
-      square square_original = game_get_square(g, i, j);
-      square square_copy = game_get_square(g_copy, i, j);
-      if (square_copy != square_original) {
+  if (game_equal(g,g_copy)==false) {
         game_delete(g);
         game_delete(g_copy);
         return EXIT_FAILURE;
-      }
-    }
+  }
+  game_play_move(g,0,0,S_ONE);
+   if (game_equal(g,g_copy)==true) {
+        game_delete(g);
+        game_delete(g_copy);
+        return EXIT_FAILURE;
   }
   game_delete(g);
   game_delete(g_copy);
@@ -275,7 +282,8 @@ int test_game_get_square()
   square one = game_get_square(g, 0, 4);
   square immutable_zero = game_get_square(g, 0, 2);
   square immutable_one = game_get_square(g, 0, 1);
-  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE) {
+  if (empty == S_EMPTY && zero == S_ZERO && one == S_ONE && immutable_zero == S_IMMUTABLE_ZERO &&
+      immutable_one == S_IMMUTABLE_ONE) {
     game_delete(g);
     return EXIT_SUCCESS;
   }
