@@ -135,6 +135,19 @@ int test_is_wrapping(void){
     }
     return EXIT_FAILURE;
 }
+ int test_game_next_square(void){
+  square tab[] = {S_EMPTY , S_ONE, S_ONE,
+  S_ZERO , S_ZERO, S_EMPTY,
+  S_ZERO,S_ZERO,S_ONE};
+  game g = game_new_ext(3, 3, tab, true, false);
+  square s1 = game_get_next_square(g,3,3,RIGHT,1);
+  if(s1 != S_ZERO){
+    return EXIT_FAILURE;
+  }
+  return EXIT_SUCCESS;
+ }
+
+
 int main(int argcount, char* argv[])
 {
   int test;
@@ -150,7 +163,11 @@ int main(int argcount, char* argv[])
       if (test_check_move()) {
         test = test_check_move();
       }
-    } else if (strcmp(argv[1], "game_print") == 0) {
+    } else if (strcmp(argv[1], "next_square") == 0) {
+      if (test_game_next_square()) {
+        test = test_game_next_square();
+      }
+    }else if (strcmp(argv[1], "game_print") == 0) {
       if (test_game_print()) {
         test = test_game_print();
       }
