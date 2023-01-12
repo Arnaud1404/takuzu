@@ -138,15 +138,7 @@ int main(int argcount, char* argv[])
   if (argcount == 2) {
     if (strcmp(argv[1], "dummy") == 0) {
       test = test_dummy();
-    // } else if (strcmp(argv[1], "is_over") == 0) {
-    //   if (test_is_over()) {
-    //     test = test_is_over();
-    //   }
-    // } else if (strcmp(argv[1], "game_restart") == 0) {
-    //   if (test_game_restart()) {
-    //     test = test_game_restart();
-    //   }
-    // } 
+      
     }else if (strcmp(argv[1], "play_move") == 0) {
       if (test_play_move()) {
         test = test_play_move();
@@ -163,9 +155,6 @@ int main(int argcount, char* argv[])
       if(test_is_wrapping()){
         test = test_is_wrapping();
       }
-    }
-     else {
-      test = EXIT_FAILURE;
     }
     if (test == EXIT_SUCCESS) {
       return EXIT_SUCCESS;
