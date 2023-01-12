@@ -425,7 +425,8 @@ int game_has_error(cgame g, uint i, uint j)
     if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
       return true;
     }
-  
+
+  }
 
   cpt_zero = 0;
   cpt_one = 0;
@@ -458,7 +459,7 @@ int game_has_error(cgame g, uint i, uint j)
       return true;
     }
   }
-  if(g->wrap ==true){
+    if(g->wrap ==true){
     square tab[3];
     for(int c = 0; c<g->row;c++){
       tab[0] = game_get_number(g,c,j);
@@ -477,7 +478,6 @@ int game_has_error(cgame g, uint i, uint j)
       }
     }
   }  
-  }
   if (g->uni == true) {
     int a = 0;
     for (int v = 0; v < g->col; v++) {
