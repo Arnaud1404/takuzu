@@ -269,7 +269,9 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   else{
     if(dir == UP){
       i = i-dist;
-      i = i%g->row;
+      if(i<0){
+        i = g->row-dist+i;
+      }
       return game_get_square(g,i,j);
     }
   if(dir == DOWN){
@@ -284,7 +286,9 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   }
   if(dir == LEFT){
     j = j-dist;
-    j = j%g->col;
+    if(j<0){
+      j = g->col-dist+j;
+    }
     return game_get_square(g,i,j);
   }
   }
