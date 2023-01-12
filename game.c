@@ -478,36 +478,30 @@ int game_has_error(cgame g, uint i, uint j)
       }
     }
   }  
-  if (g->uni == true) {
-    int a = 0;
-    for (int v = 0; v < g->col; v++) {
-      if (v != j) {
-        for (int y = 0; y < g->row; y++) {
-          if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1) {
-            a += 1;
-          }
+  if (g->uni==true) {
+        uint c = 0;
+        for (uint v = 0; v < g->col; v++) {
+            if (v != j) {
+                for (uint y = 0; y < g->row; y++) {
+                    if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1) c++;
+                }
+                if (c == g->row) return true;
+                c = 0;
+            }
         }
-        if (a == g->row) {
-          return true;
+
+        // Ligne non unique
+        for (uint v = 0; v < g->row; v++) {
+            if (v != i) {
+                for (uint y = 0; y < g->col; y++) {
+                    if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1)c++;
+                    }
+                if (c == g->col) return true;
+                c = 0;
+            }
         }
-        a = 0;
-      }
     }
 
-    for (int v = 0; v < g->row; v++) {
-      if (v != i) {
-        for (int y = 0; y < g->col; y++) {
-          if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1) {
-            a += 1;
-          }
-          if (a == g->col) {
-            return true;
-          }
-          a = 0;
-        }
-      }
-    }
-  }
   return false;
 }
 /**
