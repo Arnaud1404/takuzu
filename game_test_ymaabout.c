@@ -112,15 +112,25 @@ int test_game_print(void)
   return EXIT_SUCCESS;
 }
 int test_is_wrapping(void){
-  game g = game_default();
-  game g1 = game_new_empty_ext(1, 1, true, false);
-  if(game_is_wrapping(g) == true){
-    if(game_is_wrapping(g1) == false){
+  game g = game_new_empty_ext(8, 4, false, false);
+    bool rez = true;
 
-   
-    return EXIT_FAILURE; }
-  }
-  return EXIT_SUCCESS;
+    rez = rez && !game_is_wrapping(g);
+    game_delete(g);
+
+    g = game_new_empty_ext(2, 4, true, false);
+    rez = rez && game_is_wrapping(g);
+    game_delete(g);
+
+    g = game_new_empty_ext(2, 4, true, true);
+    rez = rez && game_is_wrapping(g);
+    game_delete(g);
+
+    g = game_new_empty_ext(2, 4, false, true);
+    rez = rez && !game_is_wrapping(g);
+    game_delete(g);
+
+    return rez;
 }
 int main(int argcount, char* argv[])
 {
