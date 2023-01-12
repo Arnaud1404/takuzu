@@ -145,7 +145,12 @@ int main(int argcount, char* argv[])
       if (test_game_print()) {
         test = test_game_print();
       }
-    } else {
+    }else if(strcmp(argv[1],"is_wrapping")==0){
+      if(test_is_wrapping()){
+        test = test_is_wrapping();
+      }
+    }
+     else {
       test = EXIT_FAILURE;
     }
     if (test == EXIT_SUCCESS) {
