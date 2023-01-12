@@ -425,6 +425,25 @@ int game_has_error(cgame g, uint i, uint j)
     if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
       return true;
     }
+  if(g->wrap ==true){
+    square tab[3];
+    for(int c = 0; c<g->row;c++){
+      tab[0] = game_get_number(g,c,j);
+      tab[1] = game_get_next_number(g,c,j,DOWN,1);
+      tab[2] = game_get_next_number(g,c,j,DOWN,2);
+      if(tab[0] == tab[1] && tab[0] == tab[2] && tab[0] !=-1){
+        return true;
+      }
+    }
+    for(int c = 0; c<g->col;c++){
+      tab[0] = game_get_number(g,c,c);
+      tab[1] = game_get_next_number(g,i,c,RIGHT,1);
+      tab[2] = game_get_next_number(g,i,c,RIGHT,2);
+      if(tab[0] == tab[1] && tab[0] == tab[2] && tab[0] !=-1){
+        return true;
+      }
+    }
+  }  
   }
 
   cpt_zero = 0;
