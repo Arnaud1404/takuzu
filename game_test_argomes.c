@@ -331,8 +331,8 @@ int test_game_new_empty_ext()
     game_delete(g);
     return EXIT_FAILURE;
   }
-  for (int i = 0; i < DEFAULT_SIZE; i++) {
-    for (int j = 0; j < DEFAULT_SIZE; j++) {
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 4; j++) {
       if (!game_is_empty(g, i, j)) {
         game_delete(g);
         return EXIT_FAILURE;
