@@ -130,7 +130,10 @@ int test_is_wrapping(void){
     rez = rez && !game_is_wrapping(g);
     game_delete(g);
 
-    return rez;
+    if(rez == true){
+      return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
 }
 int main(int argcount, char* argv[])
 {
@@ -138,7 +141,7 @@ int main(int argcount, char* argv[])
   if (argcount == 2) {
     if (strcmp(argv[1], "dummy") == 0) {
       test = test_dummy();
-      
+
     }else if (strcmp(argv[1], "play_move") == 0) {
       if (test_play_move()) {
         test = test_play_move();
@@ -156,9 +159,9 @@ int main(int argcount, char* argv[])
         test = test_is_wrapping();
       }
     }
-    if (test == EXIT_SUCCESS) {
-      return EXIT_SUCCESS;
+    if (test == EXIT_FAILURE) {
+      return EXIT_FAILURE;
     }
   }
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
