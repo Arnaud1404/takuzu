@@ -114,9 +114,9 @@ int test_game_print(void)
 int test_is_wrapping(void){
   game g = game_default();
   if(game_is_wrapping(g) == true){
-    return false;
+    return EXIT_FAILURE;
   }
-  return true;
+  return EXIT_SUCCESS;
 }
 int main(int argcount, char* argv[])
 {
