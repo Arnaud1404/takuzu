@@ -426,22 +426,7 @@ int game_has_error(cgame g, uint i, uint j)
       return true;
     }
   }
-  if(g->wrap == true){
 
-
-  if(game_get_number(g,0,j)==1){
-      consecutive_one += 1;
-      if (consecutive_one == 3) {
-        return true;
-      }
-  }
-  if(game_get_number(g,0,j)==0){
-    consecutive_zero +=1;
-    if(consecutive_zero ==3){
-      return true;
-    }
-  }
-  }
   cpt_zero = 0;
   cpt_one = 0;
   consecutive_zero = 0;
@@ -472,22 +457,6 @@ int game_has_error(cgame g, uint i, uint j)
     if (cpt_zero > g->col / 2 || cpt_one > g->col / 2) {
       return true;
     }
-  }
-  if(g->wrap == true){
-
-
-  if(game_get_number(g,i,0)==1){
-      consecutive_one += 1;
-      if (consecutive_one == 3) {
-        return true;
-      }
-  }
-  if(game_get_number(g,i,0)==0){
-    consecutive_zero +=1;
-    if(consecutive_zero ==3){
-      return true;
-    }
-  }
   }
   if (g->uni == true) {
     int a = 0;

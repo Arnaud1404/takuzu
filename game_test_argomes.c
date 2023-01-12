@@ -6,6 +6,7 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
+#include "queue.h"
 
 // S_ZERO = white
 // S_ONE = black
@@ -399,7 +400,7 @@ int test_game_redo()
   game_play_move(g, 0, 0, S_ZERO);
   game_undo(g);
   game_redo(g);
-
+  
   if (game_get_square(g, 0, 0) != S_ZERO) {
     game_delete(g);
     return EXIT_FAILURE;
