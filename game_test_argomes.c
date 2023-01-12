@@ -49,34 +49,44 @@ int test_game_has_error(void)
   bool test12 = !game_has_error(g, 4, 0);  // EXIT_FAILURE
 
   game_delete(g);
-  if (test1 && test2 && test3 && test4 && test5 && test6 && test7 && test8 && test9 && test10 && test11 && test12) {
-    return EXIT_SUCCESS;
+  if (!test1 || !test2 || !test3 || !test4 || !test5 || !test6 || !test7 || !test8 || !test9 || !test10 || !test11 ||
+      !test12) {
+    return EXIT_FAILURE;
   }
-  return EXIT_FAILURE;
+
+  game g2 = game_new_empty_ext(4, 4, true, true);
+  game_set_square(g, 0, 0, S_ONE);
+  game_set_square(g, 1, 0, S_ONE);
+  game_set_square(g, 3, 0, S_ONE);
+  bool test13 = !game_has_error(g, 0, 0);
+  if (!test13) {
+    return EXIT_FAILURE;
+  }
+  return EXIT_SUCCESS;
 }
 
 int test_game_copy(void)
 {
-  square s[] = {S_EMPTY, S_IMMUTABLE_ONE, S_IMMUTABLE_ZERO, S_EMPTY, S_EMPTY, S_EMPTY,
- S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY,
- S_EMPTY, S_IMMUTABLE_ZERO, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO, S_EMPTY,
- S_EMPTY, S_IMMUTABLE_ZERO, S_IMMUTABLE_ONE, S_EMPTY, S_EMPTY, S_EMPTY,
- S_EMPTY, S_EMPTY, S_IMMUTABLE_ONE, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO,
- S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO};
-  game g = game_new_ext(6,6,s,true,false);
+  square s[] = {S_EMPTY, S_IMMUTABLE_ONE,  S_IMMUTABLE_ZERO, S_EMPTY, S_EMPTY,          S_EMPTY,
+                S_EMPTY, S_EMPTY,          S_EMPTY,          S_EMPTY, S_EMPTY,          S_EMPTY,
+                S_EMPTY, S_IMMUTABLE_ZERO, S_EMPTY,          S_EMPTY, S_IMMUTABLE_ZERO, S_EMPTY,
+                S_EMPTY, S_IMMUTABLE_ZERO, S_IMMUTABLE_ONE,  S_EMPTY, S_EMPTY,          S_EMPTY,
+                S_EMPTY, S_EMPTY,          S_IMMUTABLE_ONE,  S_EMPTY, S_EMPTY,          S_IMMUTABLE_ZERO,
+                S_EMPTY, S_EMPTY,          S_EMPTY,          S_EMPTY, S_EMPTY,          S_IMMUTABLE_ZERO};
+  game g = game_new_ext(6, 6, s, true, false);
   game g_copy = game_copy(g);
   // if(g.row!=g_copy->row||g.col!=g_copy->col||g.uni!=g->uni||g.wrap!=g_copy->wrap){
   //   game_delete(g);
   //   game_delete(g_copy);
   //   return EXIT_FAILURE;
   // }
-  if (game_equal(g,g_copy)==false) {
+  if (game_equal(g, g_copy) == false) {
     game_delete(g);
     game_delete(g_copy);
     return EXIT_FAILURE;
   }
-  game_play_move(g,0,0,S_ONE);
-   if (game_equal(g,g_copy)==true) {
+  game_play_move(g, 0, 0, S_ONE);
+  if (game_equal(g, g_copy) == true) {
     game_delete(g);
     game_delete(g_copy);
     return EXIT_FAILURE;
@@ -405,7 +415,7 @@ int test_game_redo()
   game_play_move(g, 0, 0, S_ZERO);
   game_undo(g);
   game_redo(g);
-  
+
   if (game_get_square(g, 0, 0) != S_ZERO) {
     game_delete(g);
     return EXIT_FAILURE;
