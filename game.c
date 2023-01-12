@@ -436,7 +436,7 @@ int game_has_error(cgame g, uint i, uint j)
       }
     }
     for(int c = 0; c<g->col;c++){
-      tab[0] = game_get_number(g,c,c);
+      tab[0] = game_get_number(g,i,c);
       tab[1] = game_get_next_number(g,i,c,RIGHT,1);
       tab[2] = game_get_next_number(g,i,c,RIGHT,2);
       if(tab[0] == tab[1] && tab[0] == tab[2] && tab[0] !=-1){
