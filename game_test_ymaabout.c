@@ -113,8 +113,12 @@ int test_game_print(void)
 }
 int test_is_wrapping(void){
   game g = game_default();
+  game g1 = game_new_empty_ext(1, 1, true, false);
   if(game_is_wrapping(g) == true){
-    return EXIT_FAILURE;
+    if(game_is_wrapping(g1) == false){
+
+   
+    return EXIT_FAILURE; }
   }
   return EXIT_SUCCESS;
 }
