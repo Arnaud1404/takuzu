@@ -273,6 +273,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       if(i<dist){
         i = g->row-dist+i;
       }
+      i = i%(g->row);
       return game_get_square(g,i,j);
     }
   if(dir == DOWN){
@@ -289,6 +290,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     if(j<dist){
       j = g->col-dist+j;
     }
+    j = j%(g->col);
     return game_get_square(g,i,j);
   }
   }
