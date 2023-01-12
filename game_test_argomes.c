@@ -65,16 +65,21 @@ int test_game_copy(void)
  S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_EMPTY, S_IMMUTABLE_ZERO};
   game g = game_new_ext(6,6,s,true,false);
   game g_copy = game_copy(g);
+  // if(g.row!=g_copy->row||g.col!=g_copy->col||g.uni!=g->uni||g.wrap!=g_copy->wrap){
+  //   game_delete(g);
+  //   game_delete(g_copy);
+  //   return EXIT_FAILURE;
+  // }
   if (game_equal(g,g_copy)==false) {
-        game_delete(g);
-        game_delete(g_copy);
-        return EXIT_FAILURE;
+    game_delete(g);
+    game_delete(g_copy);
+    return EXIT_FAILURE;
   }
   game_play_move(g,0,0,S_ONE);
    if (game_equal(g,g_copy)==true) {
-        game_delete(g);
-        game_delete(g_copy);
-        return EXIT_FAILURE;
+    game_delete(g);
+    game_delete(g_copy);
+    return EXIT_FAILURE;
   }
   game_delete(g);
   game_delete(g_copy);
