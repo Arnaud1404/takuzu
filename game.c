@@ -197,7 +197,8 @@ int game_get_number(cgame g, uint i, uint j)
  * @return the value of the targeted square, or -1 if this square is out
  * of the grid
  **/
-int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
+int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
+{
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
@@ -620,7 +621,7 @@ void game_restart(game g)
   }
   for (int i = 0; i < g->row; i++) {
     for (int j = 0; j < g->col; j++) {
-      if (game_get_square(g, i, j) != S_IMMUTABLE_ONE || game_get_square(g, i, j) != S_IMMUTABLE_ZERO) {
+      if (game_get_square(g, i, j) != S_IMMUTABLE_ONE && game_get_square(g, i, j) != S_IMMUTABLE_ZERO) {
         game_set_square(g, i, j, S_EMPTY);
       }
     }
