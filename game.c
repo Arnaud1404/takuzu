@@ -620,7 +620,7 @@ void game_restart(game g)
   }
   for (int i = 0; i < g->row; i++) {
     for (int j = 0; j < g->col; j++) {
-      if (game_get_square(g, i, j) == S_ONE || game_get_square(g, i, j) == S_ZERO) {
+      if (game_is_immutable(g, i, j)==false) {
         game_set_square(g, i, j, S_EMPTY);
       }
     }
