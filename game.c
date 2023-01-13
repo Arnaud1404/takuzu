@@ -555,12 +555,10 @@ void game_play_move(game g, uint i, uint j, square s)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if(g->wrap==true){
+  if (game_check_move(g, i, j, s) == true) {
     i = i % g->col;
     j = j % g->row;
-  }
-  if (game_check_move(g, i, j, s) == true) {
-    
+
     // store previous state
     square old = game_get_square(g, i, j);
     move_t old_move = {old, i, j};
