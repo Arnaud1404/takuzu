@@ -317,7 +317,7 @@ int test_game_new_ext()
   squares[31] = S_IMMUTABLE_ONE;
   game g = game_new_ext(8, 4, squares, true, true);
   square immutable_zero = game_get_square(g, 0, 1);
-  square immutable_one = game_get_square(g, 3, 7);
+  square immutable_one = game_get_square(g, 7, 3);
   square empty = game_get_square(g, 0, 0);
   if (!game_is_wrapping(g) || !game_is_unique(g)) {
     free(squares);
