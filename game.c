@@ -197,8 +197,7 @@ int game_get_number(cgame g, uint i, uint j)
  * @return the value of the targeted square, or -1 if this square is out
  * of the grid
  **/
-int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
-{
+int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist){
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
@@ -237,47 +236,23 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       }
       return game_get_square(g, i, j - dist);
     }
-
-    if (dir == DOWN) {
-      if (i + dist > 5) {
-        return -1;
-      }
-      return game_get_square(g, i + dist, j);
-    }
-    if (dir == UP) {
-      int m = i - dist;
-      if (m < 0) {
-        return -1;
-      }
-      return game_get_square(g, i - dist, j);
-    }
-    if (dir == RIGHT) {
-      if (j + dist > 5) {
-        return -1;
-      }
-      return game_get_square(g, i, j + dist);
-    }
-    if (dir == LEFT) {
-      int d = j - dist;
-      if (d < 0) {
-        return -1;
-      }
-      return game_get_square(g, i, j - dist);
-    }
   } else {
     if (dir == UP) {
       if (i < dist) {
         i = g->row - dist + i;
       }
       i = i % (g->row);
+      j = j % g->col;
       return game_get_square(g, i, j);
     }
     if (dir == DOWN) {
       i = i + dist;
       i = i % g->row;
+      j = j % g->col;
       return game_get_square(g, i, j);
     }
     if (dir == RIGHT) {
+      i = i % g->row;
       j = j + dist;
       j = j % g->col;
       return game_get_square(g, i, j);
@@ -286,6 +261,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       if (j < dist) {
         j = g->col - dist + j;
       }
+      i = i % g->row;
       j = j % (g->col);
       return game_get_square(g, i, j);
     }
