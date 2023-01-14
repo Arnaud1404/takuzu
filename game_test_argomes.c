@@ -317,7 +317,7 @@ int test_game_new_ext()
   squares[31] = S_IMMUTABLE_ONE;
   game g = game_new_ext(8, 4, squares, true, true);
   square immutable_zero = game_get_square(g, 0, 1);
-  square immutable_one = game_get_square(g, 7, 3);
+  square immutable_one = game_get_square(g, 3, 7);
   square empty = game_get_square(g, 0, 0);
   if (!game_is_wrapping(g) || !game_is_unique(g)) {
     free(squares);
@@ -449,7 +449,7 @@ int main(int argcount, char* argv[])
       if (test_game_equal()) {
         test = test_game_equal();
       }
-    } else if (strcmp(argv[1], "get_next_number") == 0) {
+    } else if (strcmp(argv[1], "game_get_next_number") == 0) {
       if (test_get_next_number()) {
         test = test_get_next_number();
       }
