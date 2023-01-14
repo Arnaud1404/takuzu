@@ -68,8 +68,13 @@ void game_undo(game g)
   }
 
   move_t* move = queue_pop_head(g->to_undo);
-  queue_push_head(g->to_redo, move);
-  game_set_square(g, move->i, move->j, S_EMPTY);
+  move_t old;
+  old.s = game_get_square(g,move->i,move->j);
+  old.i = move->i;
+  old.j = move->j;
+  game_set_square(g, move->i, move->j, move->s);
+  move->s = old.s;
+  queue_push_head(g->to_redo,move);
 }
 
 void game_redo(game g)
@@ -82,6 +87,11 @@ void game_redo(game g)
     return;
   }
   move_t* move = queue_pop_head(g->to_redo);
+  move_t old;
+  old.s = game_get_square(g,move->i,move->j);
+  old.i = move->i;
+  old.j = move->j;
   game_set_square(g, move->i, move->j, move->s);
+  move->s = old.s;
   queue_push_head(g->to_undo, move);
 }
