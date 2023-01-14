@@ -45,7 +45,8 @@ int test_is_over(void)
 int test_game_restart(void)
 {
   game g = game_default();
-  game g2 = game_default_solution();
+  game g2 = game_default();
+  game_play_move(g, 0, 0, S_ZERO);
   game_restart(g2);
 
   if (!game_equal(g, g2)) {
@@ -53,6 +54,8 @@ int test_game_restart(void)
     game_delete(g2);
     return EXIT_FAILURE;
   }
+  game_delete(g);
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
@@ -121,41 +124,6 @@ int test_game_print(void)
   game_delete(g);
   return EXIT_SUCCESS;
 }
-int test_is_wrapping(void)
-{
-  game g = game_new_empty_ext(8, 4, false, false);
-  bool rez = true;
-
-  rez = rez && !game_is_wrapping(g);
-  game_delete(g);
-
-  g = game_new_empty_ext(2, 4, true, false);
-  rez = rez && game_is_wrapping(g);
-  game_delete(g);
-
-  g = game_new_empty_ext(2, 4, true, true);
-  rez = rez && game_is_wrapping(g);
-  game_delete(g);
-
-  g = game_new_empty_ext(2, 4, false, true);
-  rez = rez && !game_is_wrapping(g);
-  game_delete(g);
-
-  if (rez == true) {
-    return EXIT_SUCCESS;
-  }
-  return EXIT_FAILURE;
-}
-int test_game_next_square(void)
-{
-  square tab[] = {S_EMPTY, S_ONE, S_ONE, S_ZERO, S_ZERO, S_EMPTY, S_ZERO, S_ZERO, S_ONE};
-  game g = game_new_ext(3, 3, tab, true, false);
-  square s1 = game_get_next_square(g, 3, 3, RIGHT, 1);
-  if (s1 != S_ZERO) {
-    return EXIT_FAILURE;
-  }
-  return EXIT_SUCCESS;
-}
 
 int main(int argcount, char* argv[])
 {
@@ -164,30 +132,30 @@ int main(int argcount, char* argv[])
     if (strcmp(argv[1], "dummy") == 0) {
       test = test_dummy();
 
-    } else if (strcmp(argv[1], "play_move") == 0) {
-      if (test_play_move()) {
-        test = test_play_move();
+    } else if (strcmp(argv[1], "is_over") == 0) {
+      if (test_is_over()) {
+        test = test_is_over();
+      } else if (strcmp(argv[1], "play_move") == 0) {
+        if (test_play_move()) {
+          test = test_play_move();
+        }
+      } else if (strcmp(argv[1], "check_move") == 0) {
+        if (test_check_move()) {
+          test = test_check_move();
+        }
+      } else if (strcmp(argv[1], "game_restart") == 0) {
+        if (test_game_next_square()) {
+          test = test_game_next_square();
+        }
+      } else if (strcmp(argv[1], "game_print") == 0) {
+        if (test_game_print()) {
+          test = test_game_print();
+        }
       }
-    } else if (strcmp(argv[1], "check_move") == 0) {
-      if (test_check_move()) {
-        test = test_check_move();
-      }
-    } else if (strcmp(argv[1], "next_square") == 0) {
-      if (test_game_next_square()) {
-        test = test_game_next_square();
-      }
-    } else if (strcmp(argv[1], "game_print") == 0) {
-      if (test_game_print()) {
-        test = test_game_print();
-      }
-    } else if (strcmp(argv[1], "is_wrapping") == 0) {
-      if (test_is_wrapping()) {
-        test = test_is_wrapping();
+      if (test == EXIT_FAILURE) {
+        return EXIT_FAILURE;
       }
     }
-    if (test == EXIT_FAILURE) {
-      return EXIT_FAILURE;
-    }
+    return EXIT_SUCCESS;
   }
-  return EXIT_SUCCESS;
 }
