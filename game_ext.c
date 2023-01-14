@@ -69,7 +69,7 @@ void game_undo(game g)
 
   move_t* move = queue_pop_head(g->to_undo);
   queue_push_head(g->to_redo, move);
-  game_set_square(g, move->i, move->j, move->s);
+  game_set_square(g, move->i, move->j, S_EMPTY);
 }
 
 void game_redo(game g)
