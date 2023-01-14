@@ -438,18 +438,18 @@ int game_has_error(cgame g, uint i, uint j)
     int tab[3];
     for (int c = 0; c < g->row; c++) {
       tab[0] = game_get_number(g, c, j);
-      tab[1] = game_get_next_number(g, c, j, UP, 1);
-      tab[2] = game_get_next_number(g, c, j, UP, 2);
+      tab[1] = game_get_next_number(g, c, j, DOWN, 1);
+      tab[2] = game_get_next_number(g, c, j, DOWN, 2);
       if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
-        return true;
+        return 1;
       }
     }
     for (int c = 0; c < g->col; c++) {
       tab[0] = game_get_number(g, i, c);
-      tab[1] = game_get_next_number(g, i, c, LEFT, 1);
-      tab[2] = game_get_next_number(g, i, c, LEFT, 2);
+      tab[1] = game_get_next_number(g, i, c, RIGHT, 1);
+      tab[2] = game_get_next_number(g, i, c, RIGHT, 2);
       if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
-        return true;
+        return 1;
       }
     }
   }
