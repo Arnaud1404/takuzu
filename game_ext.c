@@ -85,6 +85,6 @@ void game_redo(game g)
   square old = game_get_square(g, move->i, move->j);  // Etat précédent
 
   game_set_square(g, move->i, move->j, move->s);
-  move_t* old_move = {old, move->i, move->j};
-  queue_push_head(g->to_undo, old_move);
+  move_t old_move = {old, move->i, move->j};
+  queue_push_head(g->to_undo, &old_move);
 }
