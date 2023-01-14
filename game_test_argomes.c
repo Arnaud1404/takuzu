@@ -59,6 +59,7 @@ int test_game_has_error(void)
   game_set_square(g2, 1, 0, S_ONE);
   game_set_square(g2, 3, 0, S_ONE);
   bool test13 = !game_has_error(g2, 0, 0);
+  game_delete(g2);
   if (!test13) {
     return EXIT_FAILURE;
   }
@@ -146,7 +147,7 @@ int test_game_equal()
   return EXIT_FAILURE;
 }
 
-int test_get_next_number()
+int test_game_get_next_number()
 {
   game g = game_new_empty_ext(6, 6, false, false);
 
@@ -450,7 +451,7 @@ int main(int argcount, char* argv[])
       if (test_game_equal()) {
         test = test_game_equal();
       }
-    } else if (strcmp(argv[1], "get_next_number") == 0) {
+    } else if (strcmp(argv[1], "game_get_next_number") == 0) {
       if (test_get_next_number()) {
         test = test_get_next_number();
       }
