@@ -23,7 +23,7 @@ int test_is_over(void)
   bool test1 = !game_is_over(g1);
   game_set_square(g, 0, 0, S_ONE);
   bool test2 = !game_is_over(g);
-  square tab[4] = {S_ONE,S_ZERO,S_ONE,S_ONE};
+  square tab[4] = {S_ONE,S_ZERO,S_ONE,S_ZERO};
   game g2 = game_new_ext(2, 2, tab, false, true);
   bool test3 = game_is_over(g2);
   game_delete(g);
