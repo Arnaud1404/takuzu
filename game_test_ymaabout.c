@@ -48,11 +48,12 @@ int test_game_restart(void)
   game g2 = game_default_solution();
   game_restart(g2);
  
-  if (!game_equal(g, g2)) {
+  if (game_equal(g, g2)) {
     game_delete(g);
     game_delete(g2);
     return EXIT_FAILURE;
   }
+  if(g->to_undo!=NULL ||g->to_redo!=NULL)
   return EXIT_SUCCESS;
 }
 
