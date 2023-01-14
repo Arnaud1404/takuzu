@@ -289,6 +289,14 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
+  if (g->wrap == false) {
+    if (i > g->row || j > g->col) {
+      exit(EXIT_FAILURE);
+    }
+  }
+  if (dist > 2) {
+    exit(EXIT_FAILURE);
+  }
   square s = game_get_next_square(g, i, j, dir, dist);
   if (s == S_IMMUTABLE_ONE || s == S_ONE) {
     return 1;
