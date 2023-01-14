@@ -23,9 +23,15 @@ int test_is_over(void)
   bool test1 = !game_is_over(g1);
   game_set_square(g, 0, 0, S_ONE);
   bool test2 = !game_is_over(g);
+  square* tab = {S_ONE,S_ZERO,S_ONE,S_ONE};
+  game g2 = game_new_ext(2, 2, tab, false, true);
+  bool test3 = game_is_over(g2);
   game_delete(g);
   game_delete(g1);
   if (!test || !test1 || !test2) {
+    return EXIT_FAILURE;
+  }
+  if(g2 == true){
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
