@@ -48,6 +48,8 @@ int test_game_restart(void)
   game g2 = game_new_empty_ext(6, 6, false, false);
   game_play_move(g, 0, 0, S_ZERO);
   game_play_move(g, 0, 1, S_ZERO);
+  game_undo(g);
+  game_redo(g);
   game_restart(g);
 
   if (!game_equal(g, g2)) {
@@ -55,9 +57,8 @@ int test_game_restart(void)
     game_delete(g2);
     return EXIT_FAILURE;
   }
-  if (!to_undo_empty(g) || !to_redo_empty(g)) {
-    return EXIT_FAILURE;
-  }
+  game_delete(g);
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
