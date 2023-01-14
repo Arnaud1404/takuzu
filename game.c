@@ -441,7 +441,7 @@ int game_has_error(cgame g, uint i, uint j)
       tab[1] = game_get_next_number(g, c, j, DOWN, 1);
       tab[2] = game_get_next_number(g, c, j, DOWN, 2);
       if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
-        return true;
+        return 1;
       }
     }
     for (int c = 0; c < g->col; c++) {
@@ -449,7 +449,7 @@ int game_has_error(cgame g, uint i, uint j)
       tab[1] = game_get_next_number(g, i, c, RIGHT, 1);
       tab[2] = game_get_next_number(g, i, c, RIGHT, 2);
       if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
-        return true;
+        return 1;
       }
     }
   }
