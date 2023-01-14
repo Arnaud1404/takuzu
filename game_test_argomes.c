@@ -413,11 +413,11 @@ int test_game_redo()
 {
   game g = game_new_empty_ext(8, 4, true, true);
   game_play_move(g, 0, 0, S_ZERO);
-  game_play_move(g,1,0,S_ONE);
+  game_play_move(g, 1, 0, S_ONE);
   game_undo(g);
   game_redo(g);
 
-  if (game_get_square(g, 1, 0) != S_ONE ) {
+  if (game_get_square(g, 1, 0) != S_ONE) {
     game_delete(g);
     return EXIT_FAILURE;
   }

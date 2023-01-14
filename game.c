@@ -17,7 +17,7 @@ game game_new(square* squares)
     free(tableau);
     exit(EXIT_FAILURE);
   }
-  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {       
+  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = squares[i];
   }
   g->row = DEFAULT_SIZE;
