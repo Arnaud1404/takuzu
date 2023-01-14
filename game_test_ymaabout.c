@@ -6,6 +6,7 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
+#include "queue.h"
 
 int test_dummy(void) { return EXIT_SUCCESS; }
 
@@ -23,9 +24,19 @@ int test_is_over(void)
   bool test1 = !game_is_over(g1);
   game_set_square(g, 0, 0, S_ONE);
   bool test2 = !game_is_over(g);
+  square tab[] = {S_IMMUTABLE_ZERO, S_ZERO, S_ONE,  S_ONE,  S_ZERO, S_ONE, S_ONE,  S_ZERO, S_ZERO,
+                 S_ZERO,           S_ONE,  S_ONE,  S_ZERO, S_ONE,  S_ONE, S_ZERO, S_ONE,  S_ONE,
+                 S_ZERO,           S_ZERO, S_ONE,  S_ZERO, S_ZERO, S_ONE, S_ONE,  S_ONE,  S_ZERO,
+                 S_ZERO,           S_ONE,  S_ZERO, S_ZERO, S_ONE};
+
+  game g2 = game_new_ext(4, 8, tab, false, true);
+  bool test3 = game_is_over(g2);
   game_delete(g);
   game_delete(g1);
   if (!test || !test1 || !test2) {
+    return EXIT_FAILURE;
+  }
+  if(test3 == true){
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -34,13 +45,16 @@ int test_is_over(void)
 int test_game_restart(void)
 {
   game g = game_default();
-  game g2 = game_default_solution();
-  game_restart(g2);
+  game g2 = game_copy(g);
+  game_play_move(g,0,0,S_ONE);
+  game_restart(g);
   if (!game_equal(g, g2)) {
     game_delete(g);
     game_delete(g2);
     return EXIT_FAILURE;
   }
+  ASSERT(queue_is_empty(g->to_undo));
+  ASSERT(queue_is_empty(g->to_redo));
   game_delete(g);
   game_delete(g2);
   return EXIT_SUCCESS;

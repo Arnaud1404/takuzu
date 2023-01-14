@@ -55,10 +55,10 @@ int test_game_has_error(void)
   }
 
   game g2 = game_new_empty_ext(4, 4, true, true);
-  game_set_square(g, 0, 0, S_ONE);
-  game_set_square(g, 1, 0, S_ONE);
-  game_set_square(g, 3, 0, S_ONE);
-  bool test13 = !game_has_error(g, 0, 0);
+  game_set_square(g2, 0, 0, S_ONE);
+  game_set_square(g2, 1, 0, S_ONE);
+  game_set_square(g2, 3, 0, S_ONE);
+  bool test13 = !game_has_error(g2, 0, 0);
   if (!test13) {
     return EXIT_FAILURE;
   }
@@ -413,10 +413,11 @@ int test_game_redo()
 {
   game g = game_new_empty_ext(8, 4, true, true);
   game_play_move(g, 0, 0, S_ZERO);
+  game_play_move(g,1,0,S_ONE);
   game_undo(g);
   game_redo(g);
 
-  if (game_get_square(g, 0, 0) != S_ZERO) {
+  if (game_get_square(g, 1, 0) != S_ONE ) {
     game_delete(g);
     return EXIT_FAILURE;
   }
