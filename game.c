@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "game_ext.h"
 #include "game_struct.h"
 #include "queue.h"
@@ -201,102 +202,73 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if(g->wrap == false){
-    if(i>g->row || j>g->col){
+  if (g->wrap == false) {
+    if (i > g->row || j > g->col) {
       exit(EXIT_FAILURE);
     }
   }
   if (dist > 2) {
     exit(EXIT_FAILURE);
   }
-  if(g->wrap == false){
-
-
-  if (dir == DOWN) {
-    if (i + dist > 5) {
-      return -1;
-    }
-    return game_get_square(g, i + dist, j);
-  }
-  if (dir == UP) {
-    int m = i - dist;
-    if (m < 0) {
-      return -1;
-    }
-    return game_get_square(g, i - dist, j);
-  }
-  if (dir == RIGHT) {
-    if (j + dist > 5) {
-      return -1;
-    }
-    return game_get_square(g, i, j + dist);
-  }
-  if (dir == LEFT) {
-    int d = j - dist;
-    if (d < 0) {
-      return -1;
-    }
-    return game_get_square(g, i, j - dist);
-  }
-    
-
-    
-  if (dir == DOWN) {
-    if (i + dist > 5) {
-      return -1;
-    }
-    return game_get_square(g, i + dist, j);
-  }
-  if (dir == UP) {
-    int m = i - dist;
-    if (m < 0) {
-      return -1;
-    }
-    return game_get_square(g, i - dist, j);
-  }
-  if (dir == RIGHT) {
-    if (j + dist > 5) {
-      return -1;
-    }
-    return game_get_square(g, i, j + dist);
-  }
-  if (dir == LEFT) {
-    int d = j - dist;
-    if (d < 0) {
-      return -1;
-    }
-    return game_get_square(g, i, j - dist);
-  } 
-  }
-  else{
-    if(dir == UP){
-      if(i<dist){
-        i = g->row-dist+i;
+  if (g->wrap == false) {
+    if (dir == DOWN) {
+      if (i + dist > 5) {
+        return -1;
       }
-      i = i%(g->row);
-      return game_get_square(g,i,j);
+      return game_get_square(g, i + dist, j);
     }
-  if(dir == DOWN){
-    i = i+dist;
-    i = i%g->row;
-    return game_get_square(g,i,j);
-  }
-  if(dir == RIGHT){
-    j = j+dist;
-    j = j%g->col;
-    return game_get_square(g,i,j);
-  }
-  if(dir == LEFT){
-    if(j<dist){
-      j = g->col-dist+j;
+    if (dir == UP) {
+      int m = i - dist;
+      if (m < 0) {
+        return -1;
+      }
+      return game_get_square(g, i - dist, j);
     }
-    j = j%(g->col);
-    return game_get_square(g,i,j);
-  }
+    if (dir == RIGHT) {
+      if (j + dist > 5) {
+        return -1;
+      }
+      return game_get_square(g, i, j + dist);
+    }
+    if (dir == LEFT) {
+      int d = j - dist;
+      if (d < 0) {
+        return -1;
+      }
+      return game_get_square(g, i, j - dist);
+    }
+  } else {
+    if (dir == UP) {
+      if (i < dist) {
+        i = g->row - dist + i;
+      }
+      i = i % (g->row);
+      j = j % g->col;
+      return game_get_square(g, i, j);
+    }
+    if (dir == DOWN) {
+      i = i + dist;
+      i = i % g->row;
+      j = j % g->col;
+      return game_get_square(g, i, j);
+    }
+    if (dir == RIGHT) {
+      i = i % g->row;
+      j = j + dist;
+      j = j % g->col;
+      return game_get_square(g, i, j);
+    }
+    if (dir == LEFT) {
+      if (j < dist) {
+        j = g->col - dist + j;
+      }
+      i = i % g->row;
+      j = j % (g->col);
+      return game_get_square(g, i, j);
+    }
   }
   return -1;
 }
-
 
 /**
  * @brief Gets the value of the next square in a given direction.
@@ -317,11 +289,11 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  square s = game_get_next_square(g,i,j,dir,dist);
-  if(s == S_IMMUTABLE_ONE || s == S_ONE){
+  square s = game_get_next_square(g, i, j, dir, dist);
+  if (s == S_IMMUTABLE_ONE || s == S_ONE) {
     return 1;
   }
-  if(s==S_ZERO || s == S_IMMUTABLE_ZERO){
+  if (s == S_ZERO || s == S_IMMUTABLE_ZERO) {
     return 0;
   }
   return -1;
@@ -395,101 +367,73 @@ int game_donne_nombre(square s)
  **/
 int game_has_error(cgame g, uint i, uint j)
 {
-  if (g == NULL) {
-    exit(EXIT_FAILURE);
-  }
 
-  int cpt_zero = 0;
-  int cpt_one = 0;
-  int consecutive_zero = 0;
-  int consecutive_one = 0;
-  for (int c = 0; c < g->row; c++) {
-    if (game_get_number(g, c, j) == 1) {
-      cpt_one = cpt_one + 1;
-      consecutive_one += 1;
-      if (consecutive_one == 3) {
-        return true;
-      }
-      if (consecutive_zero != 0) {
-        consecutive_zero = 0;
-      }
-    } else if (game_get_number(g, c, j) == 0) {
-      cpt_zero = cpt_zero + 1;
-      consecutive_zero += 1;
-      if (consecutive_zero == 3) {
-        return true;
-      }
-      if (consecutive_one != 0) {
-        consecutive_one = 0;
-      }
-    } else {
-      consecutive_one = 0;
-      consecutive_zero = 0;
-    }
-    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
-      return true;
+    uint black = 0, white = 0;
+    // Même nombre de b/n dans la colonne
+    for (uint v = 0; v < g->row; v++) {
+        switch (game_get_number(g, v, j)) {
+            case 1:
+                black++;
+                break;
+            case 0:
+                white++;
+                break;
+        }
     }
 
-  }
+    if (white > g->row / 2 || black > g->row / 2) return -1;
+    black = 0;
+    white = 0;
 
-  cpt_zero = 0;
-  cpt_one = 0;
-  consecutive_zero = 0;
-  consecutive_one = 0;
-  for (int c = 0; c < g->col; c++) {
-    if (game_get_number(g, i, c) == 1) {
-      cpt_one = cpt_one + 1;
-      consecutive_one += 1;
-      if (consecutive_one == 3) {
-        return true;
-      }
-      if (consecutive_zero != 0) {
-        consecutive_zero = 0;
-      }
-    } else if (game_get_number(g, i, c) == 0) {
-      cpt_zero = cpt_zero + 1;
-      consecutive_zero += 1;
-      if (consecutive_zero == 3) {
-        return true;
-      }
-      if (consecutive_one != 0) {
-        consecutive_one = 0;
-      }
-    } else {
-      consecutive_one = 0;
-      consecutive_zero = 0;
+    // Même nombre de b/n dans la ligne
+    for (uint v = 0; v < g->col; v++) {
+        switch (game_get_number(g, i, v)) {
+            case 1:
+                black++;
+                break;
+            case 0:
+                white++;
+                break;
+        }
     }
-    if (cpt_zero > g->col / 2 || cpt_one > g->col / 2) {
-      return true;
+
+    if (white > g->col / 2 || black > g->col / 2) return -2;
+
+    square tab[3];
+    uint n = g->row - 2;
+
+    // Trois square identiques consecutivement sur la colonne
+    if (g->row >= 3) {
+        if (g->wrap) n = g->row;
+        for (uint v = 0; v < n; v++) {
+            tab[0] = game_get_number(g, v, j);
+            tab[1] = game_get_next_number(g, v, j, DOWN, 1);
+            tab[2] = game_get_next_number(g, v, j, DOWN, 2);
+            if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) return 1;
+        }
     }
-  }
-    if(g->wrap ==true){
-    int tab[3];
-    for(int c = 0; c<g->row;c++){
-      tab[0] = game_get_number(g,c,j);
-      tab[1] = game_get_next_number(g,c,j,DOWN,1);
-      tab[2] = game_get_next_number(g,c,j,DOWN,2);
-      if((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)){
-        return true;
-      }
+
+    // Trois square identiques consecutivement sur la ligne
+    n = g->col - 2;
+    if (g->col >= 3) {
+        if (g->wrap) n = g->col;
+        for (uint v = 0; v < n; v++) {
+            tab[0] = game_get_number(g, i, v);
+            tab[1] = game_get_next_number(g, i, v, RIGHT, 1);
+            tab[2] = game_get_next_number(g, i, v, RIGHT, 2);
+            if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) return 2;
+        }
     }
-    for(int c = 0; c<g->col;c++){
-      tab[0] = game_get_number(g,i,c);
-      tab[1] = game_get_next_number(g,i,c,RIGHT,1);
-      tab[2] = game_get_next_number(g,i,c,RIGHT,2);
-      if((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)){
-        return true;
-      }
-    }
-  }  
-  if (g->uni==true) {
+    
+    if (g->uni) {
         uint c = 0;
+        // Colonne non unique
         for (uint v = 0; v < g->col; v++) {
             if (v != j) {
                 for (uint y = 0; y < g->row; y++) {
                     if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1) c++;
                 }
-                if (c == g->row) return true;
+                if (c == g->row) return 3;
                 c = 0;
             }
         }
@@ -500,14 +444,15 @@ int game_has_error(cgame g, uint i, uint j)
                 for (uint y = 0; y < g->col; y++) {
                     if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1)c++;
                     }
-                if (c == g->col) return true;
+                if (c == g->col) return 4;
                 c = 0;
             }
         }
     }
 
-  return false;
+    return 0;
 }
+
 /**
  * @brief Checks if a given move is legal.
  * @details This function checks that it is possible to play a move at a given
@@ -605,8 +550,8 @@ bool game_is_over(cgame g)
     }
   }
   if (g->uni == true) {
-    for (uint lref = 0; lref < g->row-1; lref++) {
-      for (uint l = lref+1; l < g->row; l++) {
+    for (uint lref = 0; lref < g->row - 1; lref++) {
+      for (uint l = lref + 1; l < g->row; l++) {
         int same = 0;
         for (uint c = 0; c < g->col; c++) {
           if (game_get_number(g, lref, c) == game_get_number(g, l, c)) {
@@ -618,8 +563,8 @@ bool game_is_over(cgame g)
         }
       }
     }
-    for (uint cref = 0; cref < g->col-1; cref++) {
-      for (uint c = cref+1; c < g->col; c++) {
+    for (uint cref = 0; cref < g->col - 1; cref++) {
+      for (uint c = cref + 1; c < g->col; c++) {
         int same = 0;
         for (uint l = 0; l < g->row; l++) {
           if (game_get_number(g, l, cref) == game_get_number(g, l, c)) {
@@ -650,7 +595,7 @@ void game_restart(game g)
   }
   for (int i = 0; i < g->row; i++) {
     for (int j = 0; j < g->col; j++) {
-      if (game_get_square(g, i, j) == S_ONE || game_get_square(g, i, j) == S_ZERO) {
+      if (game_get_square(g, i, j) != S_IMMUTABLE_ONE && game_get_square(g, i, j) != S_IMMUTABLE_ZERO) {
         game_set_square(g, i, j, S_EMPTY);
       }
     }
