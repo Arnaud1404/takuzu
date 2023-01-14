@@ -55,7 +55,7 @@ int test_game_restart(void)
     game_delete(g2);
     return EXIT_FAILURE;
   }
-  if (!queue_is_empty(g->to_undo) || !queue_is_empty(g->to_redo)) {
+  if (!to_undo_empty(g) || !to_redo_empty(g)) {
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
