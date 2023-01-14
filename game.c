@@ -367,118 +367,92 @@ int game_donne_nombre(square s)
  **/
 int game_has_error(cgame g, uint i, uint j)
 {
-  if (g == NULL) {
-    exit(EXIT_FAILURE);
-  }
 
-  int cpt_zero = 0;
-  int cpt_one = 0;
-  int consecutive_zero = 0;
-  int consecutive_one = 0;
-  for (int c = 0; c < g->row; c++) {
-    if (game_get_number(g, c, j) == 1) {
-      cpt_one = cpt_one + 1;
-      consecutive_one += 1;
-      if (consecutive_one == 3) {
-        return true;
-      }
-      if (consecutive_zero != 0) {
-        consecutive_zero = 0;
-      }
-    } else if (game_get_number(g, c, j) == 0) {
-      cpt_zero = cpt_zero + 1;
-      consecutive_zero += 1;
-      if (consecutive_zero == 3) {
-        return true;
-      }
-      if (consecutive_one != 0) {
-        consecutive_one = 0;
-      }
-    } else {
-      consecutive_one = 0;
-      consecutive_zero = 0;
-    }
-    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
-      return true;
-    }
-  }
-
-  cpt_zero = 0;
-  cpt_one = 0;
-  consecutive_zero = 0;
-  consecutive_one = 0;
-  for (int c = 0; c < g->col; c++) {
-    if (game_get_number(g, i, c) == 1) {
-      cpt_one = cpt_one + 1;
-      consecutive_one += 1;
-      if (consecutive_one == 3) {
-        return true;
-      }
-      if (consecutive_zero != 0) {
-        consecutive_zero = 0;
-      }
-    } else if (game_get_number(g, i, c) == 0) {
-      cpt_zero = cpt_zero + 1;
-      consecutive_zero += 1;
-      if (consecutive_zero == 3) {
-        return true;
-      }
-      if (consecutive_one != 0) {
-        consecutive_one = 0;
-      }
-    } else {
-      consecutive_one = 0;
-      consecutive_zero = 0;
-    }
-    if (cpt_zero > g->col / 2 || cpt_one > g->col / 2) {
-      return true;
-    }
-  }
-  if (g->wrap == true) {
-    int tab[3];
-    for (int c = 0; c < g->row; c++) {
-      tab[0] = game_get_number(g, c, j);
-      tab[1] = game_get_next_number(g, c, j, DOWN, 1);
-      tab[2] = game_get_next_number(g, c, j, DOWN, 2);
-      if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
-        return 1;
-      }
-    }
-    for (int c = 0; c < g->col; c++) {
-      tab[0] = game_get_number(g, i, c);
-      tab[1] = game_get_next_number(g, i, c, RIGHT, 1);
-      tab[2] = game_get_next_number(g, i, c, RIGHT, 2);
-      if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
-        return 1;
-      }
-    }
-  }
-  if (g->uni == true) {
-    uint c = 0;
-    for (uint v = 0; v < g->col; v++) {
-      if (v != j) {
-        for (uint y = 0; y < g->row; y++) {
-          if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1) c++;
-        }
-        if (c == g->row) return true;
-        c = 0;
-      }
-    }
-
-    // Ligne non unique
+    uint black = 0, white = 0;
+    // Même nombre de b/n dans la colonne
     for (uint v = 0; v < g->row; v++) {
-      if (v != i) {
-        for (uint y = 0; y < g->col; y++) {
-          if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1) c++;
+        switch (game_get_number(g, v, j)) {
+            case 1:
+                black++;
+                break;
+            case 0:
+                white++;
+                break;
         }
-        if (c == g->col) return true;
-        c = 0;
-      }
     }
-  }
 
-  return false;
+    if (white > g->row / 2 || black > g->row / 2) return -1;
+    black = 0;
+    white = 0;
+
+    // Même nombre de b/n dans la ligne
+    for (uint v = 0; v < g->col; v++) {
+        switch (game_get_number(g, i, v)) {
+            case 1:
+                black++;
+                break;
+            case 0:
+                white++;
+                break;
+        }
+    }
+
+    if (white > g->col / 2 || black > g->col / 2) return -2;
+
+    square tab[3];
+    uint n = g->row - 2;
+
+    // Trois square identiques consecutivement sur la colonne
+    if (g->row >= 3) {
+        if (g->wrap) n = g->row;
+        for (uint v = 0; v < n; v++) {
+            tab[0] = game_get_number(g, v, j);
+            tab[1] = game_get_next_number(g, v, j, DOWN, 1);
+            tab[2] = game_get_next_number(g, v, j, DOWN, 2);
+            if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) return 1;
+        }
+    }
+
+    // Trois square identiques consecutivement sur la ligne
+    n = g->col - 2;
+    if (g->col >= 3) {
+        if (g->wrap) n = g->col;
+        for (uint v = 0; v < n; v++) {
+            tab[0] = game_get_number(g, i, v);
+            tab[1] = game_get_next_number(g, i, v, RIGHT, 1);
+            tab[2] = game_get_next_number(g, i, v, RIGHT, 2);
+            if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) return 2;
+        }
+    }
+    
+    if (g->uni) {
+        uint c = 0;
+        // Colonne non unique
+        for (uint v = 0; v < g->col; v++) {
+            if (v != j) {
+                for (uint y = 0; y < g->row; y++) {
+                    if (game_get_number(g, y, v) == game_get_number(g, y, j) && game_get_number(g, y, j) != -1) c++;
+                }
+                if (c == g->row) return 3;
+                c = 0;
+            }
+        }
+
+        // Ligne non unique
+        for (uint v = 0; v < g->row; v++) {
+            if (v != i) {
+                for (uint y = 0; y < g->col; y++) {
+                    if (game_get_number(g, v, y) == game_get_number(g, i, y) && game_get_number(g, i, y) != -1)c++;
+                    }
+                if (c == g->col) return 4;
+                c = 0;
+            }
+        }
+    }
+
+    return 0;
 }
+
 /**
  * @brief Checks if a given move is legal.
  * @details This function checks that it is possible to play a move at a given
