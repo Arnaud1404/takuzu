@@ -6,6 +6,7 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
+#include "queue.h"
 
 int test_dummy(void) { return EXIT_SUCCESS; }
 
@@ -42,13 +43,12 @@ int test_game_restart(void)
   game g = game_default();
   game g2 = game_default_solution();
   game_restart(g2);
+ 
   if (!game_equal(g, g2)) {
     game_delete(g);
     game_delete(g2);
     return EXIT_FAILURE;
   }
-  game_delete(g);
-  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
