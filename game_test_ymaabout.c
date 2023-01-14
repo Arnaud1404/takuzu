@@ -44,13 +44,18 @@ int test_is_over(void)
 
 int test_game_restart(void)
 {
-  game g = game_default();
-  game g2 = game_default_solution();
-  game_restart(g2);
+  game g = game_new_empty_ext(6, 6, false, false);
+  game g2 = game_new_empty_ext(6, 6, false, false);
+  game_play_move(g, 0, 0, S_ZERO);
+  game_play_move(g, 0, 1, S_ZERO);
+  game_restart(g);
 
   if (!game_equal(g, g2)) {
     game_delete(g);
     game_delete(g2);
+    return EXIT_FAILURE;
+  }
+  if (!queue_is_empty(g->to_undo) || !queue_is_empty(g->to_redo)) {
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
