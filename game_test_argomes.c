@@ -73,6 +73,10 @@ int test_game_copy(void)
                 S_EMPTY, S_IMMUTABLE_ZERO, S_IMMUTABLE_ONE,  S_EMPTY, S_EMPTY,          S_EMPTY,
                 S_EMPTY, S_EMPTY,          S_IMMUTABLE_ONE,  S_EMPTY, S_EMPTY,          S_IMMUTABLE_ZERO,
                 S_EMPTY, S_EMPTY,          S_EMPTY,          S_EMPTY, S_EMPTY,          S_IMMUTABLE_ZERO};
+  square* tableau = malloc(sizeof(square) * 36);
+  for (int i = 0; i < 36; i++) {
+    tableau[i] = s[i];
+  }
   game g = game_new_ext(6, 6, s, true, false);
   game g_copy = game_copy(g);
   // if(g.row!=g_copy->row||g.col!=g_copy->col||g.uni!=g->uni||g.wrap!=g_copy->wrap){
