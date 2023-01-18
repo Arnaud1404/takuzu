@@ -8,16 +8,12 @@
 game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bool unique)
 {
   game g = (game) malloc(sizeof(struct game_s));
-  square* tableau = malloc(sizeof(square) * nb_cols * nb_rows);
-  if (g == NULL || tableau == NULL) {
+  if (g == NULL || squares == NULL) {
     free(g);
-    free(tableau);
+    free(squares);
     exit(EXIT_FAILURE);
   }
-  for (int i = 0; i < nb_cols * nb_rows; i++) {
-    tableau[i] = squares[i];
-  }
-  g->tab = tableau;
+  g->tab = squares;
   g->col = nb_cols;
   g->row = nb_rows;
   g->uni = unique;
@@ -26,7 +22,7 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   queue* t = queue_new();
   if (s == NULL || t == NULL) {
     free(g);
-    free(tableau);
+    free(squares);
     queue_free(t);
     queue_free(s);
     exit(EXIT_FAILURE);
