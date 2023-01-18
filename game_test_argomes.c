@@ -87,14 +87,17 @@ int test_game_copy(void)
   if (game_equal(g, g_copy) == false) {
     game_delete(g);
     game_delete(g_copy);
+    free(tableau);
     return EXIT_FAILURE;
   }
   game_play_move(g, 0, 0, S_ONE);
   if (game_equal(g, g_copy) == true) {
+    free(tableau);
     game_delete(g);
     game_delete(g_copy);
     return EXIT_FAILURE;
   }
+  free(tableau);
   game_delete(g);
   game_delete(g_copy);
   return EXIT_SUCCESS;
