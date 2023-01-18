@@ -73,6 +73,10 @@ int test_game_copy(void)
                 S_EMPTY, S_IMMUTABLE_ZERO, S_IMMUTABLE_ONE,  S_EMPTY, S_EMPTY,          S_EMPTY,
                 S_EMPTY, S_EMPTY,          S_IMMUTABLE_ONE,  S_EMPTY, S_EMPTY,          S_IMMUTABLE_ZERO,
                 S_EMPTY, S_EMPTY,          S_EMPTY,          S_EMPTY, S_EMPTY,          S_IMMUTABLE_ZERO};
+  square* tableau = malloc(sizeof(square) * 36);
+  for (int i = 0; i < 36; i++) {
+    tableau[i] = s[i];
+  }
   game g = game_new_ext(6, 6, s, true, false);
   game g_copy = game_copy(g);
   // if(g.row!=g_copy->row||g.col!=g_copy->col||g.uni!=g->uni||g.wrap!=g_copy->wrap){
@@ -146,7 +150,7 @@ int test_game_equal()
   return EXIT_FAILURE;
 }
 
-int test_get_next_number()
+int test_game_get_next_number()
 {
   game g = game_new_empty_ext(6, 6, false, false);
 
@@ -252,7 +256,7 @@ int test_get_next_number()
   return EXIT_SUCCESS;
 }
 
-int test_get_number()
+int test_game_get_number()
 {
   game g = game_default();
   int empty = game_get_number(g, 0, 0);
@@ -450,12 +454,12 @@ int main(int argcount, char* argv[])
         test = test_game_equal();
       }
     } else if (strcmp(argv[1], "game_get_next_number") == 0) {
-      if (test_get_next_number()) {
-        test = test_get_next_number();
+      if (test_game_get_next_number()) {
+        test = test_game_get_next_number();
       }
-    } else if (strcmp(argv[1], "get_number") == 0) {
-      if (test_get_number()) {
-        test = test_get_number();
+    } else if (strcmp(argv[1], "game_get_number") == 0) {
+      if (test_game_get_number()) {
+        test = test_game_get_number();
       }
     } else if (strcmp(argv[1], "game_new") == 0) {
       if (test_game_new()) {
