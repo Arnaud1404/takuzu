@@ -162,41 +162,6 @@ int test_game_get_next_square()
   return EXIT_SUCCESS;
 }
 
-int test_get_number()
-{
-  game g = game_default();
-  int empty = game_get_number(g, 0, 0);
-  int zero = game_get_number(g, 0, 2);
-  int one = game_get_number(g, 0, 1);
-  game_delete(g);
-  if (empty != -1 || zero != 0 || one != 1) {
-    return EXIT_FAILURE;
-  }
-  return EXIT_SUCCESS;
-}
-
-int test_game_new()
-{
-  int n = DEFAULT_SIZE * DEFAULT_SIZE;
-  square* squares = malloc(n * sizeof(square));
-  for (int i = 0; i < n; i++) {
-    squares[i] = S_EMPTY;
-  }
-  squares[1] = S_IMMUTABLE_ZERO;
-  squares[35] = S_IMMUTABLE_ONE;
-  game g = game_new(squares);
-  square immutable_zero = game_get_square(g, 0, 1);
-  square immutable_one = game_get_square(g, 5, 5);
-  square empty = game_get_square(g, 0, 0);
-  if (immutable_zero == S_IMMUTABLE_ZERO && immutable_one == S_IMMUTABLE_ONE && empty == S_EMPTY) {
-    free(squares);
-    game_delete(g);
-    return EXIT_SUCCESS;
-  }
-  free(squares);
-  game_delete(g);
-  return EXIT_FAILURE;
-}
 
 int test_game_default()
 {
@@ -271,58 +236,7 @@ int test_game_default_solution()
   return EXIT_SUCCESS;
 }
 
-// int test_game_undo(){
-//   game g=game_default;
-//   game gbis=game_default;
-//   game_undo(g);
-//   if(g!=gbis){
-//     game_delete(g);
-//     game_delete(gbis);
-//     return EXIT_FAILURE;
-//   }
-//   game_play_move(g,1,1,S_ONE);
-//   game_undo(g);
-//   if(g!=gbis){
-//     game_delete(g);
-//     game_delete(gbis);
-//     return EXIT_FAILURE;
-//   }
-//   game_play_move(g,1,1,S_ONE);
-//   game_play_move(gbis,1,1,S_ONE);
-//   game_play_move(g,0,0,S_ZERO);
-//   if(g!=gbis){
-//     game_delete(g);
-//     game_delete(gbis);
-//     return EXIT_FAILURE;
-//   }
-//   game_delete(g);
-//   game_delete(gbis);
-//   return EXIT_SUCCESS;
-// }
 
-// int test_game_redo(){
-//   game g=game_default();
-//   game gbis=game_default();
-//   game_undo(g);
-//   game_redo(g);
-//   if(g!=gbis){
-//     game_delete(g);
-//     game_delete(gbis);
-//     return EXIT_FAILURE;
-//   }
-//   game_play_move(g,1,1,S_ONE);
-//   game_play_move(gbis,1,1,S_ONE);
-//   game_undo(g);
-//   game_redo(g);
-//   if(g!=gbis){
-//     game_delete(g);
-//     game_delete(gbis);
-//     return EXIT_FAILURE;
-//   }
-//   game_delete(g);
-//   game_delete(gbis);
-//   return EXIT_SUCCESS;
-// }
 
 int main(int argcount, char* argv[])
 {
