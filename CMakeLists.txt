@@ -52,7 +52,6 @@ add_test(test_argomes_test_game_nb_rows ./game_test_argomes game_nb_rows)
 add_test(test_argomes_test_game_nb_cols ./game_test_argomes game_nb_cols)
 add_test(test_argomes_test_game_is_wrapping ./game_test_argomes game_is_wrapping)
 add_test(test_argomes_test_game_is_unique ./game_test_argomes game_is_unique)
-add_test(test_argomes_test_game_is_unique ./game_test_argomes game_is_unique)
 add_test(test_argomes_test_game_undo ./game_test_argomes game_undo)
 add_test(test_argomes_test_game_redo ./game_test_argomes game_redo)
 
