@@ -6,7 +6,6 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
-#include "queue.h"
 
 // S_ZERO = white
 // S_ONE = black
@@ -146,7 +145,7 @@ int test_game_equal()
   return EXIT_FAILURE;
 }
 
-int test_game_get_next_number()
+int test_get_next_number()
 {
   game g = game_new_empty_ext(6, 6, false, false);
 
@@ -252,7 +251,7 @@ int test_game_get_next_number()
   return EXIT_SUCCESS;
 }
 
-int test_game_get_number()
+int test_get_number()
 {
   game g = game_default();
   int empty = game_get_number(g, 0, 0);
@@ -317,7 +316,7 @@ int test_game_new_ext()
   squares[31] = S_IMMUTABLE_ONE;
   game g = game_new_ext(8, 4, squares, true, true);
   square immutable_zero = game_get_square(g, 0, 1);
-  square immutable_one = game_get_square(g, 3, 7);
+  square immutable_one = game_get_square(g, 7, 3);
   square empty = game_get_square(g, 0, 0);
   if (!game_is_wrapping(g) || !game_is_unique(g)) {
     free(squares);
@@ -409,19 +408,41 @@ int test_game_undo()
   return EXIT_SUCCESS;
 }
 
-int test_game_redo()
+bool test_game_redo(void)
 {
-  game g = game_new_empty_ext(8, 4, true, true);
-  game_play_move(g, 0, 0, S_ZERO);
-  game_undo(g);
-  game_redo(g);
+    game new_game = game_new_empty_ext(DEFAULT_SIZE, 8, true, true);
+    game_play_move(new_game, 3, 2, S_ONE);
+    game_undo(new_game);
+    game_redo(new_game);
+    game_print(new_game);
+    /* Je vérfie que l'historique des coups joués n'est pas vide et que la valeur dans
+    le head est bien le coup qui a été rejoué */
 
-  if (game_get_square(g, 0, 0) != S_ZERO) {
-    game_delete(g);
-    return EXIT_FAILURE;
-  }
-  game_delete(g);
-  return EXIT_SUCCESS;
+    if (game_get_square(new_game, 3, 2) != S_ONE) {
+        game_delete(new_game);
+        return false;
+    }
+
+    // On test de redo plusieurs coups
+    game_play_move(new_game, 3, 2, S_ONE);
+    game_play_move(new_game, 3, 1, S_ONE);
+    game_play_move(new_game, 1, 2, S_ZERO);
+    game_undo(new_game);
+    game_undo(new_game);
+    game_undo(new_game);
+    game_redo(new_game);
+    game_redo(new_game);
+    game_redo(new_game);
+
+    if (game_get_square(new_game, 3, 2) != S_ONE || game_get_square(new_game, 3, 1) != S_ONE ||
+        game_get_square(new_game, 1, 2) != S_ZERO) {
+        game_delete(new_game);
+        return false;
+    }
+
+    game_delete(new_game);
+
+    return true;
 }
 int main(int argcount, char* argv[])
 {
@@ -449,13 +470,13 @@ int main(int argcount, char* argv[])
       if (test_game_equal()) {
         test = test_game_equal();
       }
-    } else if (strcmp(argv[1], "game_game_get_next_number") == 0) {
-      if (test_game_get_next_number()) {
-        test = test_game_get_next_number();
+    } else if (strcmp(argv[1], "get_next_number") == 0) {
+      if (test_get_next_number()) {
+        test = test_get_next_number();
       }
-    } else if (strcmp(argv[1], "game_get_number") == 0) {
-      if (test_game_get_number()) {
-        test = test_game_get_number();
+    } else if (strcmp(argv[1], "get_number") == 0) {
+      if (test_get_number()) {
+        test = test_get_number();
       }
     } else if (strcmp(argv[1], "game_new") == 0) {
       if (test_game_new()) {

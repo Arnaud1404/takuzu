@@ -10,7 +10,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "game_ext.h"
 #include "game.h"
 
 /**
@@ -26,15 +26,18 @@ void game_print(cgame g)
     exit(EXIT_FAILURE);
   }
   printf("   ");
-  for (int j = 0; j < DEFAULT_SIZE; j++) {
+  int row =  game_nb_rows(g);
+  int col =  game_nb_cols(g);
+  for (int j = 0; j < col; j++) {
     printf("%d", j);
   }
   printf("\n");
   printf("  ------ ");
+  printf("\n");
 
-  for (int i = 0; i < DEFAULT_SIZE; i++) {
+  for (int i = 0; i < row; i++) {
     printf("%d |", i);
-    for (int j = 0; j < DEFAULT_SIZE; j++) {
+    for (int j = 0; j < col; j++) {
       if (game_get_square(g, i, j) == S_EMPTY) {
         printf(" ");
       }
