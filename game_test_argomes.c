@@ -286,7 +286,6 @@ int test_game_new()
   game_delete(g);
   return EXIT_FAILURE;
 }
-
 int test_game_get_square()
 {
   game g = game_default();
@@ -352,7 +351,6 @@ int test_game_new_empty_ext()
   game_delete(g);
   return EXIT_SUCCESS;
 }
-
 int test_game_nb_rows()
 {
   game g = game_new_empty_ext(8, 4, true, true);
@@ -446,7 +444,6 @@ bool test_game_redo(void)
 
     return true;
 }
-
 int main(int argcount, char* argv[])
 {
   int test;
