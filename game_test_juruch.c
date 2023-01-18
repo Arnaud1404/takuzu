@@ -162,7 +162,6 @@ int test_game_get_next_square()
   return EXIT_SUCCESS;
 }
 
-
 int test_game_default()
 {
   game g = game_new_empty();
@@ -235,8 +234,6 @@ int test_game_default_solution()
   game_delete(def);
   return EXIT_SUCCESS;
 }
-
-
 
 int main(int argcount, char* argv[])
 {
