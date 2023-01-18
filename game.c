@@ -637,7 +637,3 @@ void game_restart(game g)
   queue_clear(g->to_undo);
   queue_clear(g->to_redo);
 }
-
-void to_undo_empty(cgame g) { return queue_is_empty(g->to_undo); }
-
-void to_redo_empty(cgame g) { return queue_is_empty(g->to_redo); }
