@@ -35,20 +35,11 @@ int test_game_is_over(void)
   game_delete(g1);
   game_delete(g2);
   if (!test || !test1 || !test2) {
-    game_delete(g);
-    game_delete(g1);
-    game_delete(g2);
     return EXIT_FAILURE;
   }
   if (test3 == true) {
-    game_delete(g);
-    game_delete(g1);
-    game_delete(g2);
     return EXIT_FAILURE;
   }
-  game_delete(g);
-  game_delete(g1);
-  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
