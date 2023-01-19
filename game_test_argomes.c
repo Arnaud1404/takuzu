@@ -51,6 +51,7 @@ int test_game_has_error(void)
   game_delete(g);
   if (!test1 || !test2 || !test3 || !test4 || !test5 || !test6 || !test7 || !test8 || !test9 || !test10 || !test11 ||
       !test12) {
+        game_delete(g);
     return EXIT_FAILURE;
   }
 
@@ -60,8 +61,10 @@ int test_game_has_error(void)
   game_set_square(g2, 3, 0, S_ONE);
   bool test13 = !game_has_error(g2, 0, 0);
   if (!test13) {
+    game_delete(g2);
     return EXIT_FAILURE;
   }
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
