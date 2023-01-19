@@ -159,6 +159,7 @@ int test_game_get_next_square()
     game_delete(g2);
     return EXIT_FAILURE;
   }
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
