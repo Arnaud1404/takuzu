@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "game_struct.h"
+#include "queue.h"
 
 // crée et renvoie un jeu avec des paramètres spécifiques entrés en paramètre
 // avec nb_rows le nombre voulu de colonne, nb_cols le nombre de colonnes
