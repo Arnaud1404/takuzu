@@ -179,32 +179,29 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       return game_get_square(g, i, j - dist);
     }
   } else {
+    int a;
     if (dir == UP) {
       if (i < dist) {
-        i = g->row - dist + i;
+        a = g->row - dist + i;
       }
-      i = i % (g->row);
-      j = j % g->col;
+      i = a % (g->row);
       return game_get_square(g, i, j);
     }
     if (dir == DOWN) {
       i = i + dist;
       i = i % g->row;
-      j = j % g->col;
       return game_get_square(g, i, j);
     }
     if (dir == RIGHT) {
-      i = i % g->row;
       j = j + dist;
       j = j % g->col;
       return game_get_square(g, i, j);
     }
     if (dir == LEFT) {
       if (j < dist) {
-        j = g->col - dist + j;
+        a = g->col - dist + j;
       }
-      i = i % g->row;
-      j = j % (g->col);
+      j = a % (g->col);
       return game_get_square(g, i, j);
     }
   }
@@ -346,25 +343,28 @@ int game_has_error(cgame g, uint i, uint j)
     int s3;
     for (int c = 0; c < g->row; c++) {
       s1 = game_get_number(g, c, j);
-      s2 = game_get_next_number(g, c, j, RIGHT, 1);
-      s3 = game_get_next_number(g, c, j, RIGHT, 2);
+      s2 = game_get_next_number(g, c, j, UP, 1);
+      s3 = game_get_next_number(g, c, j, UP, 2);
       if (s1== 0 && s2 == 0 && s3 == 0) {
         return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
+        printf("1 row");
         return 2;
       }
     }
     for (int c = 0; c < g->col; c++) {
     
-      s1 = game_get_number(g, c, j);
-      s2 = game_get_next_number(g, c, j, UP, 1);
-      s3 = game_get_next_number(g, c, j, UP, 2);
+      s1 = game_get_number(g, i, c);
+      s2 = game_get_next_number(g, i, c, RIGHT, 1);
+      s3 = game_get_next_number(g, i, c, RIGHT, 2);
       
       if (s1== 0 && s2 == 0 && s3 == 0) {
+        printf("0 col");
         return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
+        printf("1 col");
         return 2;
       }
     }
@@ -426,13 +426,14 @@ void game_play_move(game g, uint i, uint j, square s)
     exit(EXIT_FAILURE);
   }
   if (game_check_move(g, i, j, s) == true) {
-    i = i;
-    j = j;
 
     // store previous state
     square old = game_get_square(g, i, j);
-    move_t old_move = {old, i, j};
-    queue_push_head(g->to_undo, &old_move);
+    move_t* old_move = malloc(sizeof(move_t));
+    old_move->s = old;
+    old_move->j = j;
+    old_move->i = i;
+    queue_push_head(g->to_undo, old_move);
 
     game_set_square(g, i, j, s);
 
@@ -442,7 +443,7 @@ void game_play_move(game g, uint i, uint j, square s)
 
 //test si le jeu est gagné
 bool game_is_over(cgame g)
-{
+{ 
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
