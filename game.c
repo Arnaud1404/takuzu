@@ -448,21 +448,21 @@ int game_has_error(cgame g, uint i, uint j)
       s2 = game_get_next_number(g, c, j, UP, 1);
       s3 = game_get_next_number(g, c, j, UP, 2);
       if (s1== 0 && s2 == 0 && s3 == 0) {
-        return 1;
+        return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
-        return 1;
+        return 2;
       }
     }
     for (int c = 0; c < g->col; c++) {
       s1 = game_get_number(g, c, j);
-      s2 = game_get_next_number(g, c, j, LEFT, 1);
-      s3 = game_get_next_number(g, c, j, LEFT, 2);
+      s2 = game_get_next_number(g, c, j, RIGHT, 1);
+      s3 = game_get_next_number(g, c, j, RIGHT, 2);
       if (s1== 0 && s2 == 0 && s3 == 0) {
-        return 1;
+        return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
-        return 1;
+        return 2;
       }
     }
   }
