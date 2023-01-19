@@ -11,40 +11,63 @@
 // un bool pour choisir si il est possible d'avoir deux lignes/colonnes identiques dans le jeu
 game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bool unique)
 {
-  game g = (game)malloc(sizeof(struct game_s));
-  if (g == NULL || squares == NULL) {
-    game_delete(g);
+  game g = (game)malloc(sizeof(game));
+  square* tableau = malloc(sizeof(square) * nb_rows * nb_cols);
+  if (g == NULL || tableau == NULL) {
+    free(g);
+    free(tableau);
     exit(EXIT_FAILURE);
   }
-  g->tab = squares;
-  g->col = nb_cols;
+  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
+    tableau[i] = squares[i];
+  }
   g->row = nb_rows;
-  g->uni = unique;
+  g->col = nb_cols;
   g->wrap = wrapping;
+  g->uni = unique;
+  g->tab = tableau;
   queue* s = queue_new();
   queue* t = queue_new();
   if (s == NULL || t == NULL) {
-    game_delete(g);
-    queue_free(t);
-    queue_free(s);
+    free(g);
+    free(tableau);
+    free(s);
+    free(t);
     exit(EXIT_FAILURE);
   }
-  g->to_undo = s;
-  g->to_redo = t;
+  g->to_redo = s;
+  g->to_undo = t;
   return g;
 }
 
 // crée un nouveau jeu vide avec les paramètre de la v2
 game game_new_empty_ext(uint nb_rows, uint nb_cols, bool wrapping, bool unique)
 {
-  square* tableau = malloc(sizeof(square) * nb_cols * nb_rows);
-  if (tableau == NULL) {
+  game g = (game)malloc(sizeof(game));
+  square* tableau = malloc(sizeof(square) * nb_rows * nb_cols);
+  if (g == NULL || tableau == NULL) {
+    free(g);
+    free(tableau);
     exit(EXIT_FAILURE);
   }
-  for (int i = 0; i < nb_cols * nb_rows; i++) {
+  for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = S_EMPTY;
   }
-  game g = game_new_ext(nb_rows, nb_cols, tableau, wrapping, unique);
+  g->row = nb_rows;
+  g->col = nb_cols;
+  g->wrap = wrapping;
+  g->uni = unique;
+  queue* s = queue_new();
+  queue* t = queue_new();
+  if (s == NULL || t == NULL) {
+    free(g);
+    free(tableau);
+    free(s);
+    free(t);
+    exit(EXIT_FAILURE);
+  }
+  g->to_redo = s;
+  g->to_undo = t;
   return g;
 }
 
