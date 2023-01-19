@@ -353,6 +353,7 @@ int test_game_new_empty_ext()
   game_delete(g);
   return EXIT_SUCCESS;
 }
+
 int test_game_nb_rows()
 {
   game g = game_new_empty_ext(8, 4, true, true);
