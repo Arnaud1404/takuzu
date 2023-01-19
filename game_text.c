@@ -21,20 +21,21 @@ void help(void)
 
 int main(void)
 {
-  game g = game_new_empty_ext(5,5,true,false);
+  game g = game_new_empty_ext(8,6,true,false);
   game_set_square(g, 0, 1, S_IMMUTABLE_ONE);
   game_set_square(g, 0, 2, S_IMMUTABLE_ZERO);
   while (game_is_over(g) != true) {
     game_print(g);
     printf("> ? [h for help]\n");
-    for (uint i = 0; i < DEFAULT_SIZE; i++) {
-      for (uint j = 0; j < DEFAULT_SIZE; j++) {
+    for (uint i = 0; i < 8; i++) {
+      for (uint j = 0; j < 6; j++) {
         if ((game_has_error(g, i, j) != 0)) {
           printf("Error at square(%u,%u)\n", i, j);
         }
       }
     }
     char charc;
+
     int retour = scanf(" %c", &charc);
     if (retour != 1) {
       help();

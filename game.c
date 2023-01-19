@@ -170,7 +170,7 @@ int game_get_number(cgame g, uint i, uint j)
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
-  if (i < 0 || j < 0 || i > 5 || j > 5) {
+  if (i > g->row || j > g->col) {
     exit(EXIT_FAILURE);
   }
   int compteur = i * g->col + j;
@@ -376,10 +376,6 @@ int game_donne_nombre(square s)
  **/
 int game_has_error(cgame g, uint i, uint j)
 {
-  if (g == NULL) {
-    exit(EXIT_FAILURE);
-  }
-
   int cpt_zero = 0;
   int cpt_one = 0;
   int consecutive_zero = 0;
@@ -407,7 +403,7 @@ int game_has_error(cgame g, uint i, uint j)
       consecutive_one = 0;
       consecutive_zero = 0;
     }
-    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
+    if (cpt_zero > g->row/ 2 || cpt_one > g->row / 2) {
       return true;
     }
   }
@@ -444,20 +440,28 @@ int game_has_error(cgame g, uint i, uint j)
     }
   }
   if (g->wrap == true) {
-    int tab[3];
+    int s1;
+    int s2;
+    int s3;
     for (int c = 0; c < g->row; c++) {
-      tab[0] = game_get_number(g, c, j);
-      tab[1] = game_get_next_number(g, c, j, DOWN, 1);
-      tab[2] = game_get_next_number(g, c, j, DOWN, 2);
-      if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
+      s1 = game_get_number(g, c, j);
+      s2 = game_get_next_number(g, c, j, UP, 1);
+      s3 = game_get_next_number(g, c, j, UP, 2);
+      if (s1== 0 && s2 == 0 && s3 == 0) {
+        return 1;
+      }
+      if(s1 == 1 && s2 == 1 && s3 == 1){
         return 1;
       }
     }
     for (int c = 0; c < g->col; c++) {
-      tab[0] = game_get_number(g, i, c);
-      tab[1] = game_get_next_number(g, i, c, RIGHT, 1);
-      tab[2] = game_get_next_number(g, i, c, RIGHT, 2);
-      if ((tab[0] == 0 && tab[1] == 0 && tab[2] == 0) || (tab[0] == 1 && tab[1] == 1 && tab[2] == 1)) {
+      s1 = game_get_number(g, c, j);
+      s2 = game_get_next_number(g, c, j, RIGHT, 1);
+      s3 = game_get_next_number(g, c, j, RIGHT, 2);
+      if (s1== 0 && s2 == 0 && s3 == 0) {
+        return 1;
+      }
+      if(s1 == 1 && s2 == 1 && s3 == 1){
         return 1;
       }
     }
