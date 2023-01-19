@@ -7,7 +7,6 @@
 #include "game_aux.h"
 #include "game_ext.h"
 
-
 int test_dummy(void) { return EXIT_SUCCESS; }
 
 void usage(int argc, char* argv[])
@@ -158,7 +157,6 @@ int test_game_is_wrapping(void)
   return EXIT_FAILURE;
 }
 
-
 int main(int argcount, char* argv[])
 {
   int test;
@@ -174,7 +172,7 @@ int main(int argcount, char* argv[])
       if (test_game_restart()) {
         test = test_game_restart();
       }
-    }  else if (strcmp(argv[1], "game_check_move") == 0) {
+    } else if (strcmp(argv[1], "game_check_move") == 0) {
       if (test_game_check_move()) {
         test = test_game_check_move();
       }

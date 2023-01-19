@@ -10,18 +10,19 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "game_ext.h"
-#include "game.h"
 
-//affiche le jeu
+#include "game.h"
+#include "game_ext.h"
+
+// affiche le jeu
 void game_print(cgame g)
 {
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
   printf("   ");
-  int row =  game_nb_rows(g);
-  int col =  game_nb_cols(g);
+  int row = game_nb_rows(g);
+  int col = game_nb_cols(g);
   for (int j = 0; j < col; j++) {
     printf("%d", j);
   }
@@ -53,7 +54,7 @@ void game_print(cgame g)
   printf("  ------ \n");
 }
 
-//crée et renvoie le jeu par défault
+// crée et renvoie le jeu par défault
 game game_default(void)
 {
   game g = game_new_empty();
@@ -69,7 +70,7 @@ game game_default(void)
   return g;
 }
 
-//crée et renvoie la solution du jeu par défault
+// crée et renvoie la solution du jeu par défault
 game game_default_solution(void)
 {
   game g = game_new_empty();
