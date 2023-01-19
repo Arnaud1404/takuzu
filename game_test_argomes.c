@@ -51,6 +51,7 @@ int test_game_has_error(void)
   game_delete(g);
   if (!test1 || !test2 || !test3 || !test4 || !test5 || !test6 || !test7 || !test8 || !test9 || !test10 || !test11 ||
       !test12) {
+        game_delete(g);
     return EXIT_FAILURE;
   }
 
@@ -85,19 +86,16 @@ int test_game_copy(void)
     game_delete(g);
     game_delete(g_copy);
     free(tableau);
-    free(s);
     return EXIT_FAILURE;
   }
   game_play_move(g, 0, 0, S_ONE);
   if (game_equal(g, g_copy) == true) {
     free(tableau);
-    free(s);
     game_delete(g);
     game_delete(g_copy);
     return EXIT_FAILURE;
   }
   free(tableau);
-  free(s);
   game_delete(g);
   game_delete(g_copy);
   return EXIT_SUCCESS;
