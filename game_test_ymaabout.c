@@ -34,25 +34,21 @@ int test_game_is_over(void)
   game_delete(g);
   game_delete(g1);
   game_delete(g2);
-  free(tab);
   if (!test || !test1 || !test2) {
     game_delete(g);
     game_delete(g1);
     game_delete(g2);
-    free(tab);
     return EXIT_FAILURE;
   }
   if (test3 == true) {
     game_delete(g);
     game_delete(g1);
     game_delete(g2);
-    free(tab);
     return EXIT_FAILURE;
   }
   game_delete(g);
   game_delete(g1);
   game_delete(g2);
-  free(tab);
   return EXIT_SUCCESS;
 }
 
