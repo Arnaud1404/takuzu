@@ -33,6 +33,7 @@ int test_game_is_over(void)
   bool test3 = game_is_over(g2);
   game_delete(g);
   game_delete(g1);
+  game_delete(g2);
   if (!test || !test1 || !test2) {
     return EXIT_FAILURE;
   }
@@ -69,6 +70,8 @@ int test_game_play_move(void)
   game_play_move(g, 0, 0, S_ONE);
   game_set_square(g1, 0, 0, S_ONE);
   if (game_equal(g, g1) == false) {
+    game_delete(g);
+    game_delete(g1);
     return EXIT_FAILURE;
   }
   game_play_move(g, 0, 0, S_ZERO);
@@ -102,6 +105,7 @@ int test_game_check_move(void)
     for (int j = 0; j < DEFAULT_SIZE; j++) {
       if (game_check_move(g, i, j, S_ZERO) == false) {
         if (game_get_square(g, i, j) != S_IMMUTABLE_ONE && game_get_square(g, i, j) != S_IMMUTABLE_ZERO) {
+          game_delete(g);
           return EXIT_FAILURE;
         }
       }

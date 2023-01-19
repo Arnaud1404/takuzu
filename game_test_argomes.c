@@ -51,6 +51,7 @@ int test_game_has_error(void)
   game_delete(g);
   if (!test1 || !test2 || !test3 || !test4 || !test5 || !test6 || !test7 || !test8 || !test9 || !test10 || !test11 ||
       !test12) {
+        game_delete(g);
     return EXIT_FAILURE;
   }
 
@@ -60,8 +61,10 @@ int test_game_has_error(void)
   game_set_square(g2, 3, 0, S_ONE);
   bool test13 = !game_has_error(g2, 0, 0);
   if (!test13) {
+    game_delete(g2);
     return EXIT_FAILURE;
   }
+  game_delete(g2);
   return EXIT_SUCCESS;
 }
 
@@ -79,11 +82,6 @@ int test_game_copy(void)
   }
   game g = game_new_ext(6, 6, s, true, false);
   game g_copy = game_copy(g);
-  // if(g.row!=g_copy->row||g.col!=g_copy->col||g.uni!=g->uni||g.wrap!=g_copy->wrap){
-  //   game_delete(g);
-  //   game_delete(g_copy);
-  //   return EXIT_FAILURE;
-  // }
   if (game_equal(g, g_copy) == false) {
     game_delete(g);
     game_delete(g_copy);
@@ -212,23 +210,19 @@ int test_game_get_next_number()
     game_delete(g);
     return EXIT_FAILURE;
   }
-  if (game_get_next_number(g, 0, 5, DOWN, 2) != -1) {
+  if (game_get_next_number(g, 0, 2, UP, 2) != -1) {
     game_delete(g);
     return EXIT_FAILURE;
   }
-  if (game_get_next_number(g, 3, 2, UP, 2) != -1) {
+  if (game_get_next_number(g, 5, 0, DOWN, 1) != -1) {
     game_delete(g);
     return EXIT_FAILURE;
   }
-  if (game_get_next_number(g, 1, 0, DOWN, 1) != -1) {
+  if (game_get_next_number(g, 1, 1, LEFT, 2) != -1) {
     game_delete(g);
     return EXIT_FAILURE;
   }
-  if (game_get_next_number(g, 1, 5, LEFT, 2) != -1) {
-    game_delete(g);
-    return EXIT_FAILURE;
-  }
-  if (game_get_next_number(g, 5, 0, RIGHT, 1) != -1) {
+  if (game_get_next_number(g, 5, 5, RIGHT, 1) != -1) {
     game_delete(g);
     return EXIT_FAILURE;
   }
@@ -359,6 +353,7 @@ int test_game_new_empty_ext()
   game_delete(g);
   return EXIT_SUCCESS;
 }
+
 int test_game_nb_rows()
 {
   game g = game_new_empty_ext(8, 4, true, true);
