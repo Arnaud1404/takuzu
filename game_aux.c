@@ -13,13 +13,7 @@
 #include "game_ext.h"
 #include "game.h"
 
-/**
- * @brief Prints a game as text on the standard output stream.
- * @details The different squares are respectively displayed as text, as
- * described in @ref index.
- * @param g the game
- * @pre @p g must be a valid pointer toward a game structure.
- **/
+//affiche le jeu
 void game_print(cgame g)
 {
   if (g == NULL) {
@@ -59,11 +53,7 @@ void game_print(cgame g)
   printf("  ------ \n");
 }
 
-/**
- * @brief Creates the default game.
- * @details See the description of the default game in @ref index.
- * @return the created game
- **/
+//crée et renvoie le jeu par défault
 game game_default(void)
 {
   game g = game_new_empty();
@@ -79,11 +69,7 @@ game game_default(void)
   return g;
 }
 
-/**
- * @brief Creates the default game solution.
- * @details See the description of the default game in @ref index.
- * @return the created game
- **/
+//crée et renvoie la solution du jeu par défault
 game game_default_solution(void)
 {
   game g = game_new_empty();

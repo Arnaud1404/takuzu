@@ -40,11 +40,7 @@ game game_new(square* squares)
   return g;
 }
 
-/**
- * @brief Creates a new empty game with defaut size.
- * @details All squares are initialized with empty squares.
- * @return the created game
- **/
+//crée un nouveau jeu vide avec les paramètre de la v1
 game game_new_empty(void)
 {
   game g = malloc(sizeof(game));
@@ -65,26 +61,14 @@ game game_new_empty(void)
   return g;
 }
 
-/**
- * @brief Duplicates a game.
- * @param g the game to copy
- * @return the copy of the game
- * @pre @p g must be a valid pointer toward a game structure.
- **/
+//crée et retourne une copie du jeu passé en paramètre
 game game_copy(cgame g)
 {
   game g1 = game_new_ext(g->row, g->col, g->tab, g->wrap, g->uni);
   return g1;
 }
 
-/**
- * @brief Tests if two games are equal.
- * @param g1 the first game
- * @param g2 the second game
- * @return true if the two games are equal, false otherwise
- * @pre @p g1 must be a valid pointer toward a game structure.
- * @pre @p g2 must be a valid pointer toward a game structure.
- **/
+//vérifie si deux jeux ont la même grille et les mêmes paramètres
 bool game_equal(cgame g1, cgame g2)
 {
   if (g1->col != g2->col || g1->row != g2->row || g1->wrap != g2->wrap || g1->uni != g2->uni) {
@@ -98,11 +82,7 @@ bool game_equal(cgame g1, cgame g2)
   return true;
 }
 
-/**
- * @brief Deletes the game and frees the allocated memory.
- * @param g the game to delete
- * @pre @p g must be a valid pointer toward a game structure.
- **/
+//supprime le jeu passé en paramètre et vide la mémoire
 void game_delete(game g)
 {
   free(g->tab);
@@ -111,19 +91,8 @@ void game_delete(game g)
   free(g);
 }
 
-/**
- * @brief Sets the value of a given square.
- * @details This function is useful for initializing the squares of an empty
- * game.
- * @param g the game
- * @param i row index
- * @param j column index
- * @param s the square value
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @pre @p s must be a valid square value.
- **/
+//défini le contenu d'une case avec la case et la valeur définis par l'utilisateur
+//avec i la ligne, j la colonne et s le contenu
 void game_set_square(game g, uint i, uint j, square s)
 {
   if (g == NULL) {
@@ -133,16 +102,8 @@ void game_set_square(game g, uint i, uint j, square s)
   g->tab[compteur] = s;
 }
 
-/**
- * @brief Gets the value of a given square.
- * @param g the game
- * @param i row index
- * @param j column index
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @return the square value
- **/
+//cherche et renvoie le contenu d'une case entrée en paramètre
+//avec i la ligne, j la colonne et s le contenu
 square game_get_square(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -155,16 +116,7 @@ square game_get_square(cgame g, uint i, uint j)
   return g->tab[compteur];
 }
 
-/**
- * @brief Gets the square number (immutable or not).
- * @param g the game
- * @param i row index
- * @param j column index
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @return the number of this square (0 or 1), or -1 if it is empty
- **/
+//cherche et renvoie la valeur d'une case entrée en paramètre
 int game_get_number(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -184,20 +136,8 @@ int game_get_number(cgame g, uint i, uint j)
   return 1;
 }
 
-/**
- * @brief Gets the value of the next square in a given direction.
- * @param g the game
- * @param i row index
- * @param j column index
- * @param dir the direction to the targeted square
- * @param dist the distance to the targeted square
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @pre @p dist <= 2
- * @return the value of the targeted square, or -1 if this square is out
- * of the grid
- **/
+//cherche et renvoie le contenu d'une case qui suit celle entrée en paramètre
+//avec i la ligne, j la colonne, dir la direction et dist la distance
 int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
 {
   if (g == NULL) {
@@ -271,20 +211,8 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   return -1;
 }
 
-/**
- * @brief Gets the value of the next square in a given direction.
- * @param g the game
- * @param i row index
- * @param j column index
- * @param dir the direction to the targeted square
- * @param dist the distance to the targeted square
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @pre @p dist <= 2
- * @return the number of the targeted square (0 or 1), or -1 if this square is
-   empty or out of the grid
- **/
+//cherche et renvoie la valeur d'une case qui suit celle entrée en paramètre
+//avec i la ligne, j la colonne, dir la direction et dist la distance
 int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
 {
   if (g == NULL) {
@@ -308,16 +236,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
   return -1;
 }
 
-/**
- * @brief Test if a given square is empty.
- * @param g the game
- * @param i row index
- * @param j column index
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @return true if the square is empty
- **/
+//test si une case rentrée en paramètre est vide
 bool game_is_empty(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -331,16 +250,7 @@ bool game_is_empty(cgame g, uint i, uint j)
   return false;
 }
 
-/**
- * @brief Test if a given square is immutable.
- * @param g the game
- * @param i row index
- * @param j column index
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @return true if the square is immutable
- **/
+//test si la case rentrée en paramètre peut être modifiée
 bool game_is_immutable(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -364,16 +274,7 @@ int game_donne_nombre(square s)
   return -1;
 }
 
-/**
- * @brief Test if a given square has an error
- * @param g the game
- * @param i row index
- * @param j column index
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @return an integer error code or 0 if there are no errors.
- **/
+//test si la case entrée en paramètre a une erreur
 int game_has_error(cgame g, uint i, uint j)
 {
   int cpt_zero = 0;
@@ -492,20 +393,8 @@ int game_has_error(cgame g, uint i, uint j)
 
   return false;
 }
-/**
- * @brief Checks if a given move is legal.
- * @details This function checks that it is possible to play a move at a given
- * position in the grid. More precisely, a move is said to be legal: 1) if the
- * coordinates (i,j) are inside the grid, 2) if the square @p s is either an
- * empty, zero or one, and 3) if the current square at (i,j) is not an immutable
- * square.
- * @param g the game
- * @param i row index
- * @param j column index
- * @param s the square value
- * @pre @p g must be a valid pointer toward a game structure.
- * @return false if the move is not legal.
- **/
+
+//test si le coup peut être joué
 bool game_check_move(cgame g, uint i, uint j, square s)
 {
   if (g == NULL) {
@@ -528,18 +417,7 @@ bool game_check_move(cgame g, uint i, uint j, square s)
   return true;
 }
 
-/**
- * @brief Plays a move in a given square.
- * @param g the game
- * @param i row index
- * @param j column index
- * @param s the square value
- * @pre @p g must be a valid pointer toward a game structure.
- * @pre @p i < game height
- * @pre @p j < game width
- * @pre @p s must be either empty, zero or one.
- * @pre The square at position (i,j) must not be an immutable square.
- **/
+//joue le coup demandé dans la case entrée en paramètre
 void game_play_move(game g, uint i, uint j, square s)
 {
   if (g == NULL) {
@@ -560,14 +438,7 @@ void game_play_move(game g, uint i, uint j, square s)
   }
 }
 
-/**
- * @brief Checks if the game is won.
- * @param g the game
- * @details This function checks that all the game rules (decribed on @ref
- * index) are satisfied.
- * @return true if the game ended successfully, false otherwise
- * @pre @p g must be a valid pointer toward a game structure.
- **/
+//test si le jeu est gagné
 bool game_is_over(cgame g)
 {
   if (g == NULL) {
@@ -592,13 +463,7 @@ bool game_is_over(cgame g)
   return true;
 }
 
-/**
- * @brief Restarts a game.
- * @details All the game is reset to its initial state. In particular, all the
- * squares except immutable are reset to empty.
- * @param g the game
- * @pre @p g must be a valid pointer toward a game structure.
- **/
+//redémare le jeu passé en paramètre, toutes les cases non immutables sont vidées
 void game_restart(game g)
 {
   if (g == NULL) {
