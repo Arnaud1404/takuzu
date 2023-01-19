@@ -445,8 +445,8 @@ int game_has_error(cgame g, uint i, uint j)
     int s3;
     for (int c = 0; c < g->row; c++) {
       s1 = game_get_number(g, c, j);
-      s2 = game_get_next_number(g, c, j, UP, 1);
-      s3 = game_get_next_number(g, c, j, UP, 2);
+      s2 = game_get_next_number(g, c, j, DOWN, 1);
+      s3 = game_get_next_number(g, c, j, DOWN, 2);
       if (s1== 0 && s2 == 0 && s3 == 0) {
         return 2;
       }
@@ -512,15 +512,15 @@ bool game_check_move(cgame g, uint i, uint j, square s)
     exit(EXIT_FAILURE);
   }
   if (g->wrap == false) {
-    if (i < 0 || j < 0 || i >= g->row || j >= g->col) {
+    if (i > g->row || j >g->col) {
       return false;
     }
     if (s != S_EMPTY && s != S_ONE && s != S_ZERO) {
       return false;
     }
   }
-  i = i % g->row;
-  j = j % g->col;
+  i = i;
+  j = j;
   int compteur = i * g->row + j;
   if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE) {
     return false;
@@ -546,8 +546,8 @@ void game_play_move(game g, uint i, uint j, square s)
     exit(EXIT_FAILURE);
   }
   if (game_check_move(g, i, j, s) == true) {
-    i = i % g->col;
-    j = j % g->row;
+    i = i;
+    j = j;
 
     // store previous state
     square old = game_get_square(g, i, j);
