@@ -8,6 +8,7 @@
 #include "game_struct.h"
 #include "queue.h"
 
+//crée un nouveau jeu avec les paramètre de la v1
 game game_new(square* squares)
 {
   game g = (game)malloc(sizeof(game));
