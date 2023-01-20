@@ -31,15 +31,12 @@ game game_new(square* squares)
   if (s == NULL || t == NULL) {
     free(g);
     free(tableau);
-    free(s);
-    free(t);
-    exit(EXIT_FAILURE);
-  }
+    free(s);}
   g->to_redo = s;
   g->to_undo = t;
   return g;
 }
-
+  
 // crée un nouveau jeu vide avec les paramètre de la v1
 game game_new_empty(void)
 {
@@ -181,11 +178,11 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   } else {
     int a;
     if (dir == UP) {
+      a = i-dist;
       if (i < dist) {
         a = g->row - dist + i;
       }
-      i = a % (g->row);
-      return game_get_square(g, i, j);
+      return game_get_square(g, a, j);
     }
     if (dir == DOWN) {
       i = i + dist;
@@ -346,9 +343,11 @@ int game_has_error(cgame g, uint i, uint j)
       s2 = game_get_next_number(g, c, j, UP, 1);
       s3 = game_get_next_number(g, c, j, UP, 2);
       if (s1 == 0 && s2 == 0 && s3 == 0) {
+        printf("0 row");
         return 2;
       }
       if (s1 == 1 && s2 == 1 && s3 == 1) {
+        printf("1 row");
         return 2;
       }
     }
