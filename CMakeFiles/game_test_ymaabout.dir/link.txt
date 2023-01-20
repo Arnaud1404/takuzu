@@ -1,0 +1,1 @@
+/usr/bin/cc -std=c99 -g -Wall --coverage -rdynamic CMakeFiles/game_test_ymaabout.dir/game_test_ymaabout.c.o -o game_test_ymaabout   -L"/net/cremi/ymaabout/Bureau/projet techno L2/takuzu-11c"  -Wl,-rpath,"/net/cremi/ymaabout/Bureau/projet techno L2/takuzu-11c" libgame.a 

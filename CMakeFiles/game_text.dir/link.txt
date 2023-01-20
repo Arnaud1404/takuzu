@@ -1,0 +1,1 @@
+/usr/bin/cc -std=c99 -g -Wall --coverage -rdynamic CMakeFiles/game_text.dir/game_text.c.o CMakeFiles/game_text.dir/game_ext.c.o -o game_text   -L"/net/cremi/ymaabout/Bureau/projet techno L2/takuzu-11c"  -Wl,-rpath,"/net/cremi/ymaabout/Bureau/projet techno L2/takuzu-11c" libgame.a 
