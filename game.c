@@ -275,7 +275,11 @@ int game_donne_nombre(square s)
 
 // test si la case entrée en paramètre a une erreur
 int game_has_error(cgame g, uint i, uint j)
+<<<<<<< HEAD
 { 
+=======
+{
+>>>>>>> dfd2afd3a0b2536085032886ef6d3e95dee7f814
   int cpt_zero = 0;
   int cpt_one = 0;
   int consecutive_zero = 0;
