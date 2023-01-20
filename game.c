@@ -83,8 +83,8 @@ bool game_equal(cgame g1, cgame g2)
 void game_delete(game g)
 {
   free(g->tab);
-  queue_free(g->to_redo);
-  queue_free(g->to_undo);
+  queue_free_full(g->to_redo,free);
+  queue_free_full(g->to_undo,free);
   free(g);
 }
 
@@ -340,7 +340,6 @@ int game_has_error(cgame g, uint i, uint j)
     }
   }
   if (g->wrap == true) {
-    return 1;
     int s1;
     int s2;
     int s3;
@@ -442,7 +441,7 @@ void game_play_move(game g, uint i, uint j, square s)
 
     game_set_square(g, i, j, s);
 
-    queue_clear(g->to_redo);
+    queue_clear_full(g->to_redo,free);
   }
 }
 
@@ -484,6 +483,6 @@ void game_restart(game g)
       }
     }
   }
-  queue_clear(g->to_undo);
-  queue_clear(g->to_redo);
+  queue_clear_full(g->to_undo,free);
+  queue_clear_full(g->to_redo,free);
 }

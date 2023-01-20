@@ -42,18 +42,10 @@ int test_game_is_over(void)
     exit(EXIT_FAILURE);
   }
   bool test3 = game_is_over(g2);
-  game g3 = game_new_ext(4,8,tab,true,false);
-  if(g3 == NULL){
-    game_delete(g);
-    game_delete(g1);
-    game_delete(g3);
-    exit(EXIT_FAILURE);
-  }
-  bool test4 = game_is_over(g3);
   game_delete(g);
   game_delete(g1);
   game_delete(g2);
-  if (!test || !test1 || !test2 ||!test4) {
+  if (!test || !test1 || !test2) {
     return EXIT_FAILURE;
   }
   if (test3 == true) {

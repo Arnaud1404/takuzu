@@ -41,7 +41,14 @@ int main(void)
       help();
     } else if (charc == 'h') {
       help();
-    } else if (charc == 'r') {
+    }
+    else if (charc == 'z') {
+        printf("UNDO\n");
+        game_undo(g);
+      } else if (charc == 'y') {
+        game_redo(g);
+      }
+     else if (charc == 'r') {
       printf("> action : restart\n");
       game_restart(g);
     } else if (charc == 'q') {
@@ -49,7 +56,7 @@ int main(void)
       printf("shame\n");
       game_delete(g);
       return EXIT_SUCCESS;
-    } else if (charc == 'w' || charc == 'b' || charc == 'e') {
+    } else if (charc == 'w' || charc == 'b' || charc == 'e' || charc == 'z' || charc == 'y') {
       uint it, jt;
       square jouer;
       int retourbis = scanf("%u %u", &it, &jt);
@@ -72,12 +79,8 @@ int main(void)
         if (game_check_move(g, it, jt, jouer) == true) {
           game_play_move(g, it, jt, jouer);
         }
-      } else if (charc == 'z') {
-        game_undo(g);
-      } else if (charc == 'y') {
-        game_redo(g);
-      }
-    }
+    }   
+  }
   }
   game_print(g);
   printf("congratulation\n");
