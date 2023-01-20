@@ -454,6 +454,9 @@ bool game_is_over(cgame g)
   if (g->tab == NULL) {
     exit(EXIT_FAILURE);
   }
+  if(g->wrap == true){
+    return true;
+  }
   for (int i = 0; i < g->row * g->col; i++) {
     if (g->tab[i] == S_EMPTY) {
       return false;
