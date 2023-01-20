@@ -77,13 +77,17 @@ bool game_equal(cgame g1, cgame g2)
 
 // supprime le jeu passé en paramètre et vide la mémoire
 void game_delete(game g)
-{
-  free(g->tab);
+{ if(g != NULL){
+
+
+  if(g->tab != NULL){
+  free(g->tab);}
+  }
   queue_free_full(g->to_redo,free);
   queue_free_full(g->to_undo,free);
   free(g);
-}
 
+}
 // défini le contenu d'une case avec la case et la valeur définis par l'utilisateur
 // avec i la ligne, j la colonne et s le contenu
 void game_set_square(game g, uint i, uint j, square s)

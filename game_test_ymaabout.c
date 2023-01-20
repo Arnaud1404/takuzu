@@ -39,7 +39,7 @@ int test_game_is_over(void)
   if(g2 == NULL){
     game_delete(g);
     game_delete(g1);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
   bool test3 = game_is_over(g2);
   game_delete(g);

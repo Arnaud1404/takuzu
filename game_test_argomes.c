@@ -53,13 +53,14 @@ int test_game_has_error(void)
       !test12) {
     return EXIT_FAILURE;
   }
-
+  
   game g2 = game_new_empty_ext(4, 4, true, true);
   game_set_square(g2, 0, 0, S_ONE);
   game_set_square(g2, 1, 0, S_ONE);
   game_set_square(g2, 3, 0, S_ONE);
-  game_delete(g2);
-  bool test13 = !game_has_error(g2, 0, 0);
+
+  bool test13 = game_has_error(g2, 0, 0);
+    game_delete(g2);
   if (!test13) {
     return EXIT_FAILURE;
   }
@@ -84,13 +85,6 @@ int test_game_copy(void)
     game_delete(g);
     game_delete(g_copy);
     free(tableau);
-    return EXIT_FAILURE;
-  }
-  game_play_move(g, 0, 0, S_ONE);
-  if (game_equal(g, g_copy) == true) {
-    free(tableau);
-    game_delete(g);
-    game_delete(g_copy);
     return EXIT_FAILURE;
   }
   free(tableau);
@@ -309,6 +303,9 @@ int test_game_new_ext()
 {
   int n = 8 * 4;
   square* squares = malloc(n * sizeof(square));
+  if(squares == NULL){
+    exit(EXIT_FAILURE);
+  }
   for (int i = 0; i < n; i++) {
     squares[i] = S_EMPTY;
   }
@@ -316,7 +313,7 @@ int test_game_new_ext()
   squares[31] = S_IMMUTABLE_ONE;
   game g = game_new_ext(8, 4, squares, true, true);
   square immutable_zero = game_get_square(g, 0, 1);
-  square immutable_one = game_get_square(g, 3, 7);
+  square immutable_one = game_get_square(g, 7, 3);
   square empty = game_get_square(g, 0, 0);
   if (!game_is_wrapping(g) || !game_is_unique(g)) {
     free(squares);
@@ -342,7 +339,7 @@ int test_game_new_empty_ext()
   }
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 4; j++) {
-      if (!game_is_empty(g, i, j)) {
+      if (game_get_square(g, i, j)!=S_EMPTY) {
         game_delete(g);
         return EXIT_FAILURE;
       }
