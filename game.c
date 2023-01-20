@@ -185,21 +185,26 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
       return game_get_square(g, a, j);
     }
     if (dir == DOWN) {
-      i = i + dist;
-      i = i % g->row;
-      return game_get_square(g, i, j);
+      a = i+dist;
+      if(i+dist >= g->col){
+        a = (dist + i)% g->row;
+      }
+      return game_get_square(g, a, j);
     }
     if (dir == RIGHT) {
-      j = j + dist;
-      j = j % g->col;
-      return game_get_square(g, i, j);
+      a = j+dist;
+      if(j+dist >= g->col){
+        a = (dist+j)%g->col;
+      }
+      return game_get_square(g, i, a);
     }
     if (dir == LEFT) {
+      a = j-dist;
       if (j < dist) {
         a = g->col - dist + j;
       }
       j = a % (g->col);
-      return game_get_square(g, i, j);
+      return game_get_square(g, i, a);
     }
   }
   return -1;
