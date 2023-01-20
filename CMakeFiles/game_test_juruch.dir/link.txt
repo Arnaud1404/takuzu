@@ -1,1 +1,0 @@
-/usr/bin/cc -std=c99 -g -Wall --coverage -rdynamic CMakeFiles/game_test_juruch.dir/game_test_juruch.c.o -o game_test_juruch   -L"/net/cremi/ymaabout/Bureau/projet techno L2/takuzu-11c"  -Wl,-rpath,"/net/cremi/ymaabout/Bureau/projet techno L2/takuzu-11c" libgame.a 
