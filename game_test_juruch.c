@@ -137,6 +137,7 @@ int test_game_get_next_square()
     game_delete(g);
     return EXIT_FAILURE;
   }
+  game_delete(g);
 
   // wrapping = true
   game g2 = game_new_empty_ext(6, 6, true, true);

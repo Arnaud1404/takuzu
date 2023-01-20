@@ -8,7 +8,7 @@
 #include "game_struct.h"
 #include "queue.h"
 
-//crée un nouveau jeu avec les paramètre de la v1
+// crée un nouveau jeu avec les paramètre de la v1
 game game_new(square* squares)
 {
   game g = (game)malloc(sizeof(game));
@@ -40,7 +40,7 @@ game game_new(square* squares)
   return g;
 }
 
-//crée un nouveau jeu vide avec les paramètre de la v1
+// crée un nouveau jeu vide avec les paramètre de la v1
 game game_new_empty(void)
 {
   game g = malloc(sizeof(game));
@@ -61,14 +61,14 @@ game game_new_empty(void)
   return g;
 }
 
-//crée et retourne une copie du jeu passé en paramètre
+// crée et retourne une copie du jeu passé en paramètre
 game game_copy(cgame g)
 {
   game g1 = game_new_ext(g->row, g->col, g->tab, g->wrap, g->uni);
   return g1;
 }
 
-//vérifie si deux jeux ont la même grille et les mêmes paramètres
+// vérifie si deux jeux ont la même grille et les mêmes paramètres
 bool game_equal(cgame g1, cgame g2)
 {
   if (g1->col != g2->col || g1->row != g2->row || g1->wrap != g2->wrap || g1->uni != g2->uni) {
@@ -82,7 +82,7 @@ bool game_equal(cgame g1, cgame g2)
   return true;
 }
 
-//supprime le jeu passé en paramètre et vide la mémoire
+// supprime le jeu passé en paramètre et vide la mémoire
 void game_delete(game g)
 {
   free(g->tab);
@@ -91,8 +91,8 @@ void game_delete(game g)
   free(g);
 }
 
-//défini le contenu d'une case avec la case et la valeur définis par l'utilisateur
-//avec i la ligne, j la colonne et s le contenu
+// défini le contenu d'une case avec la case et la valeur définis par l'utilisateur
+// avec i la ligne, j la colonne et s le contenu
 void game_set_square(game g, uint i, uint j, square s)
 {
   if (g == NULL) {
@@ -102,8 +102,8 @@ void game_set_square(game g, uint i, uint j, square s)
   g->tab[compteur] = s;
 }
 
-//cherche et renvoie le contenu d'une case entrée en paramètre
-//avec i la ligne, j la colonne et s le contenu
+// cherche et renvoie le contenu d'une case entrée en paramètre
+// avec i la ligne, j la colonne et s le contenu
 square game_get_square(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -116,7 +116,7 @@ square game_get_square(cgame g, uint i, uint j)
   return g->tab[compteur];
 }
 
-//cherche et renvoie la valeur d'une case entrée en paramètre
+// cherche et renvoie la valeur d'une case entrée en paramètre
 int game_get_number(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -136,8 +136,8 @@ int game_get_number(cgame g, uint i, uint j)
   return 1;
 }
 
-//cherche et renvoie le contenu d'une case qui suit celle entrée en paramètre
-//avec i la ligne, j la colonne, dir la direction et dist la distance
+// cherche et renvoie le contenu d'une case qui suit celle entrée en paramètre
+// avec i la ligne, j la colonne, dir la direction et dist la distance
 int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
 {
   if (g == NULL) {
@@ -208,8 +208,8 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
   return -1;
 }
 
-//cherche et renvoie la valeur d'une case qui suit celle entrée en paramètre
-//avec i la ligne, j la colonne, dir la direction et dist la distance
+// cherche et renvoie la valeur d'une case qui suit celle entrée en paramètre
+// avec i la ligne, j la colonne, dir la direction et dist la distance
 int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
 {
   if (g == NULL) {
@@ -233,7 +233,7 @@ int game_get_next_number(cgame g, uint i, uint j, direction dir, uint dist)
   return -1;
 }
 
-//test si une case rentrée en paramètre est vide
+// test si une case rentrée en paramètre est vide
 bool game_is_empty(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -247,7 +247,7 @@ bool game_is_empty(cgame g, uint i, uint j)
   return false;
 }
 
-//test si la case rentrée en paramètre peut être modifiée
+// test si la case rentrée en paramètre peut être modifiée
 bool game_is_immutable(cgame g, uint i, uint j)
 {
   if (g == NULL) {
@@ -271,7 +271,7 @@ int game_donne_nombre(square s)
   return -1;
 }
 
-//test si la case entrée en paramètre a une erreur
+// test si la case entrée en paramètre a une erreur
 int game_has_error(cgame g, uint i, uint j)
 {
   int cpt_zero = 0;
@@ -301,7 +301,7 @@ int game_has_error(cgame g, uint i, uint j)
       consecutive_one = 0;
       consecutive_zero = 0;
     }
-    if (cpt_zero > g->row/ 2 || cpt_one > g->row / 2) {
+    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
       return true;
     }
   }
@@ -345,28 +345,24 @@ int game_has_error(cgame g, uint i, uint j)
       s1 = game_get_number(g, c, j);
       s2 = game_get_next_number(g, c, j, UP, 1);
       s3 = game_get_next_number(g, c, j, UP, 2);
-      if (s1== 0 && s2 == 0 && s3 == 0) {
-        printf("%d %d %d \n",s1 ,s2, s3);
-        printf("0 row\n");
+      if (s1 == 0 && s2 == 0 && s3 == 0) {
         return 2;
       }
-      if(s1 == 1 && s2 == 1 && s3 == 1){
-        printf("1 row\n");
+      if (s1 == 1 && s2 == 1 && s3 == 1) {
         return 2;
       }
     }
     for (int c = 0; c < g->col; c++) {
-    
       s1 = game_get_number(g, i, c);
       s2 = game_get_next_number(g, i, c, RIGHT, 1);
       s3 = game_get_next_number(g, i, c, RIGHT, 2);
       
       if (s1== 0 && s2 == 0 && s3 == 0) {
-        printf("0 col\n");
+        printf("0 col");
         return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
-        printf("1 col\n");
+        printf("1 col");
         return 2;
       }
     }
@@ -398,14 +394,14 @@ int game_has_error(cgame g, uint i, uint j)
   return false;
 }
 
-//test si le coup peut être joué
+// test si le coup peut être joué
 bool game_check_move(cgame g, uint i, uint j, square s)
 {
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
   if (g->wrap == false) {
-    if (i > g->row || j >g->col) {
+    if (i > g->row || j > g->col) {
       return false;
     }
     if (s != S_EMPTY && s != S_ONE && s != S_ZERO) {
@@ -421,14 +417,13 @@ bool game_check_move(cgame g, uint i, uint j, square s)
   return true;
 }
 
-//joue le coup demandé dans la case entrée en paramètre
+// joue le coup demandé dans la case entrée en paramètre
 void game_play_move(game g, uint i, uint j, square s)
 {
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
   if (game_check_move(g, i, j, s) == true) {
-
     // store previous state
     square old = game_get_square(g, i, j);
     move_t* old_move = malloc(sizeof(move_t));
@@ -443,9 +438,9 @@ void game_play_move(game g, uint i, uint j, square s)
   }
 }
 
-//test si le jeu est gagné
+// test si le jeu est gagné
 bool game_is_over(cgame g)
-{ 
+{
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
@@ -468,7 +463,7 @@ bool game_is_over(cgame g)
   return true;
 }
 
-//redémare le jeu passé en paramètre, toutes les cases non immutables sont vidées
+// redémare le jeu passé en paramètre, toutes les cases non immutables sont vidées
 void game_restart(game g)
 {
   if (g == NULL) {
