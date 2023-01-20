@@ -395,7 +395,7 @@ int game_has_error(cgame g, uint i, uint j)
     }
   }
 
-  return false;
+  return 1;
 }
 
 // test si le coup peut être joué
