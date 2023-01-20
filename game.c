@@ -11,7 +11,7 @@
 // crée un nouveau jeu avec les paramètre de la v1
 game game_new(square* squares)
 {
-  game g = (game)malloc(sizeof(game));
+  game g = (game)malloc(sizeof(struct game_s));
   square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
   if (g == NULL || tableau == NULL) {
     free(g);
@@ -31,7 +31,8 @@ game game_new(square* squares)
   if (s == NULL || t == NULL) {
     free(g);
     free(tableau);
-    free(s);}
+    free(s);
+    free(t);}
   g->to_redo = s;
   g->to_undo = t;
   return g;
@@ -40,21 +41,16 @@ game game_new(square* squares)
 // crée un nouveau jeu vide avec les paramètre de la v1
 game game_new_empty(void)
 {
-  game g = malloc(sizeof(game));
   square* tableau = malloc(sizeof(square) * DEFAULT_SIZE * DEFAULT_SIZE);
-  if (g == NULL || tableau == NULL) {
+  if ( tableau == NULL) {
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < DEFAULT_SIZE * DEFAULT_SIZE; i++) {
     tableau[i] = S_EMPTY;
   }
-  g->tab = tableau;
-  g->to_redo = queue_new();
-  g->to_undo = queue_new();
-  g->col = DEFAULT_SIZE;
-  g->row = DEFAULT_SIZE;
-  g->wrap = false;
-  g->uni = false;
+  game g = game_new(tableau);
+  free(tableau);
+
   return g;
 }
 
@@ -453,9 +449,6 @@ bool game_is_over(cgame g)
   }
   if (g->tab == NULL) {
     exit(EXIT_FAILURE);
-  }
-  if(g->wrap == true){
-    return true;
   }
   for (int i = 0; i < g->row * g->col; i++) {
     if (g->tab[i] == S_EMPTY) {
