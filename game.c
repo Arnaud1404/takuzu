@@ -431,6 +431,9 @@ void game_play_move(game g, uint i, uint j, square s)
     // store previous state
     square old = game_get_square(g, i, j);
     move_t* old_move = malloc(sizeof(move_t));
+    if(old_move == NULL){
+      exit(EXIT_FAILURE);
+    }
     old_move->s = old;
     old_move->j = j;
     old_move->i = i;
