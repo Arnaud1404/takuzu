@@ -346,10 +346,12 @@ int game_has_error(cgame g, uint i, uint j)
       s2 = game_get_next_number(g, c, j, UP, 1);
       s3 = game_get_next_number(g, c, j, UP, 2);
       if (s1== 0 && s2 == 0 && s3 == 0) {
+        printf("%d %d %d \n",s1 ,s2, s3);
+        printf("0 row\n");
         return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
-        printf("1 row");
+        printf("1 row\n");
         return 2;
       }
     }
@@ -360,11 +362,11 @@ int game_has_error(cgame g, uint i, uint j)
       s3 = game_get_next_number(g, i, c, RIGHT, 2);
       
       if (s1== 0 && s2 == 0 && s3 == 0) {
-        printf("0 col");
+        printf("0 col\n");
         return 2;
       }
       if(s1 == 1 && s2 == 1 && s3 == 1){
-        printf("1 col");
+        printf("1 col\n");
         return 2;
       }
     }
