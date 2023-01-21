@@ -109,7 +109,7 @@ square game_get_square(cgame g, uint i, uint j)
   if (i > g->row || j > g->col) {
     exit(EXIT_FAILURE);
   }
-  int compteur = i * g->col + j;
+  int compteur = i * g->col + j; //transformation des coordonnées d'une grille en chiffre d'un tableau
   return g->tab[compteur];
 }
 
@@ -141,7 +141,7 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     exit(EXIT_FAILURE);
   }
   if (g->wrap == false) {
-    if (i > g->row || j > g->col) {
+    if (i > g->row || j > g->col) { 
       exit(EXIT_FAILURE);
     }
   }
@@ -180,14 +180,14 @@ int game_get_next_square(cgame g, uint i, uint j, direction dir, uint dist)
     if (dir == UP) {
       a = i-dist;
       if (i < dist) {
-        a = g->row - dist + i;
+        a = g->row - dist + i; //on retrouve un chiffre < au nb de ligne pour utiliser get square
       }
       return game_get_square(g, a, j);
     }
     if (dir == DOWN) {
       a = i+dist;
       if(i+dist >= g->col){
-        a = (dist + i)% g->row;
+        a = (dist + i)% g->row; 
       }
       return game_get_square(g, a, j);
     }
@@ -280,15 +280,15 @@ int game_has_error(cgame g, uint i, uint j)
   int cpt_one = 0;
   int consecutive_zero = 0;
   int consecutive_one = 0;
-  for (int c = 0; c < g->row; c++) {
+  for (int c = 0; c < g->row; c++) { //on vérifie la colonne j
     if (game_get_number(g, c, j) == 1) {
       cpt_one = cpt_one + 1;
-      consecutive_one += 1;
+      consecutive_one += 1; //on met à jour le compteur de 1
       if (consecutive_one == 3) {
         return true;
       }
-      if (consecutive_zero != 0) {
-        consecutive_zero = 0;
+      if (consecutive_zero != 0) { 
+        consecutive_zero = 0; //on ré-initialise le compteur de 0
       }
     } else if (game_get_number(g, c, j) == 0) {
       cpt_zero = cpt_zero + 1;
@@ -303,7 +303,7 @@ int game_has_error(cgame g, uint i, uint j)
       consecutive_one = 0;
       consecutive_zero = 0;
     }
-    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) {
+    if (cpt_zero > g->row / 2 || cpt_one > g->row / 2) { //impossible d'avoir plus de la moitié 
       return true;
     }
   }
@@ -312,7 +312,7 @@ int game_has_error(cgame g, uint i, uint j)
   cpt_one = 0;
   consecutive_zero = 0;
   consecutive_one = 0;
-  for (int c = 0; c < g->col; c++) {
+  for (int c = 0; c < g->col; c++) { // on vérifie la ligne i
     if (game_get_number(g, i, c) == 1) {
       cpt_one = cpt_one + 1;
       consecutive_one += 1;
@@ -339,7 +339,7 @@ int game_has_error(cgame g, uint i, uint j)
       return true;
     }
   }
-  if (g->wrap == true) {
+  if (g->wrap == true) { 
     int s1;
     int s2;
     int s3;
@@ -347,7 +347,7 @@ int game_has_error(cgame g, uint i, uint j)
       s1 = game_get_number(g, c, j);
       s2 = game_get_next_number(g, c, j, UP, 1);
       s3 = game_get_next_number(g, c, j, UP, 2);
-      if (s1 == 0 && s2 == 0 && s3 == 0) {
+      if (s1 == 0 && s2 == 0 && s3 == 0) { //j, j-1 et j-2 ne peuvent pas être identiques
         printf("0 row");
         return 2;
       }
@@ -371,7 +371,7 @@ int game_has_error(cgame g, uint i, uint j)
       }
     }
   }
-  if (g->uni == true) {
+  if (g->uni == true) { // 2 lignes/colonnes ne peuvent pas être identique
     uint c = 0;
     for (uint v = 0; v < g->col; v++) {
       if (v != j) {
@@ -408,7 +408,7 @@ bool game_check_move(cgame g, uint i, uint j, square s)
     if (i > g->row || j > g->col) {
       return false;
     }
-    if (s != S_EMPTY && s != S_ONE && s != S_ZERO) {
+    if (s != S_EMPTY && s != S_ONE && s != S_ZERO) { //la coup demandé est un immutable
       return false;
     }
   }
@@ -416,7 +416,7 @@ bool game_check_move(cgame g, uint i, uint j, square s)
   j = j;
   int compteur = i * g->row + j;
   if (g->tab[compteur] == S_IMMUTABLE_ZERO || g->tab[compteur] == S_IMMUTABLE_ONE) {
-    return false;
+    return false; //la case est déjà remplis avec un immutable
   }
   return true;
 }
@@ -428,7 +428,7 @@ void game_play_move(game g, uint i, uint j, square s)
     exit(EXIT_FAILURE);
   }
   if (game_check_move(g, i, j, s) == true) {
-    // store previous state
+    // garde l'ancienne valeur de la case i,j
     square old = game_get_square(g, i, j);
     move_t* old_move = malloc(sizeof(move_t));
     if(old_move == NULL){
@@ -455,13 +455,13 @@ bool game_is_over(cgame g)
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < g->row * g->col; i++) {
-    if (g->tab[i] == S_EMPTY) {
+    if (g->tab[i] == S_EMPTY) { //le jeu doit être plein
       return false;
     }
   }
   for (int i = 0; i < g->row; i++) {
     for (int j = 0; j < g->col; j++) {
-      if (game_has_error(g, i, j) == true) {
+      if (game_has_error(g, i, j) == true) { //il ne peut pas y avoir d'erreur
         return false;
       }
     }
@@ -470,14 +470,14 @@ bool game_is_over(cgame g)
   return true;
 }
 
-// redémare le jeu passé en paramètre, toutes les cases non immutables sont vidées
+// redémare le jeu passé en paramètre
 void game_restart(game g)
 {
   if (g == NULL) {
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < g->row; i++) {
-    for (int j = 0; j < g->col; j++) {
+    for (int j = 0; j < g->col; j++) { //les cases non immutables sont vidées
       if (game_get_square(g, i, j) != S_IMMUTABLE_ONE && game_get_square(g, i, j) != S_IMMUTABLE_ZERO) {
         game_set_square(g, i, j, S_EMPTY);
       }
