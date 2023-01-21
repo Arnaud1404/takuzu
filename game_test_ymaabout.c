@@ -42,14 +42,16 @@ int test_game_is_over(void)
     return EXIT_FAILURE;
   }
   bool test3 = game_is_over(g2);
-  
+  game g3 = game_new_ext(4,4,tab,true,false);
+  bool test4 = game_is_over(g3);
   game_delete(g);
   game_delete(g1);
   game_delete(g2);
+  game_delete(g3);
   if (!test || !test1 || !test2) {
     return EXIT_FAILURE;
   }
-  if (test3 == true) {
+  if (test3 == true || test4 == true) {
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -91,6 +93,12 @@ int test_game_play_move(void)
   }
   game_play_move(g, 0, 0, S_ZERO);
   game_set_square(g1, 0, 0, S_ZERO);
+  if (game_equal(g, g1) == false) {
+    game_delete(g);
+    game_delete(g1);
+    return EXIT_FAILURE;
+  }
+  game_play_move(g,0,1,S_ZERO);
   if (game_equal(g, g1) == false) {
     game_delete(g);
     game_delete(g1);
