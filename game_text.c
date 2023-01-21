@@ -21,7 +21,7 @@ void help(void)
 
 int main(void)
 {
-  game g = game_new_empty_ext(8, 6, true, false);
+  game g = game_new_empty_ext(4, 6, true, false);
   game_set_square(g, 0, 1, S_IMMUTABLE_ONE);
   game_set_square(g, 0, 2, S_IMMUTABLE_ZERO);
   while (game_is_over(g) != true) {

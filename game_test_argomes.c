@@ -60,8 +60,25 @@ int test_game_has_error(void)
   game_set_square(g2, 3, 0, S_ONE);
 
   bool test13 = game_has_error(g2, 0, 0);
-    game_delete(g2);
+    
   if (!test13) {
+    game_delete(g2);
+    return EXIT_FAILURE;
+  }
+  game_set_square(g2,1,0,S_EMPTY);
+  bool test14 = game_has_error(g2,0,0);
+  game_delete(g2);
+  if(test14){
+    return EXIT_FAILURE;
+  }
+  square tab2[] = {S_ONE,S_ZERO,S_ONE,S_ZERO,
+                  S_ZERO,S_ONE,S_ZERO,S_ONE,
+                  S_ONE,S_ZERO,S_ONE,S_ZERO,
+                  S_ZERO,S_ONE,S_ZERO,S_ONE};
+  game g3 = game_new_ext(4,4,tab2,false,true);
+  bool test15 = game_has_error(g3,0,0);
+  game_delete(g3);
+  if(!test15){
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;

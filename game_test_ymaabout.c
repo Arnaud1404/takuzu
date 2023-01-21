@@ -42,6 +42,7 @@ int test_game_is_over(void)
     return EXIT_FAILURE;
   }
   bool test3 = game_is_over(g2);
+  
   game_delete(g);
   game_delete(g1);
   game_delete(g2);
@@ -148,25 +149,25 @@ int test_game_print(void)
 
 int test_game_is_wrapping(void)
 {
-  game g = game_new_empty_ext(8, 4, false, false);
-  bool rez = true;
+  game g = game_new_empty_ext(6, 2, false, false);
+  bool ok = true;
 
-  rez = rez && !game_is_wrapping(g);
+  ok = ok && !game_is_wrapping(g);
   game_delete(g);
 
-  g = game_new_empty_ext(2, 4, true, false);
-  rez = rez && game_is_wrapping(g);
+  g = game_new_empty_ext(12, 24, true, false);
+  ok = ok && game_is_wrapping(g);
   game_delete(g);
 
-  g = game_new_empty_ext(2, 4, true, true);
-  rez = rez && game_is_wrapping(g);
+  g = game_new_empty_ext(2, 2, true, true);
+  ok = ok && game_is_wrapping(g);
   game_delete(g);
 
-  g = game_new_empty_ext(2, 4, false, true);
-  rez = rez && !game_is_wrapping(g);
+  g = game_new_empty_ext(8, 6, false, true);
+  ok = ok && !game_is_wrapping(g);
   game_delete(g);
 
-  if (rez == true) {
+  if (ok == true) {
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
