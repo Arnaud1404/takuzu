@@ -422,7 +422,7 @@ int test_game_redo()
 }
 int main(int argcount, char* argv[])
 {
-  int test;
+  int test = 0;
   if (argcount == 2) {
     if (strcmp(argv[1], "dummy") == 0) {
       test = test_dummy();

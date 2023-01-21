@@ -56,6 +56,7 @@ game game_new_empty_ext(uint nb_rows, uint nb_cols, bool wrapping, bool unique)
     tableau[i] = S_EMPTY;
   }
   game g = game_new_ext(nb_rows, nb_cols, tableau, wrapping, unique);
+  free(tableau);
   return g;
 }
 
