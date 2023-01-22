@@ -98,8 +98,9 @@ int test_game_play_move(void)
     game_delete(g1);
     return EXIT_FAILURE;
   }
-  game_play_move(g, 0, 1, S_ZERO);
-  if (game_equal(g, g1) == true) {
+  game_play_move(g, 0, 0, S_EMPTY);
+  game_set_square(g1, 0, 0, S_EMPTY);
+  if (game_equal(g, g1) == false) {
     game_delete(g);
     game_delete(g1);
     return EXIT_FAILURE;
