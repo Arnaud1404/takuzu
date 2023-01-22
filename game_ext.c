@@ -17,14 +17,14 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
     free(g);
     exit(EXIT_FAILURE);
   }
-  square* tableau =malloc(sizeof(square)*nb_rows*nb_cols);
-  if (tableau ==NULL){
+  square* tableau = malloc(sizeof(square) * nb_rows * nb_cols);
+  if (tableau == NULL) {
     free(g);
     free(tableau);
     exit(EXIT_FAILURE);
   }
-  for(uint i =0; i<nb_rows*nb_cols;i++){
-    tableau[i]=squares[i];
+  for (uint i = 0; i < nb_rows * nb_cols; i++) {
+    tableau[i] = squares[i];
   }
   g->tab = tableau;
   g->col = nb_cols;
@@ -36,8 +36,8 @@ game game_new_ext(uint nb_rows, uint nb_cols, square* squares, bool wrapping, bo
   if (s == NULL || t == NULL) {
     free(g);
     free(squares);
-    queue_free_full(t,free);
-    queue_free_full(s,free);
+    queue_free_full(t, free);
+    queue_free_full(s, free);
     exit(EXIT_FAILURE);
   }
   g->to_undo = s;
@@ -84,7 +84,7 @@ void game_undo(game g)
   }
 
   move_t* move = queue_pop_head(g->to_undo);
-  square new = game_get_square(g,move->i,move->j);
+  square new = game_get_square(g, move->i, move->j);
   game_set_square(g, move->i, move->j, move->s);
   move->s = new;
   queue_push_head(g->to_redo, move);
@@ -101,7 +101,7 @@ void game_redo(game g)
     return;
   }
   move_t* move = queue_pop_head(g->to_redo);
-  square new = game_get_square(g,move->i,move->j);
+  square new = game_get_square(g, move->i, move->j);
   game_set_square(g, move->i, move->j, move->s);
   move->s = new;
   queue_push_head(g->to_undo, move);

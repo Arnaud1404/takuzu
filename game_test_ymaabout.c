@@ -18,11 +18,11 @@ void usage(int argc, char* argv[])
 int test_game_is_over(void)
 {
   game g = game_default_solution();
-  if(g == NULL){
+  if (g == NULL) {
     exit(EXIT_FAILURE);
   }
   game g1 = game_default();
-  if(g1 == NULL){
+  if (g1 == NULL) {
     game_delete(g);
     exit(EXIT_FAILURE);
   }
@@ -36,13 +36,13 @@ int test_game_is_over(void)
                   S_ZERO,           S_ONE,  S_ZERO, S_ZERO, S_ONE};
 
   game g2 = game_new_ext(4, 8, tab, false, true);
-  if(g2 == NULL){
+  if (g2 == NULL) {
     game_delete(g);
     game_delete(g1);
     return EXIT_FAILURE;
   }
   bool test3 = game_is_over(g2);
-  game g3 = game_new_ext(4,4,tab,true,false);
+  game g3 = game_new_ext(4, 4, tab, true, false);
   bool test4 = game_is_over(g3);
   game_delete(g);
   game_delete(g1);
@@ -98,7 +98,7 @@ int test_game_play_move(void)
     game_delete(g1);
     return EXIT_FAILURE;
   }
-  game_play_move(g,0,1,S_ZERO);
+  game_play_move(g, 0, 1, S_ZERO);
   if (game_equal(g, g1) == false) {
     game_delete(g);
     game_delete(g1);

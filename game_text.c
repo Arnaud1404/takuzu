@@ -41,14 +41,12 @@ int main(void)
       help();
     } else if (charc == 'h') {
       help();
-    }
-    else if (charc == 'z') {
-        printf("UNDO\n");
-        game_undo(g);
-      } else if (charc == 'y') {
-        game_redo(g);
-      }
-     else if (charc == 'r') {
+    } else if (charc == 'z') {
+      printf("UNDO\n");
+      game_undo(g);
+    } else if (charc == 'y') {
+      game_redo(g);
+    } else if (charc == 'r') {
       printf("> action : restart\n");
       game_restart(g);
     } else if (charc == 'q') {
@@ -79,8 +77,8 @@ int main(void)
         if (game_check_move(g, it, jt, jouer) == true) {
           game_play_move(g, it, jt, jouer);
         }
-    }   
-  }
+      }
+    }
   }
   game_print(g);
   printf("congratulation\n");

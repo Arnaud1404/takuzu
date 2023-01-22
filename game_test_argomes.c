@@ -53,32 +53,30 @@ int test_game_has_error(void)
       !test12) {
     return EXIT_FAILURE;
   }
-  
+
   game g2 = game_new_empty_ext(4, 4, true, true);
   game_set_square(g2, 0, 0, S_ONE);
   game_set_square(g2, 1, 0, S_ONE);
   game_set_square(g2, 3, 0, S_ONE);
 
   bool test13 = game_has_error(g2, 0, 0);
-    
+
   if (!test13) {
     game_delete(g2);
     return EXIT_FAILURE;
   }
-  game_set_square(g2,1,0,S_EMPTY);
-  bool test14 = game_has_error(g2,0,0);
+  game_set_square(g2, 1, 0, S_EMPTY);
+  bool test14 = game_has_error(g2, 0, 0);
   game_delete(g2);
-  if(test14){
+  if (test14) {
     return EXIT_FAILURE;
   }
-  square tab2[] = {S_ONE,S_ZERO,S_ONE,S_ZERO,
-                  S_ZERO,S_ONE,S_ZERO,S_ONE,
-                  S_ONE,S_ZERO,S_ONE,S_ZERO,
-                  S_ZERO,S_ONE,S_ZERO,S_ONE};
-  game g3 = game_new_ext(4,4,tab2,false,true);
-  bool test15 = game_has_error(g3,0,0);
+  square tab2[] = {S_ONE, S_ZERO, S_ONE, S_ZERO, S_ZERO, S_ONE, S_ZERO, S_ONE,
+                   S_ONE, S_ZERO, S_ONE, S_ZERO, S_ZERO, S_ONE, S_ZERO, S_ONE};
+  game g3 = game_new_ext(4, 4, tab2, false, true);
+  bool test15 = game_has_error(g3, 0, 0);
   game_delete(g3);
-  if(!test15){
+  if (!test15) {
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
@@ -321,7 +319,7 @@ int test_game_new_ext()
 {
   int n = 8 * 4;
   square* squares = malloc(n * sizeof(square));
-  if(squares == NULL){
+  if (squares == NULL) {
     exit(EXIT_FAILURE);
   }
   for (int i = 0; i < n; i++) {
@@ -357,7 +355,7 @@ int test_game_new_empty_ext()
   }
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 4; j++) {
-      if (game_get_square(g, i, j)!=S_EMPTY) {
+      if (game_get_square(g, i, j) != S_EMPTY) {
         game_delete(g);
         return EXIT_FAILURE;
       }
@@ -404,7 +402,7 @@ int test_game_undo()
 {
   game g = game_new_empty_ext(8, 4, true, true);
   game_play_move(g, 0, 0, S_ZERO);
-  game_play_move(g,1,0,S_ONE);
+  game_play_move(g, 1, 0, S_ONE);
   game_undo(g);
   if (game_get_square(g, 1, 0) != S_EMPTY) {
     game_delete(g);
