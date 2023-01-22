@@ -99,7 +99,7 @@ int test_game_play_move(void)
     return EXIT_FAILURE;
   }
   game_play_move(g, 0, 1, S_ZERO);
-  if (game_equal(g, g1) == false) {
+  if (game_equal(g, g1) == true) {
     game_delete(g);
     game_delete(g1);
     return EXIT_FAILURE;
