@@ -187,31 +187,20 @@ int main(int argcount, char* argv[])
   if (argcount == 2) {
     if (strcmp(argv[1], "dummy") == 0) {
       test = test_dummy();
-
     } else if (strcmp(argv[1], "game_play_move") == 0) {
-      if (test_game_play_move()) {
-        test = test_game_play_move();
-      }
+      test = test_game_play_move();
     } else if (strcmp(argv[1], "game_restart") == 0) {
-      if (test_game_restart()) {
-        test = test_game_restart();
-      }
+      test = test_game_restart();
     } else if (strcmp(argv[1], "game_check_move") == 0) {
-      if (test_game_check_move()) {
-        test = test_game_check_move();
-      }
+      test = test_game_check_move();
     } else if (strcmp(argv[1], "game_is_over") == 0) {
-      if (test_game_is_over()) {
-        test = test_game_is_over();
-      }
+      test = test_game_is_over();
     } else if (strcmp(argv[1], "game_print") == 0) {
-      if (test_game_print()) {
-        test = test_game_print();
-      }
+      test = test_game_print();
     } else if (strcmp(argv[1], "game_is_wrapping") == 0) {
-      if (test_game_is_wrapping()) {
-        test = test_game_is_wrapping();
-      }
+      test = test_game_is_wrapping();
+    } else {
+      test = EXIT_FAILURE;
     }
     if (test == EXIT_FAILURE) {
       return EXIT_FAILURE;
