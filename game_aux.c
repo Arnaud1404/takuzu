@@ -1,10 +1,3 @@
-/**
- * @file game_aux.h
- * @brief Auxiliarry Game Functions.
- * @details See @ref index for further details.
- * @copyright University of Bordeaux. All rights reserved, 2021.
- **/
-
 #ifndef __GAME_AUX_H__
 #define __GAME_AUX_H__
 #include <stdbool.h>
