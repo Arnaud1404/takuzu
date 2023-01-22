@@ -262,17 +262,6 @@ bool game_is_immutable(cgame g, uint i, uint j)
   return false;
 }
 
-int game_donne_nombre(square s)
-{
-  if (s == S_IMMUTABLE_ONE || s == S_ONE) {
-    return 1;
-  }
-  if (s == S_IMMUTABLE_ZERO || s == S_ZERO) {
-    return 0;
-  }
-  return -1;
-}
-
 // test si la case entrée en paramètre a une erreur
 int game_has_error(cgame g, uint i, uint j)
 {

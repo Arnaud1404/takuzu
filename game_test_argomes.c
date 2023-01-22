@@ -297,6 +297,7 @@ int test_game_new()
   game_delete(g);
   return EXIT_FAILURE;
 }
+
 int test_game_get_square()
 {
   game g = game_default();

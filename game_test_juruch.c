@@ -13,7 +13,7 @@ int test_game_new_empty()
   game g = game_new_empty();
   for (int i = 0; i < DEFAULT_SIZE; i++) {
     for (int j = 0; j < DEFAULT_SIZE; j++) {
-      if (!game_is_empty(g, i, j)) {
+      if (!game_is_empty(g, i, j)) { 
         game_delete(g);
         return EXIT_FAILURE;
       }
@@ -168,7 +168,7 @@ int test_game_default()
 {
   game g = game_new_empty();
   game def = game_default();
-  game_set_square(g, 0, 1, S_IMMUTABLE_ONE);
+  game_set_square(g, 0, 1, S_IMMUTABLE_ONE); //cases du jeu par défault
   game_set_square(g, 0, 2, S_IMMUTABLE_ZERO);
   game_set_square(g, 2, 1, S_IMMUTABLE_ZERO);
   game_set_square(g, 2, 4, S_IMMUTABLE_ZERO);
@@ -191,7 +191,7 @@ int test_game_default_solution()
 {
   game g = game_new_empty();
   game def = game_default_solution();
-  game_set_square(g, 0, 0, S_ZERO);
+  game_set_square(g, 0, 0, S_ZERO); //cases de la solution du jeu par défault
   game_set_square(g, 0, 1, S_IMMUTABLE_ONE);
   game_set_square(g, 0, 2, S_IMMUTABLE_ZERO);
   game_set_square(g, 0, 3, S_ONE);
