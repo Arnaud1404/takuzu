@@ -443,75 +443,44 @@ int main(int argcount, char* argv[])
     if (strcmp(argv[1], "dummy") == 0) {
       test = test_dummy();
     } else if (strcmp(argv[1], "game_has_error") == 0) {
-      if (test_game_has_error()) {
-        test = test_game_has_error();
-      }
+      test = test_game_has_error();
     } else if (strcmp(argv[1], "game_copy") == 0) {
-      if (test_game_copy()) {
-        test = test_game_copy();
-      }
+      test = test_game_copy();
     } else if (strcmp(argv[1], "game_is_immutable") == 0) {
-      if (test_game_is_immutable()) {
-        test = test_game_is_immutable();
-      }
+      test = test_game_is_immutable();
     } else if (strcmp(argv[1], "game_is_empty") == 0) {
-      if (test_game_is_empty()) {
-        test = test_game_is_empty();
-      }
+      test = test_game_is_empty();
     } else if (strcmp(argv[1], "game_equal") == 0) {
-      if (test_game_equal()) {
-        test = test_game_equal();
-      }
+      test = test_game_equal();
     } else if (strcmp(argv[1], "game_get_next_number") == 0) {
-      if (test_game_get_next_number()) {
-        test = test_game_get_next_number();
-      }
+      test = test_game_get_next_number();
     } else if (strcmp(argv[1], "game_get_number") == 0) {
-      if (test_game_get_number()) {
-        test = test_game_get_number();
-      }
+      test = test_game_get_number();
     } else if (strcmp(argv[1], "game_new") == 0) {
-      if (test_game_new()) {
-        test = test_game_new();
-      }
+      test = test_game_new();
     } else if (strcmp(argv[1], "game_get_square") == 0) {
-      if (test_game_get_square()) {
-        test = test_game_get_square();
-      }
+      test = test_game_get_square();
     } else if (strcmp(argv[1], "game_new_ext") == 0) {
-      if (test_game_new_ext()) {
-        test = test_game_new_ext();
-      }
+      test = test_game_new_ext();
     } else if (strcmp(argv[1], "game_new_empty_ext") == 0) {
-      if (test_game_new_empty_ext()) {
-        test = test_game_new_empty_ext();
-      }
+      test = test_game_new_empty_ext();
     } else if (strcmp(argv[1], "game_nb_rows") == 0) {
-      if (test_game_nb_rows()) {
-        test = test_game_nb_rows();
-      }
+      test = test_game_nb_rows();
     } else if (strcmp(argv[1], "game_nb_cols") == 0) {
-      if (test_game_nb_cols()) {
-        test = test_game_nb_cols();
-      }
+      test = test_game_nb_cols();
     } else if (strcmp(argv[1], "game_is_unique") == 0) {
-      if (test_game_is_unique()) {
-        test = test_game_is_unique();
-      }
+      test = test_game_is_unique();
     } else if (strcmp(argv[1], "game_undo") == 0) {
-      if (test_game_undo()) {
-        test = test_game_undo();
-      }
+      test = test_game_undo();
     } else if (strcmp(argv[1], "game_redo") == 0) {
-      if (test_game_redo()) {
-        test = test_game_redo();
-      }
+      test = test_game_redo();
     } else {
       test = EXIT_FAILURE;
     }
+
+    if (test == EXIT_SUCCESS) {
+      return 0;
+    }
+    return 1;
   }
-  if (test == EXIT_SUCCESS) {
-    return 0;
-  }
-  return 1;
 }
