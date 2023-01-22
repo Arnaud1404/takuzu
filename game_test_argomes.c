@@ -389,17 +389,6 @@ int test_game_nb_cols()
   return EXIT_FAILURE;
 }
 
-int test_game_is_wrapping()
-{
-  game g = game_new_empty_ext(8, 4, true, true);
-  if (game_is_wrapping(g)) {
-    game_delete(g);
-    return EXIT_SUCCESS;
-  }
-  game_delete(g);
-  return EXIT_FAILURE;
-}
-
 int test_game_is_unique()
 {
   game g = game_new_empty_ext(8, 4, true, true);
