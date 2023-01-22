@@ -496,10 +496,6 @@ int main(int argcount, char* argv[])
       if (test_game_nb_cols()) {
         test = test_game_nb_cols();
       }
-    } else if (strcmp(argv[1], "game_is_wrapping") == 0) {
-      if (test_game_is_wrapping()) {
-        test = test_game_is_wrapping();
-      }
     } else if (strcmp(argv[1], "game_is_unique") == 0) {
       if (test_game_is_unique()) {
         test = test_game_is_unique();
