@@ -472,6 +472,8 @@ void game_restart(game g)
       }
     }
   }
-  queue_clear_full(g->to_undo, free);
-  queue_clear_full(g->to_redo, free);
+  queue* s = queue_new();
+  queue* t = queue_new();
+  g->to_undo=s;
+  g->to_redo=t;
 }
