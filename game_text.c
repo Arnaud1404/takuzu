@@ -5,6 +5,7 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
+#include "game_tools.h"
 #define DEFAULT_SIZE 6
 
 void help(void)
@@ -19,9 +20,12 @@ void help(void)
   printf("-press y to redo\n");
 }
 
-int main(void)
+int main(char* filename)
 {
-  game g = game_default();
+  game g = game_load(filename);
+  if (g == NULL) {
+    g = game_load(default.txt);
+  }
   while (game_is_over(g) != true) {
     game_print(g);
     printf("> ? [h for help]\n");
