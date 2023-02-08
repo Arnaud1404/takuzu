@@ -5,9 +5,6 @@
  * @copyright University of Bordeaux. All rights reserved, 2022.
  *
  **/
-
-#ifndef __GAME_TOOLS_H__
-#define __GAME_TOOLS_H__
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
