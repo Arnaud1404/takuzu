@@ -21,12 +21,13 @@ void help(void)
   printf("-press y to redo\n");
 }
 
-int main(int argcount, int argvalue)
+int main(int argc, char* argv[])
 {
-  game g = game_load(filename);
-  if (g == NULL) {
-    char * def="default.txt";
-    g = game_load(def);
+  game g;
+  if (argc == 2) {
+    g = game_load(argv[1]);  // Exemple : ./game_text default.txt, default.txt = argv[1]
+  } else {
+    g = game_default();
   }
   while (game_is_over(g) != true) {
     game_print(g);
@@ -39,8 +40,8 @@ int main(int argcount, int argvalue)
       }
     }
     char charc;
-
-    int retour = scanf(" %c", &charc);
+    char* filename;
+    int retour = scanf(" %c %s", &charc, &filename);
     if (retour != 1) {
       help();
     } else if (charc == 'h') {
@@ -58,9 +59,10 @@ int main(int argcount, int argvalue)
       printf("shame\n");
       game_delete(g);
       return EXIT_SUCCESS;
-    }else if (charc == 's') {
-      printf("save\n");
-      void game_save(cgame g, char *filename); //début, ne marchhe pas
+    } else if (charc == 's') {
+      game_save(g, filename);
+      printf("Game saved\n");
+
     } else if (charc == 'w' || charc == 'b' || charc == 'e' || charc == 'z' || charc == 'y') {
       uint it, jt;
       square jouer;
