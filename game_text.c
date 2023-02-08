@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     }
     char charc;
     char* filename;
-    int retour = scanf(" %c %s", &charc, &filename);
+    int retour = scanf(" %c", &charc);
     if (retour != 1) {
       help();
     } else if (charc == 'h') {
@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
       game_delete(g);
       return EXIT_SUCCESS;
     } else if (charc == 's') {
+      scanf("%s", &filename);  // Exemple : s default.txt (en une seule ligne)
       game_save(g, filename);
       printf("Game saved\n");
 
