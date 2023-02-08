@@ -97,7 +97,7 @@ void game_save(cgame g, char* filename)
   int wrap = game_is_wrapping(g);
   int uni = game_is_unique(g);
 
-  fprintf(file_game, "%d %d %d %d \n", &nb_rows, &nb_cols, &wrap, &uni);
+  fprintf(file_game, "%d %d %d %d\n", &nb_rows, &nb_cols, &wrap, &uni);
 
   for (int i = 0; i < nb_rows; i++) {
     for (int j = 0; j < nb_cols; j++) {
