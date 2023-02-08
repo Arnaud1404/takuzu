@@ -22,9 +22,7 @@
  * @param filename input file
  * @return the loaded game
  **/
-game game_load(char *filename)
-{
-}
+game game_load(char *filename)()
 
 /**
  * @brief Saves a game in a text file.
@@ -32,9 +30,7 @@ game game_load(char *filename)
  * @param g game to save
  * @param filename output file
  **/
-void game_save(cgame g, char *filename)
-{
-}
+void game_save(cgame g, char *filename)()
 
 /**
  * @}
