@@ -14,6 +14,7 @@ void help(void)
   printf("-press 'w <i> <j>' to put a zero/white at square (i,j)\n");
   printf("-press 'b <i> <j>' to put a one/black at square (i,j)\n");
   printf("-press 'e <i> <j>' to empty square (i,j)\n");
+  printf("-press s <filename> to save current grid in a file filename.txt\n");
   printf("-press 'r' to restart \n");
   printf("-press 'q' to quit \n");
   printf("-press z to undo\n");
