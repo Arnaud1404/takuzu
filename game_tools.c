@@ -10,8 +10,9 @@
 #define __GAME_TOOLS_H__
 #include "game_ext.h"
 #include "game.h"
-#include stdio.h
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 /**
  * @name Game Tools
  * @{
@@ -27,7 +28,7 @@ game game_load(char *filename){
     if (filename == NULL){
         exit(EXIT_FAILURE);
     }
-    FILE* file_game = fopen(filename,w);
+    FILE* file_game = fopen(filename,"w");
     if (file_game == NULL){
         exit(EXIT_FAILURE);
     }
@@ -35,19 +36,41 @@ game game_load(char *filename){
     int lin;
     int wra;
     int uni;
-    int a = fscanf(filename,"%d %d %d %d",&lin,&col,&wra,&uni);
+    int a = fscanf(file_game,"%d %d %d %d",&lin,&col,&wra,&uni);
     if(a != 4){
         exit(EXIT_FAILURE);
     }
     char tab[lin][col];
     for(int i = 0; i <lin;i++){
 
-    fgets(tab[i], col+1, filename);
+    fgets(tab[i], col+1, file_game);
     if(tab[i]==NULL){
         exit(EXIT_FAILURE);
     }
     }
-    game new_game =  game_new_ext(lin, col, wra,uni,tab);
+    square tab_sq[lin*col];
+    for(int i = 0; i < lin;i++){
+        for(int j = 0; j<col;j++){
+            switch(tab[i][j]){
+                case 'e':
+                tab_sq[i+j] = S_EMPTY;
+                break;
+                case 'B':
+                tab_sq[i+j] = S_IMMUTABLE_ONE;
+                break;
+                case 'A':
+                tab_sq[i+j] = S_IMMUTABLE_ZERO;
+                break;
+                case 'a':
+                tab_sq[i+j] = S_ZERO;
+                break;
+                case 'b':
+                tab_sq[i+j] = S_ONE;
+                break;
+            }
+        }
+    }
+    game new_game =  game_new_ext(lin, col,tab_sq,wra,uni);
     return new_game;
     
 }
