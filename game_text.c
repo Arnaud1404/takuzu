@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
       game_delete(g);
       return EXIT_SUCCESS;
     } else if (charc == 's') {
-      if(filename == NULL){
+      if (filename == NULL) {
         game_delete(g);
         exit(EXIT_FAILURE);
       }

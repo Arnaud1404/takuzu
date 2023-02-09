@@ -45,7 +45,7 @@ game game_load(char* filename)
   if (col < 0 || lin < 0) {
     exit(EXIT_FAILURE);
   }
-  char tab[lin][col];
+  char tab[col][lin];
   for (int i = 1; i < lin; i++) {
     fgets(tab[i], col + 1, file_game);
     if (tab[i] == NULL) {
