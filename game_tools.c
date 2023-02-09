@@ -92,12 +92,12 @@ void game_save(cgame g, char* filename)
     exit(EXIT_FAILURE);
   }
 
-  int nb_rows = game_nb_rows;
-  int nb_cols = game_nb_cols;
+  int nb_rows = game_nb_rows(g);
+  int nb_cols = game_nb_cols(g);
   int wrap = game_is_wrapping(g);
   int uni = game_is_unique(g);
 
-  fprintf(file_game, "%d %d %d %d\n", &nb_rows, &nb_cols, &wrap, &uni);
+  fprintf(file_game, "%d %d %d %d\n", nb_rows, nb_cols, wrap, uni);
 
   for (int i = 0; i < nb_rows; i++) {
     for (int j = 0; j < nb_cols; j++) {
