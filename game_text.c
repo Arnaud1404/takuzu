@@ -14,17 +14,20 @@ void help(void)
   printf("-press 'w <i> <j>' to put a zero/white at square (i,j)\n");
   printf("-press 'b <i> <j>' to put a one/black at square (i,j)\n");
   printf("-press 'e <i> <j>' to empty square (i,j)\n");
+  printf("-press s <filename> to save current grid in a file filename.txt\n");
   printf("-press 'r' to restart \n");
   printf("-press 'q' to quit \n");
   printf("-press z to undo\n");
   printf("-press y to redo\n");
 }
 
-int main(char* filename)
+int main(int argc, char* argv[])
 {
-  game g = game_load(filename);
-  if (g == NULL) {
-    g = game_load(default.txt);
+  game g;
+  if (argc == 2) {
+    g = game_load(argv[1]);  // Exemple : ./game_text default.txt, default.txt = argv[1]
+  } else {
+    g = game_default();
   }
   while (game_is_over(g) != true) {
     game_print(g);
@@ -37,7 +40,7 @@ int main(char* filename)
       }
     }
     char charc;
-
+    char* filename;
     int retour = scanf(" %c", &charc);
     if (retour != 1) {
       help();
@@ -56,6 +59,11 @@ int main(char* filename)
       printf("shame\n");
       game_delete(g);
       return EXIT_SUCCESS;
+    } else if (charc == 's') {
+      scanf("%s", &filename);  // Exemple : s default.txt (en une seule ligne)
+      game_save(g, filename);
+      printf("Game saved\n");
+
     } else if (charc == 'w' || charc == 'b' || charc == 'e' || charc == 'z' || charc == 'y') {
       uint it, jt;
       square jouer;
