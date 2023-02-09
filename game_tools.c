@@ -39,14 +39,20 @@ game game_load(char* filename)
   if (a != 4) {
     exit(EXIT_FAILURE);
   }
+  if (wra != 0 || wra != 1 || uni != 0 || uni != 1) {
+    exit(EXIT_FAILURE);
+  }
+  if (col < 0 || lin < 0) {
+    exit(EXIT_FAILURE);
+  }
   char tab[lin][col];
-  for (int i = 0; i < lin; i++) {
+  for (int i = 1; i < lin; i++) {
     fgets(tab[i], col + 1, file_game);
     if (tab[i] == NULL) {
       exit(EXIT_FAILURE);
     }
   }
-  square tab_sq[lin * col];
+  square* tab_sq[lin * col];
   for (int i = 0; i < lin; i++) {
     for (int j = 0; j < col; j++) {
       switch (tab[i][j]) {
@@ -64,6 +70,11 @@ game game_load(char* filename)
           break;
         case 'B':
           tab_sq[i + j] = S_IMMUTABLE_ONE;
+          break;
+        case '\n':
+          break;
+        default:  // Wrong file format
+          exit(EXIT_FAILURE);
           break;
       }
     }
