@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
   while (game_is_over(g) != true) {
     game_print(g);
     printf("> ? [h for help]\n");
-    for (uint i = 0; i < 8; i++) {
+    for (uint i = 0; i < 6; i++) {
       for (uint j = 0; j < 6; j++) {
         if ((game_has_error(g, i, j) != 0)) {
           printf("Error at square(%u,%u)\n", i, j);
@@ -60,7 +60,11 @@ int main(int argc, char* argv[])
       game_delete(g);
       return EXIT_SUCCESS;
     } else if (charc == 's') {
-      scanf("%s", &filename);  // Exemple : s default.txt (en une seule ligne)
+      if(filename == NULL){
+        game_delete(g);
+        exit(EXIT_FAILURE);
+      }
+      scanf("%s", filename);  // Exemple : s default.txt (en une seule ligne)
       game_save(g, filename);
       printf("Game saved\n");
 
