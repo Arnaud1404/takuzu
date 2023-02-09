@@ -52,7 +52,7 @@ game game_load(char* filename)
       exit(EXIT_FAILURE);
     }
   }
-  square* tab_sq[lin * col];
+  square tab_sq[lin * col];
   for (int i = 0; i < lin; i++) {
     for (int j = 0; j < col; j++) {
       switch (tab[i][j]) {
