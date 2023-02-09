@@ -39,10 +39,10 @@ game game_load(char* filename)
   if (a != 4) {
     exit(EXIT_FAILURE);
   }
-  if (wra != 0 || wra != 1 || uni != 0 || uni != 1) {
+  if (!(wra == 0 || wra == 1) || !(uni == 0 || uni == 1)) {
     exit(EXIT_FAILURE);
   }
-  if (col < 0 || lin < 0) {
+  if (col < 0 || lin < 0 || col > 10 || lin > 10) {
     exit(EXIT_FAILURE);
   }
   char tab[col][lin];
