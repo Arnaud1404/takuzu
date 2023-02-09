@@ -45,38 +45,37 @@ game game_load(char* filename)
   if (col < 0 || lin < 0 || col > 10 || lin > 10) {
     exit(EXIT_FAILURE);
   }
-  char tab[lin][col];
-  for (int i = 1; i < lin; i++) {
-    fgets(tab[i], col + 1, file_game);
-    if (tab[i] == NULL) {
-      exit(EXIT_FAILURE);
-    }
-  }
   square tab_sq[lin * col];
+  while (!feof(file_game)) {
+    char ch = fgetc(file_game);
+    int i = 0;
+    switch (ch) {
+      case 'e':
+        tab_sq[i] = S_EMPTY;
+        break;
+      case 'w':
+        tab_sq[i] = S_ZERO;
+        break;
+      case 'b':
+        tab_sq[i] = S_ONE;
+        break;
+      case 'W':
+        tab_sq[i] = S_IMMUTABLE_ZERO;
+        break;
+      case 'B':
+        tab_sq[i] = S_IMMUTABLE_ONE;
+        break;
+      case '\n':
+        break;
+      default:  // Wrong file format
+        exit(EXIT_FAILURE);
+        break;
+    }
+    i++;
+  }
+
   for (int i = 0; i < lin; i++) {
     for (int j = 0; j < col; j++) {
-      switch (tab[i][j]) {
-        case 'e':
-          tab_sq[i + j] = S_EMPTY;
-          break;
-        case 'w':
-          tab_sq[i + j] = S_ZERO;
-          break;
-        case 'b':
-          tab_sq[i + j] = S_ONE;
-          break;
-        case 'W':
-          tab_sq[i + j] = S_IMMUTABLE_ZERO;
-          break;
-        case 'B':
-          tab_sq[i + j] = S_IMMUTABLE_ONE;
-          break;
-        case '\n':
-          break;
-        default:  // Wrong file format
-          exit(EXIT_FAILURE);
-          break;
-      }
     }
   }
   game new_game = game_new_ext(lin, col, tab_sq, wra, uni);
