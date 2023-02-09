@@ -103,19 +103,19 @@ void game_save(cgame g, char* filename)
     for (int j = 0; j < nb_cols; j++) {
       switch (game_get_square(g, i, j)) {
         case S_EMPTY:
-          fprintf(file_game, 'e');
+          fprintf(file_game, "e");
           break;
         case S_ZERO:
-          fprintf(file_game, 'w');
+          fprintf(file_game, "w");
           break;
         case S_ONE:
-          fprintf(file_game, 'b');
+          fprintf(file_game, "b");
           break;
         case S_IMMUTABLE_ZERO:
-          fprintf(file_game, 'W');
+          fprintf(file_game, "W");
           break;
         case S_IMMUTABLE_ONE:
-          fprintf(file_game, 'B');
+          fprintf(file_game, "B");
           break;
       }
     }
