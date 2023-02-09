@@ -49,7 +49,7 @@ game game_load(char* filename)
   square tab_sq[lin * col];
   int i = 0;
   while (fgets(string[i], 100, file_game)) {
-    for (int j = 0; j < col; j++) {
+    for (int j = 0; j < col + 1; j++) {
       switch (string[i][j]) {
         case 'e':
           tab_sq[i] = S_EMPTY;
