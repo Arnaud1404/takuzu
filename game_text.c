@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
       }
     }
     char charc;
-    char* filename;
+    char* filename = "default.txt";
     int retour = scanf(" %c", &charc);
     if (retour != 1) {
       help();
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
       game_delete(g);
       return EXIT_SUCCESS;
     } else if (charc == 's') {
-      if(filename == NULL){
+      if (filename == NULL) {
         game_delete(g);
         exit(EXIT_FAILURE);
       }
