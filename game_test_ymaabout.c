@@ -6,6 +6,7 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
+#include "game_tools.h"
 
 int test_dummy(void) { return EXIT_SUCCESS; }
 
@@ -182,6 +183,64 @@ int test_game_is_wrapping(void)
   return EXIT_FAILURE;
 }
 
+int test_game_load(void){
+  bool ok = true;
+  game g = game_load("default.txt");
+  if(g == NULL){
+    exit(EXIT_FAILURE);
+  }
+  ok = ok && (game_get_square(g,0,0) == S_EMPTY);
+  ok = ok && (game_get_square(g,1,0) == S_EMPTY);
+  ok = ok && (game_get_square(g,0,1) == S_IMMUTABLE_ONE);
+  ok = ok && (game_get_square(g,5,5) == S_IMMUTABLE_ZERO);
+  game_delete(g);
+  if(ok == true){
+    return EXIT_SUCCESS;
+  }
+  return EXIT_FAILURE;
+}
+
+int test_game_save(void){
+  game g = game_default();
+  if(g == NULL){
+    exit(EXIT_FAILURE);
+  }
+  game g1 = game_default_solution();
+  if(g1 == NULL){
+    game_delete(g);
+    exit(EXIT_FAILURE);
+  }
+  char* name = "first.txt";
+  char* name1 = "second.txt";
+  game_save(g,name);
+  game_save(g1,name1);
+  game gbis = game_load("first.txt");
+  if(gbis == NULL){
+    game_delete(g);
+    game_delete(g1);
+    exit(EXIT_FAILURE);
+  }
+  game g1bis = game_load("second.txt");
+  if(g1bis == NULL){
+    game_delete(g);
+    game_delete(g1);
+    game_delete(gbis);
+    exit(EXIT_FAILURE);
+  }
+  if(game_equal(g,gbis)&& game_equal(g1,g1bis)){
+    game_delete(g);
+    game_delete(g1);
+    game_delete(gbis);
+    game_delete(g1bis);
+    return EXIT_SUCCESS;
+  }
+  game_delete(g);
+  game_delete(g1);
+  game_delete(gbis);
+  game_delete(g1bis);
+return EXIT_FAILURE;
+}
+
 int main(int argcount, char* argv[])
 {
   int test = 0;
@@ -200,7 +259,13 @@ int main(int argcount, char* argv[])
       test = test_game_print();
     } else if (strcmp(argv[1], "game_is_wrapping") == 0) {
       test = test_game_is_wrapping();
-    } else {
+    }else if (strcmp(argv[1], "game_load") == 0) {
+      test = test_game_load();
+    }
+    else if (strcmp(argv[1], "game_save") == 0) {
+      test = test_game_save();
+    }
+     else {
       test = EXIT_FAILURE;
     }
     if (test == EXIT_FAILURE) {

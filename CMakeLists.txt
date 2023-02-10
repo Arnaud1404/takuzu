@@ -27,6 +27,8 @@ add_test(test_ymaabout_test_game_play_move ./game_test_ymaabout game_play_move)
 add_test(test_ymaabout_test_game_check_move ./game_test_ymaabout game_check_move)
 add_test(test_ymaabout_test_game_print ./game_test_ymaabout game_print)
 add_test(test_ymaabout_test_game_is_wrapping ./game_test_ymaabout game_is_wrapping)
+add_test(test_ymaabout_test_game_load ./game_test_ymaabout game_load)
+add_test(test_ymaabout_test_game_save ./game_test_ymaabout game_save)
 
 add_test(test_juruch_test_dummy ./game_test_juruch dummy)
 add_test(test_juruch_test_game_new_empty ./game_test_juruch game_new_empty)
