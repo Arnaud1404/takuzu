@@ -125,3 +125,26 @@ void game_save(cgame g, char* filename)
   }
   fclose(file_game);
 };
+
+bool game_solve(game g){
+  int col = game_nb_cols(g);
+  int row = game_nb_rows(g);
+  int size = col*row;
+}
+
+void game_solve_rec(int pos, int len, game g, unsigned long *count){
+   if (pos == len)
+  {
+    (*count)++;
+    return
+        }
+
+  game_set_square(g, posi+1, posj, 0)
+
+  }
+
+
+
+
+
+uint game_nb_solutions(cgame g);
