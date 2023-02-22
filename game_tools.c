@@ -39,35 +39,34 @@ game game_load(char* filename)
   if (a != 4) {
     exit(EXIT_FAILURE);
   }
-  char tab[lin*col];
+  char tab[lin * col];
   char tmp;
-  for (int i = 0; i < col*lin; i++) {
+  for (int i = 0; i < col * lin; i++) {
     tmp = fgetc(file_game);
     if (tmp == '\n') {
-     tmp = fgetc(file_game);
+      tmp = fgetc(file_game);
     }
-    tab[i]=tmp;
+    tab[i] = tmp;
   }
 
   square tab_sq[lin * col];
-  for (int i = 0; i < col*lin; i++) {
-      switch (tab[i]) {
-        case 'e':
-          tab_sq[i] = S_EMPTY;
-          break;
-        case 'w':
-          tab_sq[i] = S_ZERO;
-          break;
-        case 'b':
-          tab_sq[i] = S_ONE;
-          break;
-        case 'W':
-          tab_sq[i] = S_IMMUTABLE_ZERO;
-          break;
-        case 'B':
-          tab_sq[i] = S_IMMUTABLE_ONE;
-          break;
-      
+  for (int i = 0; i < col * lin; i++) {
+    switch (tab[i]) {
+      case 'e':
+        tab_sq[i] = S_EMPTY;
+        break;
+      case 'w':
+        tab_sq[i] = S_ZERO;
+        break;
+      case 'b':
+        tab_sq[i] = S_ONE;
+        break;
+      case 'W':
+        tab_sq[i] = S_IMMUTABLE_ZERO;
+        break;
+      case 'B':
+        tab_sq[i] = S_IMMUTABLE_ONE;
+        break;
     }
   }
   game new_game = game_new_ext(lin, col, tab_sq, wra, uni);
