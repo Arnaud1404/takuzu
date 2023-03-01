@@ -14,11 +14,11 @@ void help(void)
   printf("-press 'w <i> <j>' to put a zero/white at square (i,j)\n");
   printf("-press 'b <i> <j>' to put a one/black at square (i,j)\n");
   printf("-press 'e <i> <j>' to empty square (i,j)\n");
-  printf("-press s <filename> to save current grid in a file filename.txt\n");
+  printf("-press 's <filename>' to save current grid in a file filename.txt\n");
   printf("-press 'r' to restart \n");
   printf("-press 'q' to quit \n");
-  printf("-press z to undo\n");
-  printf("-press y to redo\n");
+  printf("-press 'z' to undo\n");
+  printf("-press 'y' to redo\n");
 }
 
 int main(int argc, char* argv[])
@@ -47,9 +47,10 @@ int main(int argc, char* argv[])
     } else if (charc == 'h') {
       help();
     } else if (charc == 'z') {
-      printf("UNDO\n");
+      printf("> action : undo\n");
       game_undo(g);
     } else if (charc == 'y') {
+      printf("> action : redo\n");
       game_redo(g);
     } else if (charc == 'r') {
       printf("> action : restart\n");
