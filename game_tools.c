@@ -125,57 +125,61 @@ void game_save(cgame g, char* filename)
   fclose(file_game);
 };
 
-
-
-void game_solve_rec(int pos, int len, game g, unsigned long *count,int col, int row,bool first){
-   if (pos == len)
-  { 
-    (*count)++;
-    if(!first){
-
-  
-    if(game_is_over(g)){
-
-
-    return ;
-            }
-              }
+int find_next_empty_row(game g)
+{
+  for (int i = 0; i < game_nb_rows(g); i++) {
+    for (int j = 0; j < game_nb_cols(g); j++) {
+      if (game_get_square(g, i, j) == S_EMPTY) {
+        return j;
+      }
+    }
   }
-
-  game_play_move(g,pos / col,pos%col,0);
-  game_solve_rec(pos+1,len,g,count,col,row,first);
-
-
-  game_play_move(g,pos / col,pos%col,1);
-  game_solve_rec(pos+1,len,g,count,col,row,first);
-
-
-} 
-
-bool game_solve(game g){
-  int col = game_nb_cols(g);
-  int row = game_nb_rows(g);
-  int size = col*row;
-  unsigned long nb = 0;
-  game g1 = game_copy(g);
-  game_solve_rec(0,size,g,&nb,col,row,false);
-  if(game_equal(g,g1)){
-    return false;
-  }
-  g = game_copy(g1);
-  return true;
-
-  
+  return -1;
 }
 
+int find_next_empty_col(game g)
+{
+  for (int i = 0; i < game_nb_rows(g); i++) {
+    for (int j = 0; j < game_nb_cols(g); j++) {
+      if (game_get_square(g, i, j) == S_EMPTY) {
+        return j;
+      }
+    }
+  }
+  return -1;
+}
 
-
-uint game_nb_solutions(cgame g){
+bool game_solve(game g)
+{
+  int empty_row = find_next_empty_row(g);
+  int empty_col = find_next_empty_col(g);
+  if (empty_row == -1) {
+    return true;
+  }
+  game_play_move(g, empty_row, empty_col, S_ZERO);
+  if (!game_has_error(g, empty_row, empty_col)) {
+    if (game_solve(g)) {  // rec
+      return true;
+    }
+  } else {
+    game_play_move(g, empty_row, empty_col, S_ONE);
+    if (!game_has_error(g, empty_row, empty_col)) {
+      if (game_solve(g)) {  // rec
+        return true;
+      }
+    }
+  }
+  // if has error, reset
+  game_play_move(g, empty_row, empty_col, S_EMPTY);
+  return false;
+}
+uint game_nb_solutions(cgame g)
+{
   int col = game_nb_cols(g);
   int row = game_nb_rows(g);
-  uint size = col*row;
+  uint size = col * row;
   unsigned long nb = 0;
   game g1 = game_copy(g);
-  game_solve_rec(0,size,g1,&nb,col,row,true);
+  game_solve_rec(0, size, g1, &nb, col, row, true);
   return nb;
 }
