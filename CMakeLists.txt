@@ -9,6 +9,7 @@ link_directories(${CMAKE_SOURCE_DIR})
 
 
 add_executable(game_text game_text.c )
+add_executable(game_solve game_solve.c )
 add_executable(game_test_ymaabout game_test_ymaabout.c)
 add_executable(game_test_juruch game_test_juruch.c)
 add_executable(game_test_argomes game_test_argomes.c)
