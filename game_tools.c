@@ -127,23 +127,27 @@ void game_save(cgame g, char* filename)
 
 
 
-void game_solve_rec(int pos, int len, game g, unsigned long *count,int col, int row){
+void game_solve_rec(int pos, int len, game g, unsigned long *count,int col, int row,bool first){
    if (pos == len)
-  {
+  { 
     (*count)++;
+    if(!first){
+
+  
     if(game_is_over(g)){
 
 
     return ;
             }
+              }
   }
 
   game_play_move(g,pos / col,pos%col,0);
-  game_solve_rec(pos+1,len,g,count,col,row);
+  game_solve_rec(pos+1,len,g,count,col,row,first);
 
 
   game_play_move(g,pos / col,pos%col,1);
-  game_solve_rec(pos+1,len,g,count,col,row);
+  game_solve_rec(pos+1,len,g,count,col,row,first);
 
 
 } 
@@ -154,7 +158,7 @@ bool game_solve(game g){
   int size = col*row;
   unsigned long nb = 0;
   game g1 = game_copy(g);
-  game_solve_rec(0,size,g,&nb,col,row);
+  game_solve_rec(0,size,g,&nb,col,row,false);
   if(game_equal(g,g1)){
     return false;
   }
@@ -166,4 +170,12 @@ bool game_solve(game g){
 
 
 
-uint game_nb_solutions(cgame g);
+uint game_nb_solutions(cgame g){
+  int col = game_nb_cols(g);
+  int row = game_nb_rows(g);
+  uint size = col*row;
+  unsigned long nb = 0;
+  game g1 = game_copy(g);
+  game_solve_rec(0,size,g1,&nb,col,row,true);
+  return nb;
+}
