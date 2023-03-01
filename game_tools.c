@@ -175,11 +175,6 @@ bool game_solve(game g)
 }
 uint game_nb_solutions(cgame g)
 {
-  int col = game_nb_cols(g);
-  int row = game_nb_rows(g);
-  uint size = col * row;
-  unsigned long nb = 0;
-  game g1 = game_copy(g);
-  game_solve_rec(0, size, g1, &nb, col, row, true);
-  return nb;
+  int n = 0;
+  return n;
 }
