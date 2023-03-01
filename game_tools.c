@@ -130,7 +130,7 @@ int find_next_empty_row(game g)
   for (int i = 0; i < game_nb_rows(g); i++) {
     for (int j = 0; j < game_nb_cols(g); j++) {
       if (game_get_square(g, i, j) == S_EMPTY) {
-        return j;
+        return i;
       }
     }
   }
