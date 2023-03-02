@@ -41,12 +41,23 @@ int main(int argc, char* argv[])
   }
   if (argc == 2) {
     int n = game_nb_solutions(g);
-    if (n == 0) {
-      return EXIT_FAILURE;
-    }
-    for (int i = 0; i < n; i++) {
-      bool ret = game_solve(g);
+    if (strcmp(argv[1], "-s") == 0) {
+      if (n == 0) {
+        return EXIT_FAILURE;
+      }
+      game_solve(g);
       game_print(g);
+    }
+    if (strcmp(argv[1], "-c") == 0) {
+      if (n == 0) {
+        printf("0\n");
+      }
+      if (n != 0) {
+        for (int i = 0; i < n; i++) {
+          bool ret = game_solve(g);
+          game_print(g);
+        }
+      }
     }
   }
   return EXIT_SUCCESS;
