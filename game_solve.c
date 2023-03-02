@@ -41,6 +41,7 @@ int main(int argc, char* argv[])
     }
   }
   if (argc == 2) {
+    g = game_load(argv[2]);
     int n = game_nb_solutions(g);
     if (strcmp(argv[1], "-s") == 0) {
       if (n == 0) {
@@ -54,10 +55,7 @@ int main(int argc, char* argv[])
         printf("0\n");
       }
       if (n != 0) {
-        for (int i = 0; i < n; i++) {
-          bool ret = game_solve(g);
-          game_print(g);
-        }
+        printf("%d\n", n);
       }
     }
   }
