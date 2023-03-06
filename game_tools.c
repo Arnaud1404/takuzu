@@ -161,9 +161,8 @@ static void game_solve_rec(game g, uint pos, uint* count )
 }
 
 bool game_solve(game g){
-  game g1 = game_copy(g);
   uint nb = 0;
-  game_solve_rec(g1,0,&nb);
+  game_solve_rec(g,0,&nb);
   if (nb != 0){
     return true;
   }
