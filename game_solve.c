@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
   if (argc < 3) {
     return EXIT_FAILURE;
   }
+  bool tosave = argc == 4;
   char* filename = argv[2];
   g = game_load(filename);
   if (strcmp(argv[1], "-s") == 0) {
@@ -29,13 +30,21 @@ int main(int argc, char* argv[])
     if (!ret) {
       return EXIT_FAILURE;
     }
-
-    game_save(g, filename);
+    if(tosave)
+      game_save(g, filename);
+    else game_print(g);  
   }
 
   if (strcmp(argv[1], "-c") == 0) {
-    int n = game_nb_solutions(g);  // 0 si aucune solution
-    fprintf(file_game, "%d\n", n);
+    uint n = game_nb_solutions(g);  // 0 si aucune solution
+    if(tosave){
+      FILE* text = fileopen(filename,"w");
+      char tab [5];
+      sprintf(tab,"%u",n);
+      fputs(tab,text);
+    }
+    else
+      fprintf(file_game, "%d\n", n);
   }
 
 
