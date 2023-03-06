@@ -19,23 +19,26 @@ void help(void)
 int main(int argc, char* argv[])
 {
   game g;
-  if (argc == 3) {
-    char* filename = argv[2];
-    g = game_load(filename);
-    if (strcmp(argv[1], "-s") == 0) {
-      bool ret = game_solve(g);
-      if (!ret) {
-        return EXIT_FAILURE;
-      }
-
-      game_save(g, filename);
-    }
-
-    if (strcmp(argv[1], "-c") == 0) {
-      int n = game_nb_solutions(g);  // 0 si aucune solution
-      fprintf(file_game, "%d\n", n);
-    }
+  if (argc < 3) {
+    return EXIT_FAILURE;
   }
+  char* filename = argv[2];
+  g = game_load(filename);
+  if (strcmp(argv[1], "-s") == 0) {
+    bool ret = game_solve(g);
+    if (!ret) {
+      return EXIT_FAILURE;
+    }
+
+    game_save(g, filename);
+  }
+
+  if (strcmp(argv[1], "-c") == 0) {
+    int n = game_nb_solutions(g);  // 0 si aucune solution
+    fprintf(file_game, "%d\n", n);
+  }
+
+
 
   return EXIT_SUCCESS;
 }
