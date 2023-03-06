@@ -125,56 +125,55 @@ void game_save(cgame g, char* filename)
   fclose(file_game);
 };
 
-int find_next_empty_row(game g)
-{
-  for (int i = 0; i < game_nb_rows(g); i++) {
-    for (int j = 0; j < game_nb_cols(g); j++) {
-      if (game_get_square(g, i, j) == S_EMPTY) {
-        return i;
-      }
-    }
-  }
-  return -1;
-}
-
-int find_next_empty_col(game g)
-{
-  for (int i = 0; i < game_nb_rows(g); i++) {
-    for (int j = 0; j < game_nb_cols(g); j++) {
-      if (game_get_square(g, i, j) == S_EMPTY) {
-        return j;
-      }
-    }
-  }
-  return -1;
-}
-
-bool game_solve(game g)
-{
-  int empty_row = find_next_empty_row(g);
-  int empty_col = find_next_empty_col(g);
-  if (empty_row == -1) {
+bool game_solve(game g){
+  game g1 = game_copy(g);
+  int nb = 0;
+  game_solve_rec(g1,0,&nb);
+  if (nb != 0){
     return true;
   }
-  game_play_move(g, empty_row, empty_col, S_ZERO);
-  if (!game_has_error(g, empty_row, empty_col)) {
-    if (game_solve(g)) {  // rec
-      return true;
-    }
-  } else {
-    game_play_move(g, empty_row, empty_col, S_ONE);
-    if (!game_has_error(g, empty_row, empty_col)) {
-      if (game_solve(g)) {  // rec
-        return true;
-      }
-    }
-  }
-  // if has error, reset
-  game_play_move(g, empty_row, empty_col, S_EMPTY);
   return false;
 }
-uint game_nb_solutions(cgame g)
+
+void game_solve_rec(game g, uint pos, uint* count )
 {
-  int n = 0;
-  return n;
+ int nb_cols = game_nb_cols(g);
+
+ if (pos == (nb_cols)*game_nb_rows(g)) { //Condition d'arret (on est arrivé à la dernière case)
+
+ //Ici pas besoin de vérifier que le jeu est terminé avec game_is_over puisque on utilise game_has_error à chaque itération.
+ //Et donc on ne peut arriver à la dernière case avec une erreur ou une case vide.
+ (*count)++; //On incrémente le nombre de solution (puisque le jeu est finis)
+
+ return;
+ }
+
+ uint pos_i=pos / nb_cols, pos_j=pos % nb_cols;
+
+ if (game_get_square(g, pos_i, pos_j) == S_EMPTY) { //Si la case actuelle est vide alors on essaie 
+
+ game_set_square(g, pos_i, pos_j, S_ZERO); //On joue S_ZERO 
+ if (game_has_error(g,pos_i,pos_j)==0){ //Si ce coup n'a pas provoqué d'erreur dans le jeu alors on continue les appels sinon on essaie autre chose
+ game_solve_rec(g, pos + 1, count);
+ }
+
+ game_set_square(g, pos_i, pos_j, S_ONE); //On joue S_ONE
+
+ if (game_has_error(g,pos_i,pos_j)==0){ //Si ce coup n'a pas provoqué d'erreur dans le jeu alors on continue les appels sinon one ne fait rien (et donc on retourne en arrière)
+ game_solve_rec(g, pos + 1, count);
+ }
+
+ game_set_square(g, pos_i, pos_j, S_EMPTY); //Après les éventuels appels on remets la case à S_ZERO (pour les précedents appels en attente)
+
+ //Ici plus rien ne se passe donc c'est la fin de l'appel précedent qui s'execute 
+
+ } else {
+ game_solve_rec(g, pos + 1, count); //Si le case n'est pas vide alors il suffit de passer à la case suivante
+ }
+}
+
+
+uint game_nb_solutions(cgame g){
+  return 1;
+  
 }
