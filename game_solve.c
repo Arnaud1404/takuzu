@@ -38,13 +38,13 @@ int main(int argc, char* argv[])
   if (strcmp(argv[1], "-c") == 0) {
     uint n = game_nb_solutions(g);  // 0 si aucune solution
     if(tosave){
-      FILE* text = fileopen(filename,"w");
+      FILE* text = fopen(filename,"w");
       char tab [5];
       sprintf(tab,"%u",n);
       fputs(tab,text);
     }
     else
-      fprintf(file_game, "%d\n", n);
+      printf("%d\n", n);
   }
 
 

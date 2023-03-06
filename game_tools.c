@@ -140,10 +140,7 @@ void game_solve_rec(game g, uint pos, uint* count )
  int nb_cols = game_nb_cols(g);
 
  if (pos == (nb_cols)*game_nb_rows(g)) { //Condition d'arret (on est arrivé à la dernière case)
-
- //Ici pas besoin de vérifier que le jeu est terminé avec game_is_over puisque on utilise game_has_error à chaque itération.
- //Et donc on ne peut arriver à la dernière case avec une erreur ou une case vide.
- (*count)++; //On incrémente le nombre de solution (puisque le jeu est finis)
+ (*count)++; 
 
  return;
  }
@@ -153,19 +150,18 @@ void game_solve_rec(game g, uint pos, uint* count )
  if (game_get_square(g, pos_i, pos_j) == S_EMPTY) { //Si la case actuelle est vide alors on essaie 
 
  game_set_square(g, pos_i, pos_j, S_ZERO); //On joue S_ZERO 
- if (game_has_error(g,pos_i,pos_j)==0){ //Si ce coup n'a pas provoqué d'erreur dans le jeu alors on continue les appels sinon on essaie autre chose
+ if (game_has_error(g,pos_i,pos_j)==0){ 
  game_solve_rec(g, pos + 1, count);
  }
 
  game_set_square(g, pos_i, pos_j, S_ONE); //On joue S_ONE
 
- if (game_has_error(g,pos_i,pos_j)==0){ //Si ce coup n'a pas provoqué d'erreur dans le jeu alors on continue les appels sinon one ne fait rien (et donc on retourne en arrière)
+ if (game_has_error(g,pos_i,pos_j)==0){ 
  game_solve_rec(g, pos + 1, count);
  }
 
- game_set_square(g, pos_i, pos_j, S_EMPTY); //Après les éventuels appels on remets la case à S_ZERO (pour les précedents appels en attente)
+ game_set_square(g, pos_i, pos_j, S_EMPTY); 
 
- //Ici plus rien ne se passe donc c'est la fin de l'appel précedent qui s'execute 
 
  } else {
  game_solve_rec(g, pos + 1, count); //Si le case n'est pas vide alors il suffit de passer à la case suivante
