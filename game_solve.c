@@ -40,24 +40,6 @@ int main(int argc, char* argv[])
       fprintf(file_game, "%d\n", n);
     }
   }
-  if (argc == 2) {
-    g = game_load(argv[2]);
-    int n = game_nb_solutions(g);
-    if (strcmp(argv[1], "-s") == 0) {
-      if (n == 0) {
-        return EXIT_FAILURE;
-      }
-      game_solve(g);
-      game_print(g);
-    }
-    if (strcmp(argv[1], "-c") == 0) {
-      if (n == 0) {
-        printf("0\n");
-      }
-      if (n != 0) {
-        printf("%d\n", n);
-      }
-    }
-  }
+
   return EXIT_SUCCESS;
 }
