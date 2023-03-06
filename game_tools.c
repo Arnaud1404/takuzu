@@ -125,17 +125,9 @@ void game_save(cgame g, char* filename)
   fclose(file_game);
 };
 
-bool game_solve(game g){
-  game g1 = game_copy(g);
-  int nb = 0;
-  game_solve_rec(g1,0,&nb);
-  if (nb != 0){
-    return true;
-  }
-  return false;
-}
 
-void game_solve_rec(game g, uint pos, uint* count )
+
+static void game_solve_rec(game g, uint pos, uint* count )
 {
  int nb_cols = game_nb_cols(g);
 
@@ -168,8 +160,20 @@ void game_solve_rec(game g, uint pos, uint* count )
  }
 }
 
+bool game_solve(game g){
+  game g1 = game_copy(g);
+  uint nb = 0;
+  game_solve_rec(g1,0,&nb);
+  if (nb != 0){
+    return true;
+  }
+  return false;
+}
 
 uint game_nb_solutions(cgame g){
-  return 1;
+  game g1 = game_copy(g);
+  uint nb = 0;
+  game_solve_rec(g1,0,&nb);
+  return nb;
   
 }
