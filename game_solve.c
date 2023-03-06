@@ -28,28 +28,27 @@ int main(int argc, char* argv[])
   if (strcmp(argv[1], "-s") == 0) {
     bool ret = game_solve(g);
     if (!ret) {
+      game_delete(g);
       return EXIT_FAILURE;
     }
-    if(tosave){
+    if (tosave) {
       char* filename2 = argv[3];
       game_save(g, filename2);
-    }
-    else game_print(g);  
+    } else
+      game_print(g);
   }
 
   if (strcmp(argv[1], "-c") == 0) {
     uint n = game_nb_solutions(g);  // 0 si aucune solution
-    if(tosave){
+    if (tosave) {
       char* filename2 = argv[3];
-      FILE* text = fopen(filename2,"w");
-      fprintf(text,"%u",n);
+      FILE* text = fopen(filename2, "w");
+      fprintf(text, "%u", n);
       fclose(text);
-    }
-    else
+    } else
       printf("%d\n", n);
   }
-
-
+  game_delete(g);
 
   return EXIT_SUCCESS;
 }
