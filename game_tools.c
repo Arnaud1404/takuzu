@@ -162,7 +162,7 @@ static void game_solve_rec(game g, uint pos, uint* count )
 bool game_solve(game g){
   uint nb = 0;
   game_solve_rec(g,0,&nb);
-    return true;
+  return true;
 }
 
 uint game_nb_solutions(cgame g){

@@ -40,10 +40,10 @@ int main(int argc, char* argv[])
   if (strcmp(argv[1], "-c") == 0) {
     uint n = game_nb_solutions(g);  // 0 si aucune solution
     if(tosave){
-      FILE* text = fopen(filename,"w");
-      char tab [5];
-      sprintf(tab,"%u",n);
-      fputs(tab,text);
+      char* filename2 = argv[3];
+      FILE* text = fopen(filename2,"w");
+      fprintf(text,"%u",n);
+      fclose(text);
     }
     else
       printf("%d\n", n);
