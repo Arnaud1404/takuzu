@@ -30,8 +30,10 @@ int main(int argc, char* argv[])
     if (!ret) {
       return EXIT_FAILURE;
     }
-    if(tosave)
-      game_save(g, filename);
+    if(tosave){
+      char* filename2 = argv[3];
+      game_save(g, filename2);
+    }
     else game_print(g);  
   }
 
