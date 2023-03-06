@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
 {
   game g;
   if (argc == 3) {
-    char* filename = argv[3];
-    g = game_load(argv[2]);
+    char* filename = argv[2];
+    g = game_load(filename);
     if (strcmp(argv[1], "-s") == 0) {
       bool ret = game_solve(g);
       if (!ret) {
@@ -33,10 +33,6 @@ int main(int argc, char* argv[])
 
     if (strcmp(argv[1], "-c") == 0) {
       int n = game_nb_solutions(g);  // 0 si aucune solution
-      FILE* file_game = fopen(filename, "w");
-      if (file_game == NULL) {
-        exit(EXIT_FAILURE);
-      }
       fprintf(file_game, "%d\n", n);
     }
   }
