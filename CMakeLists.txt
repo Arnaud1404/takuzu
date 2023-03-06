@@ -3,7 +3,7 @@ enable_testing()
 project(game_text C)
 include(CTest)
 
-set(CMAKE_C_FLAGS "-std=c99 -g -Wall --coverage")
+set(CMAKE_C_FLAGS "-std=c99 -g -Wall ")
 
 link_directories(${CMAKE_SOURCE_DIR})
 
