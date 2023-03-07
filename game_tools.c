@@ -164,7 +164,10 @@ bool game_solve(game g)
 {
   uint nb = 0;
   game g1 = game_copy(g);
-  game_solve_rec(g, 0, &nb, true);
+  if(g1 == NULL){
+    exit(EXIT_FAILURE);
+  }
+  game_solve_rec(g1, 0, &nb, true);
   if(nb == 0){
     game_delete(g1);
     return false;
