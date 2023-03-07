@@ -11,6 +11,7 @@
 
 #include "game.h"
 #include "game_ext.h"
+#include "game_aux.h"
 /**
  * @name Game Tools
  * @{
@@ -127,16 +128,12 @@ void game_save(cgame g, char* filename)
 
 static void game_solve_rec(game g, uint pos, uint* count, bool first)
 {
-  if (first) {
-    if (game_is_over(g)) {
-      return;
-    }
-  }
+if(!first || (*count<1)){
+
   int nb_cols = game_nb_cols(g);
   if (pos == (nb_cols)*game_nb_rows(g)) {  // Condition d'arret
     (*count)++;
-
-    return;
+    return ;
   }
 
   uint posrow = pos / nb_cols;
@@ -144,43 +141,39 @@ static void game_solve_rec(game g, uint pos, uint* count, bool first)
 
   if (game_get_square(g, posrow, poscol) == S_EMPTY) {
     game_set_square(g, posrow, poscol, S_ZERO);
-    if (first) {
-      if (game_is_over(g)) {
-        return;
-      }
-    }
+
     if (game_has_error(g, posrow, poscol) == 0) {
       game_solve_rec(g, pos + 1, count, first);
     }
 
     game_set_square(g, posrow, poscol, S_ONE);
-    if (first) {
-      if (game_is_over(g)) {
-        return;
-      }
-    }
     if (game_has_error(g, posrow, poscol) == 0) {
       game_solve_rec(g, pos + 1, count, first);
     }
 
-    game_set_square(g, posrow, poscol, S_EMPTY);
+   game_set_square(g, posrow, poscol, S_EMPTY);
 
-    if (first) {
-      if (game_is_over(g)) {
-        return;
-      }
-    }
   } else {
     game_solve_rec(g, pos + 1, count, first);
   }
+}
+return;
 }
 
 bool game_solve(game g)
 {
   uint nb = 0;
+  game g1 = game_copy(g);
   game_solve_rec(g, 0, &nb, true);
+  if(nb == 0){
+    game_delete(g1);
+    return false;
+  }
+  g = game_copy(g1);
+  game_delete(g1);
   return true;
-}
+  }
+
 
 uint game_nb_solutions(cgame g)
 {
