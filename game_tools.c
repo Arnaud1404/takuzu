@@ -127,8 +127,10 @@ void game_save(cgame g, char* filename)
 };
 
 static void game_solve_rec(game g, uint pos, uint* count, bool first)
-{
-if(!first || (*count<1)){
+{ if(game_is_over(g) && first){
+  return ;
+}
+else{
 
   int nb_cols = game_nb_cols(g);
   if (pos == (nb_cols)*game_nb_rows(g)) {  // Condition d'arret
@@ -157,23 +159,12 @@ if(!first || (*count<1)){
     game_solve_rec(g, pos + 1, count, first);
   }
 }
-return;
-}
-
+  }
 bool game_solve(game g)
 {
   uint nb = 0;
-  game g1 = game_copy(g);
-  if(g1 == NULL){
-    exit(EXIT_FAILURE);
-  }
-  game_solve_rec(g1, 0, &nb, true);
-  if(nb == 0){
-    game_delete(g1);
-    return false;
-  }
-  g = game_copy(g1);
-  game_delete(g1);
+  game_solve_rec(g, 0, &nb, true);
+  game_print(g);
   return true;
   }
 
