@@ -125,72 +125,68 @@ void game_save(cgame g, char* filename)
   fclose(file_game);
 };
 
-
-
-static void game_solve_rec(game g, uint pos, uint* count,bool first )
+static void game_solve_rec(game g, uint pos, uint* count, bool first)
 {
-  if(first){
-    if(game_is_over(g)){
+  if (first) {
+    if (game_is_over(g)) {
       return;
     }
   }
- int nb_cols = game_nb_cols(g);
- if (pos == (nb_cols)*game_nb_rows(g)) { //Condition d'arret
- (*count)++; 
+  int nb_cols = game_nb_cols(g);
+  if (pos == (nb_cols)*game_nb_rows(g)) {  // Condition d'arret
+    (*count)++;
 
- return;
- }
-
- uint posrow=pos / nb_cols;
- uint poscol =pos % nb_cols;
-
- if (game_get_square(g, posrow, poscol ) == S_EMPTY) { 
-
- game_set_square(g, posrow, poscol , S_ZERO); 
- if(first){
-    if(game_is_over(g)){
-      return;
-    }
+    return;
   }
- if (game_has_error(g,posrow,poscol )==0){ 
- game_solve_rec(g, pos + 1, count,first);
- }
 
- game_set_square(g, posrow, poscol , S_ONE); 
-if(first){
-    if(game_is_over(g)){
-      return;
+  uint posrow = pos / nb_cols;
+  uint poscol = pos % nb_cols;
+
+  if (game_get_square(g, posrow, poscol) == S_EMPTY) {
+    game_set_square(g, posrow, poscol, S_ZERO);
+    if (first) {
+      if (game_is_over(g)) {
+        return;
+      }
     }
-  }
- if (game_has_error(g,posrow,poscol )==0){ 
- game_solve_rec(g, pos + 1, count,first);
- }
-
- game_set_square(g, posrow, poscol , S_EMPTY); 
-
-if(first){
-    if(game_is_over(g)){
-      return;
+    if (game_has_error(g, posrow, poscol) == 0) {
+      game_solve_rec(g, pos + 1, count, first);
     }
+
+    game_set_square(g, posrow, poscol, S_ONE);
+    if (first) {
+      if (game_is_over(g)) {
+        return;
+      }
+    }
+    if (game_has_error(g, posrow, poscol) == 0) {
+      game_solve_rec(g, pos + 1, count, first);
+    }
+
+    game_set_square(g, posrow, poscol, S_EMPTY);
+
+    if (first) {
+      if (game_is_over(g)) {
+        return;
+      }
+    }
+  } else {
+    game_solve_rec(g, pos + 1, count, first);
   }
- } else {
- game_solve_rec(g, pos + 1, count,first); 
- }
 }
 
-bool game_solve(game g){
+bool game_solve(game g)
+{
   uint nb = 0;
-  game g1 = game_copy(g);
-  game_solve_rec(g,0,&nb,true);
-  if (nb==0) g = game_copy(g1);
+  game_solve_rec(g, 0, &nb, true);
   return true;
 }
 
-uint game_nb_solutions(cgame g){
+uint game_nb_solutions(cgame g)
+{
   game g1 = game_copy(g);
   uint nb = 0;
-  game_solve_rec(g1,0,&nb,false);
+  game_solve_rec(g1, 0, &nb, false);
   game_delete(g1);
   return nb;
-  
 }
