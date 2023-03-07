@@ -180,7 +180,9 @@ if(first){
 
 bool game_solve(game g){
   uint nb = 0;
+  game g1 = game_copy(g);
   game_solve_rec(g,0,&nb,true);
+  if (nb==0) g = game_copy(g1);
   return true;
 }
 
