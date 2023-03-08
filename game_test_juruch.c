@@ -5,6 +5,7 @@
 #include "game.h"
 #include "game_aux.h"
 #include "game_ext.h"
+#include "game_tools.h"
 
 int test_dummy() { return EXIT_SUCCESS; }
 
@@ -237,6 +238,44 @@ int test_game_default_solution()
   return EXIT_SUCCESS;
 }
 
+int test_game_nb_solutions()
+{
+  game g4 = game_load("4x4_90.txt");
+  game g4bis = game_copy(g4);
+  if (game_nb_solutions(g4) != 90 || game_equal(g4, g4bis) != true) {
+    game_delete(g4);
+    game_delete(g4bis);
+    return EXIT_FAILURE;
+  }
+  game g6 = game_load("6x6_empty.txt");
+  game g6bis = game_copy(g6);
+  if (game_nb_solutions(g6) != 11222 || game_equal(g6, g6bis) != true) {
+    game_delete(g6);
+    game_delete(g6bis);
+    return EXIT_FAILURE;
+  }
+  game_delete(g4);
+  game_delete(g4bis);
+  game_delete(g6);
+  game_delete(g6bis);
+  return EXIT_SUCCESS;
+}
+
+int test_game_solve()
+{
+  //game g = game_default();
+  //game gsol = game_default_solution();
+  //bool b = game_solve(g);
+  //if (b != true || g != gsol) {
+    //game_delete(g);
+    //game_delete(gsol);
+    //return EXIT_FAILURE;
+  //}
+  //game_delete(g);
+  //game_delete(gsol);
+  return EXIT_SUCCESS;
+}
+
 int main(int argcount, char* argv[])
 {
   int test = 0;
@@ -255,6 +294,10 @@ int main(int argcount, char* argv[])
       test = test_game_default();
     } else if (strcmp(argv[1], "game_default_solution") == 0) {
       test = test_game_default_solution();
+    } else if (strcmp(argv[1], "game_nb_solutions") == 0) {
+      test = test_game_nb_solutions();
+    } else if (strcmp(argv[1], "game_solve") == 0) {
+      test = test_game_solve();
     } else {
       test = EXIT_FAILURE;
     }
