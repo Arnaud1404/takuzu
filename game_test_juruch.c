@@ -263,16 +263,16 @@ int test_game_nb_solutions()
 
 int test_game_solve()
 {
-  // game g = game_default();
-  // game gsol = game_default_solution();
-  // bool b = game_solve(g);
-  // if (b != true || g != gsol) {
-  // game_delete(g);
-  // game_delete(gsol);
-  // return EXIT_FAILURE;
-  //}
-  // game_delete(g);
-  // game_delete(gsol);
+  game g = game_default();
+  game gsol = game_default_solution();
+  bool b = game_solve(g);
+  if (b != true || game_equal(g, gsol) != true) {
+    game_delete(g);
+    game_delete(gsol);
+    return EXIT_FAILURE;
+  }
+  game_delete(g);
+  game_delete(gsol);
   return EXIT_SUCCESS;
 }
 
