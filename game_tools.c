@@ -164,12 +164,6 @@ static void game_solve_rec(game g, uint pos, uint* count, bool first)
   game_set_square(g, posrow, poscol, S_EMPTY);
 }
 
-bool game_solve(game g)
-{
-  uint nb = 0;
-  game_solve_rec(g, 0, &nb, true);
-  return true;
-}
 
 uint game_nb_solutions(cgame g)
 {
@@ -178,4 +172,14 @@ uint game_nb_solutions(cgame g)
   game_solve_rec(g1, 0, &nb, false);
   game_delete(g1);
   return nb;
+}
+
+bool game_solve(game g)
+{
+  uint nb = 0;
+  if(game_nb_solutions(g)==0) {
+    return false;
+  }
+  game_solve_rec(g, 0, &nb, true);
+  return true;
 }
