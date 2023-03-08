@@ -177,7 +177,7 @@ uint game_nb_solutions(cgame g)
 bool game_solve(game g)
 {
   uint nb = 0;
-  if(game_nb_solutions(g)==0) {
+  if (game_nb_solutions(g)==0) {
     return false;
   }
   game_solve_rec(g, 0, &nb, true);
