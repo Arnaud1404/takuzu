@@ -10,8 +10,8 @@
 #include <stdlib.h>
 
 #include "game.h"
-#include "game_ext.h"
 #include "game_aux.h"
+#include "game_ext.h"
 /**
  * @name Game Tools
  * @{
@@ -127,47 +127,49 @@ void game_save(cgame g, char* filename)
 };
 
 static void game_solve_rec(game g, uint pos, uint* count, bool first)
-{ if(game_is_over(g) && first){
-  return ;
-}
-else{
-
+{
   int nb_cols = game_nb_cols(g);
-  if (pos == (nb_cols)*game_nb_rows(g)) {  // Condition d'arret
+
+  if (pos == game_nb_cols(g) * game_nb_rows(g)) {
     (*count)++;
-    return ;
+    if (game_is_over(g)) {
+      if (first) return;
+    }
+    return;
   }
 
   uint posrow = pos / nb_cols;
   uint poscol = pos % nb_cols;
 
-  if (game_get_square(g, posrow, poscol) == S_EMPTY) {
-    game_set_square(g, posrow, poscol, S_ZERO);
-
-    if (game_has_error(g, posrow, poscol) == 0) {
-      game_solve_rec(g, pos + 1, count, first);
-    }
-
-    game_set_square(g, posrow, poscol, S_ONE);
-    if (game_has_error(g, posrow, poscol) == 0) {
-      game_solve_rec(g, pos + 1, count, first);
-    }
-
-   game_set_square(g, posrow, poscol, S_EMPTY);
-
-  } else {
+  if (game_get_square(g, posrow, poscol) != S_EMPTY) {
     game_solve_rec(g, pos + 1, count, first);
+    return;
   }
+
+  game_set_square(g, posrow, poscol, S_ZERO);
+  if (game_has_error(g, posrow, poscol) == 0) {
+    game_solve_rec(g, pos + 1, count, first);
+    if (first && (*count == 1)) {
+      return;
+    }
+  }
+
+  game_set_square(g, posrow, poscol, S_ONE);
+  if (game_has_error(g, posrow, poscol) == 0) {
+    game_solve_rec(g, pos + 1, count, first);
+    if (first && (*count == 1)) {
+      return;
+    }
+  }
+  game_set_square(g, posrow, poscol, S_EMPTY);
 }
-  }
+
 bool game_solve(game g)
 {
   uint nb = 0;
   game_solve_rec(g, 0, &nb, true);
-  game_print(g);
   return true;
-  }
-
+}
 
 uint game_nb_solutions(cgame g)
 {
