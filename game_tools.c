@@ -131,10 +131,11 @@ static void game_solve_rec(game g, uint pos, uint* count, bool first)
   int nb_cols = game_nb_cols(g);
 
   if (pos == game_nb_cols(g)*game_nb_rows(g)) {  
+    (*count)++;
     if(game_is_over(g)){
-      (*count)++;
       if(first) return;
     }
+    return;
 
   }
 
@@ -146,7 +147,6 @@ static void game_solve_rec(game g, uint pos, uint* count, bool first)
     return;
   }
 
-  // if (game_get_square(g, posrow, poscol) == S_EMPTY) {
     
     game_set_square(g, posrow, poscol, S_ZERO);    
     if (game_has_error(g, posrow, poscol) == 0) {
