@@ -39,6 +39,8 @@ add_test(test_juruch_test_game_set_square ./game_test_juruch game_set_square)
 add_test(test_juruch_test_game_get_next_square ./game_test_juruch game_get_next_square)
 add_test(test_juruch_test_game_default ./game_test_juruch game_default)
 add_test(test_juruch_test_game_default_solution ./game_test_juruch game_default_solution)
+add_test(test_juruch_test_game_nb_solutions ./game_test_juruch game_nb_solutions)
+add_test(test_juruch_test_game_solve ./game_test_juruch game_solve)
 
 add_test(test_argomes_test_dummy ./game_test_argomes dummy)
 add_test(test_argomes_test_game_has_error ./game_test_argomes game_has_error)
