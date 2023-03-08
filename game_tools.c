@@ -124,14 +124,24 @@ void game_save(cgame g, char* filename)
     fprintf(file_game, "\n");
   }
   fclose(file_game);
-}
+};
 
 static void game_solve_rec(game g, uint pos, uint* count, bool first)
+<<<<<<< HEAD
 {
+<<<<<<< HEAD
+=======
 if(!first || (*count<1)){
+>>>>>>> a639b9d18119f9def37367bfc269d956858108bf
+=======
+{ if(game_is_over(g) && first){
+  return ;
+}
+else{
+>>>>>>> 96168a3dc658f142bfd538fe16c2fc1d12be0cb3
 
   int nb_cols = game_nb_cols(g);
-  if (pos == (nb_cols)*game_nb_rows(g)) {  // Condition d'arret
+  if (pos == (nb_cols)*game_nb_rows(g)) {  
     (*count)++;
     return ;
   }
@@ -157,24 +167,14 @@ if(!first || (*count<1)){
     game_solve_rec(g, pos + 1, count, first);
   }
 }
-return;
-}
-
+  }
 bool game_solve(game g)
 {
   uint nb = 0;
-  game g1 = game_copy(g);
   game_solve_rec(g, 0, &nb, true);
-  if(nb == 0){
-    game_delete(g1);
-    return false;
-    
-  }
   game_print(g);
-  g = game_copy(g1);
-  game_delete(g1);
   return true;
-}
+  }
 
 
 uint game_nb_solutions(cgame g)
