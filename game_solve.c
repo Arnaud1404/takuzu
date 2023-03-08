@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
   }
   bool tosave = argc == 4;
   char* filename = argv[2];
-  g = game_load(filename);
+  game_load(filename);
   if (strcmp(argv[1], "-s") == 0) {
     bool ret = game_solve(g);
     if (!ret) {
