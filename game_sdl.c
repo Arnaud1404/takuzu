@@ -1,6 +1,8 @@
 // SDL2 Demo by aurelien.esnard@u-bordeaux.fr
 
 #include "game_sdl.h"
+#include "game.h"
+#include "game_ext.h"
 #include <SDL.h>
 #include <SDL_image.h>  // required to load transparent texture from PNG
 #include <SDL_ttf.h>    // required to use TTF fonts
@@ -11,7 +13,8 @@
 /* **************************************************************** */
 
 struct Env_t {
-  /* PUT YOUR VARIABLES HERE */
+  game g;
+
 };
 
 /* **************************************************************** */
@@ -19,8 +22,15 @@ struct Env_t {
 Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[]) {
   Env *env = malloc(sizeof(struct Env_t));
 
-  /* PUT YOUR CODE HERE TO INIT TEXTURES, ... */
-
+  PRINT("> action : help\n");
+  PRINT("-press 'w <i> <j>' to put a zero/white at square (i,j)\n");
+  PRINT("-press 'b <i> <j>' to put a one/black at square (i,j)\n");
+  PRINT("-press 'e <i> <j>' to empty square (i,j)\n");
+  PRINT("-press 's <filename>' to save current grid in a file filename.txt\n");
+  PRINT("-press 'r' to restart \n");
+  PRINT("-press 'q' to quit \n");
+  PRINT("-press 'z' to undo\n");
+  PRINT("-press 'y' to redo\n");
   return env;
 }
 
