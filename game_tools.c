@@ -10,8 +10,8 @@
 #include <stdlib.h>
 
 #include "game.h"
-#include "game_ext.h"
 #include "game_aux.h"
+#include "game_ext.h"
 /**
  * @name Game Tools
  * @{
@@ -130,13 +130,12 @@ static void game_solve_rec(game g, uint pos, uint* count, bool first)
 {
   int nb_cols = game_nb_cols(g);
 
-  if (pos == game_nb_cols(g)*game_nb_rows(g)) {  
+  if (pos == nb_cols * game_nb_rows(g)) {
     (*count)++;
-    if(game_is_over(g)){
-      if(first) return;
+    if (game_is_over(g)) {
+      if (first) return;
     }
     return;
-
   }
 
   uint posrow = pos / nb_cols;
@@ -147,34 +146,23 @@ static void game_solve_rec(game g, uint pos, uint* count, bool first)
     return;
   }
 
-    
-    game_set_square(g, posrow, poscol, S_ZERO);    
-    if (game_has_error(g, posrow, poscol) == 0) {
-      game_solve_rec(g, pos + 1, count, first);
-      if(first && (*count ==1)){
-        return;
-      }
+  game_set_square(g, posrow, poscol, S_ZERO);
+  if (game_has_error(g, posrow, poscol) == 0) {
+    game_solve_rec(g, pos + 1, count, first);
+    if (first && (*count == 1)) {
+      return;
     }
-
-    game_set_square(g, posrow, poscol, S_ONE);    
-    if (game_has_error(g, posrow, poscol) == 0) {
-      game_solve_rec(g, pos + 1, count, first);
-      if(first && (*count ==1)){
-        return;
-      }
-    }
-   game_set_square(g, posrow, poscol, S_EMPTY); 
-
-}
-
-
-bool game_solve(game g)
-{
-  uint nb = 0;
-  game_solve_rec(g, 0, &nb, true);
-  return true;
   }
 
+  game_set_square(g, posrow, poscol, S_ONE);
+  if (game_has_error(g, posrow, poscol) == 0) {
+    game_solve_rec(g, pos + 1, count, first);
+    if (first && (*count == 1)) {
+      return;
+    }
+  }
+  game_set_square(g, posrow, poscol, S_EMPTY);
+}
 
 uint game_nb_solutions(cgame g)
 {
@@ -183,4 +171,14 @@ uint game_nb_solutions(cgame g)
   game_solve_rec(g1, 0, &nb, false);
   game_delete(g1);
   return nb;
+}
+
+bool game_solve(game g)
+{
+  uint nb = 0;
+  if (game_nb_solutions(g) == 0) {
+    return false;
+  }
+  game_solve_rec(g, 0, &nb, true);
+  return true;
 }
