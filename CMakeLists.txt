@@ -6,13 +6,18 @@ include(CTest)
 set(CMAKE_C_FLAGS "-std=c99 -g -Wall ")
 
 link_directories(${CMAKE_SOURCE_DIR})
+include(SDL2.cmake)
+message(STATUS "SDL2 include dir: ${SDL2_ALL_INC}")
+message(STATUS "SDL2 all libraries: ${SDL2_ALL_LIBS}")
 
-
+include_directories(${SDL2_ALL_INC})
 add_executable(game_text game_text.c )
 add_executable(game_solve game_solve.c )
 add_executable(game_test_ymaabout game_test_ymaabout.c)
 add_executable(game_test_juruch game_test_juruch.c)
 add_executable(game_test_argomes game_test_argomes.c)
+add_executable(game_sdl main.c game_sdl.c)
+target_link_libraries(game_sdl ${SDL2_ALL_LIBS} m)
 
 add_library(game game.c game_aux.c game_ext.c queue.c game_tools.c)
 
