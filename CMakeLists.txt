@@ -20,7 +20,7 @@ add_executable(game_sdl main.c game_sdl.c)
 target_link_libraries(game_sdl ${SDL2_ALL_LIBS} m)
 
 add_library(game game.c game_aux.c game_ext.c queue.c game_tools.c)
-
+target_link_libraries(game_sdl game)
 target_link_libraries(game_text game)
 target_link_libraries(game_solve game)
 target_link_libraries(game_test_ymaabout game)
