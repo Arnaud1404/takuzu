@@ -36,7 +36,6 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[]) {
   else{
   env->g = game_default();
   }
-  PRINT("> action : help\n");
   PRINT("-press 'w <i> <j>' to put a zero/white at square (i,j)\n");
   PRINT("-press 'b <i> <j>' to put a one/black at square (i,j)\n");
   PRINT("-press 'e <i> <j>' to empty square (i,j)\n");
@@ -45,6 +44,8 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[]) {
   PRINT("-press 'q' to quit \n");
   PRINT("-press 'z' to undo\n");
   PRINT("-press 'y' to redo\n");
+  PRINT("-press 's' to search the solution of the game\n");
+  PRINT("-press 'c' to count the number of solution and save it\n");
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
   SDL_SetWindowSize(win, env->col*50,
@@ -62,16 +63,19 @@ for(int i = 0; i < env->col +1;i++){
 for(int i = 0; i < env->col +1;i++){
   SDL_RenderDrawLine(ren,0,i*50,(env->col)*50,i*50);
 }
-for(int i = 0; i < env->col +1;i++){
-  for(int j = 0; j < env->lign +1;j++){
+for(int i = 0; i < env->col ;i++){
+  for(int j = 0; j < env->lign ;j++){
+    if ((game_has_error(env->g, i, j) != 0)) {
+          PRINT("Error at square(%d,%d)\n", i, j);
+        }
     int s = game_get_number(env->g,i,j);
     if(s == 0){
     SDL_SetRenderDrawColor(ren, 255, 255, 255, SDL_ALPHA_OPAQUE);
     const float pi = 3.14159265358979323846264338327950288419716939937510;
     float step = 2 * pi / 300; /* smoothing */
     for (float theta = 0.0; theta <= 2 * pi; theta += step) {
-    int x1 = i*50-25 +  25*cosf(theta) + 0.5;
-    int y1 = j*50-25 + 25*sinf(theta) + 0.5;
+    int x1 = j*50+25 +  25*cosf(theta) + 0.5;
+    int y1 = i*50+25 + 25*sinf(theta) + 0.5;
     SDL_RenderDrawPoint(ren, x1, y1);
     }    
     }
@@ -80,8 +84,8 @@ for(int i = 0; i < env->col +1;i++){
     const float pi = 3.14159265358979323846264338327950288419716939937510;
     float step = 2 * pi / 300; /* smoothing */
     for (float theta = 0.0; theta <= 2 * pi; theta += step) {
-    int x1 = i*50-25 +  25*cosf(theta) + 0.5;
-    int y1 = j*50-25 + 25*sinf(theta) + 0.5;
+    int x1 = j*50+25 +  25*cosf(theta) + 0.5;
+    int y1 = i*50+25 + 25*sinf(theta) + 0.5;
     SDL_RenderDrawPoint(ren, x1, y1);
     }      
     }
@@ -95,8 +99,38 @@ bool process(SDL_Window *win, SDL_Renderer *ren, Env *env, SDL_Event *e) {
   if (e->type == SDL_QUIT) {
     return true;
   }
-
-
+  else if (e->type == SDL_MOUSEBUTTONDOWN){
+    SDL_Point mouse;
+    SDL_GetMouseState(&mouse.x,&mouse.y);
+    int x = mouse.x/50;
+    int y = mouse.y/50;
+    int vider = game_get_number(env->g,y,x);
+    if(vider == -1){
+    if(e->button.button == SDL_BUTTON_LEFT){
+    game_play_move(env->g,y,x,S_ONE);
+    }
+    else(game_play_move(env->g,y,x,S_ZERO));
+    }
+    else(game_play_move(env->g,y,x,S_EMPTY));
+  }
+  else if (e->type == SDL_KEYDOWN) {
+    switch (e->key.keysym.sym) {
+      case SDLK_y:
+        game_undo(env->g);
+        break;
+      case SDLK_z:
+        game_redo(env->g);
+        break;  
+      case SDLK_q:
+        return true;
+      case SDLK_s:
+        game_solve(env->g);
+      case SDLK_c:
+        game_nb_solutions(env->g);
+      case SDLK_r:
+        game_restart(env->g);             
+    }
+  }
   return false;
 }
 
