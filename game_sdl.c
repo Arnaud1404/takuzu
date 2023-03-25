@@ -48,8 +48,8 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[]) {
   PRINT("-press 'c' to count the number of solution and save it\n");
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
-  SDL_SetWindowSize(win, env->col*50,
-                       env->lign*50);
+  SDL_SetWindowSize(win, env->col*50+100,
+                       env->lign*50+100);
   return env;
 }
 
@@ -58,10 +58,10 @@ Env *init(SDL_Window *win, SDL_Renderer *ren, int argc, char *argv[]) {
 void render(SDL_Window *win, SDL_Renderer *ren, Env *env) { /* PUT YOUR CODE HERE TO RENDER TEXTURES, ... */
 SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE);
 for(int i = 0; i < env->col +1;i++){
-  SDL_RenderDrawLine(ren,i*50, 0,i*50 ,(env->lign)*50);
+  SDL_RenderDrawLine(ren,i*50+50, 50,i*50+50 ,(env->lign)*50+50);
 }
 for(int i = 0; i < env->col +1;i++){
-  SDL_RenderDrawLine(ren,0,i*50,(env->col)*50,i*50);
+  SDL_RenderDrawLine(ren,50,i*50+50,(env->col)*50+50,i*50+50);
 }
 for(int i = 0; i < env->col ;i++){
   for(int j = 0; j < env->lign ;j++){
@@ -74,8 +74,8 @@ for(int i = 0; i < env->col ;i++){
     const float pi = 3.14159265358979323846264338327950288419716939937510;
     float step = 2 * pi / 300; /* smoothing */
     for (float theta = 0.0; theta <= 2 * pi; theta += step) {
-    int x1 = j*50+25 +  25*cosf(theta) + 0.5;
-    int y1 = i*50+25 + 25*sinf(theta) + 0.5;
+    int x1 = j*50+25+50 +  25*cosf(theta) + 0.5;
+    int y1 = i*50+25+50 + 25*sinf(theta) + 0.5;
     SDL_RenderDrawPoint(ren, x1, y1);
     }    
     }
@@ -84,8 +84,8 @@ for(int i = 0; i < env->col ;i++){
     const float pi = 3.14159265358979323846264338327950288419716939937510;
     float step = 2 * pi / 300; /* smoothing */
     for (float theta = 0.0; theta <= 2 * pi; theta += step) {
-    int x1 = j*50+25 +  25*cosf(theta) + 0.5;
-    int y1 = i*50+25 + 25*sinf(theta) + 0.5;
+    int x1 = j*50+25+50 +  25*cosf(theta) + 0.5;
+    int y1 = i*50+25+50 + 25*sinf(theta) + 0.5;
     SDL_RenderDrawPoint(ren, x1, y1);
     }      
     }
@@ -102,8 +102,8 @@ bool process(SDL_Window *win, SDL_Renderer *ren, Env *env, SDL_Event *e) {
   else if (e->type == SDL_MOUSEBUTTONDOWN){
     SDL_Point mouse;
     SDL_GetMouseState(&mouse.x,&mouse.y);
-    int x = mouse.x/50;
-    int y = mouse.y/50;
+    int x = mouse.x/50-1;
+    int y = mouse.y/50-1;
     int vider = game_get_number(env->g,y,x);
     if(vider == -1){
     if(e->button.button == SDL_BUTTON_LEFT){
