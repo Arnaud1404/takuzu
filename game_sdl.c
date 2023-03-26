@@ -15,12 +15,12 @@
 #include "game_tools.h"
 
 /* **************************************************************** */
-#define NOIR "noir.png"
-#define BLANC "blanc.png"
-#define IMMUB "immu_blanc.png"
-#define IMMUN "immu_noir.png"
-#define FONT "SpaceCrusaders.ttf"
-#define FAIL "erreur.png"
+#define NOIR "/resources/images/noir.png"
+#define BLANC "/resources/images/blanc.png"
+#define IMMUB "/resources/images/immu_blanc.png"
+#define IMMUN "/resources/images/immu_noir.png"
+#define FONT "/resources/fonts/SpaceCrusaders.ttf"
+#define FAIL "/resources/images/erreur.png"
 #define FONTSIZE 20
 
 /* **************************************************************** */
@@ -55,13 +55,14 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->immu_b = IMG_LoadTexture(ren, IMMUB);
   env->immu_n = IMG_LoadTexture(ren, IMMUN);
   env->erreur = IMG_LoadTexture(ren, FAIL);
-  env->help_text = "-press 's <filename>' to save current grid in a file filename.txt\n"
-  "-press 'r' to restart \n"
-  "-press 'q' to quit \n"
-  "-press 'z' to undo\n"
-  "-press 'y' to redo\n"
-  "-press 's' to search the solution of the game\n"
-  "-press 'c' to count the number of solution and save it\n";
+  env->help_text =
+      "-press 's <filename>' to save current grid in a file filename.txt\n"
+      "-press 'r' to restart \n"
+      "-press 'q' to quit \n"
+      "-press 'z' to undo\n"
+      "-press 'y' to redo\n"
+      "-press 's' to search the solution of the game\n"
+      "-press 'c' to count the number of solution and save it\n";
   PRINT(env->help_text);
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
@@ -167,7 +168,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     switch (e->key.keysym.sym) {
       case SDLK_h:
         PRINT(env->help_text);
-        //SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Help", env->help_text, NULL);
+        // SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Help", env->help_text, NULL);
         break;
       case SDLK_z:
         game_undo(env->g);
