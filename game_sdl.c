@@ -180,8 +180,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
         return true;
       case SDLK_s:
         if (!game_solve(env->g)) {
-          game_restart(env->g);  // needed if the board is filled with user moves that leads to no solutions
-          game_solve(env->g);
+          PRINT("No solution found with these specific moves.");
         }
         break;
       case SDLK_c:
