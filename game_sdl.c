@@ -29,6 +29,7 @@ struct Env_t {
   game g;
   int col;
   int lign;
+  char* help_text;
   SDL_Texture* text;
   SDL_Texture* win;
   SDL_Texture* noir;
@@ -54,16 +55,14 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->immu_b = IMG_LoadTexture(ren, IMMUB);
   env->immu_n = IMG_LoadTexture(ren, IMMUN);
   env->erreur = IMG_LoadTexture(ren, FAIL);
-  PRINT("-press 'w <i> <j>' to put a zero/white at square (i,j)\n");
-  PRINT("-press 'b <i> <j>' to put a one/black at square (i,j)\n");
-  PRINT("-press 'e <i> <j>' to empty square (i,j)\n");
-  PRINT("-press 's <filename>' to save current grid in a file filename.txt\n");
-  PRINT("-press 'r' to restart \n");
-  PRINT("-press 'q' to quit \n");
-  PRINT("-press 'z' to undo\n");
-  PRINT("-press 'y' to redo\n");
-  PRINT("-press 's' to search the solution of the game\n");
-  PRINT("-press 'c' to count the number of solution and save it\n");
+  env->help_text = "-press 's <filename>' to save current grid in a file filename.txt\n"
+  "-press 'r' to restart \n"
+  "-press 'q' to quit \n"
+  "-press 'z' to undo\n"
+  "-press 'y' to redo\n"
+  "-press 's' to search the solution of the game\n"
+  "-press 'c' to count the number of solution and save it\n";
+  PRINT(env->help_text);
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
 
@@ -166,20 +165,27 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       (game_play_move(env->g, y, x, S_EMPTY));
   } else if (e->type == SDL_KEYDOWN) {
     switch (e->key.keysym.sym) {
-      case SDLK_y:
-        game_undo(env->g);
+      case SDLK_h:
+        PRINT(env->help_text);
+        //SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Help", env->help_text, NULL);
         break;
       case SDLK_z:
+        game_undo(env->g);
+        break;
+      case SDLK_y:
         game_redo(env->g);
         break;
       case SDLK_q:
         return true;
       case SDLK_s:
         game_solve(env->g);
+        break;
       case SDLK_c:
         game_nb_solutions(env->g);
+        break;
       case SDLK_r:
         game_restart(env->g);
+        break;
     }
   }
   return false;
