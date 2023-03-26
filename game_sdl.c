@@ -61,8 +61,8 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
       "-press 'q' to quit \n"
       "-press 'z' to undo\n"
       "-press 'y' to redo\n"
-      "-press 's' to search the solution of the game\n"
-      "-press 'c' to count the number of solution and save it\n";
+      "-press 's' to search the solution of the game\n";
+  //"-press 'c' to count the number of solution and save it\n";
   PRINT(env->help_text);
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
@@ -179,8 +179,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       case SDLK_q:
         return true;
       case SDLK_s:
-        bool found = game_solve(env->g);
-        if (!found) {
+        if (!game_solve(env->g)) {
           game_restart(env->g);  // needed if the board is filled with user moves that leads to no solutions
           game_solve(env->g);
         }
