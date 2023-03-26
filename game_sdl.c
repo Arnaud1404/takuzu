@@ -15,12 +15,12 @@
 #include "game_tools.h"
 
 /* **************************************************************** */
-#define NOIR "/resources/images/noir.png"
-#define BLANC "/resources/images/blanc.png"
-#define IMMUB "/resources/images/immu_blanc.png"
-#define IMMUN "/resources/images/immu_noir.png"
-#define FONT "/resources/fonts/SpaceCrusaders.ttf"
-#define FAIL "/resources/images/erreur.png"
+#define NOIR "./resources/images/noir.png"
+#define BLANC "./resources/images/blanc.png"
+#define IMMUB "./resources/images/immu_blanc.png"
+#define IMMUN "./resources/images/immu_noir.png"
+#define FONT "./resources/fonts/SpaceCrusaders.ttf"
+#define FAIL "./resources/images/erreur.png"
 #define FONTSIZE 20
 
 /* **************************************************************** */
@@ -179,7 +179,11 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       case SDLK_q:
         return true;
       case SDLK_s:
-        game_solve(env->g);
+        bool found = game_solve(env->g);
+        if (!found) {
+          game_restart(env->g);  // needed if the board is filled with user moves that leads to no solutions
+          game_solve(env->g);
+        }
         break;
       case SDLK_c:
         game_nb_solutions(env->g);
