@@ -180,7 +180,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
         return true;
       case SDLK_s:
         if (!game_solve(env->g)) {
-          PRINT("No solution found with these specific moves.");
+          PRINT("No solution found with these specific moves.\n");
         }
         break;
       case SDLK_c:
