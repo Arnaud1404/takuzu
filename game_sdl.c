@@ -61,7 +61,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
       "-press 'q' to quit \n"
       "-press 'z' to undo\n"
       "-press 'y' to redo\n"
-      "-press 's' to search the solution of the game\n";
+      "-press 'a' to search the solution of the game\n";
   //"-press 'c' to count the number of solution and save it\n";
   PRINT(env->help_text);
   env->col = game_nb_cols(env->g);
@@ -100,12 +100,22 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
     SDL_RenderCopy(ren, env->win, NULL, &rect);
   }
 
+  int m;
+  if(h<w){
+    m=h;
+  }
+  else{
+    m=w;
+  }
+  int a=m/(env->col +2);
+  int b=m/(env->lign +2);
+
   SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE);
   for (int i = 0; i < env->col + 1; i++) {
-    SDL_RenderDrawLine(ren, i * 50 + 50, 50, i * 50 + 50, (env->lign) * 50 + 50);
+    SDL_RenderDrawLine(ren,a,(i+1)*b,m-a,(i+1)*b);
   }
   for (int i = 0; i < env->col + 1; i++) {
-    SDL_RenderDrawLine(ren, 50, i * 50 + 50, (env->col) * 50 + 50, i * 50 + 50);
+    SDL_RenderDrawLine(ren,(i+1)*a,b,(i+1)*a,m-b);
   }
   for (int i = 0; i < env->col; i++) {
     for (int j = 0; j < env->lign; j++) {
