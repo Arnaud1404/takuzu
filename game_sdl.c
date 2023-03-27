@@ -61,7 +61,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
       "-press 'q' to quit \n"
       "-press 'z' to undo\n"
       "-press 'y' to redo\n"
-      "-press 'a' to search the solution of the game\n";
+      "-press 's' to search the solution of the game\n";
   //"-press 'c' to count the number of solution and save it\n";
   PRINT(env->help_text);
   env->col = game_nb_cols(env->g);
