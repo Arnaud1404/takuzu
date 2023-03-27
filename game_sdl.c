@@ -29,8 +29,14 @@ struct Env_t {
   game g;
   int col;
   int lign;
-  char* help_text;
+  const char* help_text;
+  const char* help_title;
+  const char* no_sol_title;
+  const char* no_sol_text;
+  const char* out_title;
+  const char* out_text;
   SDL_Texture* text;
+  SDL_Texture* title;
   SDL_Texture* win;
   SDL_Texture* noir;
   SDL_Texture* blanc;
@@ -56,28 +62,30 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->immu_n = IMG_LoadTexture(ren, IMMUN);
   env->erreur = IMG_LoadTexture(ren, FAIL);
   env->help_text =
-      "-press 's <filename>' to save current grid in a file filename.txt\n"
       "-press 'r' to restart \n"
       "-press 'q' to quit \n"
       "-press 'z' to undo\n"
       "-press 'y' to redo\n"
       "-press 's' to search the solution of the game\n";
-  //"-press 'c' to count the number of solution and save it\n";
-  PRINT(env->help_text);
+  env->help_title = "Help";
+  env->no_sol_title = "Oops";
+  env->no_sol_text = "No existing solution for this game!\n";
+  env->out_title = "Misclick";
+  env->out_text = "You may click inside the grid\n";
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
 
-  SDL_Color color = {0, 55, 80, 92}; /* blue color in RGBA */
-  SDL_Color red = {0, 255, 0, 0};
+  SDL_Color color = {0, 55, 80, 92};
+  SDL_Color green = {0, 255, 0, 0};
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
   TTF_Font* font1 = TTF_OpenFont(FONT, 36);
   SDL_Surface* surf = TTF_RenderText_Blended(font, "press [h] to get help :)", color);
-  SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", red);
+  SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", green);
   env->text = SDL_CreateTextureFromSurface(ren, surf);
   env->win = SDL_CreateTextureFromSurface(ren, surf1);
   SDL_FreeSurface(surf);
   TTF_CloseFont(font);
-  SDL_SetWindowSize(win, env->col * 50 + 100, env->lign * 50 + 100);
+  SDL_SetWindowSize(win, SCREEN_WIDTH, SCREEN_HEIGHT);
   return env;
 }
 
@@ -88,8 +96,8 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   SDL_Rect rect;
   int w, h;
   SDL_GetWindowSize(win, &w, &h);
-  SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
-  rect.x = 1;
+  
+  rect.x = w/3;
   rect.y = h - 25;
   float ratiow = w/((float)env->col * 50 + 100);
   float ratioh = h/((float)env->lign * 50 + 100);
@@ -100,6 +108,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   else{
     ratio = ratioh;
   }
+  SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
   SDL_RenderCopy(ren, env->text, NULL, &rect);
 
   if (game_is_over(env->g)) {
@@ -122,33 +131,33 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
     for (int j = 0; j < env->col; j++) {
       if ((game_has_error(env->g, i, j) != 0)) {
         SDL_QueryTexture(env->erreur, NULL, NULL, &rect.w, &rect.h);
-        rect.x = (j * 50 + 50)*ratio;
-        rect.y = (i * 50 + 50)*ratio;
+        rect.x = (j * size + w/2-(env->col/2)*size);
+        rect.y = (i * size + h/2-env->lign/2*size);
         SDL_RenderCopy(ren, env->erreur, NULL, &rect);
       }
       int s = game_get_number(env->g, i, j);
       if (s == 1) {
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_n, NULL, NULL, &rect.w, &rect.h);
-          rect.x = (j * 50 + 50)*ratio;
-          rect.y = (i * 50 + 50)*ratio;
+          rect.x = (j * size + w/2-(env->col/2)*size);
+          rect.y = (i * size + h/2-env->lign/2*size);
           SDL_RenderCopy(ren, env->immu_n, NULL, &rect);
         } else {
           SDL_QueryTexture(env->noir, NULL, NULL, &rect.w, &rect.h);
-          rect.x = (j * 50 + 50)*ratio;
-          rect.y = (i * 50 + 50)*ratio;
+          rect.x = (j * size + w/2-(env->col/2)*size);
+          rect.y = (i * size + h/2-env->lign/2*size);
           SDL_RenderCopy(ren, env->noir, NULL, &rect);
         }
       } else if (s == 0) {
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_b, NULL, NULL, &rect.w, &rect.h);
-          rect.x = (j * 50 + 50)*ratio;
-          rect.y = (i * 50 + 50)*ratio;
+          rect.x = (j * size + w/2-(env->col/2)*size);
+          rect.y = (i * size + h/2-env->lign/2*size);
           SDL_RenderCopy(ren, env->immu_b, NULL, &rect);
         } else {
           SDL_QueryTexture(env->blanc, NULL, NULL, &rect.w, &rect.h);
-          rect.x = (j * 50 + 50)*ratio;
-          rect.y = (i * 50 + 50)*ratio;
+          rect.x = (j * size + w/2-(env->col/2)*size);
+          rect.y = (i * size + h/2-env->lign/2*size);
           SDL_RenderCopy(ren, env->blanc, NULL, &rect);
         }
       }
@@ -159,14 +168,31 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
 /* **************************************************************** */
 
 bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
-{
+{ 
+
+  int w, h;
+  SDL_GetWindowSize(win, &w, &h);
+  float ratiow = w/((float)env->col * 50 + 100);
+  float ratioh = h/((float)env->lign * 50 + 100);
+  float ratio;
+  if(ratiow<ratioh){
+    ratio = ratiow;  
+  }
+  else{
+    ratio = ratioh;
+  } 
+  float size = 50*ratio;
   if (e->type == SDL_QUIT) {
     return true;
   } else if (e->type == SDL_MOUSEBUTTONDOWN) {
     SDL_Point mouse;
     SDL_GetMouseState(&mouse.x, &mouse.y);
-    int x = mouse.x / 50 - 1;
-    int y = mouse.y / 50 - 1;
+    int x = (mouse.x-(w/2-env->col/2*size)) /size;
+    int y = (mouse.y-(h/2-env->lign/2*size))/size;
+    if(x>= env->col || y >= env->lign || mouse.x < size || mouse.y < size || x<0 || y <0){
+      SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->out_title,env->out_text,win);
+    }
+    else{
     int vider = game_get_number(env->g, y, x);
     if (vider == -1) {
       if (e->button.button == SDL_BUTTON_LEFT) {
@@ -175,12 +201,9 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
         (game_play_move(env->g, y, x, S_ZERO));
     } else
       (game_play_move(env->g, y, x, S_EMPTY));
+    }   
   } else if (e->type == SDL_KEYDOWN) {
     switch (e->key.keysym.sym) {
-      case SDLK_h:
-        PRINT(env->help_text);
-        // SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Help", env->help_text, NULL);
-        break;
       case SDLK_z:
         game_undo(env->g);
         break;
@@ -191,7 +214,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
         return true;
       case SDLK_s:
         if (!game_solve(env->g)) {
-          PRINT("No solution found with these specific moves.\n");
+          SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->no_sol_title,env->no_sol_text,win);
         }
         break;
       case SDLK_c:
@@ -200,6 +223,10 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       case SDLK_r:
         game_restart(env->g);
         break;
+      case SDLK_h:
+
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,env->help_title,env->help_text,win);
+        break; 
     }
   }
   return false;
