@@ -89,65 +89,66 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   int w, h;
   SDL_GetWindowSize(win, &w, &h);
   SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
-  rect.x = 50;
+  rect.x = 1;
   rect.y = h - 25;
+  float ratiow = w/((float)env->col * 50 + 100);
+  float ratioh = h/((float)env->lign * 50 + 100);
+  float ratio;
+  if(ratiow<ratioh){
+    ratio = ratiow;  
+  }
+  else{
+    ratio = ratioh;
+  }
   SDL_RenderCopy(ren, env->text, NULL, &rect);
 
   if (game_is_over(env->g)) {
     SDL_QueryTexture(env->win, NULL, NULL, &rect.w, &rect.h);
-    rect.x = 50;
+    rect.x = w/4;
     rect.y = 5;
     SDL_RenderCopy(ren, env->win, NULL, &rect);
   }
 
-  int m;
-  if(h<w){
-    m=h;
-  }
-  else{
-    m=w;
-  }
-  int a=m/(env->col +2);
-  int b=m/(env->lign +2);
-
+  
+  float size = 50*ratio;
   SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE);
   for (int i = 0; i < env->col + 1; i++) {
-    SDL_RenderDrawLine(ren,a,(i+1)*b,m-a,(i+1)*b);
+    SDL_RenderDrawLine(ren, (i * size) + w/2.0-(env->col/2)*size, (h/2-env->lign/2*size) , (i * size + w/2-env->col/2*size), ((env->lign) * size + h/2-env->lign/2*size));
   }
-  for (int i = 0; i < env->col + 1; i++) {
-    SDL_RenderDrawLine(ren,(i+1)*a,b,(i+1)*a,m-b);
+  for (int i = 0; i < env->lign + 1; i++) {
+    SDL_RenderDrawLine(ren, (w/2-env->col/2*size), (i * size + h/2-env->lign/2*size), ((env->col) * size + w/2-env->col/2*size), (i * size + h/2-env->lign/2*size));
   }
-  for (int i = 0; i < env->col; i++) {
-    for (int j = 0; j < env->lign; j++) {
+  for (int i = 0; i < env->lign; i++) {
+    for (int j = 0; j < env->col; j++) {
       if ((game_has_error(env->g, i, j) != 0)) {
         SDL_QueryTexture(env->erreur, NULL, NULL, &rect.w, &rect.h);
-        rect.x = j * 50 + 50;
-        rect.y = i * 50 + 50;
+        rect.x = (j * 50 + 50)*ratio;
+        rect.y = (i * 50 + 50)*ratio;
         SDL_RenderCopy(ren, env->erreur, NULL, &rect);
       }
       int s = game_get_number(env->g, i, j);
       if (s == 1) {
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_n, NULL, NULL, &rect.w, &rect.h);
-          rect.x = j * 50 + 50;
-          rect.y = i * 50 + 50;
+          rect.x = (j * 50 + 50)*ratio;
+          rect.y = (i * 50 + 50)*ratio;
           SDL_RenderCopy(ren, env->immu_n, NULL, &rect);
         } else {
           SDL_QueryTexture(env->noir, NULL, NULL, &rect.w, &rect.h);
-          rect.x = j * 50 + 50;
-          rect.y = i * 50 + 50;
+          rect.x = (j * 50 + 50)*ratio;
+          rect.y = (i * 50 + 50)*ratio;
           SDL_RenderCopy(ren, env->noir, NULL, &rect);
         }
       } else if (s == 0) {
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_b, NULL, NULL, &rect.w, &rect.h);
-          rect.x = j * 50 + 50;
-          rect.y = i * 50 + 50;
+          rect.x = (j * 50 + 50)*ratio;
+          rect.y = (i * 50 + 50)*ratio;
           SDL_RenderCopy(ren, env->immu_b, NULL, &rect);
         } else {
           SDL_QueryTexture(env->blanc, NULL, NULL, &rect.w, &rect.h);
-          rect.x = j * 50 + 50;
-          rect.y = i * 50 + 50;
+          rect.x = (j * 50 + 50)*ratio;
+          rect.y = (i * 50 + 50)*ratio;
           SDL_RenderCopy(ren, env->blanc, NULL, &rect);
         }
       }
