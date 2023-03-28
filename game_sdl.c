@@ -21,11 +21,14 @@
 #define IMMUN "./resources/images/immu_noir.png"
 #define FONT "./resources/fonts/SpaceCrusaders.ttf"
 #define FAIL "./resources/images/erreur.png"
+
+#define S_PIXEL 50
 #define FONTSIZE 20
 
 /* **************************************************************** */
 
-struct Env_t {
+//initialisation de l'environnement
+struct Env_t { 
   game g;
   int col;
   int lign;
@@ -37,6 +40,7 @@ struct Env_t {
   const char* out_text;
   SDL_Texture* text;
   SDL_Texture* title;
+
   SDL_Texture* win;
   SDL_Texture* noir;
   SDL_Texture* blanc;
@@ -54,13 +58,20 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
     char* filename = argv[1];
     env->g = game_load(filename);
   } else {
-    env->g = game_default();
+    env->g = game_default(); //charge le jeu par défaut si aucun jeu n'est donné en paramètre
   }
+  env->col = game_nb_cols(env->g);
+  env->lign = game_nb_rows(env->g);
+
+  //chargement des sprites
+
   env->noir = IMG_LoadTexture(ren, NOIR);
   env->blanc = IMG_LoadTexture(ren, BLANC);
   env->immu_b = IMG_LoadTexture(ren, IMMUB);
   env->immu_n = IMG_LoadTexture(ren, IMMUN);
   env->erreur = IMG_LoadTexture(ren, FAIL);
+  
+  //initialisation des textes pour les messagebox
   env->help_text =
       "-press 'r' to restart \n"
       "-press 'q' to quit \n"
@@ -72,61 +83,65 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->no_sol_text = "No existing solution for this game!\n";
   env->out_title = "Misclick";
   env->out_text = "You may click inside the grid\n";
-  env->col = game_nb_cols(env->g);
-  env->lign = game_nb_rows(env->g);
+  SDL_SetWindowSize(win, env->col * S_PIXEL + 100, env->lign * S_PIXEL + 100);
 
-  SDL_Color color = {0, 55, 80, 92};
-  SDL_Color green = {0, 255, 0, 0};
+
+  SDL_Color color = {0, 55, 80, 92}; //bleu
+  SDL_Color green = {0, 255, 0, 0}; //vert
+
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
   TTF_Font* font1 = TTF_OpenFont(FONT, 36);
   SDL_Surface* surf = TTF_RenderText_Blended(font, "press [h] to get help :)", color);
   SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", green);
   env->text = SDL_CreateTextureFromSurface(ren, surf);
   env->win = SDL_CreateTextureFromSurface(ren, surf1);
+
+  //libère les espaces
   SDL_FreeSurface(surf);
+  SDL_FreeSurface(surf1);
   TTF_CloseFont(font);
-  SDL_SetWindowSize(win, SCREEN_WIDTH, SCREEN_HEIGHT);
+  TTF_CloseFont(font1);
+  
   return env;
 }
 
 /* **************************************************************** */
 
 void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
-{ /* PUT YOUR CODE HERE TO RENDER TEXTURES, ... */
+{ 
+
   SDL_Rect rect;
   int w, h;
-  SDL_GetWindowSize(win, &w, &h);
+  SDL_GetWindowSize(win, &w, &h); 
   
   rect.x = w/3;
   rect.y = h - 25;
-  float ratiow = w/((float)env->col * 50 + 100);
-  float ratioh = h/((float)env->lign * 50 + 100);
+  SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
+  SDL_RenderCopy(ren, env->text, NULL, &rect); //placement du texte d'indication pour help
+
+  //on compare la taille de la fenêtre à la taille originale
+  float ratiow = w/((float)env->col * S_PIXEL +S_PIXEL*2 );
+  float ratioh = h/((float)env->lign * S_PIXEL + S_PIXEL*2);
   float ratio;
-  if(ratiow<ratioh){
+  if(ratiow<ratioh){ 
     ratio = ratiow;  
   }
   else{
     ratio = ratioh;
   }
-  SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
-  SDL_RenderCopy(ren, env->text, NULL, &rect);
-
-  if (game_is_over(env->g)) {
-    SDL_QueryTexture(env->win, NULL, NULL, &rect.w, &rect.h);
-    rect.x = w/4;
-    rect.y = 5;
-    SDL_RenderCopy(ren, env->win, NULL, &rect);
-  }
-
   
-  float size = 50*ratio;
-  SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE);
+  float size = S_PIXEL*ratio; //redimensionne la taille d'une case
+
+  //traçage de la grille 
+  SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE); //noir
   for (int i = 0; i < env->col + 1; i++) {
     SDL_RenderDrawLine(ren, (i * size) + w/2.0-(env->col/2)*size, (h/2-env->lign/2*size) , (i * size + w/2-env->col/2*size), ((env->lign) * size + h/2-env->lign/2*size));
   }
   for (int i = 0; i < env->lign + 1; i++) {
     SDL_RenderDrawLine(ren, (w/2-env->col/2*size), (i * size + h/2-env->lign/2*size), ((env->col) * size + w/2-env->col/2*size), (i * size + h/2-env->lign/2*size));
   }
+
+  //affichage du contenu des cases
   for (int i = 0; i < env->lign; i++) {
     for (int j = 0; j < env->col; j++) {
       if ((game_has_error(env->g, i, j) != 0)) {
@@ -137,6 +152,9 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
       }
       int s = game_get_number(env->g, i, j);
       if (s == 1) {
+
+        //affiche les cases noires
+
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_n, NULL, NULL, &rect.w, &rect.h);
           rect.x = (j * size + w/2-(env->col/2)*size);
@@ -149,6 +167,9 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
           SDL_RenderCopy(ren, env->noir, NULL, &rect);
         }
       } else if (s == 0) {
+
+        //affiche les cases blanches
+
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_b, NULL, NULL, &rect.w, &rect.h);
           rect.x = (j * size + w/2-(env->col/2)*size);
@@ -163,6 +184,14 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
       }
     }
   }
+  //si le jeu est gagné, écrit winner sur la fenêtre
+  if (game_is_over(env->g)) {
+    SDL_QueryTexture(env->win, NULL, NULL, &rect.w, &rect.h);
+    rect.x = w/4;
+    rect.y = 5;
+    SDL_RenderCopy(ren, env->win, NULL, &rect);
+  }
+
 }
 
 /* **************************************************************** */
@@ -172,8 +201,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 
   int w, h;
   SDL_GetWindowSize(win, &w, &h);
-  float ratiow = w/((float)env->col * 50 + 100);
-  float ratioh = h/((float)env->lign * 50 + 100);
+  float ratiow = w/((float)env->col * S_PIXEL + 100);
+  float ratioh = h/((float)env->lign * S_PIXEL + 100);
   float ratio;
   if(ratiow<ratioh){
     ratio = ratiow;  
@@ -181,20 +210,27 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
   else{
     ratio = ratioh;
   } 
-  float size = 50*ratio;
+  float size = S_PIXEL*ratio;
+
+
   if (e->type == SDL_QUIT) {
     return true;
   } else if (e->type == SDL_MOUSEBUTTONDOWN) {
+
     SDL_Point mouse;
     SDL_GetMouseState(&mouse.x, &mouse.y);
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
-    if(x>= env->col || y >= env->lign || mouse.x < size || mouse.y < size || x<0 || y <0){
+    
+    //si on clique hors de la grille, message d'erreur s'affiche
+    if(x>= env->col || y >= env->lign || mouse.x < size || mouse.y < size || x<0 || y <0){ 
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->out_title,env->out_text,win);
     }
+
     else{
+
     int vider = game_get_number(env->g, y, x);
-    if (vider == -1) {
+    if (vider == -1) { //on ne joue que dans des cases vides
       if (e->button.button == SDL_BUTTON_LEFT) {
         game_play_move(env->g, y, x, S_ONE);
       } else
@@ -214,11 +250,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
         return true;
       case SDLK_s:
         if (!game_solve(env->g)) {
-          SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->no_sol_title,env->no_sol_text,win);
+          SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->no_sol_title,env->no_sol_text,win); //affiche une erreur si il n'y a pas de solutions au jeu proposé
         }
-        break;
-      case SDLK_c:
-        game_nb_solutions(env->g);
         break;
       case SDLK_r:
         game_restart(env->g);
@@ -236,7 +269,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 
 void clean(SDL_Window* win, SDL_Renderer* ren, Env* env)
 {
-  /* PUT YOUR CODE HERE TO CLEAN MEMORY */
+
   SDL_DestroyTexture(env->text);
   SDL_DestroyTexture(env->win);
   SDL_DestroyTexture(env->noir);
