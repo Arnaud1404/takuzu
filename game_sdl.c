@@ -133,7 +133,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   
 
   //traçage de la grille 
-  SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE); //noir
+  SDL_SetRenderDrawColor(ren, 255, 105, 180, SDL_ALPHA_OPAQUE); //noir
   for (int i = 0; i < env->col + 1; i++) {
     SDL_RenderDrawLine(ren, (i * size) + w/2.0-(env->col/2)*size, (h/2-env->lign/2*size) , (i * size + w/2-env->col/2*size), ((env->lign) * size + h/2-env->lign/2*size));
   }
