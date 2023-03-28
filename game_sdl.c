@@ -71,6 +71,8 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   
   //initialisation des textes pour les messagebox
   env->help_text =
+      "-right click to play white\n"
+      "-left click to play left\n"
       "-press 'r' to restart \n"
       "-press 'q' to quit \n"
       "-press 'z' to undo\n"
