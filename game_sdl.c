@@ -36,8 +36,6 @@ struct Env_t {
   const char* help_title;
   const char* no_sol_title;
   const char* no_sol_text;
-  const char* out_title;
-  const char* out_text;
   SDL_Texture* text;
   SDL_Texture* title;
 
@@ -81,8 +79,6 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->help_title = "Help";
   env->no_sol_title = "Oops";
   env->no_sol_text = "No existing solution for this game!\n";
-  env->out_title = "Misclick";
-  env->out_text = "You may click inside the grid\n";
   SDL_SetWindowSize(win, env->col * S_PIXEL + 100, env->lign * S_PIXEL + 100);
 
 
@@ -113,12 +109,6 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   SDL_Rect rect;
   int w, h;
   SDL_GetWindowSize(win, &w, &h); 
-  
-  rect.x = w/3;
-  rect.y = h - 25;
-  SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
-  SDL_RenderCopy(ren, env->text, NULL, &rect); //placement du texte d'indication pour help
-
   //on compare la taille de la fenêtre à la taille originale
   float ratiow = w/((float)env->col * S_PIXEL +S_PIXEL*2 );
   float ratioh = h/((float)env->lign * S_PIXEL + S_PIXEL*2);
@@ -131,6 +121,16 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   }
   
   float size = S_PIXEL*ratio; //redimensionne la taille d'une case
+  
+  
+  SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
+  rect.x = 0;
+  rect.y = h-size/2;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->text, NULL, &rect); //placement du texte d'indication pour help
+
+  
 
   //traçage de la grille 
   SDL_SetRenderDrawColor(ren, 0, 0, 0, SDL_ALPHA_OPAQUE); //noir
@@ -148,6 +148,8 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
         SDL_QueryTexture(env->erreur, NULL, NULL, &rect.w, &rect.h);
         rect.x = (j * size + w/2-(env->col/2)*size);
         rect.y = (i * size + h/2-env->lign/2*size);
+        rect.h = size;
+        rect.w = size;
         SDL_RenderCopy(ren, env->erreur, NULL, &rect);
       }
       int s = game_get_number(env->g, i, j);
@@ -157,13 +159,17 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
 
         if (game_is_immutable(env->g, i, j)) {
           SDL_QueryTexture(env->immu_n, NULL, NULL, &rect.w, &rect.h);
-          rect.x = (j * size + w/2-(env->col/2)*size);
+          rect.x = (j * size + w/2-(env->col/2)*size); //position du sprite
           rect.y = (i * size + h/2-env->lign/2*size);
+          rect.w = size; //redimensionnement du sprite
+          rect.h = size;
           SDL_RenderCopy(ren, env->immu_n, NULL, &rect);
         } else {
           SDL_QueryTexture(env->noir, NULL, NULL, &rect.w, &rect.h);
           rect.x = (j * size + w/2-(env->col/2)*size);
           rect.y = (i * size + h/2-env->lign/2*size);
+          rect.w = size;
+          rect.h = size;
           SDL_RenderCopy(ren, env->noir, NULL, &rect);
         }
       } else if (s == 0) {
@@ -174,11 +180,15 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
           SDL_QueryTexture(env->immu_b, NULL, NULL, &rect.w, &rect.h);
           rect.x = (j * size + w/2-(env->col/2)*size);
           rect.y = (i * size + h/2-env->lign/2*size);
+          rect.w = size;
+          rect.h = size;
           SDL_RenderCopy(ren, env->immu_b, NULL, &rect);
         } else {
           SDL_QueryTexture(env->blanc, NULL, NULL, &rect.w, &rect.h);
           rect.x = (j * size + w/2-(env->col/2)*size);
           rect.y = (i * size + h/2-env->lign/2*size);
+          rect.w = size;
+          rect.h = size;
           SDL_RenderCopy(ren, env->blanc, NULL, &rect);
         }
       }
@@ -189,6 +199,8 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
     SDL_QueryTexture(env->win, NULL, NULL, &rect.w, &rect.h);
     rect.x = w/4;
     rect.y = 5;
+    rect.w = rect.w * ratio;
+    rect.h = rect.h*ratio;
     SDL_RenderCopy(ren, env->win, NULL, &rect);
   }
 
@@ -222,9 +234,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
     
-    //si on clique hors de la grille, message d'erreur s'affiche
+    //si on clique hors de la grille rien ne se passe
     if(x>= env->col || y >= env->lign || mouse.x < size || mouse.y < size || x<0 || y <0){ 
-      SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->out_title,env->out_text,win);
     }
 
     else{
