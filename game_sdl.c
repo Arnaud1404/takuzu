@@ -128,7 +128,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   
   
   SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
-  rect.x = w/3;
+  rect.x = 0;
   rect.y = h-size/2;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
