@@ -36,8 +36,6 @@ struct Env_t {
   const char* help_title;
   const char* no_sol_title;
   const char* no_sol_text;
-  const char* out_title;
-  const char* out_text;
   SDL_Texture* text;
   SDL_Texture* title;
 
@@ -81,8 +79,6 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->help_title = "Help";
   env->no_sol_title = "Oops";
   env->no_sol_text = "No existing solution for this game!\n";
-  env->out_title = "Misclick";
-  env->out_text = "You may click inside the grid\n";
   SDL_SetWindowSize(win, env->col * S_PIXEL + 100, env->lign * S_PIXEL + 100);
 
 
