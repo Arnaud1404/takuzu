@@ -83,7 +83,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
 
 
   SDL_Color color = {0, 55, 80, 92}; //bleu
-  SDL_Color green = {0, 255, 0, 0}; //vert
+  SDL_Color green = {205, 112, 75 , 0}; //rose
 
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
   TTF_Font* font1 = TTF_OpenFont(FONT, 36);
