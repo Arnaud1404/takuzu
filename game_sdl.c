@@ -41,6 +41,11 @@ struct Env_t {
   const char* save_text;
   char* save;
   SDL_Texture* b_restart;
+  SDL_Texture* b_solve;
+  SDL_Texture* b_undo;
+  SDL_Texture* b_save;
+  SDL_Texture* b_quit;
+  SDL_Texture* b_redo;
   SDL_Texture* text;
   SDL_Texture* title;
   SDL_Texture* win;
@@ -76,7 +81,12 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
 
 
   env->b_restart = IMG_LoadTexture(ren, NOIR);
-  
+  env->b_solve = IMG_LoadTexture(ren, NOIR);
+  env->b_undo = IMG_LoadTexture(ren, NOIR);
+  env->b_save = IMG_LoadTexture(ren, NOIR);
+  env->b_quit = IMG_LoadTexture(ren, NOIR);
+  env->b_redo = IMG_LoadTexture(ren, NOIR);
+
   //initialisation des textes pour les messagebox
   env->help_text =
       "-click on an empty square to play white\n"
@@ -94,7 +104,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->save = "save.txt";
   env->save_title = "Sauvegarde";
   env->save_text = "Sauvegarde bien effectuée dans le dossier du jeu";
-  SDL_SetWindowSize(win, env->col * S_PIXEL + 4*S_PIXEL, env->lign * S_PIXEL + 2*S_PIXEL);
+  SDL_SetWindowSize(win, SCREEN_WIDTH+2*S_PIXEL, SCREEN_HEIGHT);
 
   SDL_Color pink = {255, 105, 180, 0}; //rose
 
@@ -143,6 +153,41 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
+
+  SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
+  rect.x = 5*ratio;
+  rect.y = size*2+10*ratio;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
+
+  SDL_QueryTexture(env->b_undo, NULL, NULL, &rect.w, &rect.h);
+  rect.x = 5*ratio;
+  rect.y = size*3+10*ratio;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->b_undo, NULL, &rect);
+
+  SDL_QueryTexture(env->b_save, NULL, NULL, &rect.w, &rect.h);
+  rect.x = (env->col * size) + w/2.0-(env->col/2)*size + 10*ratio;
+  rect.y = size+5*ratio;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->b_save, NULL, &rect);
+
+  SDL_QueryTexture(env->b_quit, NULL, NULL, &rect.w, &rect.h);
+  rect.x = (env->col * size) + w/2.0-(env->col/2)*size + 10*ratio;
+  rect.y = size*2+10*ratio;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->b_quit, NULL, &rect);
+
+  SDL_QueryTexture(env->b_redo, NULL, NULL, &rect.w, &rect.h);
+  rect.x = (env->col * size) + w/2.0-(env->col/2)*size + 10*ratio;
+  rect.y = size*3+10*ratio;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->b_redo, NULL, &rect);
 
   SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
   rect.x = w/4;
@@ -263,6 +308,25 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 
     if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*2+5*ratio)){
       game_restart(env->g);
+    }
+
+    if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size*2+10*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*3+5*ratio)){
+      game_solve(env->g);
+    }
+
+    if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size*3+10*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*4+5*ratio)){
+      game_undo(env->g);
+    }
+
+    if((mouse.x <= (w-5*ratio)) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= w-2*size) && (mouse.y <= size*2+5*ratio)){
+      game_save(env->g,env->save);
+      SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,env->save_title,env->save_text,win);
+    }
+    if((mouse.x <= (w-5*ratio)) && ( mouse.y >= (size*2+5*ratio))  &&  (mouse.x >= w-2*size) && (mouse.y <= size*3+5*ratio)){
+      return true;
+    }
+    if((mouse.x <= (w-5*ratio)) && ( mouse.y >= (size*3+5*ratio))  &&  (mouse.x >= w-2*size) && (mouse.y <= size*4+5*ratio)){
+      game_redo(env->g);
     }
 
     //si on clique hors de la grille rien ne se passe
