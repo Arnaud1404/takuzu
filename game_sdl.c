@@ -36,6 +36,9 @@ struct Env_t {
   const char* help_title;
   const char* no_sol_title;
   const char* no_sol_text;
+  const char* save_title;
+  const char* save_text;
+  char* save;
   SDL_Texture* text;
   SDL_Texture* title;
   SDL_Texture* win;
@@ -77,10 +80,14 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
       "-press 'q' to quit \n"
       "-press 'z' to undo\n"
       "-press 'y' to redo\n"
-      "-press 's' to search the solution of the game\n";
+      "-press 's' to search the solution of the game\n"
+      "-press 'ctrl'+'s' to save";
   env->help_title = "Help";
   env->no_sol_title = "Oops";
   env->no_sol_text = "No existing solution for this game!\n";
+  env->save = "save.txt";
+  env->save_title = "Sauvegarde";
+  env->save_text = "Sauvegarde bien effectuée dans le dossier du jeu";
   SDL_SetWindowSize(win, env->col * S_PIXEL + 4*S_PIXEL, env->lign * S_PIXEL + 2*S_PIXEL);
 
   SDL_Color pink = {255, 105, 180, 0}; //rose
@@ -132,9 +139,9 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->text, NULL, &rect); //placement du texte d'indication pour help
 
-  if(!game_is_over(env->g)){
+  if(!game_is_over(env->g)){ //sinon conflit avec texte winner
   SDL_QueryTexture(env->title, NULL, NULL, &rect.w, &rect.h);
-    rect.x = w/3;
+    rect.x = w/2-size;
     rect.y = h/100;
     rect.w = rect.w * ratio;
     rect.h = rect.h*ratio;
@@ -216,7 +223,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
 }
 
 /* **************************************************************** */
-
+int ctrl = 0;
 bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 { 
 
@@ -259,8 +266,18 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       (game_play_move(env->g, y, x, S_EMPTY));
     }
    
+  }      
+  }
+  else{ if (e->type == SDL_KEYUP){
+    if((e->key.keysym.sym==SDLK_LCTRL)){
+      
+      ctrl = 0;
+    }
   } 
-  } else if (e->type == SDL_KEYDOWN) {
+  if (e->type == SDL_KEYDOWN) {
+    if(e->key.keysym.sym == SDLK_LCTRL){
+      ctrl = 1;
+    }
     switch (e->key.keysym.sym) {
       case SDLK_z:
         game_undo(env->g);
@@ -271,19 +288,27 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       case SDLK_q:
         return true;
       case SDLK_s:
+        if(ctrl == 1){
+          game_save(env->g,env->save);
+          SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,env->save_title,env->save_text,win);
+        }
+        else{
         game_restart(env->g);
         if (!game_solve(env->g)) {
           SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->no_sol_title,env->no_sol_text,win); //affiche une erreur si il n'y a pas de solutions au jeu proposé
+        }
         }
         break;
       case SDLK_r:
         game_restart(env->g);
         break;
+ 
       case SDLK_h:
 
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,env->help_title,env->help_text,win);
         break; 
     }
+  }
   }
   return false;
 }
