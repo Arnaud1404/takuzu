@@ -19,7 +19,7 @@
 #define BLANC "./resources/images/blanc.png"
 #define IMMUB "./resources/images/immu_blanc.png"
 #define IMMUN "./resources/images/immu_noir.png"
-#define FONT "./resources/fonts/SpaceCrusaders.ttf"
+#define FONT "./resources/fonts/Bubblegum.ttf"
 #define FAIL "./resources/images/erreur.png"
 
 #define S_PIXEL 50
@@ -80,18 +80,15 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->help_title = "Help";
   env->no_sol_title = "Oops";
   env->no_sol_text = "No existing solution for this game!\n";
-  SDL_SetWindowSize(win, env->col * S_PIXEL + 100, env->lign * S_PIXEL + 100);
+  SDL_SetWindowSize(win, env->col * S_PIXEL + S_PIXEL*4, env->lign * S_PIXEL + S_PIXEL*2);
 
-
-  SDL_Color color = {0, 55, 80, 92}; //bleu
-  SDL_Color orange = {205, 112, 75 , 0}; //orange
   SDL_Color pink = {255, 105, 180, 0}; //rose
 
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
-  TTF_Font* font1 = TTF_OpenFont(FONT, 36);
-  SDL_Surface* surf = TTF_RenderText_Blended(font, "press [h] to get help :)", color);
-  SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", orange);
-  SDL_Surface* surf2 = TTF_RenderText_Blended(font, "TAKUZU\n", pink);
+  TTF_Font* font1 = TTF_OpenFont(FONT, 50);
+  SDL_Surface* surf = TTF_RenderText_Blended(font, "press [h] to get help :)", pink);
+  SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", pink);
+  SDL_Surface* surf2 = TTF_RenderText_Blended(font, "TAKUZU", pink);
   env->text = SDL_CreateTextureFromSurface(ren, surf);
   env->win = SDL_CreateTextureFromSurface(ren, surf1);
   env->title = SDL_CreateTextureFromSurface(ren, surf2);
@@ -128,19 +125,20 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   
   
   SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
-  rect.x = 0;
+  rect.x = w/4;
   rect.y = h-size/2;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->text, NULL, &rect); //placement du texte d'indication pour help
 
+  if(!game_is_over(env->g)){
   SDL_QueryTexture(env->title, NULL, NULL, &rect.w, &rect.h);
-    rect.x = w/5;
-    rect.y = h/10;
+    rect.x = w/3;
+    rect.y = h/100;
     rect.w = rect.w * ratio;
     rect.h = rect.h*ratio;
     SDL_RenderCopy(ren, env->title, NULL, &rect); //placement du texte "takuzu"
-
+  }
 
   //traçage de la grille 
   SDL_SetRenderDrawColor(ren, 255, 105, 180, SDL_ALPHA_OPAQUE); //noir
@@ -208,7 +206,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   if (game_is_over(env->g)) {
     SDL_QueryTexture(env->win, NULL, NULL, &rect.w, &rect.h);
     rect.x = w/3;
-    rect.y = h/2;
+    rect.y = 0;
     rect.w = rect.w * ratio;
     rect.h = rect.h*ratio;
     SDL_RenderCopy(ren, env->win, NULL, &rect);
@@ -250,15 +248,18 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 
     else{
 
-    int vider = game_get_number(env->g, y, x);
-    if (vider == -1) { //on ne joue que dans des cases vides
-      if (e->button.button == SDL_BUTTON_LEFT) {
-        game_play_move(env->g, y, x, S_ONE);
-      } else
-        (game_play_move(env->g, y, x, S_ZERO));
-    } else
+    int carre = game_get_number(env->g, y, x);
+    if (carre == -1) { //on ne joue que dans des cases vides
+        game_play_move(env->g, y, x, S_ZERO);
+    } 
+       else if (carre == 0){
+        (game_play_move(env->g, y, x, S_ONE));
+       }
+      else{
       (game_play_move(env->g, y, x, S_EMPTY));
-    }   
+    }
+   
+  } 
   } else if (e->type == SDL_KEYDOWN) {
     switch (e->key.keysym.sym) {
       case SDLK_z:
