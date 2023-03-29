@@ -175,21 +175,21 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   SDL_RenderCopy(ren, env->b_undo, NULL, &rect);
 
   SDL_QueryTexture(env->b_save, NULL, NULL, &rect.w, &rect.h);
-  rect.x = (env->col * size) + w/2.0+(env->col/2)*size + 10*ratio;
+  rect.x =  w/2.0+(env->col/2)*size + 10*ratio;
   rect.y = size+5*ratio;
   rect.w = rect.w*ratio-size;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_save, NULL, &rect);
 
   SDL_QueryTexture(env->b_quit, NULL, NULL, &rect.w, &rect.h);
-  rect.x = (env->col * size) + w/2.0+(env->col/2)*size + 10*ratio;
+  rect.x = w/2.0+(env->col/2)*size + 10*ratio;
   rect.y = size*2+10*ratio;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_quit, NULL, &rect);
 
   SDL_QueryTexture(env->b_redo, NULL, NULL, &rect.w, &rect.h);
-  rect.x = (env->col * size) + w/2.0+(env->col/2)*size + 10*ratio;
+  rect.x = w/2.0+(env->col/2)*size + 10*ratio;
   rect.y = size*3+10*ratio;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
