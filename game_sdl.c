@@ -312,7 +312,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
 
-    if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*2+5*ratio)){
+    if((mouse.x <= w/2.0-(env->col/2)*size-size/4) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*2+5*ratio)){
       game_restart(env->g);
     }
 
@@ -336,7 +336,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     }
 
     //si on clique hors de la grille rien ne se passe
-    if(x< env->col && y <env->lign && mouse.x >= 2*size && mouse.y >= size && x>=0 && y >=0){ 
+    if(x< env->col && y <env->lign && mouse.x >= w/2-env->col/2*size && mouse.y >= size && x>=0 && y >=0){ 
 
     int carre = game_get_number(env->g, y, x);
     if (carre == -1) { //on ne joue que dans des cases vides
