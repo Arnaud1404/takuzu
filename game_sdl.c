@@ -315,7 +315,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     rect.x = w/2.0-(env->col/2)*size-size*1.5;
     rect.y = size+5*ratio;
     rect.w = rect.w*ratio-size/2;
-  rect.h = rect.h*ratio;
+    rect.h = rect.h*ratio;
     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_restart(env->g);
     }
