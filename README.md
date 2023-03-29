@@ -24,8 +24,7 @@ Permet de chercher la ou les solutions d'un jeu chargé.
 **game_sdl.c**
 Permet de jouer sur l'interface graphique du jeu en utilisant la commande ./game_sdl dans le terminal.
 Les commandes s'affichent en appuyant sur h sur la fenetre du jeu.
-Pour jouer une pièce noir il faut faire un clic gauche avec la souris sur la case souhaitée, pour une pièce blanche un clic droit.
-Un clic (gauche ou droit) sur une case pleine la vide.
+Pour jouer il faut cliquer dans une case. Si elle est vide la pièce joué est blanche. Si il y a une pièce blanche dans la case la pièce devient noir. Enfin si il y a une pièce noir un clic va vider la case.
 
 **game.c**
 Implémentation des fonctions pour utiliser un jeu
