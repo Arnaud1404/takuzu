@@ -80,7 +80,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->help_title = "Help";
   env->no_sol_title = "Oops";
   env->no_sol_text = "No existing solution for this game!\n";
-  SDL_SetWindowSize(win, env->col * S_PIXEL + 2*S_PIXEL, env->lign * S_PIXEL + 2*S_PIXEL);
+  SDL_SetWindowSize(win, env->col * S_PIXEL + 4*S_PIXEL, env->lign * S_PIXEL + 2*S_PIXEL);
 
   SDL_Color pink = {255, 105, 180, 0}; //rose
 
@@ -221,8 +221,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 
   int w, h;
   SDL_GetWindowSize(win, &w, &h);
-  float ratiow = w/((float)env->col * S_PIXEL + 100);
-  float ratioh = h/((float)env->lign * S_PIXEL + 100);
+  float ratiow = w/((float)env->col * S_PIXEL + 4*S_PIXEL);
+  float ratioh = h/((float)env->lign * S_PIXEL + 2*S_PIXEL);
   float ratio;
   if(ratiow<ratioh){
     ratio = ratiow;  
@@ -241,9 +241,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     SDL_GetMouseState(&mouse.x, &mouse.y);
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
-    
     //si on clique hors de la grille rien ne se passe
-    if(x>= env->col || y >= env->lign || mouse.x < size || mouse.y < size || x<0 || y <0){ 
+    if(x>= env->col || y >= env->lign || mouse.x < 2*size || mouse.y < size || x<0 || y <0){ 
     }
 
     else{
