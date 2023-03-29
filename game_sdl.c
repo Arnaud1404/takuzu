@@ -38,7 +38,6 @@ struct Env_t {
   const char* no_sol_text;
   SDL_Texture* text;
   SDL_Texture* title;
-
   SDL_Texture* win;
   SDL_Texture* noir;
   SDL_Texture* blanc;
@@ -85,14 +84,17 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
 
 
   SDL_Color color = {0, 55, 80, 92}; //bleu
-  SDL_Color green = {205, 112, 75 , 0}; //rose
+  SDL_Color orange = {205, 112, 75 , 0}; //orange
+  SDL_Color pink = {255, 105, 180, 0}; //rose
 
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
   TTF_Font* font1 = TTF_OpenFont(FONT, 36);
   SDL_Surface* surf = TTF_RenderText_Blended(font, "press [h] to get help :)", color);
-  SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", green);
+  SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", orange);
+  SDL_Surface* surf2 = TTF_RenderText_Blended(font, "TAKUZU\n", pink);
   env->text = SDL_CreateTextureFromSurface(ren, surf);
   env->win = SDL_CreateTextureFromSurface(ren, surf1);
+  env->title = SDL_CreateTextureFromSurface(ren, surf2);
 
   //libère les espaces
   SDL_FreeSurface(surf);
@@ -132,7 +134,13 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->text, NULL, &rect); //placement du texte d'indication pour help
 
-  
+  SDL_QueryTexture(env->title, NULL, NULL, &rect.w, &rect.h);
+    rect.x = w/5;
+    rect.y = h/10;
+    rect.w = rect.w * ratio;
+    rect.h = rect.h*ratio;
+    SDL_RenderCopy(ren, env->title, NULL, &rect); //placement du texte "takuzu"
+
 
   //traçage de la grille 
   SDL_SetRenderDrawColor(ren, 255, 105, 180, SDL_ALPHA_OPAQUE); //noir
@@ -199,8 +207,8 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   //si le jeu est gagné, écrit winner sur la fenêtre
   if (game_is_over(env->g)) {
     SDL_QueryTexture(env->win, NULL, NULL, &rect.w, &rect.h);
-    rect.x = w/4;
-    rect.y = 5;
+    rect.x = w/3;
+    rect.y = h/2;
     rect.w = rect.w * ratio;
     rect.h = rect.h*ratio;
     SDL_RenderCopy(ren, env->win, NULL, &rect);
