@@ -154,21 +154,21 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   float size = S_PIXEL*ratio; //redimensionne la taille d'une case
   
   SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
-  rect.x = w/2.0-(env->col/2)*size-size*2;
+  rect.x = w/2.0-(env->col/2)*size-size*1.5;
   rect.y = size+5*ratio;
   rect.w = rect.w*ratio-size/2;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
 
   SDL_QueryTexture(env->b_solve, NULL, NULL, &rect.w, &rect.h);
-  rect.x = w/2.0-(env->col/2)*size-size*2;
+  rect.x = w/2.0-(env->col/2)*size-size*1.5;
   rect.y = size*2+10*ratio;
   rect.w = rect.w*ratio-size/2;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_solve, NULL, &rect);
 
   SDL_QueryTexture(env->b_undo, NULL, NULL, &rect.w, &rect.h);
-  rect.x = w/2.0-(env->col/2)*size-size*2;
+  rect.x = w/2.0-(env->col/2)*size-size*1.5;
   rect.y = size*3+10*ratio;
   rect.w = rect.w*ratio-size/2;
   rect.h = rect.h*ratio;
