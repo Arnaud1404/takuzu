@@ -81,7 +81,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->help_title = "Help";
   env->no_sol_title = "Oops";
   env->no_sol_text = "No existing solution for this game!\n";
-  SDL_SetWindowSize(win, env->col * S_PIXEL + S_PIXEL*4, env->lign * S_PIXEL + S_PIXEL*2);
+  SDL_SetWindowSize(win, env->col * S_PIXEL + 2*S_PIXEL, env->lign * S_PIXEL + 2*S_PIXEL);
 
   SDL_Color pink = {255, 105, 180, 0}; //rose
 
@@ -272,6 +272,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       case SDLK_q:
         return true;
       case SDLK_s:
+        game_restart(env->g);
         if (!game_solve(env->g)) {
           SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,env->no_sol_title,env->no_sol_text,win); //affiche une erreur si il n'y a pas de solutions au jeu proposé
         }
