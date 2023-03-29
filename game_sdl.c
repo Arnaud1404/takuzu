@@ -32,6 +32,7 @@ struct Env_t {
   game g;
   int col;
   int lign;
+  int ctrl;
   const char* help_text;
   const char* help_title;
   const char* no_sol_title;
@@ -39,6 +40,7 @@ struct Env_t {
   const char* save_title;
   const char* save_text;
   char* save;
+  SDL_Texture* b_restart;
   SDL_Texture* text;
   SDL_Texture* title;
   SDL_Texture* win;
@@ -47,6 +49,7 @@ struct Env_t {
   SDL_Texture* immu_b;
   SDL_Texture* immu_n;
   SDL_Texture* erreur;
+  
 };
 
 /* **************************************************************** */
@@ -62,7 +65,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   }
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
-
+  env->ctrl = 0;
   //chargement des sprites
 
   env->noir = IMG_LoadTexture(ren, NOIR);
@@ -70,6 +73,9 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->immu_b = IMG_LoadTexture(ren, IMMUB);
   env->immu_n = IMG_LoadTexture(ren, IMMUN);
   env->erreur = IMG_LoadTexture(ren, FAIL);
+
+
+  env->b_restart = IMG_LoadTexture(ren, NOIR);
   
   //initialisation des textes pour les messagebox
   env->help_text =
@@ -131,7 +137,13 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   
   float size = S_PIXEL*ratio; //redimensionne la taille d'une case
   
-  
+  SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
+  rect.x = 5*ratio;
+  rect.y = size+5*ratio;
+  rect.w = rect.w*ratio;
+  rect.h = rect.h*ratio;
+  SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
+
   SDL_QueryTexture(env->text, NULL, NULL, &rect.w, &rect.h);
   rect.x = w/4;
   rect.y = h-size/2;
@@ -223,7 +235,6 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
 }
 
 /* **************************************************************** */
-int ctrl = 0;
 bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
 { 
 
@@ -249,11 +260,13 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     SDL_GetMouseState(&mouse.x, &mouse.y);
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
-    //si on clique hors de la grille rien ne se passe
-    if(x>= env->col || y >= env->lign || mouse.x < 2*size || mouse.y < size || x<0 || y <0){ 
+
+    if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*2+5*ratio)){
+      game_restart(env->g);
     }
 
-    else{
+    //si on clique hors de la grille rien ne se passe
+    if(x< env->col && y <env->lign && mouse.x >= 2*size && mouse.y >= size && x>=0 && y >=0){ 
 
     int carre = game_get_number(env->g, y, x);
     if (carre == -1) { //on ne joue que dans des cases vides
@@ -271,12 +284,12 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
   else{ if (e->type == SDL_KEYUP){
     if((e->key.keysym.sym==SDLK_LCTRL)){
       
-      ctrl = 0;
+      env->ctrl  = 0;
     }
   } 
   if (e->type == SDL_KEYDOWN) {
     if(e->key.keysym.sym == SDLK_LCTRL){
-      ctrl = 1;
+      env->ctrl  = 1;
     }
     switch (e->key.keysym.sym) {
       case SDLK_z:
@@ -288,7 +301,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
       case SDLK_q:
         return true;
       case SDLK_s:
-        if(ctrl == 1){
+        if(env->ctrl == 1){
           game_save(env->g,env->save);
           SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,env->save_title,env->save_text,win);
         }
