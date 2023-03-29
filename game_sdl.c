@@ -22,7 +22,7 @@
 #define FONT "./resources/fonts/Bubblegum.ttf"
 #define FAIL "./resources/images/erreur.png"
 #define BSOLVE "./resources/images/solve.png"
-#define BQUIT "./resources/images/quit.png"
+#define BQUIT "./resources/images/Quit.png"
 #define BREDO "./resources/images/redo.png"
 #define BUNDO "./resources/images/undo.png"
 #define BSAVE "./resources/images/save.png"
@@ -156,40 +156,40 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
   rect.x = 5*ratio;
   rect.y = size+5*ratio;
-  rect.w = rect.w*ratio;
+  rect.w = rect.w*ratio-size;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
 
   SDL_QueryTexture(env->b_solve, NULL, NULL, &rect.w, &rect.h);
   rect.x = 5*ratio;
   rect.y = size*2+10*ratio;
-  rect.w = rect.w*ratio;
+  rect.w = rect.w*ratio-size;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_solve, NULL, &rect);
 
   SDL_QueryTexture(env->b_undo, NULL, NULL, &rect.w, &rect.h);
   rect.x = 5*ratio;
   rect.y = size*3+10*ratio;
-  rect.w = rect.w*ratio;
+  rect.w = rect.w*ratio-size;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_undo, NULL, &rect);
 
   SDL_QueryTexture(env->b_save, NULL, NULL, &rect.w, &rect.h);
-  rect.x = (env->col * size) + w/2.0-(env->col/2)*size + 10*ratio;
+  rect.x = (env->col * size) + w/2.0+(env->col/2)*size + 10*ratio;
   rect.y = size+5*ratio;
-  rect.w = rect.w*ratio;
+  rect.w = rect.w*ratio-size;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_save, NULL, &rect);
 
   SDL_QueryTexture(env->b_quit, NULL, NULL, &rect.w, &rect.h);
-  rect.x = (env->col * size) + w/2.0-(env->col/2)*size + 10*ratio;
+  rect.x = (env->col * size) + w/2.0+(env->col/2)*size + 10*ratio;
   rect.y = size*2+10*ratio;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_quit, NULL, &rect);
 
   SDL_QueryTexture(env->b_redo, NULL, NULL, &rect.w, &rect.h);
-  rect.x = (env->col * size) + w/2.0-(env->col/2)*size + 10*ratio;
+  rect.x = (env->col * size) + w/2.0+(env->col/2)*size + 10*ratio;
   rect.y = size*3+10*ratio;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
