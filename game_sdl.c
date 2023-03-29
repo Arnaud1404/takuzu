@@ -311,31 +311,60 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     SDL_GetMouseState(&mouse.x, &mouse.y);
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
+
     SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
     rect.x = w/2.0-(env->col/2)*size-size*1.5;
     rect.y = size+5*ratio;
     rect.w = rect.w*ratio-size/2;
-  rect.h = rect.h*ratio;
+    rect.h = rect.h*ratio;
     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_restart(env->g);
     }
 
-    if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size*2+10*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*3+5*ratio)){
+
+    SDL_QueryTexture(env->b_solve, NULL, NULL, &rect.w, &rect.h);
+    rect.x = w/2.0-(env->col/2)*size-size*1.5;
+    rect.y = size*2+10*ratio;
+    rect.w = rect.w*ratio-size/2;
+    rect.h = rect.h*ratio;
+     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_solve(env->g);
     }
 
-    if((mouse.x <= (2*size- 5*ratio)) && ( mouse.y >= (size*3+10*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*4+5*ratio)){
+      SDL_QueryTexture(env->b_undo, NULL, NULL, &rect.w, &rect.h);
+  rect.x = w/2.0-(env->col/2)*size-size*1.5;
+  rect.y = size*3+10*ratio;
+  rect.w = rect.w*ratio-size/2;
+  rect.h = rect.h*ratio;
+     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_undo(env->g);
     }
 
-    if((mouse.x <= (w-5*ratio)) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= w-2*size) && (mouse.y <= size*2+5*ratio)){
+SDL_QueryTexture(env->b_save, NULL, NULL, &rect.w, &rect.h);
+  rect.x =  w/2.0+(env->col/2)*size + 10*ratio;
+  rect.y = size+5*ratio;
+  rect.w = rect.w*ratio-size/2;
+  rect.h = rect.h*ratio;
+     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_save(env->g,env->save);
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,env->save_title,env->save_text,win);
     }
-    if((mouse.x <= (w-5*ratio)) && ( mouse.y >= (size*2+5*ratio))  &&  (mouse.x >= w-2*size) && (mouse.y <= size*3+5*ratio)){
+
+     SDL_QueryTexture(env->b_quit, NULL, NULL, &rect.w, &rect.h);
+  rect.x = w/2.0+(env->col/2)*size + 10*ratio;
+  rect.y = size*2+10*ratio;
+  rect.w = rect.w*ratio-size/2;
+  rect.h = rect.h*ratio;
+     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       return true;
     }
-    if((mouse.x <= (w-5*ratio)) && ( mouse.y >= (size*3+5*ratio))  &&  (mouse.x >= w-2*size) && (mouse.y <= size*4+5*ratio)){
+
+    SDL_QueryTexture(env->b_redo, NULL, NULL, &rect.w, &rect.h);
+  rect.x = w/2.0+(env->col/2)*size + 10*ratio;
+  rect.y = size*3+10*ratio;
+  rect.w = rect.w*ratio-size/2;
+  rect.h = rect.h*ratio;
+     if((mouse.x >= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_redo(env->g);
     }
 
