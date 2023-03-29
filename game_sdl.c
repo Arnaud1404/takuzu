@@ -21,6 +21,12 @@
 #define IMMUN "./resources/images/immu_noir.png"
 #define FONT "./resources/fonts/Bubblegum.ttf"
 #define FAIL "./resources/images/erreur.png"
+#define BSOLVE "./resources/images/solve.png"
+#define BQUIT "./resources/images/quit.png"
+#define BREDO "./resources/images/redo.png"
+#define BUNDO "./resources/images/undo.png"
+#define BSAVE "./resources/images/save.png"
+#define BRESTART "./resources/images/restart.png"
 
 #define S_PIXEL 50
 #define FONTSIZE 20
@@ -80,12 +86,12 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->erreur = IMG_LoadTexture(ren, FAIL);
 
 
-  env->b_restart = IMG_LoadTexture(ren, NOIR);
-  env->b_solve = IMG_LoadTexture(ren, NOIR);
-  env->b_undo = IMG_LoadTexture(ren, NOIR);
-  env->b_save = IMG_LoadTexture(ren, NOIR);
-  env->b_quit = IMG_LoadTexture(ren, NOIR);
-  env->b_redo = IMG_LoadTexture(ren, NOIR);
+  env->b_restart = IMG_LoadTexture(ren, BRESTART);
+  env->b_solve = IMG_LoadTexture(ren, BSOLVE);
+  env->b_undo = IMG_LoadTexture(ren, BUNDO);
+  env->b_save = IMG_LoadTexture(ren, BSAVE);
+  env->b_quit = IMG_LoadTexture(ren, BQUIT);
+  env->b_redo = IMG_LoadTexture(ren, BREDO);
 
   //initialisation des textes pour les messagebox
   env->help_text =
