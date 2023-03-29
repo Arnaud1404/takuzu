@@ -160,12 +160,12 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   rect.h = rect.h*ratio;
   SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
 
-  SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
+  SDL_QueryTexture(env->b_solve, NULL, NULL, &rect.w, &rect.h);
   rect.x = 5*ratio;
   rect.y = size*2+10*ratio;
   rect.w = rect.w*ratio;
   rect.h = rect.h*ratio;
-  SDL_RenderCopy(ren, env->b_restart, NULL, &rect);
+  SDL_RenderCopy(ren, env->b_solve, NULL, &rect);
 
   SDL_QueryTexture(env->b_undo, NULL, NULL, &rect.w, &rect.h);
   rect.x = 5*ratio;
