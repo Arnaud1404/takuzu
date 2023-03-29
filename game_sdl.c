@@ -301,7 +301,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     ratio = ratioh;
   } 
   float size = S_PIXEL*ratio;
-
+    SDL_Rect rect;
 
   if (e->type == SDL_QUIT) {
     return true;
@@ -311,8 +311,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     SDL_GetMouseState(&mouse.x, &mouse.y);
     int x = (mouse.x-(w/2-env->col/2*size)) /size;
     int y = (mouse.y-(h/2-env->lign/2*size))/size;
-
-    if((mouse.x <= w/2.0-(env->col/2)*size-size/4) && ( mouse.y >= (size+5*ratio))  &&  (mouse.x >= 5*ratio) && (mouse.y <= size*2+5*ratio)){
+    DL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
+    if((mouse.x <= rect.x) && ( mouse.y >= rect.y)  &&  (mouse.x >= rect.x + rect.w) && (mouse.y <= rect.y+rect.h)){
       game_restart(env->g);
     }
 
