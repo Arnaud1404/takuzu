@@ -210,11 +210,12 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   // traçage de la grille
   SDL_SetRenderDrawColor(ren, 255, 105, 180, SDL_ALPHA_OPAQUE);  // noir
   for (int i = 0; i < env->col + 1; i++) {
-    SDL_RenderDrawLine(ren, (i * size) + w / 2.0 - (env->col / 2) * size, (h / 2 - env->lign / 2 * size), (i * size + w / 2 - env->col / 2 * size),
-                       ((env->lign) * size + h / 2 - env->lign / 2 * size));
+    SDL_RenderDrawLine(ren, (i * size) + w / 2.0 - (env->col / 2) * size, (h / 2 - env->lign / 2 * size),
+                       (i * size + w / 2 - env->col / 2 * size), ((env->lign) * size + h / 2 - env->lign / 2 * size));
   }
   for (int i = 0; i < env->lign + 1; i++) {
-    SDL_RenderDrawLine(ren, (w / 2 - env->col / 2 * size), (i * size + h / 2 - env->lign / 2 * size), ((env->col) * size + w / 2 - env->col / 2 * size), (i * size + h / 2 - env->lign / 2 * size));
+    SDL_RenderDrawLine(ren, (w / 2 - env->col / 2 * size), (i * size + h / 2 - env->lign / 2 * size),
+                       ((env->col) * size + w / 2 - env->col / 2 * size), (i * size + h / 2 - env->lign / 2 * size));
   }
 
   // affichage du contenu des cases
@@ -359,7 +360,8 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     }
 
     // si on clique hors de la grille rien ne se passe
-    if (x < env->col && y < env->lign && mouse.x >= w / 2 - env->col / 2 * size && mouse.y >= size && x >= 0 && y >= 0) {
+    if (x < env->col && y < env->lign && mouse.x >= w / 2 - env->col / 2 * size && mouse.y >= size && x >= 0 &&
+        y >= 0) {
       int carre = game_get_number(env->g, y, x);
       if (carre == -1) {  // on ne joue que dans des cases vides
         game_play_move(env->g, y, x, S_ZERO);
