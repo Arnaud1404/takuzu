@@ -75,7 +75,7 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   }
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
-  env->ctrl = 0; //variable qui permet de savoir si ctrl a été pressé ou non pour la commande ctrl+s
+  env->ctrl = 0;  // variable qui permet de savoir si ctrl a été pressé ou non pour la commande ctrl+s
 
   // chargement des sprites
   env->noir = IMG_LoadTexture(ren, NOIR);
@@ -121,7 +121,8 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->save_title = "Sauvegarde";
   env->save_text = "Sauvegarde bien effectuée dans le dossier du jeu";
 
-  SDL_SetWindowSize(win, SCREEN_WIDTH + 2 * S_PIXEL, SCREEN_HEIGHT); //plus de place sur les côtés pour placer les boutons
+  SDL_SetWindowSize(win, SCREEN_WIDTH + 2 * S_PIXEL,
+                    SCREEN_HEIGHT);  // plus de place sur les côtés pour placer les boutons
 
   SDL_Color pink = {255, 105, 180, 0};  // rose
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
@@ -163,7 +164,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
 
   float size = S_PIXEL * ratio;  // redimensionne la taille d'une case
 
-  //on récupère l'emplacement et la taille des textures pour les recopier en adaptant à la taille de la fenêtre
+  // on récupère l'emplacement et la taille des textures pour les recopier en adaptant à la taille de la fenêtre
   SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
   rect.x = w / 2.0 - (env->col / 2) * size - size * 1.5;
   rect.y = size + 5 * ratio;
@@ -316,12 +317,12 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
   } else if (e->type == SDL_MOUSEBUTTONDOWN) {
     SDL_Point mouse;
     SDL_GetMouseState(&mouse.x, &mouse.y);
-    //on récupère le numéro de la colonne et de la ligne où l'on a cliqué
-    int x = (mouse.x - (w / 2 - env->col / 2 * size)) / size; 
+    // on récupère le numéro de la colonne et de la ligne où l'on a cliqué
+    int x = (mouse.x - (w / 2 - env->col / 2 * size)) / size;
     int y = (mouse.y - (h / 2 - env->lign / 2 * size)) / size;
 
-    //on vérifie si on a pas cliqué sur un bouton
-    
+    // on vérifie si on a pas cliqué sur un bouton
+
     SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
     rect.x = w / 2.0 - (env->col / 2) * size - size * 1.5;
     rect.y = size + 5 * ratio;
@@ -337,7 +338,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     rect.w = rect.w * ratio - size / 2;
     rect.h = rect.h * ratio;
     if ((mouse.x >= rect.x) && (mouse.y >= rect.y) && (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y + rect.h)) {
-      game_restart(env->g); //on restart pour avoir la solution du jeu initial 
+      game_restart(env->g);  // on restart pour avoir la solution du jeu initial
       game_solve(env->g);
     }
 
@@ -356,7 +357,6 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     rect.w = rect.w * ratio - size / 2;
     rect.h = rect.h * ratio;
     if ((mouse.x >= rect.x) && (mouse.y >= rect.y) && (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y + rect.h)) {
-
       game_save(env->g, env->save);
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, env->save_title, env->save_text, win);
     }
