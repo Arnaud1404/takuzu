@@ -19,7 +19,7 @@
 #define BLANC "./resources/images/blanc.png"
 #define IMMUB "./resources/images/immu_blanc.png"
 #define IMMUN "./resources/images/immu_noir.png"
-#define FONT "./resources/fonts/SpaceCrusaders.ttf"
+#define FONT "./resources/fonts/Bubblegum.ttf"
 #define FAIL "./resources/images/erreur.png"
 #define BSOLVE "./resources/images/solve.png"
 #define BQUIT "./resources/images/Quit.png"
@@ -75,21 +75,33 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   }
   env->col = game_nb_cols(env->g);
   env->lign = game_nb_rows(env->g);
-  env->ctrl = 0;
+  env->ctrl = 0; //variable qui permet de savoir si ctrl a été pressé ou non pour la commande ctrl+s
+
   // chargement des sprites
-
   env->noir = IMG_LoadTexture(ren, NOIR);
+  if (!env->noir) ERROR("IMG_LoadTexture: %s\n", NOIR);
   env->blanc = IMG_LoadTexture(ren, BLANC);
+  if (!env->blanc) ERROR("IMG_LoadTexture: %s\n", BLANC);
   env->immu_b = IMG_LoadTexture(ren, IMMUB);
+  if (!env->immu_b) ERROR("IMG_LoadTexture: %s\n", IMMUB);
   env->immu_n = IMG_LoadTexture(ren, IMMUN);
+  if (!env->immu_n) ERROR("IMG_LoadTexture: %s\n", IMMUN);
   env->erreur = IMG_LoadTexture(ren, FAIL);
+  if (!env->erreur) ERROR("IMG_LoadTexture: %s\n", FAIL);
 
+  // chargement des images des boutons
   env->b_restart = IMG_LoadTexture(ren, BRESTART);
+  if (!env->b_restart) ERROR("IMG_LoadTexture: %s\n", BRESTART);
   env->b_solve = IMG_LoadTexture(ren, BSOLVE);
+  if (!env->b_solve) ERROR("IMG_LoadTexture: %s\n", BSOLVE);
   env->b_undo = IMG_LoadTexture(ren, BUNDO);
+  if (!env->b_undo) ERROR("IMG_LoadTexture: %s\n", BUNDO);
   env->b_save = IMG_LoadTexture(ren, BSAVE);
+  if (!env->b_save) ERROR("IMG_LoadTexture: %s\n", BSAVE);
   env->b_quit = IMG_LoadTexture(ren, BQUIT);
+  if (!env->b_quit) ERROR("IMG_LoadTexture: %s\n", BQUIT);
   env->b_redo = IMG_LoadTexture(ren, BREDO);
+  if (!env->b_redo) ERROR("IMG_LoadTexture: %s\n", BREDO);
 
   // initialisation des textes pour les messagebox
   env->help_text =
@@ -108,12 +120,14 @@ Env* init(SDL_Window* win, SDL_Renderer* ren, int argc, char* argv[])
   env->save = "save.txt";
   env->save_title = "Sauvegarde";
   env->save_text = "Sauvegarde bien effectuée dans le dossier du jeu";
-  SDL_SetWindowSize(win, SCREEN_WIDTH + 2 * S_PIXEL, SCREEN_HEIGHT);
+
+  SDL_SetWindowSize(win, SCREEN_WIDTH + 2 * S_PIXEL, SCREEN_HEIGHT); //plus de place sur les côtés pour placer les boutons
 
   SDL_Color pink = {255, 105, 180, 0};  // rose
-
   TTF_Font* font = TTF_OpenFont(FONT, FONTSIZE);
+  if (!font) ERROR("TTF_OpenFont: %s\n", FONT);
   TTF_Font* font1 = TTF_OpenFont(FONT, 50);
+  if (!font1) ERROR("TTF_OpenFont: %s\n", FONT);
   SDL_Surface* surf = TTF_RenderText_Blended(font, "press [h] to get help :)", pink);
   SDL_Surface* surf1 = TTF_RenderText_Blended(font1, "WINNER", pink);
   SDL_Surface* surf2 = TTF_RenderText_Blended(font, "TAKUZU", pink);
@@ -149,6 +163,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
 
   float size = S_PIXEL * ratio;  // redimensionne la taille d'une case
 
+  //on récupère l'emplacement et la taille des textures pour les recopier en adaptant à la taille de la fenêtre
   SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
   rect.x = w / 2.0 - (env->col / 2) * size - size * 1.5;
   rect.y = size + 5 * ratio;
@@ -208,7 +223,7 @@ void render(SDL_Window* win, SDL_Renderer* ren, Env* env)
   }
 
   // traçage de la grille
-  SDL_SetRenderDrawColor(ren, 255, 105, 180, SDL_ALPHA_OPAQUE);  // noir
+  SDL_SetRenderDrawColor(ren, 255, 105, 180, SDL_ALPHA_OPAQUE);  // rose
   for (int i = 0; i < env->col + 1; i++) {
     SDL_RenderDrawLine(ren, (i * size) + w / 2.0 - (env->col / 2) * size, (h / 2 - env->lign / 2 * size),
                        (i * size + w / 2 - env->col / 2 * size), ((env->lign) * size + h / 2 - env->lign / 2 * size));
@@ -301,9 +316,12 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
   } else if (e->type == SDL_MOUSEBUTTONDOWN) {
     SDL_Point mouse;
     SDL_GetMouseState(&mouse.x, &mouse.y);
-    int x = (mouse.x - (w / 2 - env->col / 2 * size)) / size;
+    //on récupère le numéro de la colonne et de la ligne où l'on a cliqué
+    int x = (mouse.x - (w / 2 - env->col / 2 * size)) / size; 
     int y = (mouse.y - (h / 2 - env->lign / 2 * size)) / size;
 
+    //on vérifie si on a pas cliqué sur un bouton
+    
     SDL_QueryTexture(env->b_restart, NULL, NULL, &rect.w, &rect.h);
     rect.x = w / 2.0 - (env->col / 2) * size - size * 1.5;
     rect.y = size + 5 * ratio;
@@ -319,6 +337,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     rect.w = rect.w * ratio - size / 2;
     rect.h = rect.h * ratio;
     if ((mouse.x >= rect.x) && (mouse.y >= rect.y) && (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y + rect.h)) {
+      game_restart(env->g); //on restart pour avoir la solution du jeu initial 
       game_solve(env->g);
     }
 
@@ -337,6 +356,7 @@ bool process(SDL_Window* win, SDL_Renderer* ren, Env* env, SDL_Event* e)
     rect.w = rect.w * ratio - size / 2;
     rect.h = rect.h * ratio;
     if ((mouse.x >= rect.x) && (mouse.y >= rect.y) && (mouse.x <= rect.x + rect.w) && (mouse.y <= rect.y + rect.h)) {
+
       game_save(env->g, env->save);
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, env->save_title, env->save_text, win);
     }
