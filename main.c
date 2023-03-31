@@ -5,25 +5,23 @@
 #include <SDL_ttf.h>    // required to use TTF fonts
 #include <stdbool.h>
 #include <stdio.h>
+
 #include "game_sdl.h"
 
 /* **************************************************************** */
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
   /* initialize SDL2 and some extensions */
-  if (SDL_Init(SDL_INIT_VIDEO) != 0)
-    ERROR("Error: SDL_Init VIDEO (%s)", SDL_GetError());
-  if (IMG_Init(IMG_INIT_PNG & IMG_INIT_PNG) != IMG_INIT_PNG)
-    ERROR("Error: IMG_Init PNG (%s)", SDL_GetError());
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) ERROR("Error: SDL_Init VIDEO (%s)", SDL_GetError());
+  if (IMG_Init(IMG_INIT_PNG & IMG_INIT_PNG) != IMG_INIT_PNG) ERROR("Error: IMG_Init PNG (%s)", SDL_GetError());
   if (TTF_Init() != 0) ERROR("Error: TTF_Init (%s)", SDL_GetError());
 
   /* create window and renderer */
-  SDL_Window* win = SDL_CreateWindow(
-      APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
-      SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+  SDL_Window* win = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+                                     SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
   if (!win) ERROR("Error: SDL_CreateWindow (%s)", SDL_GetError());
-  SDL_Renderer* ren = SDL_CreateRenderer(
-      win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (!ren) ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
   if (!ren) ERROR("Error: SDL_CreateRenderer (%s)", SDL_GetError());
 
@@ -42,7 +40,7 @@ int main(int argc, char* argv[]) {
     }
 
     /* background in gray */
-    SDL_SetRenderDrawColor(ren, 247, 231, 206,00);
+    SDL_SetRenderDrawColor(ren, 247, 231, 206, 00);
     SDL_RenderClear(ren);
 
     /* render all what you want */
