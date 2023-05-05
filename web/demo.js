@@ -7,9 +7,14 @@ var g = null
 var noir = new Image()
 noir.src = "../resources/images/noir.png"
 
+var ImN = new Image()
+ImN.src = "../resources/images/immu_noir.png"
 
 var blanc = new Image()
 blanc.src = "../resources/images/blanc.png"
+
+var ImB = new Image()
+ImB.src = "../resources/images/immu_blanc.png"
 
 canvas.addEventListener('click', canvasLeftClick);        // left click event
 canvas.addEventListener('contextmenu', canvasRightClick); // right click event
@@ -63,9 +68,9 @@ function printGame(g) {
                 if (error)
                     ctx.drawImage(blanc, x + cell_width / 2, y + cell_height / 2);
                 if (immutable && number == 0)
-                    ctx.drawImage(blanc, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(ImB, x + cell_width / 2, y + cell_height / 2);
                 else if (immutable && number == 1)
-                    ctx.drawImage(noir, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(ImN, x + cell_width / 2, y + cell_height / 2);
                 else if (number == 0)
                     ctx.drawImage(blanc, x + cell_width / 2, y + cell_height / 2);
                 else if (number == 1)
