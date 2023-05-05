@@ -1,0 +1,7 @@
+h2, .title {
+    text-align : center;
+    color: rgb(233, 18, 150);
+    font-family: 'Happy Groovy', sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+}
