@@ -58,6 +58,23 @@ function printGame(g) {
     var cell_height = canvas.height / nb_rows;
     ctx.font = "30px Arial";
 
+    // Dessine la grille
+    ctx.strokeStyle = "#F98270";
+    for (var row = 0; row <= nb_rows; row++) {
+        var y = row * cell_height;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+    for (var col = 0; col <= nb_cols; col++) {
+        var x = col * cell_width;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+
     for (var row = 0; row < nb_rows; row++) {
         for (var col = 0; col < nb_cols; col++) {
             var number = Module._get_number(g, row, col);
