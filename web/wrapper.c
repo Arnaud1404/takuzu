@@ -61,8 +61,8 @@ void set_square(cgame g, uint i, uint j,square s) { return game_set_square(g, i,
 
 /* ******************** Game Tools API ******************** */
 
-// EMSCRIPTEN_KEEPALIVE
-// bool solve(game g) { return game_solve(g); }
+EMSCRIPTEN_KEEPALIVE
+bool solve(game g) { return game_solve(g); }
 
 // EMSCRIPTEN_KEEPALIVE
 // uint nb_solutions(cgame g) { return game_nb_solutions(g); }
@@ -73,11 +73,11 @@ void undo(game g) { game_undo(g); }
 EMSCRIPTEN_KEEPALIVE
 void redo(game g) { game_redo(g); }
 
-// EMSCRIPTEN_KEEPALIVE
-// game new_random(uint nb_rows, uint nb_cols, bool wrapping, bool uniq)
-// {
-//   srand(time(NULL)); // random seed
-//   return game_random(nb_rows, nb_cols, wrapping, uniq, false);
-// }
+EMSCRIPTEN_KEEPALIVE
+game new_random(uint nb_rows, uint nb_cols, bool wrapping, bool uniq)
+{
+  srand(time(NULL)); // random seed
+  return game_random(nb_rows, nb_cols, wrapping, uniq, false);
+}
 
 //EOF

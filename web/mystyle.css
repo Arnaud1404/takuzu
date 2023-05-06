@@ -1,12 +1,28 @@
 
 h1 {
     text-align : center;
-    color: rgb(233, 18, 150);
-    font-family: 'Happy Groovy', sans-serif;
+    color: #FCA5B1;
+    font-family: 'Happy Groovy', cursive;
     font-weight: bold;
     font-size: 4rem;
 }
 
 body {
     color: rgb(61, 1, 34);
+}
+
+ul li {
+    color: #6D4C41; 
+}
+
+#monCanvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 5px 5px 10px #888888;
+}
+
+#restart, #solve, #undo, #redo{
+    border:none;
+    background-color: white;
 }
