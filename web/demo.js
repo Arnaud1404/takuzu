@@ -99,6 +99,28 @@ function printGame(g) {
         }
     }
 }
+//buttons
+const restart = document.getElementById("restart");
+restart.addEventListener("click", function() {
+    Module._restart(g)
+    printGame(g)
+  });
+const solve = document.getElementById("solve");
+solve.addEventListener("click", function() {
+    Module._solve(g)
+    printGame(g)
+});
+const undo = document.getElementById("undo");
+undo.addEventListener("click", function() {
+    Module._undo(g)
+    printGame(g)
+});
+const redo = document.getElementById("redo");
+redo.addEventListener("click", function() {
+    Module._redo(g)
+    printGame(g)
+});
+
 
 function start() {
     console.log("call start routine");
