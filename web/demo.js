@@ -16,6 +16,9 @@ blanc.src = "../resources/images/blanc.png"
 var ImB = new Image()
 ImB.src = "../resources/images/immu_blanc.png"
 
+var erreur = new Image()
+erreur.src = "../resources/images/erreur.png"
+
 canvas.addEventListener('click', canvasLeftClick);        // left click event
 canvas.addEventListener('contextmenu', canvasRightClick); // right click event
 
@@ -66,15 +69,15 @@ function printGame(g) {
             var y = row * cell_height;
             if (!empty) {
                 if (error)
-                    ctx.drawImage(blanc, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(erreur, x, y, cell_width, cell_height);
                 if (immutable && number == 0)
-                    ctx.drawImage(ImB, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(ImB, x, y, cell_width, cell_height);
                 else if (immutable && number == 1)
-                    ctx.drawImage(ImN, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(ImN, x, y, cell_width, cell_height);
                 else if (number == 0)
-                    ctx.drawImage(blanc, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(blanc, x, y, cell_width, cell_height);
                 else if (number == 1)
-                    ctx.drawImage(noir, x + cell_width / 2, y + cell_height / 2);
+                    ctx.drawImage(noir, x, y, cell_width, cell_height);
             }
         }
     }
