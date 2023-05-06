@@ -56,6 +56,9 @@ bool is_immutable(cgame g, uint i, uint j) { return game_is_immutable(g, i, j); 
 EMSCRIPTEN_KEEPALIVE
 int has_error(cgame g, uint i, uint j) { return game_has_error(g, i, j); }
 
+EMSCRIPTEN_KEEPALIVE
+void set_square(cgame g, uint i, uint j,square s) { return game_set_square(g, i, j,s); }
+
 /* ******************** Game Tools API ******************** */
 
 // EMSCRIPTEN_KEEPALIVE

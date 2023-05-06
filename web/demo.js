@@ -30,7 +30,11 @@ function canvasLeftClick(event) {
     // get relative cursor position in canvas
     console.log("right left at position:", Math.floor(event.offsetX / (500 / nb_cols)), Math.floor(event.offsetY / (500 / nb_rows)));
     // update position of mario image used by drawCanvas()
-    Module._play_move(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), 2)
+    if (Module._is_empty(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)))) {
+        Module._play_move(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), 2);
+    } else {
+        Module._set_square(g,Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), S_EMPTY);
+    }
     printGame(g)
 }
 
