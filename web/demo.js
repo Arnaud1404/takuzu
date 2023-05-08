@@ -1,6 +1,6 @@
 Module.onRuntimeInitialized = () => { start(); }
 
-var canvas = document.getElementById("monCanvas");
+var canvas = document.getElementById("grille");
 var g = null
 
 

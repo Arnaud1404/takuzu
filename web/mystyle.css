@@ -7,6 +7,12 @@ h1 {
     font-size: 4rem;
 }
 
+h2{
+    color: #FCA5B1;
+    font-family: 'Happy Groovy', cursive;
+    font-weight: bold;
+}
+
 body {
     color: rgb(61, 1, 34);
 }
@@ -15,14 +21,16 @@ ul li {
     color: #6D4C41; 
 }
 
-#monCanvas {
+#grille {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
     box-shadow: 5px 5px 10px #888888;
 }
 
 #restart, #solve, #undo, #redo{
     border:none;
     background-color: white;
+    cursor: pointer;
 }
