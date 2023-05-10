@@ -15,7 +15,7 @@
     <h1> Takuzu </h1>
 
     <button id="Règles">
-          Règles
+          Regles
       </button>
     <div id="Popup" class="popup">
         <div class="popup-content">
@@ -72,13 +72,7 @@
     </em></p>
 
 
-    <div id="buttons">
-        <button id="restart"><img src="../resources/images/restart.png"></button>
-        <button id="solve"><img src="../resources/images/solve.png"></button>
-        <button id="undo"><img src="../resources/images/undo.png"></button>
-        <button id="redo"><img src="../resources/images/redo.png"></button>
-        <button id="random">New random game</button>
-		
+    <div>
 		<div style="display: flex; flex-direction: column;">
 			<label for="rows_selector">Lignes :</label>
 			<select id="rows_selector">
@@ -102,7 +96,14 @@
 			<label><input type="checkbox" id="wrapping" value="option1"> Wrapping</label>
 			<label><input type="checkbox" id="unique" value="option2"> Unique</label>
 		</div>
-
+        <div class="game_actions">
+        <button id="restart">Restart</button>
+        <button id="solve">Solve</button>
+        <button id="undo">Undo</button>
+        <button id="redo">Redo</button>
+        <button id="random">New random game</button>
+        </div>
+		
     </div>
     
     <!-- ********************* script ********************* -->

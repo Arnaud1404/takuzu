@@ -15,7 +15,7 @@ h1 { /*titre takuzu*/
 
 
 h2{
-    color: #FCA5B1;
+    color: rgb(206, 68, 86);
     font-family: 'Happy Groovy', cursive;
     font-weight: bold;
 }
@@ -39,13 +39,28 @@ ul li {
 }
 
 
-#restart, #solve, #undo, #redo{
-    border:none;
-    background-color: #fef4df;
-    cursor: pointer;
-}
 
+button {
+    background-color:#e34656;
+    font-family: 'Happy Groovy', cursive;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+  }
+button:hover {
+    background-color: #e9808e;
+  }
+
+.game_actions{
+    text-align: center;
+}
 .popup {
+    
     position: fixed;
     z-index: 1;
     left: 0;
@@ -71,3 +86,16 @@ ul li {
 .show {
     display: block;
 }
+
+* select,
+* input[type="checkbox"] {
+  border: 1px solid gray;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+* label {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #333;
+  }
