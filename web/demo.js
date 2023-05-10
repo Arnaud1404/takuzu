@@ -37,6 +37,8 @@ function canvasLeftClick(event) {
         Module._play_move(g,i,j, 0);
     }
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 }
 
 function canvasRightClick(event) {
@@ -53,6 +55,8 @@ function canvasRightClick(event) {
         Module._play_move(g,i,j, 0);
     }
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 }
 
 
@@ -87,7 +91,7 @@ function printGame(g) {
             var immutable = Module._is_immutable(g, row, col);
             var empty = Module._is_empty(g, row, col);
             var error = Module._has_error(g, row, col);
-
+			console.log(row,col,"couleur",number);
             var x = col * size;
             var y = row * size;
             if (!empty) {
@@ -107,8 +111,6 @@ function printGame(g) {
             }
         }
     }
-	if(Module._is_over(g))
-        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 }
 //buttons
 const restart = document.getElementById("restart");
@@ -122,6 +124,8 @@ solve.addEventListener("click", function() {
     Module._solve(g)
 	console.log(Module._solve(g))
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 });
 const undo = document.getElementById("undo");
 undo.addEventListener("click", function() {
@@ -132,6 +136,8 @@ const redo = document.getElementById("redo");
 redo.addEventListener("click", function() {
     Module._redo(g)
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 });
 
 const random = document.getElementById("random");
