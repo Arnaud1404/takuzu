@@ -26,7 +26,6 @@ ul li {
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
-    box-shadow: 5px 5px 10px #888888;
 }
 
 #restart, #solve, #undo, #redo{

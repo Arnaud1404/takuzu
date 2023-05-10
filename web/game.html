@@ -69,6 +69,31 @@
         <button id="undo"><img src="../resources/images/undo.png"></button>
         <button id="redo"><img src="../resources/images/redo.png"></button>
         <button id="random">New random game</button>
+		
+		<div style="display: flex; flex-direction: column;">
+			<label for="rows_selector">Nb rows :</label>
+			<select id="rows_selector">
+				<option value="2">2</option>
+				<option value="4">4</option>
+				<option value="6">6</option>
+				<option value="8">8</option>
+				<option value="10">10</option>
+			</select>
+
+			<label for="cols_selector">Nb cols :</label>
+			<select id="cols_selector">
+				<option value="2">2</option>
+				<option value="4">4</option>
+				<option value="6">6</option>
+				<option value="8">8</option>
+				<option value="10">10</option>
+			</select>
+		</div>
+		<div style="padding-left : 20px ;display: flex; flex-direction: column;">
+			<label><input type="checkbox" id="wrapping" value="option1"> Wrapping</label>
+			<label><input type="checkbox" id="unique" value="option2"> Unique</label>
+		</div>
+
     </div>
     
     <!-- ********************* script ********************* -->
