@@ -146,15 +146,26 @@ function start() {
     printGame(g);
 }
 
-myButton.addEventListener("click", function () {
-    myPopup.classList.add("show");
-});
-        
+Règles.addEventListener("click", function () {
+    Popup.classList.add("show");
+});      
 closePopup.addEventListener("click", function () {
-    myPopup.classList.remove("show");
+    Popup.classList.remove("show");
 });
 window.addEventListener("click", function (event) {
-    if (event.target == myPopup) {
-        myPopup.classList.remove("show");
+    if (event.target == Popup) {
+        Popup.classList.remove("show");
+    }
+});
+
+Commandes.addEventListener("click", function () {
+    Popup1.classList.add("show");
+});
+closePopup1.addEventListener("click", function () {
+    Popup1.classList.remove("show");
+});
+window.addEventListener("click", function (event) {
+    if (event.target == Popup1) {
+        Popup1.classList.remove("show");
     }
 });
