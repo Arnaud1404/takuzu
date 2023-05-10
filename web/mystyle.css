@@ -1,9 +1,15 @@
-h1 {
+h1 { /*titre takuzu*/
     text-align : center;
     color: #FCA5B1;
     font-family: 'Happy Groovy', cursive;
     font-weight: bold;
     font-size: 4rem;
+}
+
+@media only screen and (max-width: 600px) { /*adaptation du titre selon la taille de la fenetre*/
+    h1 {
+        font-size: 2em;
+    }
 }
 
 h2{
@@ -27,6 +33,7 @@ ul li {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border: 10px;
     cursor: pointer;
     box-shadow: 5px 5px 10px #888888;
 }

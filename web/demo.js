@@ -68,14 +68,14 @@ function printGame(g) {
 
     // Dessine la grille
     ctx.strokeStyle = "#F98270";
-    for (var row = 0; row <= nb_rows; row++) {
+    for (var row = 1; row < nb_rows; row++) {
         var y = row * cell_height;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(canvas.width, y);
         ctx.stroke();
     }
-    for (var col = 0; col <= nb_cols; col++) {
+    for (var col = 1; col < nb_cols; col++) {
         var x = col * cell_width;
         ctx.beginPath();
         ctx.moveTo(x, 0);
