@@ -4444,6 +4444,15 @@ var ASM_CONSTS = {
       setTempRet0(val);
     }
 
+  function _time(ptr) {
+      ;
+      var ret = (Date.now()/1000)|0;
+      if (ptr) {
+        HEAP32[((ptr)>>2)] = ret;
+      }
+      return ret;
+    }
+
   var FSNode = /** @constructor */ function(parent, name, mode, rdev) {
     if (!parent) {
       parent = this;  // root node sets parent to itself
@@ -4654,7 +4663,8 @@ var asmLibraryArg = {
   "fd_read": _fd_read,
   "fd_seek": _fd_seek,
   "fd_write": _fd_write,
-  "setTempRet0": _setTempRet0
+  "setTempRet0": _setTempRet0,
+  "time": _time
 };
 var asm = createWasm();
 /** @type {function(...*):?} */
@@ -4700,10 +4710,19 @@ var _is_immutable = Module["_is_immutable"] = createExportWrapper("is_immutable"
 var _has_error = Module["_has_error"] = createExportWrapper("has_error");
 
 /** @type {function(...*):?} */
+var _set_square = Module["_set_square"] = createExportWrapper("set_square");
+
+/** @type {function(...*):?} */
+var _solve = Module["_solve"] = createExportWrapper("solve");
+
+/** @type {function(...*):?} */
 var _undo = Module["_undo"] = createExportWrapper("undo");
 
 /** @type {function(...*):?} */
 var _redo = Module["_redo"] = createExportWrapper("redo");
+
+/** @type {function(...*):?} */
+var _new_random = Module["_new_random"] = createExportWrapper("new_random");
 
 /** @type {function(...*):?} */
 var _main = Module["_main"] = createExportWrapper("main");

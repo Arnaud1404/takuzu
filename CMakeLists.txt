@@ -25,7 +25,6 @@ add_library(game game.c game_aux.c game_ext.c queue.c game_tools.c game_random.c
 target_link_libraries(game_sdl game)
 target_link_libraries(game_text game)
 target_link_libraries(game_solve game)
-target_link_libraries(game_random game)
 target_link_libraries(game_test_ymaabout game)
 target_link_libraries(game_test_juruch game)
 target_link_libraries(game_test_argomes game)
