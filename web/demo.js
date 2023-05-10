@@ -132,8 +132,9 @@ redo.addEventListener("click", function() {
 });
 
 const random = document.getElementById("random");
-redo.addEventListener("click", function() {
-    g = Module._new_random(6,6,false,false)
+random.addEventListener("click", function() {
+	Module._delete(g)
+    g = Module._new_random(4,4,false,false)
     printGame(g)
 });
 
