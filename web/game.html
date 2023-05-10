@@ -13,26 +13,45 @@
     <!-- ********************* html ********************* -->
 
     <h1> Takuzu </h1>
-    <h2>Regles du jeu</h2>
-        <p>On dispose d'une grille qu'il faut remplir de chats gris et roux en respectent les règles suivantes :<br></p>
-    <ul>
-        <li>il ne peut pas y avoir plus de 2 chats de même couleur à la suite</li>
-        <li>il ne doit pas y avoir plus de la moitié des chats d'une ligne ou d'une colonne de même couleur</li>
-    </ul>
-    <p>Et nous  pouvons ajouter les options suivantes :</p>
-    <ul>
-        <li>il ne peut y avoir deux lignes ou colonnes identiques</li>
-        <li>le jeu se replie sur lui-même et ainsi les cases de deux extrémités se suivent</li>
-    </ul>
-    <h2>Commandes de jeu</h2>
-    <p> 
-    Pour placer un chat gris il faut faire un clic gauche dans la case et pour un chat roux un clic droit.<br>
-    Un deuxième clic sur une case pleine va la vider. <br>
-    Les chats qui ont une couronne sont immutables, ils ne peuvent pas être modifier.
-    </p>
 
+    <button id="myButton">
+          Règles
+      </button>
+    <div id="myPopup" class="popup">
+        <div class="popup-content">
+            <h2>Regles du jeu</h2>
+            <p>On dispose d'une grille qu'il faut remplir de chats gris et roux en respectent les règles suivantes :<br></p>
+            <ul>
+                <li>il ne peut pas y avoir plus de 2 chats de même couleur à la suite</li>
+                <li>il ne doit pas y avoir plus de la moitié des chats d'une ligne ou d'une colonne de même couleur</li>
+            </ul>
+            <p>Et nous  pouvons ajouter les options suivantes :</p>
+            <ul>
+                <li>il ne peut y avoir deux lignes ou colonnes identiques</li>
+             <li>le jeu se replie sur lui-même et ainsi les cases de deux extrémités se suivent</li>
+            </ul>
+            </p> 
+            <button id="closePopup">
+                  Fermer
+              </button>
+        </div>
+    </div>
 
-
+    <!-- <button id="myButton">
+          Commandes
+      </button>
+    <div id="myPopup" class="popup">
+        <div class="popup-content">
+            <h2>Commandes de jeu</h2>
+            <p>Pour placer un chat gris il faut faire un clic gauche dans la case et pour un chat roux un clic droit.<br>
+            Un deuxième clic sur une case pleine va la vider. <br>
+            Les chats qui ont une couronne sont immutables, ils ne peuvent pas être modifier.
+            </p>
+            <button id="closePopup">
+                  Fermer
+              </button>
+        </div>
+    </div> -->
 
 
     <pre id="result"></pre>
