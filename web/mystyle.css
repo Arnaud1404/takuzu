@@ -14,6 +14,7 @@ h2{
 
 
 body {
+    background-color: #fef4df;
     color: rgb(61, 1, 34);
 }
 
@@ -22,6 +23,7 @@ ul li {
 }
 
 #grille {
+    background-color: #f1d5d9;;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -31,7 +33,7 @@ ul li {
 
 #restart, #solve, #undo, #redo{
     border:none;
-    background-color: white;
+    background-color: #fef4df;
     cursor: pointer;
 }
 
@@ -47,7 +49,7 @@ ul li {
     display: none;
 }
 .popup-content {
-    background-color: whitesmoke;
+    background-color: #fcefd4;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888888;
