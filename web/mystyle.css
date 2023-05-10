@@ -1,9 +1,15 @@
-h1 {
+h1 { /*titre takuzu*/
     text-align : center;
     color: #FCA5B1;
     font-family: 'Happy Groovy', cursive;
     font-weight: bold;
     font-size: 4rem;
+}
+
+@media only screen and (max-width: 600px) { /*adaptation du titre selon la taille de la fenetre*/
+    h1 {
+        font-size: 2em;
+    }
 }
 
 h2{
@@ -14,6 +20,7 @@ h2{
 
 
 body {
+    background-color: #fef4df;
     color: rgb(61, 1, 34);
 }
 
@@ -25,12 +32,13 @@ ul li {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border: 10px;
     cursor: pointer;
 }
 
 #restart, #solve, #undo, #redo{
     border:none;
-    background-color: white;
+    background-color: #fef4df;
     cursor: pointer;
 }
 
@@ -46,7 +54,7 @@ ul li {
     display: none;
 }
 .popup-content {
-    background-color: whitesmoke;
+    background-color: #fcefd4;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888888;
