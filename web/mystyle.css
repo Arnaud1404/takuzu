@@ -6,7 +6,7 @@ h1 { /*titre takuzu*/
     font-size: 4rem;
 }
 
-@media only screen and (max-width: 600px) { /*adaptation du titre selon la taille de la fenetre*/
+@media only screen and (max-width: 600px) { /*adaptation selon la taille de la fenetre*/
     h1 {
         font-size: 2em;
     }
