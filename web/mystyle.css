@@ -38,6 +38,7 @@ ul li {
     cursor: pointer;
 }
 
+
 #restart, #solve, #undo, #redo{
     border:none;
     background-color: #fef4df;
