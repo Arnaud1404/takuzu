@@ -131,6 +131,13 @@ redo.addEventListener("click", function() {
     printGame(g)
 });
 
+const random = document.getElementById("random");
+redo.addEventListener("click", function() {
+    g = Module._new_random(6,6,false,false)
+    printGame(g)
+});
+
+
 
 function start() {
     console.log("call start routine");
