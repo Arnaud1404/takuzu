@@ -2,7 +2,7 @@ Module.onRuntimeInitialized = () => { start(); }
 
 var canvas = document.getElementById("grille");
 var g = null
-
+var size = 83
 
 var noir = new Image()
 noir.src = "../resources/images/noir.png"
@@ -24,34 +24,39 @@ canvas.addEventListener('contextmenu', canvasRightClick); // right click event
 
 
 function canvasLeftClick(event) {
-    var nb_rows = Module._nb_rows(g);
-    var nb_cols = Module._nb_cols(g);
+	var mouse_x = event.offsetX,mouse_y= event.offsetY;
     event.preventDefault(); // prevent default context menu to appear...
     // get relative cursor position in canvas
-    console.log("right left at position:", Math.floor(event.offsetX / (500 / nb_cols)), Math.floor(event.offsetY / (500 / nb_rows)));
     // update position of mario image used by drawCanvas()
-	console.log(Module._is_empty(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols))))
-    if (Module._is_empty(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)))) {
-        Module._play_move(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), 2);
+	var i = Math.floor(mouse_y/ size);
+    var j = Math.floor(mouse_x/ size);
+	console.log("right left at position:", i,j);
+    if (Module._is_empty(g, i,j)) {
+        Module._play_move(g,i,j, 2);
     } else {
-        Module._play_move(g,Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), 0);
+        Module._play_move(g,i,j, 0);
     }
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 }
 
 function canvasRightClick(event) {
-    var nb_rows = Module._nb_rows(g);
-    var nb_cols = Module._nb_cols(g);
+	var mouse_x = event.offsetX,mouse_y= event.offsetY;
     event.preventDefault(); // prevent default context menu to appear...
     // get relative cursor position in canvas
-    console.log("right click at position:", Math.floor(event.offsetX / (500 / nb_rows)), Math.floor(event.offsetY / (500 / nb_cols)));
     // update position of mario image used by drawCanvas()
-	if (Module._is_empty(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)))){
-    Module._play_move(g, Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), 1)
-	} else {
-		Module._play_move(g,Math.floor(event.offsetY / (500 / nb_rows)), Math.floor(event.offsetX / (500 / nb_cols)), 0);
-	}
+	var i = Math.floor(mouse_y/ size);
+    var j = Math.floor(mouse_x/ size);
+	console.log("right left at position:", i,j);
+    if (Module._is_empty(g, i,j)) {
+        Module._play_move(g,i,j, 1);
+    } else {
+        Module._play_move(g,i,j, 0);
+    }
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 }
 
 
@@ -62,24 +67,21 @@ function printGame(g) {
 
     var nb_rows = Module._nb_rows(g);
     var nb_cols = Module._nb_cols(g);
-    var cell_width = canvas.width / nb_cols;
-    var cell_height = canvas.height / nb_rows;
     ctx.font = "30px Arial";
-
     // Dessine la grille
     ctx.strokeStyle = "#F98270";
-    for (var row = 1; row < nb_rows; row++) {
-        var y = row * cell_height;
+    for (var row = 0; row <= nb_rows; row++) {
+        var y = row * size;
         ctx.beginPath();
         ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
+        ctx.lineTo(size*nb_cols, y);
         ctx.stroke();
     }
-    for (var col = 1; col < nb_cols; col++) {
-        var x = col * cell_width;
+    for (var col = 0; col <= nb_cols; col++) {
+        var x = col * size;
         ctx.beginPath();
         ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
+        ctx.lineTo(x,size*nb_rows);
         ctx.stroke();
     }
 
@@ -89,20 +91,23 @@ function printGame(g) {
             var immutable = Module._is_immutable(g, row, col);
             var empty = Module._is_empty(g, row, col);
             var error = Module._has_error(g, row, col);
-
-            var x = col * cell_width;
-            var y = row * cell_height;
+			console.log(row,col,"couleur",number);
+            var x = col * size;
+            var y = row * size;
             if (!empty) {
                 if (error)
-                    ctx.drawImage(erreur, x, y, cell_width, cell_height);
+                    ctx.drawImage(erreur, x, y, size, size);
                 if (immutable && number == 0)
-                    ctx.drawImage(ImB, x, y, cell_width, cell_height);
+                    ctx.drawImage(ImB, x, y, size, size);
                 else if (immutable && number == 1)
-                    ctx.drawImage(ImN, x, y, cell_width, cell_height);
-                else if (number == 0)
-                    ctx.drawImage(blanc, x, y, cell_width, cell_height);
-                else if (number == 1)
-                    ctx.drawImage(noir, x, y, cell_width, cell_height);
+                    ctx.drawImage(ImN, x, y, size, size);
+                else if (number == 0){
+                    ctx.drawImage(blanc, x, y, size, size);
+					console.log("blanc en case",x,y);}
+                else if (number == 1){
+                    ctx.drawImage(noir, x, y, size, size);
+					console.log("noir en case",x,y);}
+					
             }
         }
     }
@@ -119,6 +124,8 @@ solve.addEventListener("click", function() {
     Module._solve(g)
 	console.log(Module._solve(g))
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 });
 const undo = document.getElementById("undo");
 undo.addEventListener("click", function() {
@@ -129,12 +136,19 @@ const redo = document.getElementById("redo");
 redo.addEventListener("click", function() {
     Module._redo(g)
     printGame(g)
+	if(Module._is_over(g))
+        setTimeout(function() { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
 });
 
 const random = document.getElementById("random");
 random.addEventListener("click", function() {
 	Module._delete(g)
-    g = Module._new_random(4,4,false,false)
+	var row =document.getElementById("rows_selector");
+	var col = document.getElementById("cols_selector");
+	var wrapping = document.getElementById("wrapping");
+	var unique = document.getElementById("unique");
+    g = Module._new_random(row.value,col.value,wrapping.checked,unique.checked)
+	size = Math.min(Math.floor(500/Module._nb_rows(g)),Math.floor(500/Module._nb_cols(g)))
     printGame(g)
 });
 
