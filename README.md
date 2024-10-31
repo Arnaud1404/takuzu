@@ -15,6 +15,8 @@ Hosted on Vercel, try it here: [Takuzu Game](https://takuzu-group-project.vercel
 - 📏 Customizable grid size and game options
 - 📱 Support for mobile devices with responsive CSS and custom controls
 
+[![Mobile Preview](web/resources/images/preview_mobile.png)](https://takuzu-group-project.vercel.app/)
+
 Original README :
 
 **#takuzu - 11c**
@@ -67,3 +69,5 @@ Ajout des fonction undo et redo.
 **game_tool.c**
 Implémentation des fonctions load et save qui permettent de charger et de sauvgarder un jeu.
 Ainsi que les fonctions solve et nb_solutions qui cherche une solution et le nombre de solution d'un jeu donné.
+
+[def]: web/resources/images/preview_mobile.png
