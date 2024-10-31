@@ -166,7 +166,7 @@ function start() {
     printGame(g);
 }
 
-Rules.addEventListener("click", function () {
+rules.addEventListener("click", function () {
     Popup.classList.add("show");
 });
 closePopup.addEventListener("click", function () {
@@ -178,7 +178,7 @@ window.addEventListener("click", function (event) {
     }
 });
 
-Controls.addEventListener("click", function () {
+controls.addEventListener("click", function () {
     Popup1.classList.add("show");
 });
 closePopup1.addEventListener("click", function () {
