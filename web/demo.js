@@ -5,19 +5,19 @@ var g = null
 var size = 83
 
 var noir = new Image()
-noir.src = "../resources/images/noir.png"
+noir.src = "resources/images/noir.png"
 
 var ImN = new Image()
-ImN.src = "../resources/images/immu_noir.png"
+ImN.src = "resources/images/immu_noir.png"
 
 var blanc = new Image()
-blanc.src = "../resources/images/blanc.png"
+blanc.src = "resources/images/blanc.png"
 
 var ImB = new Image()
-ImB.src = "../resources/images/immu_blanc.png"
+ImB.src = "resources/images/immu_blanc.png"
 
 var erreur = new Image()
-erreur.src = "../resources/images/erreur.png"
+erreur.src = "resources/images/erreur.png"
 
 canvas.addEventListener('click', canvasLeftClick);        // left click event
 canvas.addEventListener('contextmenu', canvasRightClick); // right click event
