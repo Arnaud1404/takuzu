@@ -40,7 +40,7 @@ function canvasLeftClick(event) {
     printGame(g);
 
     if (Module._is_over(g))
-        setTimeout(function () { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
+        setTimeout(function () { alert("You win! Wanna play again?"); }, 0);
 }
 
 function canvasRightClick(event) {
@@ -59,7 +59,7 @@ function canvasRightClick(event) {
     printGame(g);
 
     if (Module._is_over(g))
-        setTimeout(function () { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
+        setTimeout(function () { alert("You win! Wanna play again?"); }, 0);
 }
 
 
@@ -126,7 +126,7 @@ solve.addEventListener("click", function () {
     Module._solve(g);
     printGame(g);
     if (Module._is_over(g))
-        setTimeout(function () { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
+        setTimeout(function () { alert("You win! Wanna play again?"); }, 0);
 });
 const undo = document.getElementById("undo");
 undo.addEventListener("click", function () {
@@ -138,14 +138,14 @@ redo.addEventListener("click", function () {
     Module._redo(g);
     printGame(g);
     if (Module._is_over(g))
-        setTimeout(function () { alert("Jeu gagné, restart ou nouveau jeu ?"); }, 0);
+        setTimeout(function () { alert("You win! Wanna play again?"); }, 0);
 });
 
 const random = document.getElementById("random");
 random.addEventListener("click", function () {
     Module._delete(g);
-    var row = document.getElementById("rows_selector");
-    var col = document.getElementById("cols_selector");
+    var row = document.getElementById("size_selector");
+    var col = row;
     var wrapping = document.getElementById("wrapping");
     var unique = document.getElementById("unique");
     g = Module._new_random(row.value, col.value, wrapping.checked, unique.checked);
@@ -161,7 +161,7 @@ function start() {
     printGame(g);
 }
 
-Règles.addEventListener("click", function () {
+Rules.addEventListener("click", function () {
     Popup.classList.add("show");
 });
 closePopup.addEventListener("click", function () {
@@ -173,7 +173,7 @@ window.addEventListener("click", function (event) {
     }
 });
 
-Commandes.addEventListener("click", function () {
+Controls.addEventListener("click", function () {
     Popup1.classList.add("show");
 });
 closePopup1.addEventListener("click", function () {

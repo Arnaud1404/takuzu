@@ -1,18 +1,32 @@
+Title : Takuzu puzzle game recreation in C, web version using Javascript and WASM
+[![Preview](web/resources/images/preview.png)](https://digital-clock-arnaud-gomes.vercel.app/)
+Group project spanning the whole college year (2022-2023), forked from a private gitlab repo (https://gitlab.emi.u-bordeaux.fr/pt2/backup/2022-2023/teams/tm11/takuzu-11c)
+
+Hosted on Vercel, try it here :
+
+Features :
+
+- Game Solver
+- Random game generator
+- Customizable number of row and columns
+- Support for mobile devices with responsive CSS
+
+Original README :
+
 **#takuzu - 11c**
 
-Projet réalisé par les étudiants : 
+Projet réalisé par les étudiants :
 Arnaud Gomes
 Yasmine Maabout
 Justine Ruch
 
 **Le jeu takuzu**
 On dispose d'une grille qu'il faut remplir de carrés noirs et blancs en respectent les règles suivantes :
-    -il ne peut pas y avoir plus de 2 carrés de meme couleur à la suite
-    -il ne doit pas y avoir plus de la moitié des cases d'une ligne ou d'une colonne de meme couleur
-Il est possible de rajouter deux règles facultatives : 
-    -il ne peut y avoir deux lignes ou colonnes identiques
-    -le jeu se replie sur lui-meme et ainsi les cases de deux extrémités se suivent
-
+-il ne peut pas y avoir plus de 2 carrés de meme couleur à la suite
+-il ne doit pas y avoir plus de la moitié des cases d'une ligne ou d'une colonne de meme couleur
+Il est possible de rajouter deux règles facultatives :
+-il ne peut y avoir deux lignes ou colonnes identiques
+-le jeu se replie sur lui-meme et ainsi les cases de deux extrémités se suivent
 
 **game_text.c**
 Permet de jouer avec le jeu et les règles par défaut en utilisant la commande ./game_text dans le terminal.
@@ -20,7 +34,7 @@ Les commandes s'affichent en appuyant sur h.
 Pour jouer une pièce noir ou blanche ou vider une case il faut tapper dans le terminal la lettre correspondant (w,b,e) suivit des coordonées où l'on souhaite jouer, par exemple w 0 0.
 Pour recommencer le jeu tapper r et pour le quitter q.
 Pour undo et redo appuyer respectivement sur z et y.
-Enfin pour sauvegarder il faut écrire s <filename> où filename est le nom souhaité pour le fichier qui sera sauvegarder au format filename.txt dans le dossier du jeu. 
+Enfin pour sauvegarder il faut écrire s <filename> où filename est le nom souhaité pour le fichier qui sera sauvegarder au format filename.txt dans le dossier du jeu.
 
 **game_solve.c**
 Utilisation des fonctions nb_solutions et solve.

@@ -14,50 +14,50 @@
 
     <h1> Takuzu </h1>
 
-    <button id="Règles">
-          Regles
+    <button id="Rules">
+        Rules
       </button>
     <div id="Popup" class="popup">
         <div class="popup-content">
-            <h2>Regles du jeu</h2>
-            <p>On dispose d'une grille qu'il faut remplir de chats gris et roux en respectent les règles suivantes :<br></p>
+            <h2>Game Rules</h2>
+            <p>We have a grid that needs to be filled with gray and brown cats while follwing these rules:<br></p>
             <ul>
-                <li>il ne peut pas y avoir plus de 2 chats de même couleur à la suite</li>
-                <li>il ne doit pas y avoir plus de la moitié des chats d'une ligne ou d'une colonne de même couleur</li>
+                <li>There cannot be 3 or more cats of the same color in a given row or column.</li>
+                <li>There must not be more than half of the cats in a row or column of the same color.</li>
             </ul>
-            <p>Et nous  pouvons ajouter les options suivantes :</p>
+            <p>We can add the following options to make the game harder:</p>
             <ul>
-                <li>il ne peut y avoir deux lignes ou colonnes identiques</li>
-             <li>le jeu se replie sur lui-même et ainsi les cases de deux extrémités se suivent</li>
+                <li>Unique: There cannot be two identical rows or columns.</li>
+                <li>Wrapping: The game wraps around, meaning the cells at both ends are consecutive.</li>
             </ul>
             </p> 
             <button id="closePopup">
-                  Fermer
+                  Close
             </button>
         </div>
     </div>
 
-   <button id="Commandes">
-          Commandes
+   <button id="Controls">
+        Controls
       </button>
     <div id="Popup1" class="popup">
         <div class="popup-content">
-            <h2>Commandes de jeu</h2>
-            <p>Les chats qui ont une couronne sont immutables, ils ne peuvent pas être modifier.<br>
-            Placer un chat gris :
+            <h2>Controls</h2>
+            <p>Cats with a crown are immutable, meaning they cannot be modified<br>
+            Placing a gray cat:
             <ul>
-                <li>sur ordinateur : clic gauche</li>
-                <li>sur téléphone : clic simple</li>
+                <li>PC: Left Click</li>
+                <li>Mobile: Short Click</li>
             </ul>
-            Placer un chat roux :
+            Placing a brown cat :
             <ul>
-                <li>sur ordinateur : clic droit</li>
-                <li>sur téléphone : clic long</li>
+                <li>PC: Right click</li>
+                <li>Mobile: Long Click</li>
             </ul>
-            Un deuxième clic sur une case pleine va la vider. <br>
+            Clicling again on a square will empty it.<br/>
             </p>
             <button id="closePopup1">
-                  Fermer
+                  Close
             </button>
         </div>
     </div>
@@ -74,27 +74,18 @@
 
     <div>
 		<div style="display: flex; flex-direction: column;">
-			<label for="rows_selector">Lignes :</label>
-			<select id="rows_selector">
-				<option value="2">2</option>
-				<option value="4">4</option>
-				<option value="6">6</option>
-				<option value="8">8</option>
-				<option value="10">10</option>
-			</select>
-
-			<label for="cols_selector">Colonnes :</label>
-			<select id="cols_selector">
-				<option value="2">2</option>
-				<option value="4">4</option>
-				<option value="6">6</option>
-				<option value="8">8</option>
-				<option value="10">10</option>
-			</select>
+			<label for="size_selector">Grid Size :</label>
+            <select id="size_selector">
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6" selected>6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+            </select>
 		</div>
 		<div style="padding-left : 20px ;display: flex; flex-direction: column;">
-			<label><input type="checkbox" id="wrapping" value="option1"> Wrapping</label>
-			<label><input type="checkbox" id="unique" value="option2"> Unique</label>
+			<label><input type="checkbox" id="wrapping" value="option1">Wrapping</label>
+			<label><input type="checkbox" id="unique" value="option2">Unique</label>
 		</div>
         <div class="game_actions">
         <button id="restart">Restart</button>
