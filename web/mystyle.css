@@ -13,6 +13,14 @@ h1 { /*titre takuzu*/
     }
 }
 
+#authors {
+    text-align: center;
+    color: #3d0122;
+    font-family: 'Happy Groovy', cursive;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
 
 h2{
     color: rgb(206, 68, 86);
@@ -99,3 +107,30 @@ button:hover {
     font-size: 16px;
     color: #333;
   }
+select {
+    background-color: #fcefd4;
+    color: #3d0122;
+    font-family: 'Happy Groovy', cursive;
+    padding: 10px;
+    border: 2px solid #e34656;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+
+select:hover {
+    background-color: #e9808e;
+}
+
+input[type="checkbox"] {
+    accent-color: #e34656;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: accent-color 0.4s ease;
+}
+
+input[type="checkbox"]:hover {
+    accent-color: #e9808e;
+}
