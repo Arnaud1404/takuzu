@@ -1,6 +1,6 @@
 # 🐱 Takuzu Puzzle Game Recreation in C 🐱
 
-## Web Version using Javascript and WASM
+## Web Version using Javascript + WASM
 
 [![Preview](web/resources/images/preview.png)](https://takuzu-group-project.vercel.app/)
 
@@ -8,7 +8,7 @@ Group project spanning the whole college year (2022-2023), forked from a private
 
 Hosted on Vercel, try it here: [Takuzu Game](https://takuzu-group-project.vercel.app/)
 
-### Features 🐾
+### Features
 
 - 🧩 Game solver
 - 🎲 Random game generator
