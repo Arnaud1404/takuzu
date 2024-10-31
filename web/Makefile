@@ -18,6 +18,6 @@ libgame.a: $(LIBOBJ)
 	emar rcs libgame.a $^
 
 clean:
-	rm -f *.o src/*.o game.wasm libgame.a
+	rm -f *.o src/*.o libgame.a
 
 # EOF
