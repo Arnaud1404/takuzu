@@ -14,7 +14,7 @@
 
     <h1> Takuzu </h1>
 
-    <button id="Rules">
+    <button id="rules">
         Rules
       </button>
     <div id="Popup" class="popup">
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-   <button id="Controls">
+   <button id="controls">
         Controls
       </button>
     <div id="Popup1" class="popup">
@@ -61,6 +61,7 @@
             </button>
         </div>
     </div>
+    <button onclick="window.open('https://github.com/Arnaud1404/takuzu', '_blank')">View Source Code</button>
 
 
 
@@ -81,10 +82,10 @@
                 <option value="10">10</option>
             </select>
 		</div>
-		<div style="padding-left : 20px ;display: flex; flex-direction: column;">
-			<label><input type="checkbox" id="wrapping" value="option1">Wrapping</label>
-			<label><input type="checkbox" id="unique" value="option2">Unique</label>
-		</div>
+        <div style="padding-left: 20px; display: flex; flex-direction: row;">
+            <label style="margin-right: 10px;"><input type="checkbox" id="wrapping" value="option1">Wrapping</label>
+            <label><input type="checkbox" id="unique" value="option2">Unique</label>
+        </div>
         <div class="game_actions">
         <button id="restart">Restart</button>
         <button id="solve">Solve</button>

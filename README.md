@@ -1,15 +1,19 @@
-Title : Takuzu puzzle game recreation in C, web version using Javascript and WASM
-[![Preview](web/resources/images/preview.png)](https://digital-clock-arnaud-gomes.vercel.app/)
+# 🐱 Takuzu Puzzle Game Recreation in C 🐱
+
+## Web Version using Javascript and WASM
+
+[![Preview](web/resources/images/preview.png)](https://takuzu-group-project.vercel.app/)
+
 Group project spanning the whole college year (2022-2023), forked from a private gitlab repo (https://gitlab.emi.u-bordeaux.fr/pt2/backup/2022-2023/teams/tm11/takuzu-11c)
 
-Hosted on Vercel, try it here :
+Hosted on Vercel, try it here: [Takuzu Game](https://takuzu-group-project.vercel.app/)
 
-Features :
+### Features 🐾
 
-- Game Solver
-- Random game generator
-- Customizable number of row and columns
-- Support for mobile devices with responsive CSS
+- 🧩 Game solver
+- 🎲 Random game generator
+- 📏 Customizable grid size and game options
+- 📱 Support for mobile devices with responsive CSS and custom controls
 
 Original README :
 

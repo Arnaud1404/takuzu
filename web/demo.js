@@ -126,7 +126,7 @@ solve.addEventListener("click", function () {
     Module._solve(g);
     printGame(g);
     if (Module._is_over(g))
-        setTimeout(function () { alert("You win! Wanna play again?"); }, 0);
+        setTimeout(function () { alert("Giving Up? Wanna try again?"); }, 0);
 });
 const undo = document.getElementById("undo");
 undo.addEventListener("click", function () {
@@ -157,7 +157,12 @@ random.addEventListener("click", function () {
 
 function start() {
     console.log("call start routine");
-    g = Module._new_default();
+    var row = document.getElementById("size_selector");
+    var col = row;
+    var wrapping = document.getElementById("wrapping");
+    var unique = document.getElementById("unique");
+    g = Module._new_random(row.value, col.value, wrapping.checked, unique.checked);
+    size = Math.min(Math.floor(500 / Module._nb_rows(g)), Math.floor(500 / Module._nb_cols(g)));
     printGame(g);
 }
 

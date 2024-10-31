@@ -1,7 +1,12 @@
+body{
+    font-family: 'Happy Groovy', cursive;
+    background-color: #fef4df;
+    color: rgb(61, 1, 34);
+}
+
 h1 { /*titre takuzu*/
     text-align : center;
     color: #FCA5B1;
-    font-family: 'Happy Groovy', cursive;
     font-weight: bold;
     font-size: 4rem;
 }
@@ -16,7 +21,6 @@ h1 { /*titre takuzu*/
 #authors {
     text-align: center;
     color: #3d0122;
-    font-family: 'Happy Groovy', cursive;
     font-weight: bold;
     font-size: 1.5rem;
     margin-top: 20px;
@@ -24,15 +28,10 @@ h1 { /*titre takuzu*/
 
 h2{
     color: rgb(206, 68, 86);
-    font-family: 'Happy Groovy', cursive;
     font-weight: bold;
 }
 
-
-body {
-    background-color: #fef4df;
-    color: rgb(61, 1, 34);
-}
+    
 
 ul li {
     color: #99624f; 
@@ -50,7 +49,6 @@ ul li {
 
 button {
     background-color:#e34656;
-    font-family: 'Happy Groovy', cursive;
     color: #fff;
     padding: 12px 24px;
     border-radius: 4px;
