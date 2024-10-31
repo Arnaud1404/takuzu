@@ -142,25 +142,22 @@ redo.addEventListener("click", function () {
 });
 
 const random = document.getElementById("random");
+const sizeSelector = document.getElementById("size_selector");
+const wrapping = document.getElementById("wrapping");
+const unique = document.getElementById("unique");
+
 random.addEventListener("click", function () {
-    Module._delete(g);
-    var row = document.getElementById("size_selector");
-    var col = row;
-    var wrapping = document.getElementById("wrapping");
-    var unique = document.getElementById("unique");
+    var row = sizeSelector;
+    var col = sizeSelector;
     g = Module._new_random(row.value, col.value, wrapping.checked, unique.checked);
     size = Math.min(Math.floor(500 / Module._nb_rows(g)), Math.floor(500 / Module._nb_cols(g)));
     printGame(g);
 });
 
-
-
 function start() {
     console.log("call start routine");
-    var row = document.getElementById("size_selector");
+    var row = sizeSelector;
     var col = row;
-    var wrapping = document.getElementById("wrapping");
-    var unique = document.getElementById("unique");
     g = Module._new_random(row.value, col.value, wrapping.checked, unique.checked);
     size = Math.min(Math.floor(500 / Module._nb_rows(g)), Math.floor(500 / Module._nb_cols(g)));
     printGame(g);
