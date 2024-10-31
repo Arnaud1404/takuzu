@@ -15,7 +15,9 @@ Hosted on Vercel, try it here: [Takuzu Game](https://takuzu-group-project.vercel
 - 📏 Customizable grid size and game options
 - 📱 Support for mobile devices with responsive CSS and custom controls
 
-[![Mobile Preview](web/resources/images/preview_mobile.png)](https://takuzu-group-project.vercel.app/)
+<a href="https://takuzu-group-project.vercel.app/">
+    <img src="web/resources/images/preview_mobile.png" alt="Mobile Preview" width="200"/>
+</a>
 
 Original README :
 
