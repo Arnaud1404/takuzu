@@ -8,7 +8,14 @@ h1 { /*titre takuzu*/
     text-align : center;
     color: #FCA5B1;
     font-weight: bold;
-    font-size: 4rem;
+    font-size: 3rem;
+}
+h2{
+    text-align : center;
+    color: rgb(206, 68, 86);
+}
+h3{
+    text-align : center;
 }
 
 @media only screen and (max-width: 1200px) { /*adaptation selon la taille de la fenetre*/
@@ -26,10 +33,7 @@ h1 { /*titre takuzu*/
     margin-top: 20px;
 }
 
-h2{
-    color: rgb(206, 68, 86);
-    font-weight: bold;
-}
+
 
     
 
@@ -108,7 +112,6 @@ button:hover {
 select {
     background-color: #fcefd4;
     color: #3d0122;
-    font-family: 'Happy Groovy', cursive;
     padding: 10px;
     border: 2px solid #e34656;
     border-radius: 4px;
